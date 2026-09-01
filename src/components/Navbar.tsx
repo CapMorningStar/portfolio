@@ -46,11 +46,10 @@ export function Navbar() {
   }, []);
 
   const scrollTo = (id: string) => {
-    // 1. Instantly snap active state to clicked tab (zero lag)
     setActiveSection(id);
     setIsMobileMenuOpen(false);
 
-    // 2. Lock scroll listener to prevent intermediate shaking
+    // Lock scroll listener to prevent intermediate shaking
     isClickScrolling.current = true;
     if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
 
@@ -59,7 +58,6 @@ export function Navbar() {
       target.scrollIntoView({ behavior: 'smooth' });
     }
 
-    // 3. Release lock after smooth scroll completes
     scrollTimeout.current = setTimeout(() => {
       isClickScrolling.current = false;
     }, 850);
@@ -103,14 +101,14 @@ export function Navbar() {
           );
         })}
 
-        {/* Contact/Hire Me Button */}
-        <a
-          href={`mailto:${portfolioData.personal.email}`}
-          className="ml-2 inline-flex items-center gap-1.5 px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 hover:bg-cyan-500/30 hover:scale-105 transition-all shadow-md shadow-cyan-500/10"
+        {/* High-Impact Hire Me Button (Smooth Scrolls to Contact Section) */}
+        <button
+          onClick={() => scrollTo('contact')}
+          className="ml-2 inline-flex items-center gap-1.5 px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] rounded-full bg-cyan-400 text-black font-black hover:bg-cyan-300 hover:scale-105 transition-all shadow-lg shadow-cyan-500/25 cursor-pointer"
         >
-          <Sparkles className="w-3 h-3" />
+          <Sparkles className="w-3 h-3 text-black" />
           <span>Hire Me</span>
-        </a>
+        </button>
       </nav>
 
       {/* Mobile Top Header */}
@@ -120,12 +118,12 @@ export function Navbar() {
             {portfolioData.personal.initials}
           </span>
           <div className="flex items-center gap-2">
-            <a
-              href={`mailto:${portfolioData.personal.email}`}
-              className="px-3 py-1.5 text-[10px] font-black uppercase tracking-wider rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30"
+            <button
+              onClick={() => scrollTo('contact')}
+              className="px-3.5 py-1.5 text-[10px] font-black uppercase tracking-wider rounded-full bg-cyan-400 text-black font-black shadow-md shadow-cyan-500/20"
             >
-              Contact
-            </a>
+              Hire Me
+            </button>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="inline-flex items-center justify-center rounded-xl w-9 h-9 transition bg-white/10 hover:bg-white/20 text-white"
