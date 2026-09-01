@@ -122,7 +122,7 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
               </span>
             </div>
 
-            {/* Action 1: Resume PDF Section (Clean & Bulletproof Download via /api/resume) */}
+            {/* Action 1: Resume PDF Section (Preview in New Tab vs Instant Download) */}
             <div className="mb-6 p-5 rounded-2xl bg-[#181818]/90 border border-cyan-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-[0_0_25px_rgba(6,182,212,0.08)]">
               <div className="flex items-center gap-3.5">
                 <div className="w-11 h-11 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-400 flex items-center justify-center shrink-0 shadow-inner">
@@ -135,16 +135,18 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
               </div>
 
               <div className="flex items-center gap-2.5">
+                {/* 1. Preview in New Tab (Opens PDF reader in dedicated browser tab) */}
                 <a
-                  href="/resume.pdf"
+                  href="/api/resume/preview"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-bold text-gray-300 hover:text-white flex items-center gap-1.5 transition-colors"
+                  className="px-4 py-2.5 rounded-full bg-white/5 hover:bg-white/15 border border-white/15 text-xs font-bold text-gray-200 hover:text-white flex items-center gap-1.5 transition-all hover:scale-105"
                 >
                   <span>Preview</span>
-                  <ExternalLink className="w-3.5 h-3.5 text-gray-400" />
+                  <ExternalLink className="w-3.5 h-3.5 text-cyan-400" />
                 </a>
 
+                {/* 2. Download directly to device */}
                 <a
                   href="/api/resume"
                   download="Kyaw_Soe_Lwin_AI_ML_Resume.pdf"
