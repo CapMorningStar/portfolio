@@ -18,7 +18,7 @@ export function HeroBento() {
     <section className="grid grid-cols-1 md:grid-cols-12 gap-5 mb-28">
       {/* ================= COLUMN 1 (LEFT, 4 COLS) ================= */}
       <div className="md:col-span-4 flex flex-col gap-5">
-        {/* CARD 1: Identity & Name */}
+        {/* CARD 1: Identity & Name (Vertically Centered Hero Name with Balanced Spacing) */}
         <div className="h-[270px] rounded-[2.5rem] p-7 sm:p-8 flex flex-col justify-between relative overflow-hidden shadow-[0_10px_45px_rgba(0,0,0,0.4)] bg-[#111111]/70 backdrop-blur-xl border border-white/10 text-white group hover:border-cyan-500/40 transition-all duration-300">
           {/* Subtle Background Watermark: KSL */}
           <span
@@ -28,20 +28,22 @@ export function HeroBento() {
             {personal.initials}
           </span>
 
+          {/* Top Row: Academic Badge */}
           <div className="relative z-10">
-            {/* Top Badge: University & Major */}
-            <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-cyan-400 font-black mb-4 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20">
+            <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-cyan-400 font-black px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20">
               <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
               {personal.badge}
             </div>
+          </div>
 
-            {/* One Row Full Name */}
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black uppercase tracking-tight text-white whitespace-nowrap">
+          {/* Center: Hero Name (Balanced Vertical Spacing) */}
+          <div className="relative z-10 my-auto py-2">
+            <h1 className="text-3xl sm:text-3xl lg:text-[2.2rem] font-black uppercase tracking-tight text-white whitespace-nowrap leading-none">
               KYAW SOE LWIN
             </h1>
           </div>
 
-          {/* Clean Bottom Row (Single Line Pill, Guaranteed No-Wrap) */}
+          {/* Bottom Row: Technical Role + 4.0 GPA */}
           <div className="relative z-10 flex items-center justify-between gap-2 pt-4 border-t border-white/10">
             <div className="flex items-center gap-2 min-w-0">
               <span className="w-1.5 h-1.5 rounded-full bg-cyan-400/80 shrink-0" />
