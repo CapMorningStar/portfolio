@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { portfolioData } from '@/data/portfolioData';
 import { Menu, X, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -9,22 +9,27 @@ export function Navbar() {
   const [activeSection, setActiveSection] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const isClickScrolling = useRef(false);
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const navItems = [
-    { label: 'Home', id: 'home', href: '#home' },
-    { label: 'Projects', id: 'projects', href: '#projects' },
-    { label: 'Skills', id: 'skills', href: '#skills' },
-    { label: 'Education', id: 'education', href: '#education' },
-    { label: 'Methodology', id: 'services', href: '#services' },
-    { label: 'Contact', id: 'contact', href: '#contact' },
+    { label: 'Home', id: 'home' },
+    { label: 'Projects', id: 'projects' },
+    { label: 'Skills', id: 'skills' },
+    { label: 'Education', id: 'education' },
+    { label: 'Methodology', id: 'services' },
+    { label: 'Contact', id: 'contact' },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 40);
 
+      // Do not fight user clicks while smooth scrolling is in progress
+      if (isClickScrolling.current) return;
+
       const sectionIds = ['home', 'projects', 'skills', 'education', 'services', 'contact'];
-      const scrollPos = window.scrollY + 220;
+      const scrollPos = window.scrollY + 260;
 
       for (let i = sectionIds.length - 1; i >= 0; i--) {
         const el = document.getElementById(sectionIds[i]);
@@ -41,12 +46,23 @@ export function Navbar() {
   }, []);
 
   const scrollTo = (id: string) => {
+    // 1. Instantly snap active state to clicked tab (zero lag)
     setActiveSection(id);
     setIsMobileMenuOpen(false);
+
+    // 2. Lock scroll listener to prevent intermediate shaking
+    isClickScrolling.current = true;
+    if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
+
     const target = document.getElementById(id);
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' });
     }
+
+    // 3. Release lock after smooth scroll completes
+    scrollTimeout.current = setTimeout(() => {
+      isClickScrolling.current = false;
+    }, 850);
   };
 
   return (
@@ -65,16 +81,16 @@ export function Navbar() {
             <button
               key={item.label}
               onClick={() => scrollTo(item.id)}
-              className="relative px-5 py-2.5 text-[11px] font-black uppercase tracking-[0.2em] rounded-full transition-colors whitespace-nowrap z-10"
+              className="relative px-5 py-2.5 text-[11px] font-black uppercase tracking-[0.2em] rounded-full transition-colors whitespace-nowrap z-10 select-none"
             >
-              {/* Sliding Active Pill Capsule */}
+              {/* Sliding Active Pill Capsule with Crisp Spring Physics */}
               {isActive && (
                 <motion.div
                   layoutId="activeNavPill"
                   transition={{
                     type: 'spring',
-                    stiffness: 380,
-                    damping: 30,
+                    stiffness: 450,
+                    damping: 32,
                   }}
                   className="absolute inset-0 rounded-full bg-white/15 border border-white/20 shadow-[0_0_20px_rgba(255,255,255,0.1)] backdrop-blur-md -z-10"
                 />
