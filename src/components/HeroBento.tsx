@@ -18,7 +18,7 @@ export function HeroBento() {
     <section className="grid grid-cols-1 md:grid-cols-12 gap-5 mb-28">
       {/* ================= COLUMN 1 (LEFT, 4 COLS) ================= */}
       <div className="md:col-span-4 flex flex-col gap-5">
-        {/* CARD 1: Identity & Name (Vertically Centered Hero Name with Balanced Spacing) */}
+        {/* CARD 1: Identity & Name (Vertically Centered Hero Name) */}
         <div className="h-[270px] rounded-[2.5rem] p-7 sm:p-8 flex flex-col justify-between relative overflow-hidden shadow-[0_10px_45px_rgba(0,0,0,0.4)] bg-[#111111]/70 backdrop-blur-xl border border-white/10 text-white group hover:border-cyan-500/40 transition-all duration-300">
           {/* Subtle Background Watermark: KSL */}
           <span
@@ -190,31 +190,32 @@ export function HeroBento() {
           </div>
         </div>
 
-        {/* CARD 6: Location & Vision Quote Combined (Height: 210px) */}
+        {/* CARD 6: Location & Vision Quote (Height: 210px, Vertically Centered Quote) */}
         <div className="h-[210px] rounded-[2.5rem] p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden shadow-[0_0_35px_rgba(255,255,255,0.04)] bg-[#111111]/70 backdrop-blur-xl border border-white/10 text-white group hover:border-cyan-500/30 transition-all">
           <div className="absolute top-0 right-0 w-36 h-36 bg-cyan-500/10 blur-3xl rounded-full -mr-10 -mt-10 pointer-events-none" />
 
-          {/* Quote & Philosophy Header */}
-          <div>
-            <div className="flex items-center justify-between mb-2">
-              <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-cyan-400" />
-                <span className="text-[10px] uppercase tracking-[0.3em] text-gray-400 font-bold">
-                  San Diego, CA
-                </span>
-              </div>
-              <span className="text-[9px] font-mono text-gray-500 uppercase tracking-widest">
-                {personal.coordinates}
+          {/* 1. Top Row: Location Header */}
+          <div className="relative z-10 flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <MapPin className="w-4 h-4 text-cyan-400" />
+              <span className="text-[10px] uppercase tracking-[0.3em] text-gray-400 font-bold">
+                San Diego, CA
               </span>
             </div>
+            <span className="text-[9px] font-mono text-gray-500 uppercase tracking-widest">
+              {personal.coordinates}
+            </span>
+          </div>
 
-            <p className="text-white text-xs sm:text-sm font-black leading-snug tracking-tight">
+          {/* 2. Middle Zone: Vertically Centered Vision Quote */}
+          <div className="relative z-10 my-auto py-1">
+            <p className="text-white text-xs sm:text-[13px] font-bold leading-snug tracking-tight text-left">
               “From raw data to grounded intelligence. Build models that solve real problems.”
             </p>
           </div>
 
-          {/* Location Base Footer */}
-          <div className="flex items-center justify-between pt-2.5 border-t border-white/10 text-[10px] font-mono text-cyan-400 uppercase tracking-wider">
+          {/* 3. Bottom Row: Campus Footer */}
+          <div className="relative z-10 flex items-center justify-between pt-3 border-t border-white/10 text-[10px] font-mono text-cyan-400 uppercase tracking-wider">
             <span>UC SAN DIEGO CAMPUS</span>
             <span>DATA SCIENCE &apos;28</span>
           </div>
