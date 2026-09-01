@@ -54,15 +54,6 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
     }
   };
 
-  const handleDownloadPdf = () => {
-    const link = document.createElement('a');
-    link.href = '/resume.pdf';
-    link.download = 'Kyaw_Soe_Lwin_AI_ML_Resume.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   return (
     <AnimatePresence>
       {isOpen && (
@@ -131,10 +122,10 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
               </span>
             </div>
 
-            {/* Action 1: Resume PDF Section */}
-            <div className="mb-6 p-5 rounded-2xl bg-gradient-to-r from-cyan-950/30 to-black/40 border border-cyan-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            {/* Action 1: Resume PDF Section (Clean & Bulletproof Download via /api/resume) */}
+            <div className="mb-6 p-5 rounded-2xl bg-[#181818]/90 border border-cyan-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-[0_0_25px_rgba(6,182,212,0.08)]">
               <div className="flex items-center gap-3.5">
-                <div className="w-10 h-10 rounded-xl bg-cyan-400 text-black flex items-center justify-center font-black shrink-0 shadow-lg shadow-cyan-500/20">
+                <div className="w-11 h-11 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-400 flex items-center justify-center shrink-0 shadow-inner">
                   <FileText className="w-5 h-5" />
                 </div>
                 <div>
@@ -143,24 +134,25 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
                 </div>
               </div>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2.5">
                 <a
                   href="/resume.pdf"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-4 py-2.5 rounded-full bg-white/10 hover:bg-white/20 border border-white/10 text-xs font-bold text-white flex items-center gap-1.5 transition-colors"
+                  className="px-4 py-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-bold text-gray-300 hover:text-white flex items-center gap-1.5 transition-colors"
                 >
                   <span>Preview</span>
                   <ExternalLink className="w-3.5 h-3.5 text-gray-400" />
                 </a>
 
-                <button
-                  onClick={handleDownloadPdf}
-                  className="px-4 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black text-xs font-black uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-md shadow-cyan-500/20 hover:scale-105 cursor-pointer"
+                <a
+                  href="/api/resume"
+                  download="Kyaw_Soe_Lwin_AI_ML_Resume.pdf"
+                  className="px-5 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg shadow-cyan-500/25 hover:scale-105"
                 >
-                  <Download className="w-3.5 h-3.5" />
+                  <Download className="w-4 h-4 text-black" />
                   <span>Download</span>
-                </button>
+                </a>
               </div>
             </div>
 
