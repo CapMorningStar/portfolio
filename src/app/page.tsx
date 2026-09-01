@@ -1,7 +1,6 @@
 ﻿'use client';
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
 import { StarfieldCanvas } from '@/components/StarfieldCanvas';
 import { IntroOverlay } from '@/components/IntroOverlay';
 import { CursorFollower } from '@/components/CursorFollower';
@@ -40,23 +39,17 @@ export default function Home() {
         onClose={() => setIsHireModalOpen(false)}
       />
 
-      {/* Main Page Container with Smooth Cinematic Entrance */}
-      <motion.div
-        initial={{ opacity: 0, y: 15, filter: 'blur(8px)' }}
-        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-        transition={{ duration: 0.55, ease: 'easeOut' }}
-      >
-        <main id="home" className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-28 md:pt-36 pb-20">
-          <HeroBento />
-          <ProjectsSection />
-          <SkillsSection />
-          <EducationSection />
-          <ServicesSection />
-          <ContactSection />
-        </main>
+      {/* Main Page Container (Always Crisp, Bright & Interactive) */}
+      <main id="home" className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-28 md:pt-36 pb-20">
+        <HeroBento />
+        <ProjectsSection />
+        <SkillsSection />
+        <EducationSection />
+        <ServicesSection />
+        <ContactSection />
+      </main>
 
-        <Footer />
-      </motion.div>
+      <Footer />
     </>
   );
 }

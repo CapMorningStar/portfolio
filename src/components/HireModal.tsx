@@ -27,15 +27,7 @@ interface HireModalProps {
 export function HireModal({ isOpen, onClose }: HireModalProps) {
   const { personal } = portfolioData;
   const [copiedItem, setCopiedItem] = useState<string | null>(null);
-  const [isTransitioning, setIsTransitioning] = useState(false);
   const router = useRouter();
-
-  // Reset transitioning state on open
-  useEffect(() => {
-    if (isOpen) {
-      setIsTransitioning(false);
-    }
-  }, [isOpen]);
 
   // Close modal on Escape key
   useEffect(() => {
@@ -65,11 +57,8 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
   };
 
   const handlePreview = () => {
-    setIsTransitioning(true);
-    setTimeout(() => {
-      onClose();
-      router.push('/resume');
-    }, 220);
+    onClose();
+    router.push('/resume');
   };
 
   return (
@@ -79,23 +68,19 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
           {/* Backdrop Blur with Smooth Fade */}
           <motion.div
             initial={{ opacity: 0 }}
-            animate={isTransitioning ? { opacity: 0 } : { opacity: 1 }}
+            animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
+            transition={{ duration: 0.2 }}
             onClick={onClose}
             className="fixed inset-0 bg-black/85 backdrop-blur-xl"
           />
 
-          {/* Modal Container with Spring Physics & Cinematic Exit Dissolve */}
+          {/* Modal Container with Spring Physics */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.92, y: 30, filter: 'blur(10px)' }}
-            animate={
-              isTransitioning
-                ? { opacity: 0, scale: 0.96, y: -20, filter: 'blur(10px)' }
-                : { opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }
-            }
-            exit={{ opacity: 0, scale: 0.94, y: 20, filter: 'blur(8px)' }}
-            transition={{ type: 'spring', stiffness: 350, damping: 28 }}
+            initial={{ opacity: 0, scale: 0.92, y: 25 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.92, y: 20 }}
+            transition={{ type: 'spring', stiffness: 380, damping: 28 }}
             onClick={(e) => e.stopPropagation()}
             className="relative z-10 w-full max-w-2xl rounded-[2.5rem] bg-[#121212]/95 border border-white/15 p-7 sm:p-9 text-white shadow-[0_25px_90px_rgba(0,0,0,0.95)] overflow-hidden"
           >
@@ -148,7 +133,7 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
               </span>
             </div>
 
-            {/* Action 1: Resume Section with Cinematic Button Feedback */}
+            {/* Action 1: Resume Section with Clean Instant Action */}
             <div className="mb-6 p-5 rounded-2xl bg-[#181818]/90 border border-cyan-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-[0_0_25px_rgba(6,182,212,0.08)]">
               <div className="flex items-center gap-3.5">
                 <div className="w-11 h-11 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-400 flex items-center justify-center shrink-0 shadow-inner">
@@ -161,7 +146,7 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
               </div>
 
               <div className="flex items-center gap-2.5">
-                {/* 1. Cinematic Preview Button */}
+                {/* 1. Instant Preview */}
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -173,7 +158,7 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
                   <ArrowUpRight className="w-3.5 h-3.5 text-cyan-400 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </motion.button>
 
-                {/* 2. Cinematic Download Button */}
+                {/* 2. Direct Download */}
                 <motion.a
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
