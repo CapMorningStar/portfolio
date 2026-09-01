@@ -11,10 +11,12 @@ import {
   RotateCw,
   X,
   Layers,
+  Sparkle,
 } from 'lucide-react';
 
 export function ProjectsSection() {
   const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
+  const [isModalFlipped, setIsModalFlipped] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const projects = portfolioData.projects;
 
@@ -24,6 +26,11 @@ export function ProjectsSection() {
     activeCategory === 'All'
       ? projects
       : projects.filter((p) => p.category === activeCategory);
+
+  const openProjectModal = (project: ProjectItem) => {
+    setIsModalFlipped(false);
+    setSelectedProject(project);
+  };
 
   // Close on Escape key
   useEffect(() => {
@@ -100,7 +107,7 @@ export function ProjectsSection() {
         {filteredProjects.map((project) => (
           <div
             key={project.id}
-            onClick={() => setSelectedProject(project)}
+            onClick={() => openProjectModal(project)}
             className="group relative overflow-hidden rounded-[2.2rem] bg-[#111111]/85 border border-white/10 hover:border-cyan-500/50 transition-all duration-300 flex flex-col justify-between p-7 cursor-pointer hover:-translate-y-1.5 shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
           >
             {/* Ambient Card Background Gradient */}
@@ -156,119 +163,200 @@ export function ProjectsSection() {
         ))}
       </div>
 
-      {/* Big 3D Flip-In Modal (100% Solid Opaque Background) */}
+      {/* Floating 3D Flippable Card in Front */}
       <AnimatePresence>
         {selectedProject && (
-          <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 [perspective:1400px]">
-            {/* Dark Backdrop */}
+          <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 [perspective:1600px]">
+            {/* Clean Translucent Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.25 }}
+              transition={{ duration: 0.3 }}
               onClick={() => setSelectedProject(null)}
-              className="fixed inset-0 bg-black/75 backdrop-blur-sm"
+              className="fixed inset-0 bg-black/70 backdrop-blur-sm"
             />
 
-            {/* Big 3D Flipping Card (100% SOLID OPAQUE) */}
+            {/* Weightless Floating Animation Wrapper */}
             <motion.div
-              initial={{ rotateY: 90, scale: 0.85, opacity: 0, y: 20 }}
-              animate={{ rotateY: 0, scale: 1, opacity: 1, y: 0 }}
-              exit={{ rotateY: -90, scale: 0.85, opacity: 0, y: 20 }}
-              transition={{ type: 'spring', stiffness: 300, damping: 26 }}
-              onClick={(e) => e.stopPropagation()}
-              className="relative z-10 w-full max-w-3xl rounded-[2.5rem] bg-[#0c0c0c] border border-cyan-500/40 p-7 sm:p-10 text-white shadow-[0_30px_100px_rgba(0,0,0,1),0_0_60px_rgba(6,182,212,0.2)] overflow-hidden"
+              initial={{ opacity: 0, scale: 0.8, y: 40 }}
+              animate={{
+                opacity: 1,
+                scale: 1,
+                y: [0, -8, 0],
+              }}
+              exit={{ opacity: 0, scale: 0.8, y: 30 }}
+              transition={{
+                opacity: { duration: 0.3 },
+                scale: { type: 'spring', stiffness: 320, damping: 26 },
+                y: {
+                  repeat: Infinity,
+                  duration: 4,
+                  ease: 'easeInOut',
+                },
+              }}
+              className="relative z-10 w-full max-w-3xl min-h-[500px] [perspective:1400px]"
             >
-              {/* Subtle Ambient Background Accent */}
-              <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/15 blur-3xl rounded-full -mr-20 -mt-20 pointer-events-none" />
+              {/* 3D Double-Sided Flipping Card */}
+              <div
+                className={`relative w-full h-full duration-700 [transform-style:preserve-3d] transition-transform ease-out ${
+                  isModalFlipped ? '[transform:rotateY(180deg)]' : ''
+                }`}
+              >
+                {/* 1. FRONT SIDE OF FLOATING CARD (Overview & Quick Stats) */}
+                <div className="w-full rounded-[2.5rem] bg-[#0c0c0c] border border-cyan-500/40 p-7 sm:p-10 text-white shadow-[0_30px_100px_rgba(0,0,0,1),0_0_60px_rgba(6,182,212,0.2)] [backface-visibility:hidden] relative overflow-hidden flex flex-col justify-between">
+                  {/* Subtle Ambient Background Accent */}
+                  <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/15 blur-3xl rounded-full -mr-20 -mt-20 pointer-events-none" />
 
-              {/* Top Bar: Category & Close Button */}
-              <div className="flex items-start justify-between gap-4 mb-6 relative z-10">
-                <div className="flex items-center gap-3">
-                  <div className="w-11 h-11 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0 shadow-inner">
-                    <Layers className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-cyan-400 font-mono font-bold">
-                      <span>{selectedProject.number}</span>
-                      <span>//</span>
-                      <span>{selectedProject.category}</span>
-                      <span>//</span>
-                      <span>{selectedProject.year}</span>
+                  {/* Top Bar */}
+                  <div className="flex items-start justify-between gap-4 mb-6 relative z-10">
+                    <div className="flex items-center gap-3">
+                      <div className="w-11 h-11 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0 shadow-inner">
+                        <Layers className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-cyan-400 font-mono font-bold">
+                          <span>{selectedProject.number}</span>
+                          <span>//</span>
+                          <span>{selectedProject.category}</span>
+                          <span>//</span>
+                          <span>{selectedProject.year}</span>
+                        </div>
+                        <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white mt-0.5">
+                          {selectedProject.title}
+                        </h3>
+                      </div>
                     </div>
-                    <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white mt-0.5">
-                      {selectedProject.title}
-                    </h3>
-                  </div>
-                </div>
 
-                <motion.button
-                  whileHover={{ scale: 1.1, rotate: 90 }}
-                  whileTap={{ scale: 0.9 }}
-                  onClick={() => setSelectedProject(null)}
-                  aria-label="Close dialog"
-                  className="w-10 h-10 rounded-full bg-white/10 hover:bg-cyan-400 hover:text-black border border-white/10 flex items-center justify-center text-gray-200 transition-colors shrink-0 cursor-pointer"
-                >
-                  <X className="w-5 h-5" />
-                </motion.button>
-              </div>
-
-              {/* Description Panel (100% Solid) */}
-              <div className="text-gray-200 text-xs sm:text-sm leading-relaxed mb-6 relative z-10 bg-[#161616] p-4 sm:p-5 rounded-2xl border border-white/10 shadow-inner">
-                {selectedProject.description}
-              </div>
-
-              {/* Architecture Highlights Panel (100% Solid) */}
-              <div className="mb-6 p-5 rounded-2xl bg-[#141414] border border-cyan-500/30 space-y-2.5 relative z-10 shadow-inner">
-                <div className="flex items-center gap-2 text-[11px] font-mono font-black uppercase tracking-wider text-cyan-400 mb-2">
-                  <Sparkles className="w-3.5 h-3.5" />
-                  <span>Key Architecture &amp; Engineering Highlights</span>
-                </div>
-                <div className="space-y-2.5">
-                  {selectedProject.bullets.map((bullet, idx) => (
-                    <div key={idx} className="flex items-start gap-2.5 text-xs text-gray-100 leading-snug">
-                      <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-                      <span>{bullet}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Tech Stack & Repository Button Row */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-white/10 relative z-10">
-                <div className="flex flex-wrap gap-1.5 max-w-md">
-                  {selectedProject.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="px-3 py-1 rounded-xl text-[10px] font-bold uppercase tracking-wider bg-[#1a1a1a] border border-white/10 text-cyan-300 shadow-sm"
+                    <motion.button
+                      whileHover={{ scale: 1.1, rotate: 90 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={() => setSelectedProject(null)}
+                      aria-label="Close dialog"
+                      className="w-10 h-10 rounded-full bg-white/10 hover:bg-cyan-400 hover:text-black border border-white/10 flex items-center justify-center text-gray-200 transition-colors shrink-0 cursor-pointer"
                     >
-                      {tag}
+                      <X className="w-5 h-5" />
+                    </motion.button>
+                  </div>
+
+                  {/* Description */}
+                  <div className="text-gray-200 text-xs sm:text-sm leading-relaxed mb-6 relative z-10 bg-[#161616] p-5 rounded-2xl border border-white/10 shadow-inner">
+                    {selectedProject.description}
+                  </div>
+
+                  {/* Project Tag Grid */}
+                  <div className="mb-6 p-4 rounded-2xl bg-[#141414] border border-white/5 relative z-10">
+                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-gray-400 block mb-2.5">
+                      Core Technologies &amp; Frameworks
                     </span>
-                  ))}
-                </div>
+                    <div className="flex flex-wrap gap-2">
+                      {selectedProject.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-3 py-1.5 rounded-xl text-[10px] font-bold uppercase tracking-wider bg-[#1f1f1f] border border-white/10 text-cyan-300 shadow-sm"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
 
-                <div className="flex items-center gap-3 shrink-0">
-                  <button
-                    onClick={() => setSelectedProject(null)}
-                    className="px-4 py-2.5 rounded-full bg-[#181818] hover:bg-[#222222] border border-white/10 text-gray-300 text-xs font-bold transition-colors cursor-pointer"
-                  >
-                    Close
-                  </button>
+                  {/* Bottom Action: Flip to Architecture Details */}
+                  <div className="flex items-center justify-between pt-4 border-t border-white/10 relative z-10">
+                    <button
+                      onClick={() => setSelectedProject(null)}
+                      className="px-4 py-2.5 rounded-full bg-[#181818] hover:bg-[#222222] border border-white/10 text-gray-300 text-xs font-bold transition-colors cursor-pointer"
+                    >
+                      Close
+                    </button>
 
-                  {selectedProject.github && (
-                    <motion.a
+                    <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      href={selectedProject.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
+                      onClick={() => setIsModalFlipped(true)}
                       className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black font-black text-xs uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/25 cursor-pointer"
                     >
-                      <Github className="w-4 h-4" />
-                      <span>View GitHub Repo</span>
-                      <ArrowUpRight className="w-3.5 h-3.5" />
-                    </motion.a>
-                  )}
+                      <RotateCw className="w-4 h-4 text-black" />
+                      <span>Flip to Architecture Details ⟲</span>
+                    </motion.button>
+                  </div>
+                </div>
+
+                {/* 2. BACK SIDE OF FLOATING CARD (Architecture & Highlights) */}
+                <div className="w-full rounded-[2.5rem] bg-[#0c0c0c] border border-cyan-500/50 p-7 sm:p-10 text-white shadow-[0_30px_100px_rgba(0,0,0,1),0_0_60px_rgba(6,182,212,0.25)] [transform:rotateY(180deg)] [backface-visibility:hidden] absolute inset-0 overflow-hidden flex flex-col justify-between">
+                  {/* Subtle Ambient Background Accent */}
+                  <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/15 blur-3xl rounded-full -mr-20 -mt-20 pointer-events-none" />
+
+                  {/* Top Bar on Back */}
+                  <div className="flex items-start justify-between gap-4 mb-6 relative z-10">
+                    <div className="flex items-center gap-3">
+                      <div className="w-11 h-11 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0 shadow-inner">
+                        <Sparkles className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-cyan-400 font-mono font-bold">
+                          <span>ARCHITECTURE &amp; ENGINEERING SPECIFICATIONS</span>
+                        </div>
+                        <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white mt-0.5">
+                          {selectedProject.title}
+                        </h3>
+                      </div>
+                    </div>
+
+                    <motion.button
+                      whileHover={{ scale: 1.1, rotate: 90 }}
+                      whileTap={{ scale: 0.9 }}
+                      onClick={() => setSelectedProject(null)}
+                      aria-label="Close dialog"
+                      className="w-10 h-10 rounded-full bg-white/10 hover:bg-cyan-400 hover:text-black border border-white/10 flex items-center justify-center text-gray-200 transition-colors shrink-0 cursor-pointer"
+                    >
+                      <X className="w-5 h-5" />
+                    </motion.button>
+                  </div>
+
+                  {/* Architecture Highlights Panel */}
+                  <div className="mb-6 p-5 sm:p-6 rounded-2xl bg-[#141414] border border-cyan-500/30 space-y-3 relative z-10 shadow-inner">
+                    <div className="flex items-center gap-2 text-[11px] font-mono font-black uppercase tracking-wider text-cyan-400 mb-1">
+                      <Sparkle className="w-3.5 h-3.5 fill-cyan-400" />
+                      <span>Deep Implementation Details</span>
+                    </div>
+                    <div className="space-y-3">
+                      {selectedProject.bullets.map((bullet, idx) => (
+                        <div key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-gray-100 leading-relaxed">
+                          <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                          <span>{bullet}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Bottom Action: Flip Back to Overview + GitHub Link */}
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-white/10 relative z-10">
+                    <motion.button
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={() => setIsModalFlipped(false)}
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#181818] hover:bg-[#252525] border border-white/15 text-gray-200 text-xs font-black uppercase tracking-wider transition-all cursor-pointer shadow-sm"
+                    >
+                      <RotateCw className="w-3.5 h-3.5 text-cyan-400" />
+                      <span>⟲ Flip Back to Overview</span>
+                    </motion.button>
+
+                    {selectedProject.github && (
+                      <motion.a
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        href={selectedProject.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black font-black text-xs uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/25 cursor-pointer"
+                      >
+                        <Github className="w-4 h-4" />
+                        <span>View Repository on GitHub</span>
+                        <ArrowUpRight className="w-3.5 h-3.5" />
+                      </motion.a>
+                    )}
+                  </div>
                 </div>
               </div>
             </motion.div>
