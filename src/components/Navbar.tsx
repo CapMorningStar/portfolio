@@ -5,7 +5,11 @@ import { portfolioData } from '@/data/portfolioData';
 import { Menu, X, Sparkles } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-export function Navbar() {
+interface NavbarProps {
+  onOpenHireModal?: () => void;
+}
+
+export function Navbar({ onOpenHireModal }: NavbarProps) {
   const [activeSection, setActiveSection] = useState('home');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
@@ -25,7 +29,6 @@ export function Navbar() {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 40);
 
-      // Do not fight user clicks while smooth scrolling is in progress
       if (isClickScrolling.current) return;
 
       const sectionIds = ['home', 'projects', 'skills', 'education', 'services', 'contact'];
@@ -49,7 +52,6 @@ export function Navbar() {
     setActiveSection(id);
     setIsMobileMenuOpen(false);
 
-    // Lock scroll listener to prevent intermediate shaking
     isClickScrolling.current = true;
     if (scrollTimeout.current) clearTimeout(scrollTimeout.current);
 
@@ -61,6 +63,14 @@ export function Navbar() {
     scrollTimeout.current = setTimeout(() => {
       isClickScrolling.current = false;
     }, 850);
+  };
+
+  const handleHireClick = () => {
+    if (onOpenHireModal) {
+      onOpenHireModal();
+    } else {
+      scrollTo('contact');
+    }
   };
 
   return (
@@ -101,9 +111,9 @@ export function Navbar() {
           );
         })}
 
-        {/* High-Impact Hire Me Button (Smooth Scrolls to Contact Section) */}
+        {/* High-Impact Hire Me Button (Opens Quick Connect & Resume Modal) */}
         <button
-          onClick={() => scrollTo('contact')}
+          onClick={handleHireClick}
           className="ml-2 inline-flex items-center gap-1.5 px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] rounded-full bg-cyan-400 text-black font-black hover:bg-cyan-300 hover:scale-105 transition-all shadow-lg shadow-cyan-500/25 cursor-pointer"
         >
           <Sparkles className="w-3 h-3 text-black" />
@@ -119,7 +129,7 @@ export function Navbar() {
           </span>
           <div className="flex items-center gap-2">
             <button
-              onClick={() => scrollTo('contact')}
+              onClick={handleHireClick}
               className="px-3.5 py-1.5 text-[10px] font-black uppercase tracking-wider rounded-full bg-cyan-400 text-black font-black shadow-md shadow-cyan-500/20"
             >
               Hire Me
