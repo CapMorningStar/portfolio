@@ -9,16 +9,25 @@ import {
   Award,
   Sparkles,
   GraduationCap,
+  ArrowDownRight,
+  ArrowUpRight,
 } from 'lucide-react';
 
 export function HeroBento() {
   const { personal, stats } = portfolioData;
 
+  const scrollTo = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <section className="grid grid-cols-1 md:grid-cols-12 gap-5 mb-28">
       {/* ================= COLUMN 1 (LEFT, 4 COLS) ================= */}
       <div className="md:col-span-4 flex flex-col gap-5">
-        {/* CARD 1: Identity & Name (Vertically Centered Hero Name) */}
+        {/* CARD 1: Identity & Name */}
         <div className="h-[270px] rounded-[2.5rem] p-7 sm:p-8 flex flex-col justify-between relative overflow-hidden shadow-[0_10px_45px_rgba(0,0,0,0.4)] bg-[#111111]/70 backdrop-blur-xl border border-white/10 text-white group hover:border-cyan-500/40 transition-all duration-300">
           {/* Subtle Background Watermark: KSL */}
           <span
@@ -36,7 +45,7 @@ export function HeroBento() {
             </div>
           </div>
 
-          {/* Center: Hero Name (Balanced Vertical Spacing) */}
+          {/* Center: Hero Name */}
           <div className="relative z-10 my-auto py-2">
             <h1 className="text-3xl sm:text-3xl lg:text-[2.2rem] font-black uppercase tracking-tight text-white whitespace-nowrap leading-none">
               KYAW SOE LWIN
@@ -58,16 +67,22 @@ export function HeroBento() {
           </div>
         </div>
 
-        {/* CARD 4: Mindset & Honors */}
-        <div className="h-[330px] rounded-[2.5rem] p-7 sm:p-8 flex flex-col justify-between shadow-[0_0_35px_rgba(255,255,255,0.04)] bg-[#111111]/70 backdrop-blur-xl border border-white/10 text-white group hover:border-cyan-500/30 transition-all">
+        {/* CARD 4: Mindset & Honors (Click to view Education & Honors) */}
+        <div 
+          onClick={() => scrollTo('education')}
+          className="h-[330px] rounded-[2.5rem] p-7 sm:p-8 flex flex-col justify-between shadow-[0_0_35px_rgba(255,255,255,0.04)] bg-[#111111]/70 backdrop-blur-xl border border-white/10 text-white group hover:border-cyan-500/40 hover:-translate-y-0.5 transition-all cursor-pointer"
+        >
           <div>
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-9 h-9 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center border border-cyan-500/20">
-                <Award className="w-4 h-4" />
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center border border-cyan-500/20">
+                  <Award className="w-4 h-4" />
+                </div>
+                <h3 className="text-lg font-black uppercase tracking-tight text-white group-hover:text-cyan-300 transition-colors">
+                  MINDSET & HONORS
+                </h3>
               </div>
-              <h3 className="text-lg font-black uppercase tracking-tight text-white">
-                MINDSET & HONORS
-              </h3>
+              <ArrowDownRight className="w-4 h-4 text-gray-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-all" />
             </div>
 
             <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
@@ -127,12 +142,20 @@ export function HeroBento() {
         <div className="relative z-10 p-6 sm:p-7">
           <div className="grid grid-cols-3 gap-2 p-3 rounded-2xl bg-black/80 backdrop-blur-md border border-white/10 text-center">
             {stats.slice(1, 4).map((stat) => (
-              <div key={stat.label} className="flex flex-col">
+              <button
+                key={stat.label}
+                onClick={() => {
+                  if (stat.label.includes('Repos')) scrollTo('projects');
+                  else if (stat.label.includes('Certs')) scrollTo('education');
+                  else scrollTo('education');
+                }}
+                className="flex flex-col hover:bg-white/10 p-1 rounded-xl transition-colors cursor-pointer"
+              >
                 <span className="text-sm font-black text-cyan-400">{stat.value}</span>
                 <span className="text-[8px] uppercase font-bold text-gray-400 tracking-wider">
                   {stat.label}
                 </span>
-              </div>
+              </button>
             ))}
           </div>
         </div>
@@ -140,16 +163,26 @@ export function HeroBento() {
 
       {/* ================= COLUMN 3 (RIGHT, 4 COLS) ================= */}
       <div className="md:col-span-4 flex flex-col gap-5">
-        {/* CARD 3: CORE EXPERTISE (Height: 390px, Balanced 2-Row Grid of 8 Skills) */}
-        <div className="h-[390px] rounded-[2.5rem] p-7 sm:p-8 flex flex-col justify-between shadow-[0_10px_35px_rgba(0,0,0,0.4)] bg-[#111111]/70 backdrop-blur-xl border border-white/10 text-white group hover:border-cyan-500/30 transition-all">
+        {/* CARD 3: CORE EXPERTISE (Clicking smoothly scrolls down to #skills) */}
+        <div
+          onClick={() => scrollTo('skills')}
+          className="h-[390px] rounded-[2.5rem] p-7 sm:p-8 flex flex-col justify-between shadow-[0_10px_35px_rgba(0,0,0,0.4)] bg-[#111111]/70 backdrop-blur-xl border border-white/10 text-white group hover:border-cyan-500/40 hover:-translate-y-0.5 transition-all duration-300 cursor-pointer"
+        >
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center border border-cyan-500/20">
-                <Cpu className="w-4 h-4" />
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center border border-cyan-500/20 group-hover:bg-cyan-500/20 transition-colors">
+                  <Cpu className="w-4 h-4" />
+                </div>
+                <h3 className="text-lg font-black uppercase tracking-tight text-white group-hover:text-cyan-300 transition-colors">
+                  CORE EXPERTISE
+                </h3>
               </div>
-              <h3 className="text-lg font-black uppercase tracking-tight text-white">
-                CORE EXPERTISE
-              </h3>
+
+              {/* Action Indicator to Skills */}
+              <div className="w-7 h-7 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 group-hover:text-cyan-400 group-hover:border-cyan-500/30 group-hover:bg-cyan-500/10 transition-all">
+                <ArrowDownRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-transform" />
+              </div>
             </div>
 
             <p className="text-gray-300 text-xs sm:text-sm leading-relaxed mb-4">
@@ -182,7 +215,7 @@ export function HeroBento() {
               (tag) => (
                 <span
                   key={tag}
-                  className="px-1.5 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-tight bg-white/5 border border-white/10 text-gray-300 hover:border-cyan-500/40 hover:text-white transition-colors truncate"
+                  className="px-1.5 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-tight bg-white/5 border border-white/10 text-gray-300 group-hover:border-cyan-500/30 group-hover:text-white transition-colors truncate"
                   title={tag}
                 >
                   {tag}
@@ -192,7 +225,7 @@ export function HeroBento() {
           </div>
         </div>
 
-        {/* CARD 6: Location & Vision Quote (Height: 210px, Vertically Centered Quote) */}
+        {/* CARD 6: Location & Vision Quote */}
         <div className="h-[210px] rounded-[2.5rem] p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden shadow-[0_0_35px_rgba(255,255,255,0.04)] bg-[#111111]/70 backdrop-blur-xl border border-white/10 text-white group hover:border-cyan-500/30 transition-all">
           <div className="absolute top-0 right-0 w-36 h-36 bg-cyan-500/10 blur-3xl rounded-full -mr-10 -mt-10 pointer-events-none" />
 
