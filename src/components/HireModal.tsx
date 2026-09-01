@@ -14,7 +14,7 @@ import {
   Github,
   Check,
   Copy,
-  ExternalLink,
+  ArrowUpRight,
   Sparkles,
   GraduationCap,
 } from 'lucide-react';
@@ -65,21 +65,22 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
     <AnimatePresence>
       {isOpen && (
         <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 select-none">
-          {/* Backdrop Blur */}
+          {/* Backdrop Blur with Smooth Fade */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
             onClick={onClose}
             className="fixed inset-0 bg-black/85 backdrop-blur-xl"
           />
 
-          {/* Modal Container */}
+          {/* Modal Container with Spring Physics */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+            initial={{ opacity: 0, scale: 0.92, y: 30, filter: 'blur(10px)' }}
+            animate={{ opacity: 1, scale: 1, y: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, scale: 0.94, y: 20, filter: 'blur(8px)' }}
+            transition={{ type: 'spring', stiffness: 350, damping: 28 }}
             onClick={(e) => e.stopPropagation()}
             className="relative z-10 w-full max-w-2xl rounded-[2.5rem] bg-[#121212]/95 border border-white/15 p-7 sm:p-9 text-white shadow-[0_25px_90px_rgba(0,0,0,0.95)] overflow-hidden"
           >
@@ -89,14 +90,14 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
             {/* Top Bar: Title & Close Button */}
             <div className="flex items-start justify-between gap-4 mb-6">
               <div className="flex items-center gap-3">
-                <div className="w-11 h-11 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
+                <div className="w-11 h-11 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shadow-inner">
                   <Sparkles className="w-5 h-5" />
                 </div>
                 <div>
                   <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-cyan-400 font-mono font-bold">
                     <span>KYAW SOE LWIN</span>
                     <span>//</span>
-                    <span>AI & ML ENGINEER</span>
+                    <span>AI &amp; ML ENGINEER</span>
                   </div>
                   <h3 className="text-2xl font-black uppercase tracking-tight text-white mt-0.5">
                     Quick Connect &amp; Resume
@@ -104,13 +105,16 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
                 </div>
               </div>
 
-              <button
+              <motion.button
+                whileHover={{ scale: 1.1, rotate: 90 }}
+                whileTap={{ scale: 0.9 }}
+                transition={{ type: 'spring', stiffness: 400, damping: 20 }}
                 onClick={onClose}
                 aria-label="Close modal"
-                className="w-9 h-9 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-all shrink-0 hover:scale-105"
+                className="w-9 h-9 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white transition-colors shrink-0"
               >
                 <X className="w-4 h-4" />
-              </button>
+              </motion.button>
             </div>
 
             {/* Candidate Summary Card */}
@@ -129,7 +133,7 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
               </span>
             </div>
 
-            {/* Action 1: Resume Section */}
+            {/* Action 1: Resume Section with Cinematic Button Feedback */}
             <div className="mb-6 p-5 rounded-2xl bg-[#181818]/90 border border-cyan-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-[0_0_25px_rgba(6,182,212,0.08)]">
               <div className="flex items-center gap-3.5">
                 <div className="w-11 h-11 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-400 flex items-center justify-center shrink-0 shadow-inner">
@@ -142,24 +146,30 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
               </div>
 
               <div className="flex items-center gap-2.5">
-                {/* 1. Instant Preview */}
-                <button
+                {/* 1. Cinematic Preview Button */}
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                   onClick={handlePreview}
-                  className="px-4 py-2.5 rounded-full bg-white/5 hover:bg-white/15 border border-white/15 text-xs font-bold text-gray-200 hover:text-white flex items-center gap-1.5 transition-all hover:scale-105 cursor-pointer"
+                  className="group px-4 py-2.5 rounded-full bg-white/5 hover:bg-cyan-500/10 border border-white/15 hover:border-cyan-500/40 text-xs font-bold text-gray-200 hover:text-white flex items-center gap-1.5 transition-all shadow-sm cursor-pointer"
                 >
                   <span>Preview</span>
-                  <ExternalLink className="w-3.5 h-3.5 text-cyan-400" />
-                </button>
+                  <ArrowUpRight className="w-3.5 h-3.5 text-cyan-400 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                </motion.button>
 
-                {/* 2. Direct Download */}
-                <a
+                {/* 2. Cinematic Download Button */}
+                <motion.a
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                   href="/api/resume"
                   download="Kyaw_Soe_Lwin_AI_ML_Resume.pdf"
-                  className="px-5 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg shadow-cyan-500/25 hover:scale-105"
+                  className="px-5 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg shadow-cyan-500/25 cursor-pointer"
                 >
                   <Download className="w-4 h-4 text-black" />
                   <span>Download</span>
-                </a>
+                </motion.a>
               </div>
             </div>
 
@@ -235,7 +245,7 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
                     </span>
                   </div>
                 </div>
-                <ExternalLink className="w-4 h-4 text-gray-500 group-hover:text-cyan-400 transition-colors" />
+                <ArrowUpRight className="w-4 h-4 text-gray-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
               </a>
 
               {/* GitHub Button */}
@@ -256,7 +266,7 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
                     </span>
                   </div>
                 </div>
-                <ExternalLink className="w-4 h-4 text-gray-500 group-hover:text-cyan-400 transition-colors" />
+                <ArrowUpRight className="w-4 h-4 text-gray-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
               </a>
             </div>
 

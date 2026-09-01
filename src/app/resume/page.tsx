@@ -2,11 +2,16 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
 import {
   ArrowLeft,
   Download,
   Linkedin,
   Github,
+  Mail,
+  Phone,
+  GraduationCap,
+  Sparkles,
 } from 'lucide-react';
 
 export default function ResumePage() {
@@ -21,16 +26,31 @@ export default function ResumePage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#070707] text-white flex flex-col selection:bg-cyan-500/30">
-      {/* Top Fixed Header */}
-      <header className="sticky top-0 z-50 bg-[#111111]/90 backdrop-blur-2xl border-b border-white/10 px-4 sm:px-8 py-3.5 flex items-center justify-between shadow-2xl">
-        <button
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.35, ease: 'easeOut' }}
+      className="min-h-screen bg-[#070707] text-white flex flex-col selection:bg-cyan-500/30 overflow-x-hidden"
+    >
+      {/* Top Fixed Header with Slide-Down Reveal */}
+      <motion.header
+        initial={{ y: -25, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ type: 'spring', stiffness: 350, damping: 26, delay: 0.05 }}
+        className="sticky top-0 z-50 bg-[#111111]/90 backdrop-blur-2xl border-b border-white/10 px-4 sm:px-8 py-3.5 flex items-center justify-between shadow-2xl"
+      >
+        {/* Interactive Back to Portfolio Button */}
+        <motion.button
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.94 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 25 }}
           onClick={handleBack}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 text-xs font-bold text-gray-200 hover:text-white transition-all hover:-translate-x-0.5 cursor-pointer"
+          className="group inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-cyan-500/10 border border-white/10 hover:border-cyan-500/40 text-xs font-bold text-gray-200 hover:text-white transition-all cursor-pointer shadow-sm"
         >
-          <ArrowLeft className="w-4 h-4 text-cyan-400" />
+          <ArrowLeft className="w-4 h-4 text-cyan-400 transition-transform duration-300 group-hover:-translate-x-1.5" />
           <span>Back to Portfolio</span>
-        </button>
+        </motion.button>
 
         <div className="flex items-center gap-3">
           <div className="hidden md:flex items-center gap-2 text-xs font-mono text-cyan-400">
@@ -38,20 +58,28 @@ export default function ResumePage() {
             <span>KYAW SOE LWIN // EXECUTIVE RESUME</span>
           </div>
 
-          <a
+          <motion.a
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.94 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 25 }}
             href="/api/resume"
             download="Kyaw_Soe_Lwin_AI_ML_Resume.pdf"
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/25 hover:scale-105"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/25 cursor-pointer"
           >
             <Download className="w-3.5 h-3.5 text-black" />
             <span>Download PDF</span>
-          </a>
+          </motion.a>
         </div>
-      </header>
+      </motion.header>
 
-      {/* Main Document Body (Executive ATS Resume Card) */}
+      {/* Main Document Body with Cinematic Spring Entry */}
       <main className="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12">
-        <div className="bg-[#111111] border border-white/15 rounded-[2rem] p-8 sm:p-14 shadow-[0_20px_80px_rgba(0,0,0,0.8)] text-gray-200 relative overflow-hidden">
+        <motion.div
+          initial={{ opacity: 0, y: 35, filter: 'blur(10px)' }}
+          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          transition={{ type: 'spring', stiffness: 280, damping: 24, delay: 0.1 }}
+          className="bg-[#111111] border border-white/15 rounded-[2.5rem] p-8 sm:p-14 shadow-[0_20px_80px_rgba(0,0,0,0.85)] text-gray-200 relative overflow-hidden"
+        >
           {/* Subtle Ambient Background Accent */}
           <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 blur-3xl rounded-full -mr-20 -mt-20 pointer-events-none" />
 
@@ -268,8 +296,8 @@ export default function ResumePage() {
               </div>
             </div>
           </section>
-        </div>
+        </motion.div>
       </main>
-    </div>
+    </motion.div>
   );
 }
