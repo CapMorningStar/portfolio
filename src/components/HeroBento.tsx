@@ -9,7 +9,6 @@ import {
   Award,
   Sparkles,
   GraduationCap,
-  ArrowUpRight,
 } from 'lucide-react';
 
 export function HeroBento() {
@@ -19,19 +18,20 @@ export function HeroBento() {
     <section className="grid grid-cols-1 md:grid-cols-12 gap-5 mb-28">
       {/* ================= COLUMN 1 (LEFT, 4 COLS) ================= */}
       <div className="md:col-span-4 flex flex-col gap-5">
-        {/* CARD 1: Identity & Name (KSL Watermark) */}
-        <div className="h-[270px] rounded-[2.5rem] p-7 sm:p-8 flex flex-col justify-between relative overflow-hidden shadow-[0_10px_45px_rgba(0,0,0,0.4)] bg-[#111111]/70 backdrop-blur-xl border border-white/10 text-white group hover:border-emerald-500/40 transition-all duration-300">
+        {/* CARD 1: Identity & Name (Clean, Non-Redundant Phrasing) */}
+        <div className="h-[270px] rounded-[2.5rem] p-7 sm:p-8 flex flex-col justify-between relative overflow-hidden shadow-[0_10px_45px_rgba(0,0,0,0.4)] bg-[#111111]/70 backdrop-blur-xl border border-white/10 text-white group hover:border-cyan-500/40 transition-all duration-300">
           {/* Subtle Background Watermark: KSL */}
           <span
             aria-hidden="true"
-            className="pointer-events-none select-none absolute -right-4 -bottom-10 text-[7.5rem] font-black leading-none text-white/[0.018] group-hover:text-emerald-500/[0.035] transition-colors tracking-tight"
+            className="pointer-events-none select-none absolute -right-4 -bottom-10 text-[7.5rem] font-black leading-none text-white/[0.018] group-hover:text-cyan-500/[0.035] transition-colors tracking-tight"
           >
             {personal.initials}
           </span>
 
           <div className="relative z-10">
-            <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-emerald-400 font-black mb-4 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            {/* Top Badge: University & Degree */}
+            <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.3em] text-cyan-400 font-black mb-4 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20">
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
               {personal.badge}
             </div>
 
@@ -41,26 +41,26 @@ export function HeroBento() {
             </h1>
           </div>
 
-          {/* Clean Bottom Row */}
+          {/* Clean Bottom Row: Engineering Role (No Duplicate Data Science) */}
           <div className="relative z-10 flex items-center justify-between pt-4 border-t border-white/10">
             <div className="flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/80" />
+              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400/80" />
               <p className="text-xs font-bold text-gray-300 tracking-wider uppercase">
-                Data Science & AI/ML
+                AI & Machine Learning Systems
               </p>
             </div>
             
-            <span className="text-[11px] font-mono font-black uppercase tracking-wider px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 shadow-[0_0_12px_rgba(16,185,129,0.15)]">
+            <span className="text-[11px] font-mono font-black uppercase tracking-wider px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 shadow-[0_0_12px_rgba(6,182,212,0.15)]">
               4.0 GPA
             </span>
           </div>
         </div>
 
         {/* CARD 4: Mindset & Honors */}
-        <div className="h-[330px] rounded-[2.5rem] p-7 sm:p-8 flex flex-col justify-between shadow-[0_0_35px_rgba(255,255,255,0.04)] bg-[#111111]/70 backdrop-blur-xl border border-white/10 text-white group hover:border-emerald-500/30 transition-all">
+        <div className="h-[330px] rounded-[2.5rem] p-7 sm:p-8 flex flex-col justify-between shadow-[0_0_35px_rgba(255,255,255,0.04)] bg-[#111111]/70 backdrop-blur-xl border border-white/10 text-white group hover:border-cyan-500/30 transition-all">
           <div>
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20">
+              <div className="w-9 h-9 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center border border-cyan-500/20">
                 <Award className="w-4 h-4" />
               </div>
               <h3 className="text-lg font-black uppercase tracking-tight text-white">
@@ -74,7 +74,7 @@ export function HeroBento() {
                 Jack Kent Cooke Semifinalist (2026)
               </span>{' '}
               and recipient of the{' '}
-              <span className="text-emerald-400 font-semibold">
+              <span className="text-cyan-400 font-semibold">
                 Sterling Redman & F.L. Griffin Scholarships
               </span>
               . Approaching machine learning with mathematical rigor and continuous curiosity.
@@ -83,7 +83,7 @@ export function HeroBento() {
 
           {/* Academic Badge */}
           <div className="rounded-2xl p-4 bg-[#181818]/80 border border-white/10 flex flex-col gap-2">
-            <div className="flex items-center gap-2 text-emerald-400">
+            <div className="flex items-center gap-2 text-cyan-400">
               <GraduationCap className="w-4 h-4" />
               <span className="text-[11px] font-black uppercase tracking-widest">
                 UC San Diego · Data Science
@@ -98,8 +98,8 @@ export function HeroBento() {
       </div>
 
       {/* ================= COLUMN 2 (CENTER, 4 COLS) ================= */}
-      {/* CARD 2: Heroic Tall Portrait Card (Height: 620px) */}
-      <div className="md:col-span-4 h-[500px] md:h-[620px] rounded-[2.5rem] overflow-hidden shadow-[0_10px_50px_rgba(0,0,0,0.6)] relative bg-[#141414]/90 backdrop-blur-xl border border-white/10 text-white flex flex-col justify-between group hover:border-emerald-500/40 transition-all duration-300">
+      {/* CARD 2: Heroic Tall Portrait Card */}
+      <div className="md:col-span-4 h-[500px] md:h-[620px] rounded-[2.5rem] overflow-hidden shadow-[0_10px_50px_rgba(0,0,0,0.6)] relative bg-[#141414]/90 backdrop-blur-xl border border-white/10 text-white flex flex-col justify-between group hover:border-cyan-500/40 transition-all duration-300">
         {/* Background Portrait Image */}
         <img
           src="/profile.jpg"
@@ -112,7 +112,7 @@ export function HeroBento() {
 
         {/* Top Status Badges */}
         <div className="relative z-10 p-6 sm:p-7 flex items-center justify-between">
-          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[10px] font-black uppercase tracking-[0.25em] text-emerald-400">
+          <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[10px] font-black uppercase tracking-[0.25em] text-cyan-400">
             <Sparkles className="w-3.5 h-3.5" />
             AI/ML Engineer
           </span>
@@ -126,7 +126,7 @@ export function HeroBento() {
           <div className="grid grid-cols-3 gap-2 p-3 rounded-2xl bg-black/80 backdrop-blur-md border border-white/10 text-center">
             {stats.slice(1, 4).map((stat) => (
               <div key={stat.label} className="flex flex-col">
-                <span className="text-sm font-black text-emerald-400">{stat.value}</span>
+                <span className="text-sm font-black text-cyan-400">{stat.value}</span>
                 <span className="text-[8px] uppercase font-bold text-gray-400 tracking-wider">
                   {stat.label}
                 </span>
@@ -139,10 +139,10 @@ export function HeroBento() {
       {/* ================= COLUMN 3 (RIGHT, 4 COLS) ================= */}
       <div className="md:col-span-4 flex flex-col gap-5">
         {/* CARD 3: CORE EXPERTISE (Height: 390px) */}
-        <div className="h-[390px] rounded-[2.5rem] p-7 sm:p-8 flex flex-col justify-between shadow-[0_10px_35px_rgba(0,0,0,0.4)] bg-[#111111]/70 backdrop-blur-xl border border-white/10 text-white group hover:border-white/20 transition-all">
+        <div className="h-[390px] rounded-[2.5rem] p-7 sm:p-8 flex flex-col justify-between shadow-[0_10px_35px_rgba(0,0,0,0.4)] bg-[#111111]/70 backdrop-blur-xl border border-white/10 text-white group hover:border-cyan-500/30 transition-all">
           <div>
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-9 h-9 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20">
+              <div className="w-9 h-9 rounded-xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center border border-cyan-500/20">
                 <Cpu className="w-4 h-4" />
               </div>
               <h3 className="text-lg font-black uppercase tracking-tight text-white">
@@ -152,7 +152,7 @@ export function HeroBento() {
 
             <p className="text-gray-300 text-xs sm:text-sm leading-relaxed mb-4">
               Demonstrated expertise in building{' '}
-              <span className="text-emerald-400 font-semibold">
+              <span className="text-cyan-400 font-semibold">
                 end-to-end Machine Learning pipelines, RAG architecture, Computer Vision, and Generative AI
               </span>
               , backed by statistical rigor and clean software architecture.
@@ -161,15 +161,15 @@ export function HeroBento() {
             <div className="space-y-2 py-3 border-y border-white/10 text-xs">
               <div className="flex items-center justify-between">
                 <span className="text-gray-400">RAG & GenAI</span>
-                <span className="text-emerald-400 font-bold">Chroma · Claude API</span>
+                <span className="text-cyan-400 font-bold">Chroma · Claude API</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-gray-400">Tabular ML</span>
-                <span className="text-emerald-400 font-bold">XGBoost · Optuna · SHAP</span>
+                <span className="text-cyan-400 font-bold">XGBoost · Optuna · SHAP</span>
               </div>
               <div className="flex items-center justify-between">
                 <span className="text-gray-400">Deep Learning & CV</span>
-                <span className="text-emerald-400 font-bold">PyTorch · OpenCV · CNNs</span>
+                <span className="text-cyan-400 font-bold">PyTorch · OpenCV · CNNs</span>
               </div>
             </div>
           </div>
@@ -179,7 +179,7 @@ export function HeroBento() {
               (tag) => (
                 <span
                   key={tag}
-                  className="px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider bg-white/5 border border-white/10 text-gray-300 hover:border-emerald-500/40 hover:text-white transition-colors"
+                  className="px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider bg-white/5 border border-white/10 text-gray-300 hover:border-cyan-500/40 hover:text-white transition-colors"
                 >
                   {tag}
                 </span>
@@ -189,14 +189,14 @@ export function HeroBento() {
         </div>
 
         {/* CARD 6: Location & Vision Quote Combined (Height: 210px) */}
-        <div className="h-[210px] rounded-[2.5rem] p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden shadow-[0_0_35px_rgba(255,255,255,0.04)] bg-[#111111]/70 backdrop-blur-xl border border-white/10 text-white group hover:border-emerald-500/30 transition-all">
-          <div className="absolute top-0 right-0 w-36 h-36 bg-emerald-500/10 blur-3xl rounded-full -mr-10 -mt-10 pointer-events-none" />
+        <div className="h-[210px] rounded-[2.5rem] p-6 sm:p-7 flex flex-col justify-between relative overflow-hidden shadow-[0_0_35px_rgba(255,255,255,0.04)] bg-[#111111]/70 backdrop-blur-xl border border-white/10 text-white group hover:border-cyan-500/30 transition-all">
+          <div className="absolute top-0 right-0 w-36 h-36 bg-cyan-500/10 blur-3xl rounded-full -mr-10 -mt-10 pointer-events-none" />
 
           {/* Quote & Philosophy Header */}
           <div>
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-2">
-                <MapPin className="w-4 h-4 text-emerald-400" />
+                <MapPin className="w-4 h-4 text-cyan-400" />
                 <span className="text-[10px] uppercase tracking-[0.3em] text-gray-400 font-bold">
                   San Diego, CA
                 </span>
@@ -212,7 +212,7 @@ export function HeroBento() {
           </div>
 
           {/* Location Base Footer */}
-          <div className="flex items-center justify-between pt-2.5 border-t border-white/10 text-[10px] font-mono text-emerald-400 uppercase tracking-wider">
+          <div className="flex items-center justify-between pt-2.5 border-t border-white/10 text-[10px] font-mono text-cyan-400 uppercase tracking-wider">
             <span>UC SAN DIEGO CAMPUS</span>
             <span>DATA SCIENCE &apos;28</span>
           </div>

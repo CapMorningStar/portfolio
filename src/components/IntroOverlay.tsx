@@ -110,11 +110,11 @@ export function IntroOverlay() {
           ctx.fillStyle = `rgba(255, 255, 255, ${alpha})`;
           ctx.fill();
 
-          // Subtle Emerald Edge
+          // Subtle Cyan Edge
           if (depthRatio > 0.7) {
             ctx.beginPath();
             ctx.arc(px, py, size * 1.6, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(16, 185, 129, ${alpha * 0.35})`;
+            ctx.fillStyle = `rgba(6, 182, 212, ${alpha * 0.35})`;
             ctx.fill();
           }
         }
@@ -182,14 +182,14 @@ export function IntroOverlay() {
       {/* TOP BAR */}
       <div className="relative z-10 w-full max-w-5xl flex items-center justify-between text-xs">
         <div className="flex items-center gap-3">
-          <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-          <span className="font-mono font-bold uppercase tracking-[0.25em] text-emerald-400 text-[11px]">
+          <div className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping" />
+          <span className="font-mono font-bold uppercase tracking-[0.25em] text-cyan-400 text-[11px]">
             SYSTEM BOOT // V2.6
           </span>
         </div>
 
         <div className="flex items-center gap-2 font-mono text-[10px] text-gray-400 font-bold uppercase tracking-widest bg-white/5 px-3 py-1.5 rounded-full border border-white/10 backdrop-blur-md">
-          <span className="text-emerald-400">{current.step}</span>
+          <span className="text-cyan-400">{current.step}</span>
         </div>
       </div>
 
@@ -205,8 +205,8 @@ export function IntroOverlay() {
             className="flex flex-col items-center"
           >
             {/* Tag Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-[10px] font-black uppercase tracking-[0.35em] mb-6 backdrop-blur-md">
-              <Zap className="w-3 h-3 text-emerald-400" />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[10px] font-black uppercase tracking-[0.35em] mb-6 backdrop-blur-md">
+              <Zap className="w-3 h-3 text-cyan-400" />
               <span>{current.tag}</span>
             </div>
 
@@ -215,9 +215,9 @@ export function IntroOverlay() {
               {current.text}
             </h1>
 
-            {/* Subtitle (Clean & Descriptive, No Click Redundancy) */}
+            {/* Subtitle */}
             <p className="text-xs sm:text-sm md:text-base font-mono font-bold tracking-[0.25em] text-gray-300 uppercase mt-2">
-              <span className="text-emerald-400">&gt; </span>
+              <span className="text-cyan-400">&gt; </span>
               {current.subtitle}
             </p>
 
@@ -229,7 +229,7 @@ export function IntroOverlay() {
                 transition={{ duration: 0.4, delay: 0.2 }}
                 className="mt-8"
               >
-                <div className="inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-emerald-500 text-black font-black text-xs uppercase tracking-[0.25em] shadow-[0_0_25px_rgba(16,185,129,0.5)] hover:bg-emerald-400 hover:scale-105 transition-all">
+                <div className="inline-flex items-center gap-3 px-8 py-3.5 rounded-full bg-cyan-500 text-black font-black text-xs uppercase tracking-[0.25em] shadow-[0_0_25px_rgba(6,182,212,0.5)] hover:bg-cyan-400 hover:scale-105 transition-all">
                   <span>ENTER PORTFOLIO</span>
                   <ArrowRight className="w-4 h-4" />
                 </div>
@@ -245,7 +245,7 @@ export function IntroOverlay() {
               key={idx}
               className={`h-1.5 rounded-full transition-all duration-400 ${
                 idx === currentIndex
-                  ? 'w-12 bg-emerald-400 shadow-[0_0_10px_#10b981]'
+                  ? 'w-12 bg-cyan-400 shadow-[0_0_10px_#06b6d4]'
                   : idx < currentIndex
                   ? 'w-4 bg-white/30'
                   : 'w-4 bg-white/10'
@@ -255,14 +255,14 @@ export function IntroOverlay() {
         </div>
       </div>
 
-      {/* BOTTOM BAR (Sole location for Click Anywhere to Start) */}
+      {/* BOTTOM BAR */}
       <div className="relative z-10 w-full max-w-5xl flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-white/10 text-[11px] font-mono text-gray-500 font-bold uppercase tracking-[0.25em]">
         <div className="flex items-center gap-2 text-gray-400">
-          <Terminal className="w-3.5 h-3.5 text-emerald-400" />
+          <Terminal className="w-3.5 h-3.5 text-cyan-400" />
           <span>INTERACTIVE TERMINAL READY</span>
         </div>
 
-        <div className="flex items-center gap-2 text-emerald-400 hover:text-white transition-colors bg-white/5 hover:bg-white/10 px-4 py-2 rounded-full border border-white/10">
+        <div className="flex items-center gap-2 text-cyan-400 hover:text-white transition-colors bg-white/5 hover:bg-white/10 px-4 py-2 rounded-full border border-white/10">
           <span>CLICK ANYWHERE TO START</span>
           <ChevronRight className="w-3.5 h-3.5 animate-pulse" />
         </div>

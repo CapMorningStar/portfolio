@@ -79,7 +79,7 @@ export function Navbar() {
         {/* Contact/Action Badge */}
         <a
           href={`mailto:${portfolioData.personal.email}`}
-          className="ml-2 inline-flex items-center gap-1.5 px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 hover:bg-emerald-500/30 transition-colors"
+          className="ml-2 inline-flex items-center gap-1.5 px-4 py-2 text-[10px] font-black uppercase tracking-[0.2em] rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30 hover:bg-cyan-500/30 transition-colors"
         >
           <Sparkles className="w-3 h-3" />
           <span>Hire Me</span>
@@ -89,13 +89,13 @@ export function Navbar() {
       {/* Mobile Top Header */}
       <nav className="md:hidden fixed top-4 left-4 right-4 z-50 rounded-2xl shadow-2xl bg-[#121212]/85 backdrop-blur-xl border border-white/10 text-white">
         <div className="flex items-center justify-between px-4 py-3">
-          <span className="text-xs font-black uppercase tracking-[0.2em] text-emerald-400">
+          <span className="text-xs font-black uppercase tracking-[0.2em] text-cyan-400">
             {portfolioData.personal.initials}
           </span>
           <div className="flex items-center gap-2">
             <a
               href={`mailto:${portfolioData.personal.email}`}
-              className="px-3 py-1.5 text-[10px] font-black uppercase tracking-wider rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30"
+              className="px-3 py-1.5 text-[10px] font-black uppercase tracking-wider rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/30"
             >
               Contact
             </a>

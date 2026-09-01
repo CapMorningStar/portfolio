@@ -69,42 +69,42 @@ export function CursorFollower() {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
       if (mouseX > 0 && mouseY > 0) {
-        // Tight, instant response (0.45) - dot and circle stay locked together
+        // Tight, responsive follow
         ringX += (mouseX - ringX) * 0.45;
         ringY += (mouseY - ringY) * 0.45;
 
         targetRadius = isHovering ? 25 : isClicking ? 13 : 18;
         ringRadius += (targetRadius - ringRadius) * 0.3;
 
-        // 1. Draw Outer Glowing Emerald Ring
+        // 1. Draw Outer Glowing Electric Cyan Ring
         ctx.save();
         ctx.beginPath();
         ctx.arc(ringX, ringY, ringRadius, 0, Math.PI * 2);
         ctx.strokeStyle = isHovering
-          ? 'rgba(52, 211, 153, 0.95)'
+          ? 'rgba(56, 189, 248, 0.95)'
           : isClicking
-          ? 'rgba(110, 231, 183, 1)'
-          : 'rgba(16, 185, 129, 0.65)';
+          ? 'rgba(125, 211, 252, 1)'
+          : 'rgba(6, 182, 212, 0.65)';
         ctx.lineWidth = isHovering ? 1.8 : 1.4;
-        ctx.shadowColor = 'rgba(16, 185, 129, 0.5)';
+        ctx.shadowColor = 'rgba(6, 182, 212, 0.6)';
         ctx.shadowBlur = isHovering ? 12 : 6;
         ctx.stroke();
 
         ctx.fillStyle = isHovering
-          ? 'rgba(16, 185, 129, 0.12)'
+          ? 'rgba(6, 182, 212, 0.15)'
           : isClicking
-          ? 'rgba(16, 185, 129, 0.2)'
-          : 'rgba(16, 185, 129, 0.04)';
+          ? 'rgba(6, 182, 212, 0.25)'
+          : 'rgba(6, 182, 212, 0.04)';
         ctx.fill();
         ctx.restore();
 
-        // 2. Draw Center Precision Pointer Dot (Dead Center in the Ring)
+        // 2. Draw Center Precision Pointer Dot (Electric Cyan)
         ctx.save();
         ctx.beginPath();
         const dotSize = isHovering ? 4 : 2.5;
         ctx.arc(ringX, ringY, dotSize, 0, Math.PI * 2);
-        ctx.fillStyle = isHovering ? '#ffffff' : '#34d399';
-        ctx.shadowColor = isHovering ? '#ffffff' : '#10b981';
+        ctx.fillStyle = isHovering ? '#ffffff' : '#22d3ee';
+        ctx.shadowColor = isHovering ? '#ffffff' : '#06b6d4';
         ctx.shadowBlur = 6;
         ctx.fill();
         ctx.restore();

@@ -11,12 +11,12 @@ export function EducationSection() {
     <section id="education" className="mb-32 scroll-mt-28">
       {/* Header */}
       <div className="text-center mb-16">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-[0.3em] mb-4">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[10px] font-black uppercase tracking-[0.3em] mb-4">
           <Sparkles className="w-3 h-3" />
           <span>ACADEMIC FOUNDATION & CREDENTIALS</span>
         </div>
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-tight">
-          Education & <span className="text-emerald-400">Certifications</span>
+          Education & <span className="text-cyan-400">Certifications</span>
         </h2>
         <p className="text-gray-400 text-sm mt-3 max-w-xl mx-auto">
           Rigorous mathematical coursework, national scholarship honors, and verified specializations in Deep Learning, Generative AI, and Cloud Architecture.
@@ -29,7 +29,7 @@ export function EducationSection() {
           {/* Education Card */}
           <div className="rounded-[2.5rem] p-7 sm:p-9 bg-[#121212]/70 backdrop-blur-xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.4)]">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20">
+              <div className="w-10 h-10 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center border border-cyan-500/20">
                 <GraduationCap className="w-5 h-5" />
               </div>
               <h3 className="text-xl font-black uppercase tracking-tight text-white">Education</h3>
@@ -43,7 +43,7 @@ export function EducationSection() {
                 >
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
                     <h4 className="text-base font-black text-white">{edu.school}</h4>
-                    <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-md border border-emerald-500/20 w-fit">
+                    <span className="text-[10px] font-mono font-bold text-cyan-400 bg-cyan-500/10 px-2.5 py-1 rounded-md border border-cyan-500/20 w-fit">
                       {edu.badge || edu.period}
                     </span>
                   </div>
@@ -73,7 +73,7 @@ export function EducationSection() {
           {/* Honors & Scholarships with Verification Links */}
           <div className="rounded-[2.5rem] p-7 sm:p-9 bg-[#121212]/70 backdrop-blur-xl border border-white/10 shadow-[0_10px_40px_rgba(0,0,0,0.4)]">
             <div className="flex items-center gap-3 mb-6">
-              <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20">
+              <div className="w-10 h-10 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center border border-cyan-500/20">
                 <Trophy className="w-5 h-5" />
               </div>
               <h3 className="text-xl font-black uppercase tracking-tight text-white">
@@ -86,17 +86,17 @@ export function EducationSection() {
                 const Content = (
                   <div className="flex flex-col w-full">
                     <div className="flex justify-between items-start mb-1">
-                      <h4 className="text-sm font-black text-white group-hover:text-emerald-300 transition-colors flex items-center gap-1.5">
+                      <h4 className="text-sm font-black text-white group-hover:text-cyan-300 transition-colors flex items-center gap-1.5">
                         <span>{honor.title}</span>
                         {honor.link && (
-                          <ArrowUpRight className="w-3.5 h-3.5 text-emerald-400 shrink-0 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                          <ArrowUpRight className="w-3.5 h-3.5 text-cyan-400 shrink-0 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
                         )}
                       </h4>
-                      <span className="text-[10px] font-bold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded shrink-0 ml-2">
+                      <span className="text-[10px] font-bold text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded shrink-0 ml-2">
                         {honor.year}
                       </span>
                     </div>
-                    <p className="text-xs text-emerald-400/90 font-semibold mb-1">{honor.award}</p>
+                    <p className="text-xs text-cyan-400/90 font-semibold mb-1">{honor.award}</p>
                     <p className="text-xs text-gray-400 leading-relaxed">{honor.detail}</p>
                   </div>
                 );
@@ -107,7 +107,7 @@ export function EducationSection() {
                     href={honor.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group block p-4 rounded-2xl bg-[#181818]/70 border border-white/5 hover:border-emerald-500/40 hover:bg-[#1a1a1a] transition-all duration-200 cursor-pointer"
+                    className="group block p-4 rounded-2xl bg-[#181818]/70 border border-white/5 hover:border-cyan-500/40 hover:bg-[#1a1a1a] transition-all duration-200 cursor-pointer"
                   >
                     {Content}
                   </a>
@@ -127,14 +127,14 @@ export function EducationSection() {
             <div>
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center border border-emerald-500/20">
+                  <div className="w-10 h-10 rounded-2xl bg-cyan-500/10 text-cyan-400 flex items-center justify-center border border-cyan-500/20">
                     <Award className="w-5 h-5" />
                   </div>
                   <h3 className="text-xl font-black uppercase tracking-tight text-white">
                     Verified Certifications
                   </h3>
                 </div>
-                <span className="text-[10px] font-mono text-emerald-400 uppercase tracking-widest bg-emerald-500/10 px-2.5 py-1 rounded-full border border-emerald-500/20 flex items-center gap-1">
+                <span className="text-[10px] font-mono text-cyan-400 uppercase tracking-widest bg-cyan-500/10 px-2.5 py-1 rounded-full border border-cyan-500/20 flex items-center gap-1">
                   <span>Click to Verify</span>
                   <ArrowUpRight className="w-3 h-3" />
                 </span>
@@ -144,7 +144,7 @@ export function EducationSection() {
                 {certifications.map((group) => (
                   <div key={group.issuer} className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <h4 className="text-xs font-black uppercase tracking-widest text-emerald-400">
+                      <h4 className="text-xs font-black uppercase tracking-widest text-cyan-400">
                         {group.issuer}
                       </h4>
                       <span className="text-[10px] font-mono text-gray-400">{group.period}</span>
@@ -157,10 +157,10 @@ export function EducationSection() {
                           href={cert.link}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="group flex items-center justify-between gap-3 p-3.5 rounded-xl bg-[#181818]/60 border border-white/5 hover:border-emerald-500/40 hover:bg-[#1c1c1c] transition-all duration-200"
+                          className="group flex items-center justify-between gap-3 p-3.5 rounded-xl bg-[#181818]/60 border border-white/5 hover:border-cyan-500/40 hover:bg-[#1c1c1c] transition-all duration-200"
                         >
                           <div className="flex items-start gap-3">
-                            <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                            <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
                             <div>
                               <span className="text-xs font-medium text-gray-200 group-hover:text-white transition-colors block">
                                 {cert.name}
@@ -171,7 +171,7 @@ export function EducationSection() {
                             </div>
                           </div>
 
-                          <div className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center text-gray-400 group-hover:text-emerald-400 group-hover:bg-emerald-500/10 transition-colors shrink-0">
+                          <div className="w-6 h-6 rounded-full bg-white/5 flex items-center justify-center text-gray-400 group-hover:text-cyan-400 group-hover:bg-cyan-500/10 transition-colors shrink-0">
                             <ArrowUpRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                           </div>
                         </a>
@@ -183,10 +183,10 @@ export function EducationSection() {
             </div>
 
             {/* Verification Footer Note */}
-            <div className="mt-8 p-4 rounded-2xl bg-emerald-500/5 border border-emerald-500/20 text-center">
+            <div className="mt-8 p-4 rounded-2xl bg-cyan-500/5 border border-cyan-500/20 text-center">
               <p className="text-xs text-gray-400">
                 All certificates verified with cryptographic IDs via{' '}
-                <span className="text-emerald-400 font-semibold">Coursera, Stanford Online & Google Cloud</span>.
+                <span className="text-cyan-400 font-semibold">Coursera, Stanford Online & Google Cloud</span>.
               </p>
             </div>
           </div>

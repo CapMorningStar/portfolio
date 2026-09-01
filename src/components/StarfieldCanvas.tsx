@@ -55,7 +55,7 @@ export function StarfieldCanvas() {
       ctx.clearRect(0, 0, width, height);
 
       stars.forEach((star) => {
-        // Natural twinkle
+        // Twinkle
         star.alpha += star.twinkleSpeed * star.twinkleDir;
         if (star.alpha >= 1) {
           star.alpha = 1;
@@ -65,11 +65,11 @@ export function StarfieldCanvas() {
           star.twinkleDir = 1;
         }
 
-        // Natural celestial upward drift
+        // Base upward drift
         star.y -= star.speedY;
         star.x += star.speedX;
 
-        // ONLY suck in stars when the mouse is physically near them in space
+        // ONLY suck in stars when mouse is physically near them
         if (mouseX > 0 && mouseY > 0) {
           const dx = mouseX - star.x;
           const dy = mouseY - star.y;
@@ -77,12 +77,10 @@ export function StarfieldCanvas() {
           const suctionRadius = 140;
 
           if (dist < suctionRadius) {
-            // Gentle, smooth suction inward directly to mouse center
             const pullForce = (1 - dist / suctionRadius) * 1.8;
             star.x += (dx / dist) * pullForce;
             star.y += (dy / dist) * pullForce;
 
-            // When a real star reaches the center of the cursor, it is absorbed
             if (dist < 4) {
               star.alpha = 0;
               star.y = height + 10;
@@ -101,10 +99,10 @@ export function StarfieldCanvas() {
         if (star.x < 0) star.x = width;
         if (star.x > width) star.x = 0;
 
-        // Draw outer emerald halo
+        // Draw outer Electric Cyan halo
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.size * 1.8, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(16, 185, 129, ${star.alpha * 0.25})`;
+        ctx.fillStyle = `rgba(6, 182, 212, ${star.alpha * 0.28})`;
         ctx.fill();
 
         // Draw core star

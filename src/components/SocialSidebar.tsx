@@ -63,16 +63,15 @@ export function SocialSidebar() {
               target={social.external ? '_blank' : undefined}
               rel={social.external ? 'noopener noreferrer' : undefined}
               aria-label={social.name}
-              onClick={(e) => {
+              onClick={() => {
                 if (!social.external) {
-                  // Copy to clipboard when clicked/tapped
                   handleCopy(social.name, social.copyValue);
                 }
               }}
               className={`inline-flex items-center justify-center w-11 h-11 rounded-full transition-all duration-200 ${
                 isCopied
-                  ? 'bg-emerald-500 text-black border border-emerald-400 scale-105'
-                  : 'text-gray-400 hover:text-emerald-400 hover:bg-white/10 hover:border hover:border-emerald-500/30'
+                  ? 'bg-cyan-400 text-black border border-cyan-300 scale-105'
+                  : 'text-gray-400 hover:text-cyan-400 hover:bg-white/10 hover:border hover:border-cyan-500/30'
               }`}
             >
               {isCopied ? (
@@ -84,7 +83,7 @@ export function SocialSidebar() {
 
             {/* Rich Hover/Tap Tooltip Pill */}
             <div className="pointer-events-none absolute left-full ml-3.5 px-3 py-1.5 bg-[#181818] text-white border border-white/15 rounded-xl opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200 whitespace-nowrap shadow-2xl flex items-center gap-2">
-              <span className="text-[10px] font-mono font-bold text-emerald-400">
+              <span className="text-[10px] font-mono font-bold text-cyan-400">
                 {isCopied ? '✓ Copied' : social.name}:
               </span>
               <span className="text-[10px] font-medium text-gray-200">

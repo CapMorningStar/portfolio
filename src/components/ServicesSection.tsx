@@ -1,7 +1,7 @@
 ﻿'use client';
 
 import React from 'react';
-import { Sparkles, ShieldCheck, Sliders, Eye, Network, CheckCircle2, ArrowRight } from 'lucide-react';
+import { Sparkles, ShieldCheck, Sliders, Eye, Network, CheckCircle2 } from 'lucide-react';
 
 export function ServicesSection() {
   const methodologies = [
@@ -17,7 +17,7 @@ export function ServicesSection() {
         'Automated data validation and unit testing'
       ],
       icon: ShieldCheck,
-      gradient: 'from-emerald-500/10 via-teal-500/5 to-transparent'
+      gradient: 'from-cyan-500/10 via-sky-500/5 to-transparent'
     },
     {
       step: '02',
@@ -31,7 +31,7 @@ export function ServicesSection() {
         'Cross-validated objective scoring'
       ],
       icon: Sliders,
-      gradient: 'from-cyan-500/10 via-blue-500/5 to-transparent'
+      gradient: 'from-sky-500/10 via-blue-500/5 to-transparent'
     },
     {
       step: '03',
@@ -45,7 +45,7 @@ export function ServicesSection() {
         'Custom decision threshold tuning'
       ],
       icon: Eye,
-      gradient: 'from-purple-500/10 via-indigo-500/5 to-transparent'
+      gradient: 'from-indigo-500/10 via-purple-500/5 to-transparent'
     },
     {
       step: '04',
@@ -59,7 +59,7 @@ export function ServicesSection() {
         'Swappable Claude API & local Ollama backends'
       ],
       icon: Network,
-      gradient: 'from-emerald-500/10 via-slate-500/5 to-transparent'
+      gradient: 'from-cyan-500/10 via-slate-500/5 to-transparent'
     }
   ];
 
@@ -67,12 +67,12 @@ export function ServicesSection() {
     <section id="services" className="mb-32 scroll-mt-28">
       {/* Header */}
       <div className="text-center mb-16">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-black uppercase tracking-[0.3em] mb-4">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[10px] font-black uppercase tracking-[0.3em] mb-4">
           <Sparkles className="w-3 h-3" />
           <span>PRODUCTION WORKFLOW & RIGOR</span>
         </div>
         <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white uppercase tracking-tight">
-          Engineering <span className="text-emerald-400">Methodology</span>
+          Engineering <span className="text-cyan-400">Methodology</span>
         </h2>
         <p className="text-gray-400 text-sm mt-3 max-w-xl mx-auto">
           The 4 core engineering standards applied across all machine learning pipelines, RAG systems, and data models.
@@ -86,7 +86,7 @@ export function ServicesSection() {
           return (
             <div
               key={item.step}
-              className="group relative overflow-hidden rounded-[2.5rem] p-8 sm:p-9 bg-[#121212]/80 backdrop-blur-xl border border-white/10 hover:border-emerald-500/40 transition-all duration-300 hover:-translate-y-1 shadow-[0_10px_45px_rgba(0,0,0,0.4)] flex flex-col justify-between"
+              className="group relative overflow-hidden rounded-[2.5rem] p-8 sm:p-9 bg-[#121212]/80 backdrop-blur-xl border border-white/10 hover:border-cyan-500/40 transition-all duration-300 hover:-translate-y-1 shadow-[0_10px_45px_rgba(0,0,0,0.4)] flex flex-col justify-between"
             >
               {/* Card Ambient Glow */}
               <div
@@ -97,10 +97,10 @@ export function ServicesSection() {
                 {/* Top Step & Badge */}
                 <div className="flex items-center justify-between gap-4 mb-6">
                   <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-emerald-400 group-hover:border-emerald-500/40 group-hover:bg-emerald-500/10 transition-colors">
+                    <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-cyan-400 group-hover:border-cyan-500/40 group-hover:bg-cyan-500/10 transition-colors">
                       <Icon className="w-6 h-6" />
                     </div>
-                    <span className="text-xs font-mono font-black uppercase tracking-[0.25em] text-emerald-400">
+                    <span className="text-xs font-mono font-black uppercase tracking-[0.25em] text-cyan-400">
                       {item.step} // {item.tag}
                     </span>
                   </div>
@@ -111,7 +111,7 @@ export function ServicesSection() {
                 </div>
 
                 {/* Title & Description */}
-                <h3 className="text-xl font-black text-white mb-3 group-hover:text-emerald-300 transition-colors leading-snug">
+                <h3 className="text-xl font-black text-white mb-3 group-hover:text-cyan-300 transition-colors leading-snug">
                   {item.title}
                 </h3>
                 <p className="text-gray-300 text-xs sm:text-sm leading-relaxed mb-6">
@@ -122,7 +122,7 @@ export function ServicesSection() {
                 <div className="space-y-2 pt-4 border-t border-white/10">
                   {item.bullets.map((bullet, idx) => (
                     <div key={idx} className="flex items-center gap-2.5 text-xs text-gray-300">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                      <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" />
                       <span>{bullet}</span>
                     </div>
                   ))}
