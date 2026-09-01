@@ -133,24 +133,27 @@ export function SkillsSection() {
           </p>
         </div>
 
-        {/* 3 Columns Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {/* 3 Columns Grid (Equalized Height & Aligned Headers) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
           {skillsData.map((category) => (
             <div
               key={category.title}
-              className="rounded-[2.2rem] p-6 sm:p-8 bg-[#101010]/80 backdrop-blur-xl border border-white/10 flex flex-col justify-between"
+              className="rounded-[2.2rem] p-6 sm:p-8 bg-[#101010]/80 backdrop-blur-xl border border-white/10 flex flex-col justify-between h-full"
             >
               <div>
-                <h3 className="font-black text-sm uppercase tracking-widest text-cyan-400 mb-6 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-cyan-400" />
-                  {category.title}
-                </h3>
+                {/* Header Container with Unified Minimum Height for 100% Horizontal Icon Alignment */}
+                <div className="min-h-[48px] flex items-center mb-6">
+                  <h3 className="font-black text-sm uppercase tracking-widest text-cyan-400 flex items-start gap-2.5 leading-snug">
+                    <span className="w-2 h-2 rounded-full bg-cyan-400 shrink-0 mt-1" />
+                    <span>{category.title}</span>
+                  </h3>
+                </div>
 
                 <div className="grid grid-cols-2 gap-3.5">
                   {category.skills.map((skill) => (
                     <div
                       key={skill.name}
-                      className="group flex flex-col items-center justify-center text-center p-4 rounded-2xl bg-[#181818]/80 border border-white/5 hover:border-cyan-500/40 hover:-translate-y-1 hover:bg-[#1f1f1f] transition-all duration-200 cursor-default"
+                      className="group flex flex-col items-center justify-center text-center p-4 rounded-2xl bg-[#181818]/80 border border-white/5 hover:border-cyan-500/40 hover:-translate-y-1 hover:bg-[#1f1f1f] transition-all duration-200 cursor-default min-h-[108px]"
                     >
                       <div className="w-12 h-12 rounded-2xl flex items-center justify-center bg-white/5 border border-white/10 group-hover:border-white/20 group-hover:bg-white/10 mb-2.5 transition-all shadow-inner">
                         {renderOfficialLogo(skill.name)}
