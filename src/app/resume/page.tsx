@@ -1,32 +1,36 @@
 ﻿'use client';
 
 import React from 'react';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   ArrowLeft,
   Download,
-  Mail,
-  Phone,
   Linkedin,
   Github,
-  GraduationCap,
-  Award,
-  ExternalLink,
-  Sparkles,
 } from 'lucide-react';
 
 export default function ResumePage() {
+  const router = useRouter();
+
+  const handleBack = () => {
+    if (typeof window !== 'undefined' && window.history.length > 1) {
+      window.history.back();
+    } else {
+      router.push('/');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#070707] text-white flex flex-col selection:bg-cyan-500/30">
       {/* Top Fixed Header */}
       <header className="sticky top-0 z-50 bg-[#111111]/90 backdrop-blur-2xl border-b border-white/10 px-4 sm:px-8 py-3.5 flex items-center justify-between shadow-2xl">
-        <Link
-          href="/"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-bold text-gray-300 hover:text-white transition-all hover:-translate-x-0.5"
+        <button
+          onClick={handleBack}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 text-xs font-bold text-gray-200 hover:text-white transition-all hover:-translate-x-0.5 cursor-pointer"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-4 h-4 text-cyan-400" />
           <span>Back to Portfolio</span>
-        </Link>
+        </button>
 
         <div className="flex items-center gap-3">
           <div className="hidden md:flex items-center gap-2 text-xs font-mono text-cyan-400">

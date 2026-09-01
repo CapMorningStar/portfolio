@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useRouter } from 'next/navigation';
 import { portfolioData } from '@/data/portfolioData';
 import {
   X,
@@ -26,6 +27,7 @@ interface HireModalProps {
 export function HireModal({ isOpen, onClose }: HireModalProps) {
   const { personal } = portfolioData;
   const [copiedItem, setCopiedItem] = useState<string | null>(null);
+  const router = useRouter();
 
   // Close modal on Escape key
   useEffect(() => {
@@ -52,6 +54,11 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
       setCopiedItem(label);
       setTimeout(() => setCopiedItem(null), 2000);
     }
+  };
+
+  const handlePreview = () => {
+    onClose();
+    router.push('/resume');
   };
 
   return (
@@ -122,7 +129,7 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
               </span>
             </div>
 
-            {/* Action 1: Resume Section (Preview in dedicated /resume viewer vs Direct Download) */}
+            {/* Action 1: Resume Section */}
             <div className="mb-6 p-5 rounded-2xl bg-[#181818]/90 border border-cyan-500/30 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-[0_0_25px_rgba(6,182,212,0.08)]">
               <div className="flex items-center gap-3.5">
                 <div className="w-11 h-11 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 text-cyan-400 flex items-center justify-center shrink-0 shadow-inner">
@@ -135,20 +142,18 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
               </div>
 
               <div className="flex items-center gap-2.5">
-                {/* 1. Preview: Opens dedicated /resume reader in new tab */}
-                <a
-                  href="/resume"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-4 py-2.5 rounded-full bg-white/5 hover:bg-white/15 border border-white/15 text-xs font-bold text-gray-200 hover:text-white flex items-center gap-1.5 transition-all hover:scale-105"
+                {/* 1. Instant Preview */}
+                <button
+                  onClick={handlePreview}
+                  className="px-4 py-2.5 rounded-full bg-white/5 hover:bg-white/15 border border-white/15 text-xs font-bold text-gray-200 hover:text-white flex items-center gap-1.5 transition-all hover:scale-105 cursor-pointer"
                 >
                   <span>Preview</span>
                   <ExternalLink className="w-3.5 h-3.5 text-cyan-400" />
-                </a>
+                </button>
 
-                {/* 2. Download: Direct 1-click download */}
+                {/* 2. Direct Download */}
                 <a
-                  href="/resume.pdf"
+                  href="/api/resume"
                   download="Kyaw_Soe_Lwin_AI_ML_Resume.pdf"
                   className="px-5 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg shadow-cyan-500/25 hover:scale-105"
                 >
