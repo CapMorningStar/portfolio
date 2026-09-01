@@ -1,11 +1,21 @@
 ﻿'use client';
 
-import React, { useState } from 'react';
-import { portfolioData } from '@/data/portfolioData';
-import { ArrowUpRight, Github, Sparkles, CheckCircle2, RotateCw, ArrowLeft } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { portfolioData, ProjectItem } from '@/data/portfolioData';
+import { motion, AnimatePresence } from 'framer-motion';
+import {
+  ArrowUpRight,
+  Github,
+  Sparkles,
+  CheckCircle2,
+  RotateCw,
+  X,
+  Layers,
+  Calendar,
+} from 'lucide-react';
 
 export function ProjectsSection() {
-  const [flippedId, setFlippedId] = useState<string | null>(null);
+  const [selectedProject, setSelectedProject] = useState<ProjectItem | null>(null);
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const projects = portfolioData.projects;
 
@@ -16,9 +26,24 @@ export function ProjectsSection() {
       ? projects
       : projects.filter((p) => p.category === activeCategory);
 
-  const toggleFlip = (id: string) => {
-    setFlippedId((prev) => (prev === id ? null : id));
-  };
+  // Close on Escape key
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setSelectedProject(null);
+    };
+
+    if (selectedProject) {
+      document.body.style.overflow = 'hidden';
+      window.addEventListener('keydown', handleKeyDown);
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    return () => {
+      document.body.style.overflow = 'auto';
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [selectedProject]);
 
   return (
     <section id="projects" className="mb-32 scroll-mt-28 select-none">
@@ -47,10 +72,7 @@ export function ProjectsSection() {
             return (
               <button
                 key={cat}
-                onClick={() => {
-                  setActiveCategory(cat);
-                  setFlippedId(null);
-                }}
+                onClick={() => setActiveCategory(cat)}
                 className={`px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-wider transition-all duration-200 flex items-center gap-2 cursor-pointer ${
                   isActive
                     ? 'bg-cyan-400 text-black shadow-lg shadow-cyan-500/20 scale-105 font-black'
@@ -71,146 +93,186 @@ export function ProjectsSection() {
         </div>
       </div>
 
-      {/* 3D Flippable Project Cards Grid */}
+      {/* Grid of Project Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredProjects.map((project) => {
-          const isFlipped = flippedId === project.id;
-
-          return (
+        {filteredProjects.map((project) => (
+          <div
+            key={project.id}
+            onClick={() => setSelectedProject(project)}
+            className="group relative overflow-hidden rounded-[2.2rem] bg-[#111111]/85 border border-white/10 hover:border-cyan-500/50 transition-all duration-300 flex flex-col justify-between p-7 cursor-pointer hover:-translate-y-1.5 shadow-[0_10px_40px_rgba(0,0,0,0.5)]"
+          >
+            {/* Ambient Card Background Gradient */}
             <div
-              key={project.id}
-              className="h-[380px] w-full [perspective:1200px]"
-            >
-              {/* 3D Flipping Card Container */}
-              <div
-                className={`relative w-full h-full duration-700 [transform-style:preserve-3d] transition-transform ease-out ${
-                  isFlipped ? '[transform:rotateY(180deg)]' : ''
-                }`}
-              >
-                {/* FRONT OF CARD (Click anywhere to flip to back) */}
-                <div
-                  onClick={() => toggleFlip(project.id)}
-                  className="absolute inset-0 w-full h-full rounded-[2.2rem] bg-[#111111]/85 backdrop-blur-xl border border-white/10 hover:border-cyan-500/40 transition-colors p-7 flex flex-col justify-between cursor-pointer [backface-visibility:hidden] shadow-[0_10px_40px_rgba(0,0,0,0.5)] group overflow-hidden"
-                >
-                  {/* Ambient Card Background Gradient */}
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-b ${project.gradient} opacity-20 group-hover:opacity-35 transition-opacity duration-500 pointer-events-none`}
-                  />
+              className={`absolute inset-0 bg-gradient-to-b ${project.gradient} opacity-20 group-hover:opacity-35 transition-opacity duration-500 pointer-events-none`}
+            />
 
-                  {/* Top Bar */}
-                  <div className="relative z-10 flex items-center justify-between">
-                    <span className="text-[11px] font-black uppercase tracking-[0.25em] text-cyan-400 font-mono">
-                      {project.number} — {project.category}
-                    </span>
-                    <span className="text-[10px] font-bold px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-gray-300">
-                      {project.year}
-                    </span>
-                  </div>
+            {/* Top Bar */}
+            <div className="relative z-10 flex items-center justify-between mb-6">
+              <span className="text-[11px] font-black uppercase tracking-[0.25em] text-cyan-400 font-mono">
+                {project.number} — {project.category}
+              </span>
+              <span className="text-[10px] font-bold px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-gray-300">
+                {project.year}
+              </span>
+            </div>
 
-                  {/* Title & Description */}
-                  <div className="relative z-10 my-auto py-2">
-                    <h3 className="text-xl font-black text-white group-hover:text-cyan-300 transition-colors leading-snug mb-2.5">
-                      {project.title}
-                    </h3>
-                    <p className="text-gray-300 text-xs leading-relaxed line-clamp-3">
-                      {project.description}
-                    </p>
-                  </div>
+            {/* Title & Description */}
+            <div className="relative z-10 mb-6">
+              <h3 className="text-xl font-black text-white group-hover:text-cyan-300 transition-colors leading-snug mb-3">
+                {project.title}
+              </h3>
+              <p className="text-gray-300 text-xs sm:text-sm leading-relaxed line-clamp-3">
+                {project.description}
+              </p>
+            </div>
 
-                  {/* Tags & 3D Flip Action Indicator */}
-                  <div className="relative z-10 pt-4 border-t border-white/10 flex items-center justify-between gap-2">
-                    <div className="flex flex-wrap gap-1.5 max-w-[70%]">
-                      {project.tags.slice(0, 3).map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-2 py-0.5 rounded-lg text-[9px] font-bold uppercase tracking-wider bg-white/5 border border-white/10 text-gray-400"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                      {project.tags.length > 3 && (
-                        <span className="px-1.5 py-0.5 rounded-lg text-[9px] font-bold text-gray-500 bg-white/5">
-                          +{project.tags.length - 3}
-                        </span>
-                      )}
-                    </div>
+            {/* Tags & Action Button */}
+            <div className="relative z-10 pt-4 border-t border-white/10 flex items-center justify-between gap-2">
+              <div className="flex flex-wrap gap-1.5 max-w-[70%]">
+                {project.tags.slice(0, 3).map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-2.5 py-1 rounded-lg text-[9px] font-bold uppercase tracking-wider bg-white/5 border border-white/10 text-gray-400"
+                  >
+                    {tag}
+                  </span>
+                ))}
+                {project.tags.length > 3 && (
+                  <span className="px-2 py-1 rounded-lg text-[9px] font-bold text-gray-500 bg-white/5">
+                    +{project.tags.length - 3}
+                  </span>
+                )}
+              </div>
 
-                    {/* Interactive Flip Hint Button */}
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 group-hover:bg-cyan-400 group-hover:text-black transition-all text-[10px] font-black uppercase tracking-wider shadow-sm shrink-0">
-                      <RotateCw className="w-3 h-3 group-hover:rotate-180 transition-transform duration-500" />
-                      <span>Details</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* BACK OF CARD (Click anywhere on the card to flip back to front!) */}
-                <div
-                  onClick={() => toggleFlip(project.id)}
-                  className="absolute inset-0 w-full h-full rounded-[2.2rem] bg-[#141414] border border-cyan-500/40 p-6 sm:p-7 flex flex-col justify-between [transform:rotateY(180deg)] [backface-visibility:hidden] shadow-[0_15px_50px_rgba(6,182,212,0.15)] overflow-hidden cursor-pointer group"
-                >
-                  {/* Subtle Glow Accent */}
-                  <div className="absolute top-0 right-0 w-48 h-48 bg-cyan-500/10 blur-2xl rounded-full pointer-events-none" />
-
-                  {/* Top Bar on Back */}
-                  <div className="relative z-10 flex items-center justify-between border-b border-white/10 pb-3">
-                    <span className="text-[10px] font-mono font-black uppercase tracking-[0.2em] text-cyan-400">
-                      // ARCHITECTURE &amp; HIGHLIGHTS
-                    </span>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        toggleFlip(project.id);
-                      }}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/10 hover:bg-cyan-400 hover:text-black text-gray-300 text-[9px] font-bold uppercase transition-all cursor-pointer shadow-sm"
-                    >
-                      <ArrowLeft className="w-2.5 h-2.5 text-cyan-400 group-hover:text-black" />
-                      <span>Flip Back</span>
-                    </button>
-                  </div>
-
-                  {/* Key Highlights Bullet List */}
-                  <div className="relative z-10 my-auto py-1 space-y-2 overflow-y-auto pr-1">
-                    {project.bullets.map((bullet, idx) => (
-                      <div key={idx} className="flex items-start gap-2 text-[11px] text-gray-300 leading-snug">
-                        <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
-                        <span>{bullet}</span>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Bottom Action: Complete Tech Stack + View Repository */}
-                  <div className="relative z-10 pt-3 border-t border-white/10 flex items-center justify-between gap-3">
-                    <div className="flex flex-wrap gap-1 max-w-[55%]">
-                      {project.tags.slice(0, 4).map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-1.5 py-0.5 rounded text-[8px] font-bold uppercase bg-white/5 text-cyan-300 border border-white/5"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    {project.github && (
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black font-black text-[10px] uppercase tracking-wider transition-all shadow-md shadow-cyan-500/20 hover:scale-105 shrink-0 cursor-pointer"
-                      >
-                        <Github className="w-3.5 h-3.5" />
-                        <span>GitHub</span>
-                        <ArrowUpRight className="w-3 h-3" />
-                      </a>
-                    )}
-                  </div>
-                </div>
+              {/* 3D Flip & Details Indicator */}
+              <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 group-hover:bg-cyan-400 group-hover:text-black transition-all text-[10px] font-black uppercase tracking-wider shadow-sm shrink-0">
+                <RotateCw className="w-3 h-3 group-hover:rotate-180 transition-transform duration-500" />
+                <span>Details</span>
               </div>
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
+
+      {/* Big 3D Flip-In Modal (Clear background so other cards stay visible!) */}
+      <AnimatePresence>
+        {selectedProject && (
+          <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 [perspective:1400px]">
+            {/* Translucent Backdrop (No blur so background cards remain visible!) */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.25 }}
+              onClick={() => setSelectedProject(null)}
+              className="fixed inset-0 bg-black/65"
+            />
+
+            {/* Big 3D Flipping Card in Front */}
+            <motion.div
+              initial={{ rotateY: 90, scale: 0.85, opacity: 0, y: 20 }}
+              animate={{ rotateY: 0, scale: 1, opacity: 1, y: 0 }}
+              exit={{ rotateY: -90, scale: 0.85, opacity: 0, y: 20 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 26 }}
+              onClick={(e) => e.stopPropagation()}
+              className="relative z-10 w-full max-w-3xl rounded-[2.5rem] bg-[#121212]/98 border border-cyan-500/40 p-7 sm:p-10 text-white shadow-[0_25px_90px_rgba(0,0,0,0.95),0_0_50px_rgba(6,182,212,0.15)] overflow-hidden"
+            >
+              {/* Subtle Ambient Background Accent */}
+              <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/15 blur-3xl rounded-full -mr-20 -mt-20 pointer-events-none" />
+
+              {/* Top Bar: Category & Close Button */}
+              <div className="flex items-start justify-between gap-4 mb-6 relative z-10">
+                <div className="flex items-center gap-3">
+                  <div className="w-11 h-11 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0 shadow-inner">
+                    <Layers className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-cyan-400 font-mono font-bold">
+                      <span>{selectedProject.number}</span>
+                      <span>//</span>
+                      <span>{selectedProject.category}</span>
+                      <span>//</span>
+                      <span>{selectedProject.year}</span>
+                    </div>
+                    <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white mt-0.5">
+                      {selectedProject.title}
+                    </h3>
+                  </div>
+                </div>
+
+                <motion.button
+                  whileHover={{ scale: 1.1, rotate: 90 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={() => setSelectedProject(null)}
+                  aria-label="Close dialog"
+                  className="w-10 h-10 rounded-full bg-white/5 hover:bg-cyan-400 hover:text-black border border-white/10 flex items-center justify-center text-gray-300 transition-colors shrink-0 cursor-pointer"
+                >
+                  <X className="w-5 h-5" />
+                </motion.button>
+              </div>
+
+              {/* Description */}
+              <p className="text-gray-300 text-xs sm:text-sm leading-relaxed mb-6 relative z-10 bg-white/5 p-4 rounded-2xl border border-white/5">
+                {selectedProject.description}
+              </p>
+
+              {/* Architecture Highlights */}
+              <div className="mb-6 p-5 rounded-2xl bg-black/50 border border-cyan-500/20 space-y-2.5 relative z-10">
+                <div className="flex items-center gap-2 text-[11px] font-mono font-black uppercase tracking-wider text-cyan-400 mb-2">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>Key Architecture &amp; Engineering Highlights</span>
+                </div>
+                <div className="space-y-2">
+                  {selectedProject.bullets.map((bullet, idx) => (
+                    <div key={idx} className="flex items-start gap-2.5 text-xs text-gray-200 leading-snug">
+                      <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
+                      <span>{bullet}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Tech Stack & Repository Button Row */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-white/10 relative z-10">
+                <div className="flex flex-wrap gap-1.5 max-w-md">
+                  {selectedProject.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-3 py-1 rounded-xl text-[10px] font-bold uppercase tracking-wider bg-white/5 border border-white/10 text-cyan-300 shadow-sm"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-3 shrink-0">
+                  <button
+                    onClick={() => setSelectedProject(null)}
+                    className="px-4 py-2.5 rounded-full bg-white/5 hover:bg-white/15 text-gray-300 text-xs font-bold transition-colors cursor-pointer"
+                  >
+                    Close
+                  </button>
+
+                  {selectedProject.github && (
+                    <motion.a
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      href={selectedProject.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black font-black text-xs uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/25 cursor-pointer"
+                    >
+                      <Github className="w-4 h-4" />
+                      <span>View GitHub Repo</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </motion.a>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
