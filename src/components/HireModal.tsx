@@ -16,7 +16,6 @@ import {
   ExternalLink,
   Sparkles,
   GraduationCap,
-  Award,
 } from 'lucide-react';
 
 interface HireModalProps {
@@ -53,6 +52,15 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
       setCopiedItem(label);
       setTimeout(() => setCopiedItem(null), 2000);
     }
+  };
+
+  const handleDownloadPdf = () => {
+    const link = document.createElement('a');
+    link.href = '/resume.pdf';
+    link.download = 'Kyaw_Soe_Lwin_AI_ML_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   return (
@@ -146,14 +154,13 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
                   <ExternalLink className="w-3.5 h-3.5 text-gray-400" />
                 </a>
 
-                <a
-                  href="/resume.pdf"
-                  download="Kyaw_Soe_Lwin_AI_ML_Resume.pdf"
-                  className="px-4 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black text-xs font-black uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-md shadow-cyan-500/20 hover:scale-105"
+                <button
+                  onClick={handleDownloadPdf}
+                  className="px-4 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black text-xs font-black uppercase tracking-wider flex items-center gap-1.5 transition-all shadow-md shadow-cyan-500/20 hover:scale-105 cursor-pointer"
                 >
                   <Download className="w-3.5 h-3.5" />
                   <span>Download</span>
-                </a>
+                </button>
               </div>
             </div>
 
