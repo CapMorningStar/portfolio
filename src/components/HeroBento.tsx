@@ -140,7 +140,7 @@ export function HeroBento() {
 
       {/* ================= COLUMN 3 (RIGHT, 4 COLS) ================= */}
       <div className="md:col-span-4 flex flex-col gap-5">
-        {/* CARD 3: CORE EXPERTISE (Height: 390px) */}
+        {/* CARD 3: CORE EXPERTISE (Height: 390px, Balanced 2-Row Grid of 8 Skills) */}
         <div className="h-[390px] rounded-[2.5rem] p-7 sm:p-8 flex flex-col justify-between shadow-[0_10px_35px_rgba(0,0,0,0.4)] bg-[#111111]/70 backdrop-blur-xl border border-white/10 text-white group hover:border-cyan-500/30 transition-all">
           <div>
             <div className="flex items-center gap-3 mb-4">
@@ -176,12 +176,14 @@ export function HeroBento() {
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-1.5 pt-2">
+          {/* Clean 2-Row Grid (4 items in Row 1, 4 items in Row 2) */}
+          <div className="grid grid-cols-4 gap-1.5 pt-2 text-center">
             {['Python', 'PyTorch', 'RAG', 'XGBoost', 'OpenCV', 'ChromaDB', 'Vertex AI', 'Docker'].map(
               (tag) => (
                 <span
                   key={tag}
-                  className="px-2.5 py-1 rounded-lg text-[9px] font-black uppercase tracking-wider bg-white/5 border border-white/10 text-gray-300 hover:border-cyan-500/40 hover:text-white transition-colors"
+                  className="px-1.5 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-tight bg-white/5 border border-white/10 text-gray-300 hover:border-cyan-500/40 hover:text-white transition-colors truncate"
+                  title={tag}
                 >
                   {tag}
                 </span>
