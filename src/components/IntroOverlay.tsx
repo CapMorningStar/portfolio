@@ -38,14 +38,27 @@ const introSteps = [
 ];
 
 export function IntroOverlay() {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
+  // Check if user already saw the intro in this session
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const hasSeen = sessionStorage.getItem('portfolio_intro_seen');
+      if (!hasSeen) {
+        setIsVisible(true);
+      }
+    }
+  }, []);
+
   const handleExit = () => {
     if (isExiting) return;
     setIsExiting(true);
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('portfolio_intro_seen', 'true');
+    }
     setTimeout(() => {
       setIsVisible(false);
     }, 600);
@@ -53,6 +66,7 @@ export function IntroOverlay() {
 
   // Warp starfield canvas background
   useEffect(() => {
+    if (!isVisible) return;
     const canvas = canvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
@@ -129,10 +143,11 @@ export function IntroOverlay() {
       window.removeEventListener('resize', handleResize);
       cancelAnimationFrame(animId);
     };
-  }, [isExiting]);
+  }, [isVisible, isExiting]);
 
   // Paced transition: 2400ms per step
   useEffect(() => {
+    if (!isVisible) return;
     document.body.style.overflow = 'hidden';
 
     const interval = setInterval(() => {
@@ -159,7 +174,7 @@ export function IntroOverlay() {
       window.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'auto';
     };
-  }, []);
+  }, [isVisible]);
 
   if (!isVisible) return null;
 
