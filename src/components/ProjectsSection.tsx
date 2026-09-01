@@ -87,7 +87,7 @@ export function ProjectsSection() {
                   isFlipped ? '[transform:rotateY(180deg)]' : ''
                 }`}
               >
-                {/* FRONT OF CARD */}
+                {/* FRONT OF CARD (Click anywhere to flip to back) */}
                 <div
                   onClick={() => toggleFlip(project.id)}
                   className="absolute inset-0 w-full h-full rounded-[2.2rem] bg-[#111111]/85 backdrop-blur-xl border border-white/10 hover:border-cyan-500/40 transition-colors p-7 flex flex-col justify-between cursor-pointer [backface-visibility:hidden] shadow-[0_10px_40px_rgba(0,0,0,0.5)] group overflow-hidden"
@@ -143,9 +143,10 @@ export function ProjectsSection() {
                   </div>
                 </div>
 
-                {/* BACK OF CARD (Technical Breakdown & Architecture) */}
+                {/* BACK OF CARD (Click anywhere on the card to flip back to front!) */}
                 <div
-                  className="absolute inset-0 w-full h-full rounded-[2.2rem] bg-[#141414] border border-cyan-500/40 p-6 sm:p-7 flex flex-col justify-between [transform:rotateY(180deg)] [backface-visibility:hidden] shadow-[0_15px_50px_rgba(6,182,212,0.15)] overflow-hidden"
+                  onClick={() => toggleFlip(project.id)}
+                  className="absolute inset-0 w-full h-full rounded-[2.2rem] bg-[#141414] border border-cyan-500/40 p-6 sm:p-7 flex flex-col justify-between [transform:rotateY(180deg)] [backface-visibility:hidden] shadow-[0_15px_50px_rgba(6,182,212,0.15)] overflow-hidden cursor-pointer group"
                 >
                   {/* Subtle Glow Accent */}
                   <div className="absolute top-0 right-0 w-48 h-48 bg-cyan-500/10 blur-2xl rounded-full pointer-events-none" />
@@ -160,10 +161,10 @@ export function ProjectsSection() {
                         e.stopPropagation();
                         toggleFlip(project.id);
                       }}
-                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/10 hover:bg-white/20 text-gray-300 hover:text-white text-[9px] font-bold uppercase transition-all cursor-pointer"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/10 hover:bg-cyan-400 hover:text-black text-gray-300 text-[9px] font-bold uppercase transition-all cursor-pointer shadow-sm"
                     >
-                      <ArrowLeft className="w-2.5 h-2.5 text-cyan-400" />
-                      <span>Back</span>
+                      <ArrowLeft className="w-2.5 h-2.5 text-cyan-400 group-hover:text-black" />
+                      <span>Flip Back</span>
                     </button>
                   </div>
 
@@ -196,7 +197,7 @@ export function ProjectsSection() {
                         target="_blank"
                         rel="noopener noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black font-black text-[10px] uppercase tracking-wider transition-all shadow-md shadow-cyan-500/20 hover:scale-105 shrink-0"
+                        className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black font-black text-[10px] uppercase tracking-wider transition-all shadow-md shadow-cyan-500/20 hover:scale-105 shrink-0 cursor-pointer"
                       >
                         <Github className="w-3.5 h-3.5" />
                         <span>GitHub</span>
