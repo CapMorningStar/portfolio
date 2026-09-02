@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, Zap, Terminal, ArrowRight, Sparkles, Compass } from 'lucide-react';
+import { Zap, Terminal, ArrowRight, Sparkles, ChevronRight } from 'lucide-react';
 
 const introSteps = [
   {
@@ -32,7 +32,7 @@ const introSteps = [
   {
     step: '05',
     tag: 'READY',
-    text: 'ENTER PORTFOLIO',
+    text: 'EXPERIENCE THE WORK',
     subtitle: 'Production ML Pipelines & Applied AI Research',
   },
 ];
@@ -145,7 +145,7 @@ export function IntroOverlay() {
         }
         explosionParticles.current = particles;
 
-        // B. High-Speed Radial Shockwave Rings (Pure Canvas anti-aliased)
+        // B. Radial Shockwave Rings (Canvas GPU anti-aliased)
         shockwaves.current = [
           {
             r: 5,
@@ -182,12 +182,12 @@ export function IntroOverlay() {
       }
     }, 2250);
 
-    // 3. Detonation -> Starlight Voyage (Stars shining for 2.2s) at 3.7s
+    // 3. Detonation -> Starlight Voyage ("// BEYOND THE HORIZON") at 3.7s
     const t3 = setTimeout(() => {
       setPhase('starlight_voyage');
     }, 3700);
 
-    // 4. Starlight Voyage -> Matrix (Name "KYAW SOE LWIN" emerges) at 5.9s
+    // 4. Starlight Voyage -> Matrix (Name emerges) at 5.9s
     const t4 = setTimeout(() => {
       setPhase('matrix');
     }, 5900);
@@ -228,7 +228,7 @@ export function IntroOverlay() {
     return () => clearInterval(interval);
   }, [isVisible, phase]);
 
-  // Canvas Physics: Pure GPU 120 FPS Big Bang Explosion + Shockwaves + 3D Warp Starfield
+  // Canvas Physics: Pure GPU Big Bang Explosion + Shockwaves + 3D Warp Starfield
   useEffect(() => {
     if (!isVisible) return;
     const canvas = canvasRef.current;
@@ -258,10 +258,10 @@ export function IntroOverlay() {
       }));
     }
 
-    const cx = width / 2;
-    const cy = height / 2;
-
     const render = () => {
+      const cx = width / 2;
+      const cy = height / 2;
+
       ctx.clearRect(0, 0, width, height);
       ctx.fillStyle = '#02000c';
       ctx.fillRect(0, 0, width, height);
@@ -293,7 +293,6 @@ export function IntroOverlay() {
             ctx.fillStyle = `rgba(255, 255, 255, ${alpha * 0.9})`;
             ctx.fill();
 
-            // Subtle electric cyan aura on close stars
             if (depthRatio > 0.7) {
               ctx.beginPath();
               ctx.arc(px, py, size * 2.2, 0, Math.PI * 2);
@@ -393,7 +392,7 @@ export function IntroOverlay() {
       role="button"
       tabIndex={0}
       onClick={handleExit}
-      className={`fixed inset-0 z-[999999] flex flex-col items-center justify-between p-8 sm:p-12 select-none cursor-pointer overflow-hidden transition-all duration-700 ease-out ${
+      className={`fixed inset-0 z-[999999] flex flex-col items-center justify-center select-none cursor-pointer overflow-hidden transition-all duration-700 ease-out ${
         isExiting ? 'opacity-0 scale-105 pointer-events-none' : 'opacity-100 scale-100'
       }`}
       style={{ backgroundColor: '#02000c' }}
@@ -432,7 +431,6 @@ export function IntroOverlay() {
               }
               className="relative w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-[0_0_80px_#00f0ff]"
             >
-              {/* Core Proton Core */}
               <div className="w-4 h-4 rounded-full bg-cyan-300 animate-ping" />
 
               {/* Coronal Light Ring 1 */}
@@ -491,110 +489,118 @@ export function IntroOverlay() {
         )}
       </AnimatePresence>
 
-      {/* ================= 3. GENESIS OF IDENTITY MATRIX ================= */}
+      {/* ================= 3. TRUE VIEWPORT-PINNED CORNER HUD ================= */}
       {phase === 'matrix' && (
         <>
-          {/* TOP BAR */}
+          {/* Top-Left: Genesis Telemetry */}
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="relative z-10 w-full max-w-5xl flex items-center justify-between text-xs"
+            className="fixed top-6 sm:top-8 left-6 sm:left-8 z-30 flex items-center gap-2.5 text-[11px] font-mono font-bold uppercase tracking-[0.25em] text-cyan-400 pointer-events-none"
           >
-            <div className="flex items-center gap-3">
-              <div className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping" />
-              <span className="font-mono font-bold uppercase tracking-[0.25em] text-cyan-400 text-[11px]">
-                GENESIS BOOT // V3.0
-              </span>
-            </div>
-
-            <div className="flex items-center gap-2 font-mono text-[10px] text-gray-400 font-bold uppercase tracking-widest bg-white/5 px-3.5 py-1.5 rounded-full border border-white/10 backdrop-blur-md">
-              <span className="text-cyan-400 font-black">{current.step}</span>
-              <span className="text-gray-600">//</span>
-              <span>05</span>
-            </div>
+            <div className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping" />
+            <span>GENESIS BOOT // V3.0</span>
           </motion.div>
 
-          {/* CENTER: Identity & Credential Matrix (Single Clean Row Always) */}
-          <div className="relative z-10 text-center max-w-5xl px-4 my-auto w-full">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentIndex}
-                initial={{ opacity: 0, y: 30, scale: 0.94 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -30, scale: 1.04 }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="flex flex-col items-center w-full"
-              >
-                {/* Tag Badge */}
-                <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[10px] font-black uppercase tracking-[0.35em] mb-6 backdrop-blur-md shadow-[0_0_20px_rgba(6,182,212,0.2)]">
-                  <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-                  <span>{current.tag}</span>
-                </div>
-
-                {/* Main Headline (Strictly 1 Single Row With Responsive Auto Sizing) */}
-                <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[4.2rem] font-black uppercase tracking-tight text-white leading-none mb-4 drop-shadow-[0_15px_50px_rgba(0,0,0,1)] whitespace-nowrap overflow-hidden">
-                  {current.text}
-                </h1>
-
-                {/* Subtitle */}
-                <p className="text-xs sm:text-sm md:text-base font-mono font-bold tracking-[0.2em] text-gray-300 uppercase mt-2 whitespace-nowrap">
-                  <span className="text-cyan-400">&gt; </span>
-                  {current.subtitle}
-                </p>
-
-                {/* Prominent Enter Button when ready */}
-                {isFinalStep && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.9, y: 15 }}
-                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: 0.2 }}
-                    className="mt-8"
-                  >
-                    <div className="inline-flex items-center gap-3 px-9 py-4 rounded-full bg-cyan-400 text-black font-black text-xs uppercase tracking-[0.25em] shadow-[0_0_35px_rgba(6,182,212,0.6)] hover:bg-cyan-300 hover:scale-105 transition-all">
-                      <span>ENTER PORTFOLIO</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </div>
-                  </motion.div>
-                )}
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Progress Segmented Bar */}
-            <div className="mt-12 flex justify-center items-center gap-2.5">
-              {introSteps.map((_, idx) => (
-                <div
-                  key={idx}
-                  className={`h-1.5 rounded-full transition-all duration-400 ${
-                    idx === currentIndex
-                      ? 'w-12 bg-cyan-400 shadow-[0_0_12px_#06b6d4]'
-                      : idx < currentIndex
-                      ? 'w-4 bg-white/30'
-                      : 'w-4 bg-white/10'
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-
-          {/* BOTTOM BAR */}
+          {/* Top-Right: Step Counter */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="relative z-10 w-full max-w-5xl flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-white/10 text-[11px] font-mono text-gray-500 font-bold uppercase tracking-[0.25em]"
+            className="fixed top-6 sm:top-8 right-6 sm:right-8 z-30 flex items-center gap-2 font-mono text-[10px] text-gray-400 font-bold uppercase tracking-widest bg-white/5 px-3.5 py-1.5 rounded-full border border-white/10 backdrop-blur-md pointer-events-none shadow-sm"
           >
-            <div className="flex items-center gap-2 text-gray-400">
-              <Terminal className="w-3.5 h-3.5 text-cyan-400" />
-              <span>INTERACTIVE TERMINAL READY</span>
-            </div>
+            <span className="text-cyan-400 font-black">{current.step}</span>
+            <span className="text-gray-600">//</span>
+            <span>05</span>
+          </motion.div>
 
-            <div className="flex items-center gap-2 text-cyan-400 hover:text-white transition-colors bg-white/5 hover:bg-white/10 px-4 py-2 rounded-full border border-white/10">
-              <span>CLICK ANYWHERE TO ENTER</span>
-              <ChevronRight className="w-3.5 h-3.5 animate-pulse" />
-            </div>
+          {/* Bottom-Left: Terminal Status */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="fixed bottom-6 sm:bottom-8 left-6 sm:left-8 z-30 hidden sm:flex items-center gap-2 text-[11px] font-mono text-gray-400 font-bold uppercase tracking-[0.25em] pointer-events-none"
+          >
+            <Terminal className="w-3.5 h-3.5 text-cyan-400" />
+            <span>INTERACTIVE TERMINAL READY</span>
+          </motion.div>
+
+          {/* Bottom-Right: Clean Skip Indicator */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="fixed bottom-6 sm:bottom-8 right-6 sm:right-8 z-30 flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-cyan-400 hover:text-white transition-colors bg-white/5 hover:bg-cyan-500/20 px-4 py-2 rounded-full border border-white/10 backdrop-blur-md shadow-sm"
+          >
+            <span>CLICK TO SKIP</span>
+            <ChevronRight className="w-3.5 h-3.5 animate-pulse" />
           </motion.div>
         </>
+      )}
+
+      {/* ================= 4. CENTER: IDENTITY & CREDENTIAL MATRIX ================= */}
+      {phase === 'matrix' && (
+        <div className="relative z-20 text-center max-w-5xl px-6 w-full flex flex-col items-center justify-center my-auto">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, y: 30, scale: 0.94 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -30, scale: 1.04 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col items-center w-full"
+            >
+              {/* Tag Badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[10px] font-black uppercase tracking-[0.35em] mb-6 backdrop-blur-md shadow-[0_0_20px_rgba(6,182,212,0.2)]">
+                <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                <span>{current.tag}</span>
+              </div>
+
+              {/* Main Headline (Single Row) */}
+              <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[4.2rem] font-black uppercase tracking-tight text-white leading-none mb-4 drop-shadow-[0_15px_50px_rgba(0,0,0,1)] whitespace-nowrap overflow-hidden">
+                {current.text}
+              </h1>
+
+              {/* Subtitle */}
+              <p className="text-xs sm:text-sm md:text-base font-mono font-bold tracking-[0.2em] text-gray-300 uppercase mt-2 whitespace-nowrap">
+                <span className="text-cyan-400">&gt; </span>
+                {current.subtitle}
+              </p>
+
+              {/* Step 5 Clean Call to Action Button */}
+              {isFinalStep && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9, y: 15 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  transition={{ duration: 0.4, delay: 0.2 }}
+                  className="mt-8"
+                >
+                  <div className="inline-flex items-center gap-3 px-9 py-4 rounded-full bg-cyan-400 text-black font-black text-xs uppercase tracking-[0.25em] shadow-[0_0_35px_rgba(6,182,212,0.6)] hover:bg-cyan-300 hover:scale-105 transition-all">
+                    <span>ENTER PORTFOLIO</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </div>
+                </motion.div>
+              )}
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Progress Segmented Bar */}
+          <div className="mt-12 flex justify-center items-center gap-2.5">
+            {introSteps.map((_, idx) => (
+              <div
+                key={idx}
+                className={`h-1.5 rounded-full transition-all duration-400 ${
+                  idx === currentIndex
+                    ? 'w-12 bg-cyan-400 shadow-[0_0_12px_#06b6d4]'
+                    : idx < currentIndex
+                    ? 'w-4 bg-white/30'
+                    : 'w-4 bg-white/10'
+                }`}
+              />
+            ))}
+          </div>
+        </div>
       )}
     </div>
   );
