@@ -155,7 +155,7 @@ export function ProjectsSection() {
                       )}
                     </div>
 
-                    {/* 3D Flip & Float Indicator */}
+                    {/* 3D Flip Indicator */}
                     <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 group-hover:bg-cyan-400 group-hover:text-black transition-all text-[10px] font-black uppercase tracking-wider shadow-sm shrink-0">
                       <RotateCw className="w-3 h-3 group-hover:rotate-180 transition-transform duration-500" />
                       <span>Flip</span>
@@ -163,7 +163,7 @@ export function ProjectsSection() {
                   </div>
                 </div>
               ) : (
-                /* Empty placeholder holding the slot */
+                /* Clean empty placeholder holding the slot with subtle pulse */
                 <div className="h-full w-full rounded-[2.2rem] border border-cyan-500/20 bg-cyan-500/5 min-h-[360px] animate-pulse" />
               )}
             </div>
@@ -171,10 +171,10 @@ export function ProjectsSection() {
         })}
       </div>
 
-      {/* 3D DOUBLE-SIDED CARD FLIP (NO MIRRORED TEXT, ZERO DUPLICATION) */}
+      {/* 3D DOUBLE-SIDED CARD FLIP (GLITCH-FREE WITH DUAL BACKFACE CULLING) */}
       <AnimatePresence>
         {selectedProject && (
-          <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 [perspective:2000px]">
+          <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 [perspective:1400px]">
             {/* Dark Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
@@ -185,13 +185,13 @@ export function ProjectsSection() {
               className="fixed inset-0 bg-black/75 backdrop-blur-sm"
             />
 
-            {/* 3D Rotating Card Container (Rotates 0 -> 180deg) */}
+            {/* 3D Rotating Card Container */}
             <motion.div
               initial={{
                 rotateY: 0,
-                scale: 0.8,
+                scale: 0.75,
                 opacity: 0,
-                y: 40,
+                y: 30,
               }}
               animate={{
                 rotateY: 180,
@@ -201,21 +201,33 @@ export function ProjectsSection() {
               }}
               exit={{
                 rotateY: 0,
-                scale: 0.8,
+                scale: 0.75,
                 opacity: 0,
-                y: 40,
+                y: 30,
               }}
               transition={{
-                rotateY: { duration: 0.6, ease: [0.25, 1, 0.5, 1] },
-                scale: { type: 'spring', stiffness: 300, damping: 25 },
+                rotateY: { duration: 0.65, ease: [0.16, 1, 0.3, 1] },
+                scale: { type: 'spring', stiffness: 280, damping: 24 },
                 opacity: { duration: 0.25 },
-                y: { type: 'spring', stiffness: 300, damping: 25 },
+                y: { type: 'spring', stiffness: 280, damping: 24 },
               }}
               onClick={(e) => e.stopPropagation()}
-              className="relative z-10 w-full max-w-3xl min-h-[480px] rounded-[2.5rem] [transform-style:preserve-3d]"
+              style={{
+                transformStyle: 'preserve-3d',
+                WebkitTransformStyle: 'preserve-3d',
+              }}
+              className="relative z-10 w-full max-w-3xl min-h-[500px]"
             >
-              {/* 1. FRONT FACE OF CARD (Pre-rotation side at 0deg, hides when turned 90deg+) */}
-              <div className="absolute inset-0 w-full h-full rounded-[2.5rem] bg-[#0c0c0c] border border-cyan-500/30 p-7 sm:p-10 text-white shadow-[0_30px_100px_rgba(0,0,0,1)] [backface-visibility:hidden] [transform:rotateY(0deg)] flex flex-col justify-between overflow-hidden">
+              {/* 1. FRONT FACE (0deg with translateZ(1px) to prevent bleed-through) */}
+              <div
+                style={{
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  transform: 'rotateY(0deg) translateZ(1px)',
+                }}
+                className="absolute inset-0 w-full h-full rounded-[2.5rem] bg-[#0c0c0c] border border-cyan-500/40 p-7 sm:p-10 text-white shadow-[0_30px_100px_rgba(0,0,0,1)] flex flex-col justify-between overflow-hidden"
+              >
+                {/* Top Bar */}
                 <div className="flex items-center justify-between mb-6">
                   <span className="text-[11px] font-black uppercase tracking-[0.25em] text-cyan-400 font-mono">
                     {selectedProject.number} — {selectedProject.category}
@@ -224,21 +236,44 @@ export function ProjectsSection() {
                     {selectedProject.year}
                   </span>
                 </div>
-                <div className="my-auto">
-                  <h3 className="text-2xl font-black text-white leading-snug mb-3">
+
+                {/* Title & Description */}
+                <div className="my-auto py-4">
+                  <h3 className="text-2xl sm:text-3xl font-black text-white leading-snug mb-3">
                     {selectedProject.title}
                   </h3>
-                  <p className="text-gray-300 text-sm leading-relaxed">
+                  <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
                     {selectedProject.description}
                   </p>
                 </div>
+
+                {/* Bottom Tags */}
                 <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                  <span className="text-xs text-cyan-400 font-mono">Flipping to architecture...</span>
+                  <div className="flex flex-wrap gap-1.5">
+                    {selectedProject.tags.slice(0, 4).map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-2.5 py-1 rounded-lg text-[9px] font-bold uppercase tracking-wider bg-white/5 border border-white/10 text-cyan-300"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                  <span className="text-[10px] font-mono text-cyan-400 animate-pulse">
+                    Flipping to architecture...
+                  </span>
                 </div>
               </div>
 
-              {/* 2. BACK FACE OF CARD (Pre-rotated 180deg so when container rotates 180deg, this face is 100% UN-MIRRORED & RIGHT-SIDE UP!) */}
-              <div className="w-full min-h-[480px] rounded-[2.5rem] bg-[#0c0c0c] border border-cyan-500/50 p-7 sm:p-10 text-white shadow-[0_30px_100px_rgba(0,0,0,1),0_0_70px_rgba(6,182,212,0.25)] [backface-visibility:hidden] [transform:rotateY(180deg)] relative overflow-hidden flex flex-col justify-between">
+              {/* 2. BACK FACE (180deg with translateZ(1px) — 100% RIGHT-SIDE UP & ZERO BLEED) */}
+              <div
+                style={{
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  transform: 'rotateY(180deg) translateZ(1px)',
+                }}
+                className="w-full min-h-[500px] rounded-[2.5rem] bg-[#0c0c0c] border border-cyan-500/50 p-7 sm:p-10 text-white shadow-[0_30px_100px_rgba(0,0,0,1),0_0_70px_rgba(6,182,212,0.25)] relative overflow-hidden flex flex-col justify-between"
+              >
                 {/* Glowing Ambient Halo */}
                 <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/15 blur-3xl rounded-full -mr-20 -mt-20 pointer-events-none" />
 
