@@ -472,7 +472,7 @@ export function IntroOverlay() {
               className="flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-black uppercase tracking-[0.35em] backdrop-blur-md shadow-[0_0_30px_rgba(6,182,212,0.25)]"
             >
               <Sparkles className="w-4 h-4 text-cyan-400 animate-pulse" />
-              <span>// BEYOND THE HORIZON</span>
+              <span>BEYOND THE HORIZON</span>
             </motion.div>
           </div>
         )}
