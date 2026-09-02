@@ -14,10 +14,10 @@ export function HeroBento() {
   return (
     <section className="mb-24">
       {/* 2-Zone Master Grid: Left 8-Cols (Info Grid) + Right 4-Cols (Studio Portrait) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 items-stretch">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch">
         
         {/* ================= LEFT 8 COLUMNS: UNIFIED INFORMATION GRID ================= */}
-        <div className="col-span-12 lg:col-span-8 flex flex-col gap-4">
+        <div className="col-span-12 md:col-span-7 lg:col-span-8 flex flex-col gap-4">
           
           {/* CARD 1: TOP WIDE HERO IDENTITY BANNER */}
           <div
@@ -176,15 +176,15 @@ export function HeroBento() {
         </div>
 
         {/* ================= RIGHT 4 COLUMNS: STUDIO PORTRAIT CARD ================= */}
-        <div className="col-span-12 lg:col-span-4">
-          <div className="relative h-[520px] sm:h-[600px] lg:h-full min-h-[520px] rounded-[2.2rem] overflow-hidden border border-white/10 group shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
+        <div className="col-span-12 md:col-span-5 lg:col-span-4">
+          <div className="relative h-[650px] sm:h-[750px] md:h-full min-h-[580px] rounded-[2.2rem] overflow-hidden border border-white/10 group shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
             
             {/* Background Portrait Image */}
             <Image
               src="/profile.jpg"
               alt={portfolioData.personal.name}
               fill
-              className="object-cover object-[center_10%] group-hover:scale-105 transition-transform duration-700"
+              className="object-cover object-[center_top] group-hover:scale-105 transition-transform duration-700"
               priority
               sizes="(max-width: 1024px) 100vw, 33vw"
             />
