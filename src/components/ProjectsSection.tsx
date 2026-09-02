@@ -5,7 +5,8 @@ import { portfolioData } from '@/data/portfolioData';
 import { ArrowUpRight, Github, Sparkles, CheckCircle2, RotateCw, ArrowLeft } from 'lucide-react';
 
 export function ProjectsSection() {
-  const [flippedId, setFlippedId] = useState<string | null>(null);
+  // Independent flipped state per card so opening another card never automatically covers previous cards
+  const [flippedIds, setFlippedIds] = useState<Set<string>>(new Set());
   const [activeCategory, setActiveCategory] = useState<string>('All');
   const projects = portfolioData.projects;
 
@@ -17,7 +18,15 @@ export function ProjectsSection() {
       : projects.filter((p) => p.category === activeCategory);
 
   const toggleFlip = (id: string) => {
-    setFlippedId((prev) => (prev === id ? null : id));
+    setFlippedIds((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) {
+        next.delete(id);
+      } else {
+        next.add(id);
+      }
+      return next;
+    });
   };
 
   return (
@@ -49,7 +58,6 @@ export function ProjectsSection() {
                 key={cat}
                 onClick={() => {
                   setActiveCategory(cat);
-                  setFlippedId(null);
                 }}
                 className={`px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-wider transition-all duration-200 flex items-center gap-2 cursor-pointer ${
                   isActive
@@ -74,7 +82,7 @@ export function ProjectsSection() {
       {/* 3D Smooth In-Place Flippable Project Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredProjects.map((project) => {
-          const isFlipped = flippedId === project.id;
+          const isFlipped = flippedIds.has(project.id);
 
           return (
             <div
@@ -138,7 +146,7 @@ export function ProjectsSection() {
                         </span>
                       ))}
                       {project.tags.length > 3 && (
-                        <span className="px-1.5 py-0.5 rounded-lg text-[9px] font-bold text-gray-500 bg-white/5">
+                        <span className="px-2 py-1 rounded-lg text-[9px] font-bold text-gray-500 bg-white/5">
                           +{project.tags.length - 3}
                         </span>
                       )}
@@ -152,7 +160,7 @@ export function ProjectsSection() {
                   </div>
                 </div>
 
-                {/* 2. BACK OF CARD (Click anywhere to flip back to front!) */}
+                {/* 2. BACK OF CARD (Click anywhere on the card to flip back to front!) */}
                 <div
                   onClick={() => toggleFlip(project.id)}
                   style={{
