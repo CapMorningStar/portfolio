@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -26,8 +26,8 @@ const introSteps = [
   {
     step: '04',
     tag: 'SYSTEMS',
-    text: 'MODELS & PIPELINES',
-    subtitle: 'Production Machine Learning & Leakage-Free Architecture',
+    text: 'END-TO-END ML SYSTEMS',
+    subtitle: 'Feature Pipelines · Cross-Validation · Real-Time Inference',
   },
   {
     step: '05',
