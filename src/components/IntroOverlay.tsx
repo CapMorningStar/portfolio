@@ -423,83 +423,91 @@ export function IntroOverlay() {
       {/* ================= 1. PURE QUANTUM PROTON SINGULARITY ================= */}
       <AnimatePresence>
         {(phase === 'singularity' || phase === 'compression') && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-20">
-            {/* The Vibrating Quantum Singularity Particle */}
-            <motion.div
-              initial={{ scale: 0, opacity: 0 }}
-              animate={
-                phase === 'singularity'
-                  ? {
-                      scale: [0.75, 1.4, 1.1, 1.45],
-                      opacity: [0.6, 1, 0.85, 1],
-                      boxShadow: [
-                        '0 0 35px #00f0ff, 0 0 70px #06b6d4, 0 0 110px #fff',
-                        '0 0 90px #00f0ff, 0 0 160px #38bdf8, 0 0 220px #fff',
-                        '0 0 50px #00f0ff, 0 0 100px #06b6d4, 0 0 140px #fff',
-                        '0 0 100px #00f0ff, 0 0 180px #38bdf8, 0 0 250px #fff',
-                      ],
-                    }
-                  : {
-                      scale: [1.45, 0.15, 0.08, 0.14, 0.05],
-                      opacity: [1, 1, 0.95, 1, 1],
-                      boxShadow: [
-                        '0 0 160px #ffffff, 0 0 260px #00f0ff',
-                        '0 0 220px #ffffff, 0 0 320px #38bdf8',
-                        '0 0 260px #ffffff, 0 0 380px #00f0ff',
-                      ],
-                    }
-              }
-              transition={
-                phase === 'singularity'
-                  ? { duration: 2.4, ease: 'easeInOut' }
-                  : { duration: 1.5, ease: 'easeInOut' }
-              }
-              className="relative w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-[0_0_90px_#00f0ff]"
-            >
-              <div className="w-4 h-4 rounded-full bg-cyan-300 animate-ping" />
-
-              {/* Coronal Light Ring 1 */}
+          <div className="absolute inset-0 pointer-events-none z-20">
+            {/* The Vibrating Quantum Singularity Particle (Locked at exact Dead-Center 50% 50%) */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
               <motion.div
-                animate={{ rotate: 360, scale: phase === 'compression' ? [0.3, 0.5, 0.3] : [1, 1.25, 1] }}
-                transition={{ repeat: Infinity, duration: phase === 'compression' ? 0.6 : 2.4, ease: 'linear' }}
-                className="absolute -inset-5 rounded-full border-2 border-cyan-400/60 pointer-events-none"
-              />
+                initial={{ scale: 0, opacity: 0 }}
+                animate={
+                  phase === 'singularity'
+                    ? {
+                        scale: [0.75, 1.4, 1.1, 1.45],
+                        opacity: [0.6, 1, 0.85, 1],
+                        y: 0,
+                        boxShadow: [
+                          '0 0 35px #00f0ff, 0 0 70px #06b6d4, 0 0 110px #fff',
+                          '0 0 90px #00f0ff, 0 0 160px #38bdf8, 0 0 220px #fff',
+                          '0 0 50px #00f0ff, 0 0 100px #06b6d4, 0 0 140px #fff',
+                          '0 0 100px #00f0ff, 0 0 180px #38bdf8, 0 0 250px #fff',
+                        ],
+                      }
+                    : {
+                        scale: [1.45, 0.15, 0.08, 0.14, 0.05],
+                        opacity: [1, 1, 0.95, 1, 1],
+                        y: [0, -18, -12, -16, 0],
+                        boxShadow: [
+                          '0 0 160px #ffffff, 0 0 260px #00f0ff',
+                          '0 0 220px #ffffff, 0 0 320px #38bdf8',
+                          '0 0 260px #ffffff, 0 0 380px #00f0ff',
+                        ],
+                      }
+                }
+                transition={
+                  phase === 'singularity'
+                    ? { duration: 2.4, ease: 'easeInOut' }
+                    : { duration: 1.5, ease: 'easeInOut' }
+                }
+                className="relative w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-[0_0_90px_#00f0ff]"
+              >
+                <div className="w-4 h-4 rounded-full bg-cyan-300 animate-ping" />
 
-              {/* Coronal Light Ring 2 */}
-              <motion.div
-                animate={{ rotate: -360, scale: phase === 'compression' ? [0.4, 0.2, 0.4] : [1.2, 0.8, 1.2] }}
-                transition={{ repeat: Infinity, duration: phase === 'compression' ? 0.5 : 2.0, ease: 'linear' }}
-                className="absolute -inset-9 rounded-full border border-cyan-300/40 border-dashed pointer-events-none"
-              />
-            </motion.div>
-
-            {/* Glowing Futuristic Loading Telemetry */}
-            <motion.div
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, filter: 'blur(8px)' }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              className="mt-14 flex flex-col items-center text-center px-4 max-w-md"
-            >
-              {/* Header Badge */}
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[11px] font-mono tracking-widest uppercase mb-3 shadow-[0_0_15px_rgba(6,182,212,0.25)]">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
-                <span>✨ INITIALIZING COSMIC VOYAGE</span>
-              </div>
-
-              {/* Animated Progress Bar */}
-              <div className="w-48 sm:w-56 h-1 rounded-full bg-white/10 overflow-hidden mb-2.5 relative">
+                {/* Coronal Light Ring 1 */}
                 <motion.div
-                  style={{ width: `${chargingPercent}%` }}
-                  className="h-full bg-gradient-to-r from-cyan-500 via-sky-400 to-purple-500 shadow-[0_0_10px_#00f0ff] transition-all duration-75 ease-out"
+                  animate={{ rotate: 360, scale: phase === 'compression' ? [0.3, 0.5, 0.3] : [1, 1.25, 1] }}
+                  transition={{ repeat: Infinity, duration: phase === 'compression' ? 0.6 : 2.4, ease: 'linear' }}
+                  className="absolute -inset-5 rounded-full border-2 border-cyan-400/60 pointer-events-none"
                 />
-              </div>
 
-              {/* Dynamic 0 -> 100% Telemetry Status */}
-              <p className="text-cyan-400/80 text-[11px] font-mono tracking-wider">
-                [ Quantum Singularity Charging · {chargingPercent}% ]
-              </p>
-            </motion.div>
+                {/* Coronal Light Ring 2 */}
+                <motion.div
+                  animate={{ rotate: -360, scale: phase === 'compression' ? [0.4, 0.2, 0.4] : [1.2, 0.8, 1.2] }}
+                  transition={{ repeat: Infinity, duration: phase === 'compression' ? 0.5 : 2.0, ease: 'linear' }}
+                  className="absolute -inset-9 rounded-full border border-cyan-300/40 border-dashed pointer-events-none"
+                />
+              </motion.div>
+            </div>
+
+            {/* Glowing Futuristic Loading Telemetry (Only Visible during Singularity Charging; Disappears on Compression) */}
+            <AnimatePresence>
+              {phase === 'singularity' && (
+                <motion.div
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 12, scale: 0.92, filter: 'blur(8px)', transition: { duration: 0.35 } }}
+                  transition={{ duration: 0.4, delay: 0.1 }}
+                  className="absolute top-[60%] sm:top-[58%] left-1/2 -translate-x-1/2 flex flex-col items-center text-center px-4 w-full max-w-xs sm:max-w-md"
+                >
+                  {/* Header Badge */}
+                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[11px] font-mono tracking-widest uppercase mb-3 shadow-[0_0_15px_rgba(6,182,212,0.25)]">
+                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
+                    <span>✨ INITIALIZING COSMIC VOYAGE</span>
+                  </div>
+
+                  {/* Animated Progress Bar */}
+                  <div className="w-48 sm:w-56 h-1 rounded-full bg-white/10 overflow-hidden mb-2.5 relative">
+                    <motion.div
+                      style={{ width: `${chargingPercent}%` }}
+                      className="h-full bg-gradient-to-r from-cyan-500 via-sky-400 to-purple-500 shadow-[0_0_10px_#00f0ff] transition-all duration-75 ease-out"
+                    />
+                  </div>
+
+                  {/* Dynamic 0 -> 100% Telemetry Status */}
+                  <p className="text-cyan-400/80 text-[11px] font-mono tracking-wider">
+                    [ Quantum Singularity Charging · {chargingPercent}% ]
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         )}
       </AnimatePresence>
