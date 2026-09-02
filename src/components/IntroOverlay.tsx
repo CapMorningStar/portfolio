@@ -401,18 +401,6 @@ export function IntroOverlay() {
       {/* 3D Canvas Background */}
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
 
-      {/* ================= MOBILE-ONLY STATIONARY TOP-RIGHT ENTER BUTTON ================= */}
-      <div className="md:hidden fixed top-4 right-4 z-40 pointer-events-auto">
-        <button
-          onClick={(e) => handleExit(e)}
-          onTouchEnd={(e) => handleExit(e)}
-          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-cyan-400 text-black font-black text-[10px] uppercase tracking-wider shadow-[0_0_20px_rgba(6,182,212,0.6)] cursor-pointer active:scale-95 transition-transform"
-        >
-          <span>Enter</span>
-          <ArrowRight className="w-3 h-3 text-black" />
-        </button>
-      </div>
-
       {/* ================= 1. PURE QUANTUM PROTON SINGULARITY ================= */}
       <AnimatePresence>
         {(phase === 'singularity' || phase === 'compression') && (
@@ -490,7 +478,26 @@ export function IntroOverlay() {
         )}
       </AnimatePresence>
 
-      {/* ================= 3. TRUE VIEWPORT-PINNED CORNER HUD (Desktop Only) ================= */}
+      {/* ================= 3. MOBILE-ONLY TOP-RIGHT SKIP BUTTON (ONLY VISIBLE WHEN NAME POPS UP) ================= */}
+      {phase === 'matrix' && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="md:hidden fixed top-4 right-4 z-40 pointer-events-auto"
+        >
+          <button
+            onClick={(e) => handleExit(e)}
+            onTouchEnd={(e) => handleExit(e)}
+            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-cyan-400 text-black font-black text-[10px] uppercase tracking-wider shadow-[0_0_20px_rgba(6,182,212,0.6)] cursor-pointer active:scale-95 transition-transform"
+          >
+            <span>Skip</span>
+            <ChevronRight className="w-3 h-3 text-black" />
+          </button>
+        </motion.div>
+      )}
+
+      {/* ================= 4. TRUE VIEWPORT-PINNED CORNER HUD (Desktop Only) ================= */}
       {phase === 'matrix' && (
         <>
           {/* Top-Left: Genesis Telemetry */}
@@ -540,7 +547,7 @@ export function IntroOverlay() {
         </>
       )}
 
-      {/* ================= 4. CENTER: RESPONSIVE SINGLE-ROW IDENTITY MATRIX ================= */}
+      {/* ================= 5. CENTER: RESPONSIVE SINGLE-ROW IDENTITY MATRIX ================= */}
       {phase === 'matrix' && (
         <div className="relative z-20 text-center max-w-5xl px-4 sm:px-6 w-full flex flex-col items-center justify-center my-auto pointer-events-none">
           <AnimatePresence mode="wait">
@@ -559,7 +566,7 @@ export function IntroOverlay() {
                 transition={{ duration: 1.2, delay: 0.15 }}
                 className="inline-flex items-center gap-2 px-3.5 py-1.2 sm:px-4 sm:py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] sm:tracking-[0.35em] mb-4 sm:mb-6 backdrop-blur-md shadow-[0_0_20px_rgba(6,182,212,0.2)]"
               >
-                <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-cyan-400" />
+                <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
                 <span>{current.tag}</span>
               </motion.div>
 
