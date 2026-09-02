@@ -189,32 +189,8 @@ export function HeroBento() {
               sizes="(max-width: 1024px) 100vw, 33vw"
             />
 
-            {/* Gradient Darkening Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/40" />
-
-            {/* Bottom Metrics Counter Bar */}
-            <div className="absolute bottom-5 left-5 right-5 z-10">
-              <div className="grid grid-cols-3 gap-2 p-3.5 rounded-2xl bg-black/75 backdrop-blur-md border border-white/15 text-center shadow-xl">
-                <div>
-                  <div className="text-base sm:text-lg font-black text-cyan-400 leading-tight">7+</div>
-                  <div className="text-[8px] sm:text-[9px] font-mono uppercase tracking-wider text-gray-400 mt-0.5">
-                    ML Repos
-                  </div>
-                </div>
-                <div className="border-x border-white/10">
-                  <div className="text-base sm:text-lg font-black text-cyan-400 leading-tight">10+</div>
-                  <div className="text-[8px] sm:text-[9px] font-mono uppercase tracking-wider text-gray-400 mt-0.5">
-                    Certs
-                  </div>
-                </div>
-                <div>
-                  <div className="text-base sm:text-lg font-black text-cyan-400 leading-tight">40+</div>
-                  <div className="text-[8px] sm:text-[9px] font-mono uppercase tracking-wider text-gray-400 mt-0.5">
-                    Mentored
-                  </div>
-                </div>
-              </div>
-            </div>
+            {/* Subtle Ambient Vignette Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 pointer-events-none" />
           </div>
         </div>
 
