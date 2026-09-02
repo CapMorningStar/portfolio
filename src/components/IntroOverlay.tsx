@@ -50,6 +50,21 @@ interface Particle {
   color: string;
 }
 
+interface Shockwave {
+  r: number;
+  maxR: number;
+  lineWidth: number;
+  alpha: number;
+  speed: number;
+  color: string;
+}
+
+interface SupernovaFlash {
+  r: number;
+  maxR: number;
+  alpha: number;
+}
+
 export function IntroOverlay() {
   const [isVisible, setIsVisible] = useState(true);
   const [phase, setPhase] = useState<IntroPhase>('singularity');
@@ -57,6 +72,8 @@ export function IntroOverlay() {
   const [isExiting, setIsExiting] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const explosionParticles = useRef<Particle[]>([]);
+  const shockwaves = useRef<Shockwave[]>([]);
+  const supernovaFlash = useRef<SupernovaFlash | null>(null);
   const backgroundStars = useRef<{ x: number; y: number; z: number; speed: number; size: number }[]>([]);
 
   // Check if user already saw the intro in this session
@@ -90,12 +107,15 @@ export function IntroOverlay() {
       setPhase('compression');
     }, 1800);
 
-    // 2. Compression -> Detonation (Big Bang explosion) at 2.3s
+    // 2. Compression -> Detonation (Big Bang explosion) at 2.25s
     const t2 = setTimeout(() => {
       setPhase('detonation');
       if (typeof window !== 'undefined') {
         const cx = window.innerWidth / 2;
         const cy = window.innerHeight / 2;
+        const maxRadius = Math.max(window.innerWidth, window.innerHeight) * 1.3;
+
+        // A. Multi-Hue Particle Burst (450 Particles)
         const colors = [
           '#00f0ff',
           '#38bdf8',
@@ -106,26 +126,61 @@ export function IntroOverlay() {
           '#fbbf24',
           '#e0e7ff',
         ];
-        const pCount = 480;
+        const pCount = 450;
         const particles: Particle[] = [];
 
         for (let i = 0; i < pCount; i++) {
           const angle = Math.random() * Math.PI * 2;
-          const speed = Math.random() * 26 + 4;
+          const speed = Math.random() * 24 + 3;
           particles.push({
             x: cx,
             y: cy,
             vx: Math.cos(angle) * speed,
             vy: Math.sin(angle) * speed,
-            size: Math.random() * 4 + 1.2,
+            size: Math.random() * 3.5 + 1.2,
             alpha: 1,
-            decay: Math.random() * 0.015 + 0.006,
+            decay: Math.random() * 0.012 + 0.005,
             color: colors[Math.floor(Math.random() * colors.length)],
           });
         }
         explosionParticles.current = particles;
+
+        // B. High-Speed Radial Shockwave Rings (Pure Canvas anti-aliased)
+        shockwaves.current = [
+          {
+            r: 5,
+            maxR: maxRadius,
+            lineWidth: 8,
+            alpha: 1,
+            speed: 36,
+            color: '0, 240, 255',
+          },
+          {
+            r: 5,
+            maxR: maxRadius * 0.85,
+            lineWidth: 12,
+            alpha: 0.9,
+            speed: 26,
+            color: '192, 132, 252',
+          },
+          {
+            r: 5,
+            maxR: maxRadius * 0.65,
+            lineWidth: 6,
+            alpha: 0.8,
+            speed: 18,
+            color: '255, 255, 255',
+          },
+        ];
+
+        // C. Supernova Flash Bloom
+        supernovaFlash.current = {
+          r: 10,
+          maxR: Math.min(window.innerWidth, window.innerHeight) * 0.75,
+          alpha: 1,
+        };
       }
-    }, 2300);
+    }, 2250);
 
     // 3. Detonation -> Starlight Voyage (Stars shining for 2.2s) at 3.7s
     const t3 = setTimeout(() => {
@@ -173,7 +228,7 @@ export function IntroOverlay() {
     return () => clearInterval(interval);
   }, [isVisible, phase]);
 
-  // Canvas Physics: Big Bang Explosion + 3D Warp Starfield
+  // Canvas Physics: Pure GPU 120 FPS Big Bang Explosion + Shockwaves + 3D Warp Starfield
   useEffect(() => {
     if (!isVisible) return;
     const canvas = canvasRef.current;
@@ -194,7 +249,7 @@ export function IntroOverlay() {
 
     // Initialize 3D background stars
     if (backgroundStars.current.length === 0) {
-      backgroundStars.current = Array.from({ length: 260 }, () => ({
+      backgroundStars.current = Array.from({ length: 280 }, () => ({
         x: (Math.random() - 0.5) * width * 2,
         y: (Math.random() - 0.5) * height * 2,
         z: Math.random() * width,
@@ -249,13 +304,56 @@ export function IntroOverlay() {
         });
       }
 
-      // 2. Render Explosive Big Bang Particles
+      // 2. Render Supernova Flash Radiant Bloom (Pure Canvas Radial Gradient)
+      if (supernovaFlash.current && supernovaFlash.current.alpha > 0) {
+        const sf = supernovaFlash.current;
+        sf.r += (sf.maxR - sf.r) * 0.12;
+        sf.alpha *= 0.92;
+
+        const grad = ctx.createRadialGradient(cx, cy, 0, cx, cy, sf.r);
+        grad.addColorStop(0, `rgba(255, 255, 255, ${sf.alpha * 0.95})`);
+        grad.addColorStop(0.25, `rgba(0, 240, 255, ${sf.alpha * 0.75})`);
+        grad.addColorStop(0.6, `rgba(192, 132, 252, ${sf.alpha * 0.4})`);
+        grad.addColorStop(1, 'rgba(2, 0, 12, 0)');
+
+        ctx.beginPath();
+        ctx.arc(cx, cy, sf.r, 0, Math.PI * 2);
+        ctx.fillStyle = grad;
+        ctx.fill();
+
+        if (sf.alpha <= 0.01) supernovaFlash.current = null;
+      }
+
+      // 3. Render High-Speed Radial Shockwave Rings
+      if (shockwaves.current.length > 0) {
+        shockwaves.current.forEach((sw) => {
+          sw.r += sw.speed;
+          const progress = sw.r / sw.maxR;
+          sw.alpha = Math.max(0, 1 - progress);
+
+          if (sw.alpha > 0 && sw.r < sw.maxR) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.arc(cx, cy, sw.r, 0, Math.PI * 2);
+            ctx.lineWidth = Math.max(1, sw.lineWidth * (1 - progress * 0.7));
+            ctx.strokeStyle = `rgba(${sw.color}, ${sw.alpha})`;
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = `rgba(${sw.color}, 0.8)`;
+            ctx.stroke();
+            ctx.restore();
+          }
+        });
+
+        shockwaves.current = shockwaves.current.filter((sw) => sw.r < sw.maxR && sw.alpha > 0);
+      }
+
+      // 4. Render Explosive Big Bang Particles with Smooth Aerodynamic Physics
       if (explosionParticles.current.length > 0) {
         explosionParticles.current.forEach((p) => {
           p.x += p.vx;
           p.y += p.vy;
-          p.vx *= 0.95; // realistic aerodynamic deceleration
-          p.vy *= 0.95;
+          p.vx *= 0.96; // Smooth air resistance
+          p.vy *= 0.96;
           p.alpha -= p.decay;
 
           if (p.alpha > 0) {
@@ -263,7 +361,7 @@ export function IntroOverlay() {
             ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
             ctx.fillStyle = p.color;
             ctx.globalAlpha = Math.max(0, p.alpha);
-            ctx.shadowBlur = 15;
+            ctx.shadowBlur = 10;
             ctx.shadowColor = p.color;
             ctx.fill();
             ctx.shadowBlur = 0;
@@ -300,7 +398,7 @@ export function IntroOverlay() {
       }`}
       style={{ backgroundColor: '#02000c' }}
     >
-      {/* 3D Canvas Background */}
+      {/* 3D Canvas Background (High-Performance GPU Pipeline) */}
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
 
       {/* ================= 1. QUANTUM PROTON SINGULARITY ================= */}
@@ -322,7 +420,7 @@ export function IntroOverlay() {
                       ],
                     }
                   : {
-                      scale: [1.2, 0.08], // Compression before explosion
+                      scale: [1.2, 0.05], // Smooth, clean compression before explosion
                       opacity: [1, 1],
                       boxShadow: '0 0 140px #ffffff, 0 0 220px #00f0ff',
                     }
@@ -330,7 +428,7 @@ export function IntroOverlay() {
               transition={
                 phase === 'singularity'
                   ? { repeat: Infinity, duration: 1.4, ease: 'easeInOut' }
-                  : { duration: 0.5, ease: [0.6, 0.05, -0.01, 0.9] }
+                  : { duration: 0.45, ease: 'easeIn' }
               }
               className="relative w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-[0_0_80px_#00f0ff]"
             >
@@ -370,38 +468,7 @@ export function IntroOverlay() {
         )}
       </AnimatePresence>
 
-      {/* ================= 2. THE BIG BANG COSMIC DETONATION ================= */}
-      <AnimatePresence>
-        {phase === 'detonation' && (
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
-            {/* Primary Shockwave Ring 1 (Cyan Supernova) */}
-            <motion.div
-              initial={{ scale: 0, opacity: 1, borderWidth: '10px' }}
-              animate={{ scale: 32, opacity: 0, borderWidth: '1px' }}
-              transition={{ duration: 1.1, ease: [0.1, 0.9, 0.2, 1] }}
-              className="absolute w-24 h-24 rounded-full border-cyan-300 shadow-[0_0_140px_#00f0ff]"
-            />
-
-            {/* Secondary Shockwave Ring 2 (Violet Coronal Wave) */}
-            <motion.div
-              initial={{ scale: 0, opacity: 0.9, borderWidth: '14px' }}
-              animate={{ scale: 25, opacity: 0, borderWidth: '2px' }}
-              transition={{ duration: 1.3, delay: 0.08, ease: 'easeOut' }}
-              className="absolute w-24 h-24 rounded-full border-purple-400 shadow-[0_0_100px_#c084fc]"
-            />
-
-            {/* Supernova Radiant Flare Core */}
-            <motion.div
-              initial={{ scale: 1, opacity: 1 }}
-              animate={{ scale: 8, opacity: 0 }}
-              transition={{ duration: 0.8, ease: 'easeOut' }}
-              className="w-48 h-48 rounded-full bg-gradient-to-r from-cyan-300 via-white to-purple-400 blur-3xl"
-            />
-          </div>
-        )}
-      </AnimatePresence>
-
-      {/* ================= 3. STARLIGHT COSMIC VOYAGE (Stars for ~2.2s) ================= */}
+      {/* ================= 2. STARLIGHT COSMIC VOYAGE (Stars for ~2.2s) ================= */}
       <AnimatePresence>
         {phase === 'starlight_voyage' && (
           <motion.div
@@ -424,7 +491,7 @@ export function IntroOverlay() {
         )}
       </AnimatePresence>
 
-      {/* ================= 4. GENESIS OF IDENTITY MATRIX ================= */}
+      {/* ================= 3. GENESIS OF IDENTITY MATRIX ================= */}
       {phase === 'matrix' && (
         <>
           {/* TOP BAR */}
