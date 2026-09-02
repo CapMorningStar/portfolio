@@ -611,69 +611,73 @@ export function IntroOverlay() {
       {/* ================= 5. CENTER: RESPONSIVE SINGLE-ROW IDENTITY MATRIX ================= */}
       {phase === 'matrix' && (
         <div className="relative z-20 text-center max-w-5xl px-4 sm:px-6 w-full flex flex-col items-center justify-center my-auto pointer-events-none">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentIndex}
-              initial={{ opacity: 0, y: 35, scale: 0.92 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -25, scale: 1.04 }}
-              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
-              className="flex flex-col items-center w-full"
-            >
-              {/* Tag Badge */}
+          <div className="min-h-[220px] sm:min-h-[260px] flex flex-col items-center justify-center w-full">
+            <AnimatePresence mode="wait">
               <motion.div
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1.2, delay: 0.15 }}
-                className="inline-flex items-center gap-2 px-3.5 py-1.2 sm:px-4 sm:py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] sm:tracking-[0.35em] mb-4 sm:mb-6 backdrop-blur-md shadow-[0_0_20px_rgba(6,182,212,0.2)]"
+                key={currentIndex}
+                initial={{ opacity: 0, y: 35, scale: 0.92 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -25, scale: 1.04 }}
+                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                className="flex flex-col items-center w-full"
               >
-                <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-                <span>{current.tag}</span>
-              </motion.div>
-
-              {/* Main Headline (Responsive Auto Scaling) */}
-              <motion.h1
-                initial={{ opacity: 0, scale: 0.90, filter: 'blur(10px)' }}
-                animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-                transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
-                className="text-2xl sm:text-4xl md:text-5xl lg:text-[4.2rem] font-black uppercase tracking-tight text-white leading-none mb-3 sm:mb-4 drop-shadow-[0_15px_50px_rgba(0,0,0,1)] whitespace-nowrap overflow-hidden"
-              >
-                {current.text}
-              </motion.h1>
-
-              {/* Subtitle */}
-              <motion.p
-                initial={{ opacity: 0, y: 15 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1.3, delay: 0.35 }}
-                className="text-[10px] sm:text-xs md:text-sm font-mono font-bold tracking-[0.15em] sm:tracking-[0.2em] text-gray-300 uppercase mt-1 sm:mt-2 whitespace-nowrap"
-              >
-                <span className="text-cyan-400">&gt; </span>
-                {current.subtitle}
-              </motion.p>
-
-              {/* Step 5 Clean Call to Action Button */}
-              {isFinalStep && (
+                {/* Tag Badge */}
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.4 }}
-                  className="mt-6 sm:mt-8 pointer-events-auto"
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1.2, delay: 0.15 }}
+                  className="inline-flex items-center gap-2 px-3.5 py-1.2 sm:px-4 sm:py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] sm:tracking-[0.35em] mb-4 sm:mb-6 backdrop-blur-md shadow-[0_0_20px_rgba(6,182,212,0.2)]"
                 >
-                  <button
-                    onClick={(e) => handleExit(e)}
-                    className="inline-flex items-center gap-2.5 sm:gap-3 px-7 py-3.5 sm:px-9 sm:py-4 rounded-full bg-cyan-400 text-black font-black text-[10px] sm:text-xs uppercase tracking-[0.25em] shadow-[0_0_35px_rgba(6,182,212,0.6)] hover:bg-cyan-300 hover:scale-105 transition-all cursor-pointer"
-                  >
-                    <span>ENTER PORTFOLIO</span>
-                    <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  </button>
+                  <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>{current.tag}</span>
                 </motion.div>
-              )}
-            </motion.div>
-          </AnimatePresence>
 
-          {/* Progress Segmented Bar (Synced with 3.6s Timing) */}
-          <div className="mt-8 sm:mt-12 flex justify-center items-center gap-2 sm:gap-2.5">
+                {/* Main Headline (Responsive Auto Scaling) */}
+                <motion.h1
+                  initial={{ opacity: 0, scale: 0.90, filter: 'blur(10px)' }}
+                  animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                  transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
+                  className="text-2xl sm:text-4xl md:text-5xl lg:text-[4.2rem] font-black uppercase tracking-tight text-white leading-none mb-3 sm:mb-4 drop-shadow-[0_15px_50px_rgba(0,0,0,1)] whitespace-nowrap overflow-hidden"
+                >
+                  {current.text}
+                </motion.h1>
+
+                {/* Subtitle */}
+                <motion.p
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 1.3, delay: 0.35 }}
+                  className="text-[10px] sm:text-xs md:text-sm font-mono font-bold tracking-[0.15em] sm:tracking-[0.2em] text-gray-300 uppercase mt-1 sm:mt-2 whitespace-nowrap"
+                >
+                  <span className="text-cyan-400">&gt; </span>
+                  {current.subtitle}
+                </motion.p>
+
+                {/* Dedicated Pre-Allocated CTA Button Slot (Prevents Step 5 Layout Shift) */}
+                <div className="h-14 sm:h-16 mt-4 sm:mt-6 flex items-center justify-center w-full">
+                  {isFinalStep && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9, y: 12 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      transition={{ duration: 0.8, delay: 0.3 }}
+                      className="pointer-events-auto"
+                    >
+                      <button
+                        onClick={(e) => handleExit(e)}
+                        className="inline-flex items-center gap-2.5 sm:gap-3 px-7 py-3.5 sm:px-9 sm:py-4 rounded-full bg-cyan-400 text-black font-black text-[10px] sm:text-xs uppercase tracking-[0.25em] shadow-[0_0_35px_rgba(6,182,212,0.6)] hover:bg-cyan-300 hover:scale-105 transition-all cursor-pointer"
+                      >
+                        <span>ENTER PORTFOLIO</span>
+                        <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                      </button>
+                    </motion.div>
+                  )}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
+          {/* Progress Segmented Bar (Synced with 3.6s Timing - Rock-Solid Positioned) */}
+          <div className="mt-4 sm:mt-6 flex justify-center items-center gap-2 sm:gap-2.5">
             {introSteps.map((_, idx) => (
               <div
                 key={idx}
