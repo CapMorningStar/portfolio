@@ -631,73 +631,52 @@ export function IntroOverlay() {
       {/* ================= 5. CENTER: RESPONSIVE SINGLE-ROW IDENTITY MATRIX ================= */}
       {phase === 'matrix' && (
         <div className="relative z-20 text-center max-w-5xl px-4 sm:px-6 w-full flex flex-col items-center justify-center my-auto pointer-events-none">
-          <div className="min-h-[220px] sm:min-h-[260px] flex flex-col items-center justify-center w-full">
-            <AnimatePresence mode="wait">
+          {/* Card Content (Badge, Headline, Subtitle) */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0, y: 16, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -12, scale: 1.02, transition: { duration: 0.2 } }}
+              transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="flex flex-col items-center w-full"
+            >
+              {/* Tag Badge */}
               <motion.div
-                key={currentIndex}
-                initial={{ opacity: 0, y: 16, scale: 0.96 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -12, scale: 1.02, transition: { duration: 0.2 } }}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                className="flex flex-col items-center w-full"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.05 }}
+                className="inline-flex items-center gap-2 px-3.5 py-1.2 sm:px-4 sm:py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] sm:tracking-[0.35em] mb-3 sm:mb-4 backdrop-blur-md shadow-[0_0_20px_rgba(6,182,212,0.2)]"
               >
-                {/* Tag Badge */}
-                <motion.div
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 0.05 }}
-                  className="inline-flex items-center gap-2 px-3.5 py-1.2 sm:px-4 sm:py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] sm:tracking-[0.35em] mb-4 sm:mb-6 backdrop-blur-md shadow-[0_0_20px_rgba(6,182,212,0.2)]"
-                >
-                  <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-                  <span>{current.tag}</span>
-                </motion.div>
-
-                {/* Main Headline (Responsive Auto Scaling) */}
-                <motion.h1
-                  initial={{ opacity: 0, scale: 0.95, filter: 'blur(4px)' }}
-                  animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-                  className="text-2xl sm:text-4xl md:text-5xl lg:text-[4.2rem] font-black uppercase tracking-tight text-white leading-none mb-3 sm:mb-4 drop-shadow-[0_15px_50px_rgba(0,0,0,1)] whitespace-nowrap overflow-hidden"
-                >
-                  {current.text}
-                </motion.h1>
-
-                {/* Subtitle */}
-                <motion.p
-                  initial={{ opacity: 0, y: 8 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: 0.05 }}
-                  className="text-[10px] sm:text-xs md:text-sm font-mono font-bold tracking-[0.15em] sm:tracking-[0.2em] text-gray-300 uppercase mt-1 sm:mt-2 whitespace-nowrap"
-                >
-                  <span className="text-cyan-400">&gt; </span>
-                  {current.subtitle}
-                </motion.p>
-
-                {/* Dedicated Pre-Allocated CTA Button Slot (Prevents Step 5 Layout Shift) */}
-                <div className="h-14 sm:h-16 mt-4 sm:mt-6 flex items-center justify-center w-full">
-                  {isFinalStep && (
-                    <motion.div
-                      initial={{ opacity: 0, scale: 0.92, y: 8 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      transition={{ duration: 0.35, delay: 0.05 }}
-                      className="pointer-events-auto"
-                    >
-                      <button
-                        onClick={(e) => handleExit(e)}
-                        className="inline-flex items-center gap-2.5 sm:gap-3 px-7 py-3.5 sm:px-9 sm:py-4 rounded-full bg-cyan-400 text-black font-black text-[10px] sm:text-xs uppercase tracking-[0.25em] shadow-[0_0_35px_rgba(6,182,212,0.6)] hover:bg-cyan-300 hover:scale-105 transition-all cursor-pointer"
-                      >
-                        <span>ENTER PORTFOLIO</span>
-                        <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                      </button>
-                    </motion.div>
-                  )}
-                </div>
+                <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                <span>{current.tag}</span>
               </motion.div>
-            </AnimatePresence>
-          </div>
 
-          {/* Interactive Step Navigation Bar with Left & Right Arrows + Clickable Pills */}
-          <div className="mt-4 sm:mt-6 flex items-center justify-center gap-3 sm:gap-4 pointer-events-auto">
+              {/* Main Headline (Responsive Auto Scaling) */}
+              <motion.h1
+                initial={{ opacity: 0, scale: 0.95, filter: 'blur(4px)' }}
+                animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+                className="text-2xl sm:text-4xl md:text-5xl lg:text-[4.2rem] font-black uppercase tracking-tight text-white leading-none mb-2.5 sm:mb-3 drop-shadow-[0_15px_50px_rgba(0,0,0,1)] whitespace-nowrap overflow-hidden"
+              >
+                {current.text}
+              </motion.h1>
+
+              {/* Subtitle */}
+              <motion.p
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, delay: 0.05 }}
+                className="text-[10px] sm:text-xs md:text-sm font-mono font-bold tracking-[0.15em] sm:tracking-[0.2em] text-gray-300 uppercase mt-0.5 sm:mt-1 whitespace-nowrap"
+              >
+                <span className="text-cyan-400">&gt; </span>
+                {current.subtitle}
+              </motion.p>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Interactive Step Indicator with Pagination Arrows (Directly Below Subtitle - Clean Spacing) */}
+          <div className="mt-5 sm:mt-6 flex items-center justify-center gap-3 sm:gap-4 pointer-events-auto">
             {/* Left Previous Step Arrow */}
             <button
               onClick={(e) => {
@@ -752,6 +731,29 @@ export function IntroOverlay() {
             >
               <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
             </button>
+          </div>
+
+          {/* Step 5 ENTER PORTFOLIO Button Slot (Pops Below Step Indicator with Pagination Arrows) */}
+          <div className="h-14 sm:h-16 mt-4 sm:mt-5 flex items-center justify-center w-full">
+            <AnimatePresence>
+              {isFinalStep && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9, y: 10 }}
+                  animate={{ opacity: 1, scale: 1, y: 0 }}
+                  exit={{ opacity: 0, scale: 0.9, y: 10, transition: { duration: 0.25 } }}
+                  transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                  className="pointer-events-auto"
+                >
+                  <button
+                    onClick={(e) => handleExit(e)}
+                    className="inline-flex items-center gap-2.5 sm:gap-3 px-8 py-3.5 sm:px-10 sm:py-4 rounded-full bg-cyan-400 text-black font-black text-[10px] sm:text-xs uppercase tracking-[0.25em] shadow-[0_0_35px_rgba(6,182,212,0.6)] hover:bg-cyan-300 hover:scale-105 transition-all cursor-pointer active:scale-95 border border-cyan-300"
+                  >
+                    <span>ENTER PORTFOLIO</span>
+                    <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       )}
