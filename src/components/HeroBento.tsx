@@ -196,7 +196,7 @@ export function HeroBento() {
             <div className="absolute top-5 left-5 right-5 flex items-center justify-between z-10">
               <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-cyan-300 text-[10px] font-black uppercase tracking-[0.25em] shadow-lg">
                 <Sparkles className="w-3 h-3 text-cyan-400" />
-                <span>{portfolioData.personal.title}</span>
+                <span>{portfolioData.personal.badge}</span>
               </div>
 
               <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-gray-300">
