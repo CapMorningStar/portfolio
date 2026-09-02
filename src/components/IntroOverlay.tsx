@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Zap, Terminal, ArrowRight, Sparkles, ChevronRight } from 'lucide-react';
+import { Zap, Terminal, ArrowRight, Sparkles, ChevronRight, ChevronLeft } from 'lucide-react';
 
 const introSteps = [
   {
@@ -244,7 +244,7 @@ export function IntroOverlay() {
     }, 3600);
 
     return () => clearInterval(interval);
-  }, [isVisible, phase]);
+  }, [isVisible, phase, currentIndex]);
 
   // Canvas Physics: Pure GPU Big Bang Explosion + Shockwaves + 3D Warp Starfield
   useEffect(() => {
@@ -704,20 +704,62 @@ export function IntroOverlay() {
             </AnimatePresence>
           </div>
 
-          {/* Progress Segmented Bar (Synced with 3.6s Timing - Rock-Solid Positioned) */}
-          <div className="mt-4 sm:mt-6 flex justify-center items-center gap-2 sm:gap-2.5">
-            {introSteps.map((_, idx) => (
-              <div
-                key={idx}
-                className={`h-1.2 sm:h-1.5 rounded-full transition-all duration-700 ${
-                  idx === currentIndex
-                    ? 'w-9 sm:w-12 bg-cyan-400 shadow-[0_0_12px_#06b6d4]'
-                    : idx < currentIndex
-                    ? 'w-3 sm:w-4 bg-white/30'
-                    : 'w-3 sm:w-4 bg-white/10'
-                }`}
-              />
-            ))}
+          {/* Interactive Step Navigation Bar with Left & Right Arrows + Clickable Pills */}
+          <div className="mt-4 sm:mt-6 flex items-center justify-center gap-3 sm:gap-4 pointer-events-auto">
+            {/* Left Previous Step Arrow */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                if (currentIndex > 0) setCurrentIndex((prev) => prev - 1);
+              }}
+              disabled={currentIndex === 0}
+              aria-label="Previous Step"
+              className={`p-1.5 sm:p-2 rounded-full transition-all duration-300 flex items-center justify-center ${
+                currentIndex > 0
+                  ? 'text-cyan-400 hover:text-white bg-cyan-500/10 hover:bg-cyan-500/30 border border-cyan-500/40 shadow-[0_0_15px_rgba(6,182,212,0.3)] hover:scale-110 cursor-pointer active:scale-95'
+                  : 'text-gray-600 bg-white/5 border border-white/5 opacity-20 cursor-not-allowed'
+              }`}
+            >
+              <ChevronLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+            </button>
+
+            {/* Progress Segmented Pills (Clickable to Jump to Step) */}
+            <div className="flex items-center gap-2 sm:gap-2.5">
+              {introSteps.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setCurrentIndex(idx);
+                  }}
+                  aria-label={`Jump to Step ${idx + 1}`}
+                  className={`h-1.5 sm:h-2 rounded-full transition-all duration-500 cursor-pointer focus:outline-none ${
+                    idx === currentIndex
+                      ? 'w-9 sm:w-12 bg-cyan-400 shadow-[0_0_15px_#06b6d4]'
+                      : idx < currentIndex
+                      ? 'w-3.5 sm:w-4.5 bg-white/40 hover:bg-cyan-300/60'
+                      : 'w-3.5 sm:w-4.5 bg-white/15 hover:bg-cyan-300/40'
+                  }`}
+                />
+              ))}
+            </div>
+
+            {/* Right Next Step Arrow */}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                if (currentIndex < introSteps.length - 1) setCurrentIndex((prev) => prev + 1);
+              }}
+              disabled={currentIndex === introSteps.length - 1}
+              aria-label="Next Step"
+              className={`p-1.5 sm:p-2 rounded-full transition-all duration-300 flex items-center justify-center ${
+                currentIndex < introSteps.length - 1
+                  ? 'text-cyan-400 hover:text-white bg-cyan-500/10 hover:bg-cyan-500/30 border border-cyan-500/40 shadow-[0_0_15px_rgba(6,182,212,0.3)] hover:scale-110 cursor-pointer active:scale-95'
+                  : 'text-gray-600 bg-white/5 border border-white/5 opacity-20 cursor-not-allowed'
+              }`}
+            >
+              <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />
+            </button>
           </div>
         </div>
       )}
