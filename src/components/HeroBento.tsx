@@ -181,7 +181,7 @@ export function HeroBento() {
             
             {/* Background Portrait Image */}
             <Image
-              src="/kyaw.jpg"
+              src="/profile.jpg"
               alt={portfolioData.personal.name}
               fill
               className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
@@ -190,7 +190,7 @@ export function HeroBento() {
             />
 
             {/* Gradient Darkening Overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/30 to-black/50" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/40" />
 
             {/* Top Badge: AI/ML Engineer + Class Year */}
             <div className="absolute top-5 left-5 right-5 flex items-center justify-between z-10">
