@@ -210,20 +210,11 @@ export function IntroOverlay() {
       setPhase('matrix');
     }, 7100);
 
-    // Keydown skip listener
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
-        handleExit();
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
       clearTimeout(t3);
       clearTimeout(t4);
-      window.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'auto';
     };
   }, [isVisible]);
@@ -407,10 +398,7 @@ export function IntroOverlay() {
 
   return (
     <div
-      role="button"
-      tabIndex={0}
-      onClick={(e) => handleExit(e)}
-      className={`fixed inset-0 z-[999999] flex flex-col items-center justify-center select-none overflow-hidden transition-all duration-700 ease-out cursor-pointer ${
+      className={`fixed inset-0 z-[999999] flex flex-col items-center justify-center select-none overflow-hidden transition-all duration-700 ease-out cursor-default ${
         isExiting
           ? 'opacity-0 scale-110 blur-sm pointer-events-none'
           : 'opacity-100 scale-100 blur-0'
@@ -595,15 +583,20 @@ export function IntroOverlay() {
             <span>INTERACTIVE TERMINAL READY</span>
           </motion.div>
 
-          {/* Bottom-Right: Clean Skip Indicator */}
+          {/* Bottom-Right: Clean Interactive Skip Button (Desktop) */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="fixed bottom-8 right-8 z-30 hidden md:flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-cyan-400 hover:text-white transition-colors bg-white/5 hover:bg-cyan-500/20 px-3.5 py-1.5 rounded-full border border-white/10 backdrop-blur-md shadow-sm"
+            className="fixed bottom-8 right-8 z-30 hidden md:flex pointer-events-auto"
           >
-            <span>CLICK TO SKIP</span>
-            <ChevronRight className="w-3.5 h-3.5 animate-pulse" />
+            <button
+              onClick={(e) => handleExit(e)}
+              className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/5 hover:bg-cyan-400 text-cyan-400 hover:text-black font-mono font-bold text-[10px] uppercase tracking-[0.25em] border border-white/10 hover:border-cyan-400 backdrop-blur-md transition-all shadow-sm hover:shadow-[0_0_25px_rgba(6,182,212,0.6)] cursor-pointer active:scale-95"
+            >
+              <span>SKIP INTRO</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </button>
           </motion.div>
         </>
       )}
