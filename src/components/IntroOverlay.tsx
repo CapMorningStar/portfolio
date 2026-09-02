@@ -179,7 +179,7 @@ export function IntroOverlay() {
       setPhase('starlight_voyage');
     }, 3900);
 
-    // 4. Starlight Voyage -> Matrix (Name emerges slowly and gracefully) at 6.1s
+    // 4. Starlight Voyage -> Matrix (Name emerges slowly and majestically) at 6.1s
     const t4 = setTimeout(() => {
       setPhase('matrix');
     }, 6100);
@@ -202,7 +202,7 @@ export function IntroOverlay() {
     };
   }, [isVisible]);
 
-  // Word Matrix Step Sequencer (2.6s pacing per step)
+  // Word Matrix Step Sequencer: Generous, Equal Reading Time (3.6s per step)
   useEffect(() => {
     if (!isVisible || phase !== 'matrix') return;
 
@@ -215,7 +215,7 @@ export function IntroOverlay() {
           return prev;
         }
       });
-    }, 2600);
+    }, 3600); // Equal, comfortable reading time of 3.6s per card
 
     return () => clearInterval(interval);
   }, [isVisible, phase]);
@@ -452,7 +452,7 @@ export function IntroOverlay() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 1.05 }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
+            transition={{ duration: 0.7, ease: 'easeOut' }}
             className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-20"
           >
             <motion.div
@@ -518,44 +518,44 @@ export function IntroOverlay() {
         </>
       )}
 
-      {/* ================= 4. CENTER: RESPONSIVE SINGLE-ROW IDENTITY MATRIX ================= */}
+      {/* ================= 4. CENTER: SLOW, MAJESTIC IDENTITY & CREDENTIAL EMERGENCE ================= */}
       {phase === 'matrix' && (
         <div className="relative z-20 text-center max-w-5xl px-4 sm:px-6 w-full flex flex-col items-center justify-center my-auto">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
-              initial={{ opacity: 0, y: 40, scale: 0.90 }}
+              initial={{ opacity: 0, y: 35, scale: 0.92 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: -30, scale: 1.05 }}
-              transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+              exit={{ opacity: 0, y: -25, scale: 1.04 }}
+              transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
               className="flex flex-col items-center w-full"
             >
               {/* Tag Badge */}
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, delay: 0.15 }}
+                transition={{ duration: 1.2, delay: 0.15 }}
                 className="inline-flex items-center gap-2 px-3.5 py-1.2 sm:px-4 sm:py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] sm:tracking-[0.35em] mb-4 sm:mb-6 backdrop-blur-md shadow-[0_0_20px_rgba(6,182,212,0.2)]"
               >
                 <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-cyan-400" />
                 <span>{current.tag}</span>
               </motion.div>
 
-              {/* Main Headline (Responsive Auto Scaling - Fits 1 Row on Mobile 360px+) */}
+              {/* Main Headline (Slow, Majestic 1.6s Blur-to-Sharp Deceleration) */}
               <motion.h1
-                initial={{ opacity: 0, scale: 0.92, filter: 'blur(8px)' }}
+                initial={{ opacity: 0, scale: 0.90, filter: 'blur(10px)' }}
                 animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
                 className="text-2xl sm:text-4xl md:text-5xl lg:text-[4.2rem] font-black uppercase tracking-tight text-white leading-none mb-3 sm:mb-4 drop-shadow-[0_15px_50px_rgba(0,0,0,1)] whitespace-nowrap overflow-hidden"
               >
                 {current.text}
               </motion.h1>
 
-              {/* Subtitle */}
+              {/* Subtitle (Smooth 1.3s Glide In) */}
               <motion.p
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1.0, delay: 0.25 }}
+                transition={{ duration: 1.3, delay: 0.35 }}
                 className="text-[10px] sm:text-xs md:text-sm font-mono font-bold tracking-[0.15em] sm:tracking-[0.2em] text-gray-300 uppercase mt-1 sm:mt-2 whitespace-nowrap"
               >
                 <span className="text-cyan-400">&gt; </span>
@@ -567,7 +567,7 @@ export function IntroOverlay() {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9, y: 20 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
+                  transition={{ duration: 0.8, delay: 0.4 }}
                   className="mt-6 sm:mt-8"
                 >
                   <div className="inline-flex items-center gap-2.5 sm:gap-3 px-7 py-3.5 sm:px-9 sm:py-4 rounded-full bg-cyan-400 text-black font-black text-[10px] sm:text-xs uppercase tracking-[0.25em] shadow-[0_0_35px_rgba(6,182,212,0.6)] hover:bg-cyan-300 hover:scale-105 transition-all">
@@ -579,12 +579,12 @@ export function IntroOverlay() {
             </motion.div>
           </AnimatePresence>
 
-          {/* Progress Segmented Bar */}
+          {/* Progress Segmented Bar (Synced with 3.6s Timing) */}
           <div className="mt-8 sm:mt-12 flex justify-center items-center gap-2 sm:gap-2.5">
             {introSteps.map((_, idx) => (
               <div
                 key={idx}
-                className={`h-1.2 sm:h-1.5 rounded-full transition-all duration-500 ${
+                className={`h-1.2 sm:h-1.5 rounded-full transition-all duration-700 ${
                   idx === currentIndex
                     ? 'w-9 sm:w-12 bg-cyan-400 shadow-[0_0_12px_#06b6d4]'
                     : idx < currentIndex
