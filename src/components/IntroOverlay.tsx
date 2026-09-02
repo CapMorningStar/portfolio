@@ -480,32 +480,34 @@ export function IntroOverlay() {
             {/* Glowing Futuristic Loading Telemetry (Only Visible during Singularity Charging; Disappears on Compression) */}
             <AnimatePresence>
               {phase === 'singularity' && (
-                <motion.div
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 12, scale: 0.92, filter: 'blur(8px)', transition: { duration: 0.35 } }}
-                  transition={{ duration: 0.4, delay: 0.1 }}
-                  className="absolute top-[60%] sm:top-[58%] left-1/2 -translate-x-1/2 flex flex-col items-center text-center px-4 w-full max-w-xs sm:max-w-md"
-                >
-                  {/* Header Badge */}
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[11px] font-mono tracking-widest uppercase mb-3 shadow-[0_0_15px_rgba(6,182,212,0.25)]">
-                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
-                    <span>✨ INITIALIZING COSMIC VOYAGE</span>
-                  </div>
+                <div className="absolute top-[62%] sm:top-[60%] left-1/2 -translate-x-1/2 flex flex-col items-center justify-center w-full max-w-sm pointer-events-none">
+                  <motion.div
+                    initial={{ opacity: 0, y: 12 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 12, filter: 'blur(8px)', transition: { duration: 0.35 } }}
+                    transition={{ duration: 0.4, delay: 0.1 }}
+                    className="flex flex-col items-center text-center px-4 w-full"
+                  >
+                    {/* Header Badge */}
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[11px] font-mono tracking-widest uppercase mb-3 shadow-[0_0_15px_rgba(6,182,212,0.25)]">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
+                      <span>✨ INITIALIZING COSMIC VOYAGE</span>
+                    </div>
 
-                  {/* Animated Progress Bar */}
-                  <div className="w-48 sm:w-56 h-1 rounded-full bg-white/10 overflow-hidden mb-2.5 relative">
-                    <motion.div
-                      style={{ width: `${chargingPercent}%` }}
-                      className="h-full bg-gradient-to-r from-cyan-500 via-sky-400 to-purple-500 shadow-[0_0_10px_#00f0ff] transition-all duration-75 ease-out"
-                    />
-                  </div>
+                    {/* Animated Progress Bar */}
+                    <div className="w-48 sm:w-56 h-1 rounded-full bg-white/10 overflow-hidden mb-2.5 relative">
+                      <motion.div
+                        style={{ width: `${chargingPercent}%` }}
+                        className="h-full bg-gradient-to-r from-cyan-500 via-sky-400 to-purple-500 shadow-[0_0_10px_#00f0ff] transition-all duration-75 ease-out"
+                      />
+                    </div>
 
-                  {/* Dynamic 0 -> 100% Telemetry Status */}
-                  <p className="text-cyan-400/80 text-[11px] font-mono tracking-wider">
-                    [ Quantum Singularity Charging · {chargingPercent}% ]
-                  </p>
-                </motion.div>
+                    {/* Dynamic 0 -> 100% Telemetry Status */}
+                    <p className="text-cyan-400/80 text-[11px] font-mono tracking-wider">
+                      [ Quantum Singularity Charging · {chargingPercent}% ]
+                    </p>
+                  </motion.div>
+                </div>
               )}
             </AnimatePresence>
           </div>
