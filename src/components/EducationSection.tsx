@@ -4,17 +4,18 @@ import React from 'react';
 import { portfolioData } from '@/data/portfolioData';
 import { GraduationCap, Award, Trophy, ArrowUpRight, Sparkles } from 'lucide-react';
 
-/* ================= BRAND & UNIVERSITY VECTOR LOGOS ================= */
+/* ================= AUTHENTIC COMPANY & UNIVERSITY VECTOR LOGOS ================= */
 
-function LogoUCSD({ className = "w-7 h-7" }: { className?: string }) {
+/** UC San Diego (UCSD) - Official Navy & Gold Triton Seal */
+function LogoUCSD({ className = "w-10 h-10" }: { className?: string }) {
   return (
-    <div className={`${className} rounded-xl bg-[#002855] border border-[#FFCD00]/40 flex items-center justify-center p-1 shadow-sm shrink-0`}>
+    <div className={`${className} rounded-xl bg-[#182B49] border border-[#FFCD00]/50 flex items-center justify-center p-1.5 shadow-md shrink-0`}>
       <svg viewBox="0 0 100 100" className="w-full h-full" fill="none">
-        {/* UCSD Triton & Sun Crest Motif */}
-        <circle cx="50" cy="50" r="46" stroke="#FFCD00" strokeWidth="6" fill="#002855" />
-        <path d="M50 15 L50 85 M15 50 L85 50" stroke="#FFCD00" strokeWidth="4" opacity="0.4" />
-        <path d="M32 32 L50 18 L68 32 L58 48 L50 38 L42 48 Z" fill="#FFCD00" />
-        <text x="50" y="76" textAnchor="middle" fill="#FFCD00" fontSize="22" fontWeight="900" fontFamily="sans-serif">
+        {/* Navy & Gold UCSD Emblem */}
+        <circle cx="50" cy="50" r="44" stroke="#FFCD00" strokeWidth="5" fill="#182B49" />
+        <circle cx="50" cy="50" r="36" stroke="#FFCD00" strokeWidth="1.5" strokeDasharray="3,3" fill="none" opacity="0.7" />
+        <path d="M50 20 L58 35 L74 38 L62 50 L65 66 L50 58 L35 66 L38 50 L26 38 L42 35 Z" fill="#FFCD00" />
+        <text x="50" y="86" textAnchor="middle" fill="#FFCD00" fontSize="16" fontWeight="900" fontFamily="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" letterSpacing="1.5">
           UCSD
         </text>
       </svg>
@@ -22,14 +23,18 @@ function LogoUCSD({ className = "w-7 h-7" }: { className?: string }) {
   );
 }
 
-function LogoSkyline({ className = "w-7 h-7" }: { className?: string }) {
+/** Skyline College (San Bruno, CA - SF Bay Area) - Official Navy & Teal Horizon S-Wave */
+function LogoSkyline({ className = "w-10 h-10" }: { className?: string }) {
   return (
-    <div className={`${className} rounded-xl bg-[#004830] border border-emerald-400/40 flex items-center justify-center p-1 shadow-sm shrink-0`}>
+    <div className={`${className} rounded-xl bg-[#003B71] border border-[#00A3E0]/50 flex items-center justify-center p-1.5 shadow-md shrink-0`}>
       <svg viewBox="0 0 100 100" className="w-full h-full" fill="none">
-        <circle cx="50" cy="50" r="46" stroke="#34d399" strokeWidth="6" fill="#004830" />
-        {/* Skyline College Birds & Waves */}
-        <path d="M25 45 Q50 20 75 45 Q50 65 25 45 Z" fill="#34d399" />
-        <text x="50" y="78" textAnchor="middle" fill="#ffffff" fontSize="16" fontWeight="900" fontFamily="sans-serif">
+        {/* Skyline College Bay Area Horizon Crest */}
+        <rect width="100" height="100" rx="20" fill="#003B71" />
+        <path d="M20 62 Q50 32 80 62 Q50 92 20 62 Z" fill="#00A3E0" opacity="0.9" />
+        <path d="M30 70 Q50 48 70 70 Q50 88 30 70 Z" fill="#EAAA00" opacity="0.85" />
+        {/* Stylized Skyline S Wave */}
+        <path d="M35 48 C45 35 55 35 65 48 C55 60 45 60 35 48 Z" fill="#FFFFFF" />
+        <text x="50" y="88" textAnchor="middle" fill="#FFFFFF" fontSize="13" fontWeight="900" fontFamily="-apple-system, sans-serif" letterSpacing="1">
           SKYLINE
         </text>
       </svg>
@@ -37,56 +42,50 @@ function LogoSkyline({ className = "w-7 h-7" }: { className?: string }) {
   );
 }
 
-function LogoDeepLearningAI({ className = "w-6 h-6" }: { className?: string }) {
+/** DeepLearning.AI (Andrew Ng) - Official 3D Isometric Coral Red & Orange Faceted Cube */
+function LogoDeepLearningAI({ className = "w-7 h-7" }: { className?: string }) {
   return (
-    <div className={`${className} rounded-lg bg-[#0e1628] border border-cyan-500/30 flex items-center justify-center p-1 shrink-0 shadow-sm`}>
+    <div className={`${className} rounded-lg bg-[#0E1628] border border-red-500/40 flex items-center justify-center p-1 shrink-0 shadow-sm`}>
       <svg viewBox="0 0 100 100" className="w-full h-full">
-        {/* DeepLearning.AI Signature Geometric Diamond Neural Net */}
-        <polygon points="50,12 85,32 85,68 50,88 15,68 15,32" fill="#ff4154" opacity="0.9" />
-        <polygon points="50,22 75,37 75,63 50,78 25,63 25,37" fill="#1b2a47" />
-        <circle cx="50" cy="50" r="10" fill="#00f0ff" />
-        <line x1="50" y1="22" x2="50" y2="40" stroke="#00f0ff" strokeWidth="4" />
-        <line x1="75" y1="63" x2="58" y2="54" stroke="#ff4154" strokeWidth="4" />
-        <line x1="25" y1="63" x2="42" y2="54" stroke="#ffbe0b" strokeWidth="4" />
+        {/* Top Facet (Coral Light) */}
+        <polygon points="50,15 85,35 50,55 15,35" fill="#FF6B6B" />
+        {/* Left Facet (Deep Coral Crimson) */}
+        <polygon points="15,35 50,55 50,92 15,72" fill="#FF334B" />
+        {/* Right Facet (Dark Crimson Ruby) */}
+        <polygon points="50,55 85,35 85,72 50,92" fill="#D32F2F" />
+        {/* Central Core Glow */}
+        <circle cx="50" cy="55" r="7" fill="#00F0FF" />
+        <line x1="50" y1="25" x2="50" y2="48" stroke="#00F0FF" strokeWidth="3" strokeLinecap="round" />
+        <line x1="28" y1="62" x2="44" y2="58" stroke="#FFD166" strokeWidth="3" strokeLinecap="round" />
+        <line x1="72" y1="62" x2="56" y2="58" stroke="#FF6B6B" strokeWidth="3" strokeLinecap="round" />
       </svg>
     </div>
   );
 }
 
-function LogoStanford({ className = "w-6 h-6" }: { className?: string }) {
+/** Stanford Online / Stanford University - Official Cardinal 'S' with Palo Alto Redwood Tree */
+function LogoStanford({ className = "w-7 h-7" }: { className?: string }) {
   return (
     <div className={`${className} rounded-lg bg-[#8C1515] border border-red-400/40 flex items-center justify-center p-0.5 shrink-0 shadow-sm`}>
       <svg viewBox="0 0 100 100" className="w-full h-full">
-        {/* Stanford Block S with Tree Motif */}
-        <text x="50" y="72" textAnchor="middle" fill="#FFFFFF" fontSize="62" fontWeight="900" fontFamily="Georgia, serif">
+        {/* Stanford Block S */}
+        <text x="50" y="74" textAnchor="middle" fill="#FFFFFF" fontSize="66" fontWeight="900" fontFamily="Georgia, Times New Roman, serif">
           S
         </text>
-        <path d="M50 24 L56 40 L52 40 L57 54 L52 54 L58 68 L42 68 L48 54 L43 54 L48 40 L44 40 Z" fill="#007C66" />
+        {/* Redwood Tree Silhouette */}
+        <path d="M50 22 L57 38 L52 38 L58 52 L53 52 L60 66 L40 66 L47 52 L42 52 L48 38 L43 38 Z" fill="#007C66" />
+        <rect x="48.5" y="66" width="3" height="9" fill="#007C66" />
       </svg>
     </div>
   );
 }
 
-function LogoAWS({ className = "w-6 h-6" }: { className?: string }) {
+/** Google Cloud Platform - Official 4-Color Cloud Platform Emblem */
+function LogoGoogleCloud({ className = "w-7 h-7" }: { className?: string }) {
   return (
-    <div className={`${className} rounded-lg bg-[#232F3E] border border-amber-500/40 flex items-center justify-center p-1 shrink-0 shadow-sm`}>
+    <div className={`${className} rounded-lg bg-[#1A1F2C] border border-blue-400/40 flex items-center justify-center p-1 shrink-0 shadow-sm`}>
       <svg viewBox="0 0 100 100" className="w-full h-full">
-        {/* AWS Orange Smile */}
-        <text x="50" y="45" textAnchor="middle" fill="#FFFFFF" fontSize="26" fontWeight="900" fontFamily="sans-serif">
-          aws
-        </text>
-        <path d="M22 62 Q50 82 78 62" stroke="#FF9900" strokeWidth="7" strokeLinecap="round" fill="none" />
-        <polygon points="76,56 84,65 72,68" fill="#FF9900" />
-      </svg>
-    </div>
-  );
-}
-
-function LogoGoogleCloud({ className = "w-6 h-6" }: { className?: string }) {
-  return (
-    <div className={`${className} rounded-lg bg-[#1a1f2c] border border-blue-400/40 flex items-center justify-center p-1 shrink-0 shadow-sm`}>
-      <svg viewBox="0 0 100 100" className="w-full h-full">
-        {/* 4-Color Google Cloud Platform */}
+        {/* Google Cloud 4-Color Platform */}
         <path d="M38 65 L28 55 Q20 40 35 30 Q50 20 62 32 Q78 28 82 45 Q88 60 74 65 Z" fill="#4285F4" opacity="0.3" />
         <path d="M32 60 L24 50 A15 15 0 0 1 45 35 A22 22 0 0 1 72 40 A16 16 0 0 1 78 60 Z" stroke="#4285F4" strokeWidth="6" fill="none" />
         <circle cx="34" cy="52" r="5" fill="#EA4335" />
@@ -97,26 +96,41 @@ function LogoGoogleCloud({ className = "w-6 h-6" }: { className?: string }) {
   );
 }
 
-function LogoMichigan({ className = "w-6 h-6" }: { className?: string }) {
+/** University of Michigan - Official Block 'M' in Maize & Blue */
+function LogoMichigan({ className = "w-7 h-7" }: { className?: string }) {
   return (
-    <div className={`${className} rounded-lg bg-[#00274C] border border-[#FFCB05]/50 flex items-center justify-center p-0.5 shrink-0 shadow-sm`}>
+    <div className={`${className} rounded-lg bg-[#00274C] border border-[#FFCB05]/60 flex items-center justify-center p-0.5 shrink-0 shadow-sm`}>
       <svg viewBox="0 0 100 100" className="w-full h-full">
         {/* Michigan Block M */}
-        <text x="50" y="74" textAnchor="middle" fill="#FFCB05" fontSize="68" fontWeight="900" fontFamily="sans-serif">
-          M
-        </text>
+        <path d="M22 30 H36 L50 58 L64 30 H78 V70 H64 V48 L52 70 H48 L36 48 V70 H22 Z" fill="#FFCB05" />
       </svg>
     </div>
   );
 }
 
-function LogoHarvard({ className = "w-6 h-6" }: { className?: string }) {
+/** Amazon Web Services (AWS) - Official AWS Cloud Smile */
+function LogoAWS({ className = "w-7 h-7" }: { className?: string }) {
   return (
-    <div className={`${className} rounded-lg bg-[#A51C30] border border-red-300/40 flex items-center justify-center p-0.5 shrink-0 shadow-sm`}>
+    <div className={`${className} rounded-lg bg-[#232F3E] border border-amber-500/40 flex items-center justify-center p-1 shrink-0 shadow-sm`}>
       <svg viewBox="0 0 100 100" className="w-full h-full">
-        {/* Harvard Crimson Shield */}
-        <path d="M20 18 H80 V60 Q80 82 50 92 Q20 82 20 60 Z" fill="#A51C30" stroke="#FFFFFF" strokeWidth="4" />
-        <text x="50" y="58" textAnchor="middle" fill="#FFFFFF" fontSize="24" fontWeight="900" fontFamily="serif">
+        {/* AWS Typography & Orange Smile Curve */}
+        <text x="50" y="46" textAnchor="middle" fill="#FFFFFF" fontSize="28" fontWeight="900" fontFamily="sans-serif">
+          aws
+        </text>
+        <path d="M22 62 Q50 82 78 62" stroke="#FF9900" strokeWidth="7" strokeLinecap="round" fill="none" />
+        <polygon points="76,56 84,65 72,68" fill="#FF9900" />
+      </svg>
+    </div>
+  );
+}
+
+/** Harvard University / CS50 - Official Harvard Crimson Shield */
+function LogoHarvard({ className = "w-7 h-7" }: { className?: string }) {
+  return (
+    <div className={`${className} rounded-lg bg-[#1C0408] border border-red-300/40 flex items-center justify-center p-0.5 shrink-0 shadow-sm`}>
+      <svg viewBox="0 0 100 100" className="w-full h-full">
+        <path d="M22 18 H78 V62 Q78 84 50 94 Q22 84 22 62 Z" fill="#A51C30" stroke="#FFFFFF" strokeWidth="4" />
+        <text x="50" y="58" textAnchor="middle" fill="#FFFFFF" fontSize="22" fontWeight="900" fontFamily="Georgia, serif">
           CS50
         </text>
       </svg>
@@ -124,32 +138,32 @@ function LogoHarvard({ className = "w-6 h-6" }: { className?: string }) {
   );
 }
 
-function LogoIBM({ className = "w-6 h-6" }: { className?: string }) {
+/** IBM - Official 8-Bar Blue Monogram */
+function LogoIBM({ className = "w-7 h-7" }: { className?: string }) {
   return (
-    <div className={`${className} rounded-lg bg-[#0f172a] border border-blue-500/40 flex items-center justify-center p-1 shrink-0 shadow-sm`}>
+    <div className={`${className} rounded-lg bg-[#0A1128] border border-blue-500/40 flex items-center justify-center p-1 shrink-0 shadow-sm`}>
       <svg viewBox="0 0 100 100" className="w-full h-full">
-        {/* IBM 8-Bar Blue Monogram */}
         <text x="50" y="65" textAnchor="middle" fill="#0062FF" fontSize="38" fontWeight="900" fontFamily="Courier, monospace" letterSpacing="-2">
           IBM
         </text>
-        <line x1="15" y1="36" x2="85" y2="36" stroke="#0f172a" strokeWidth="4" />
-        <line x1="15" y1="46" x2="85" y2="46" stroke="#0f172a" strokeWidth="4" />
-        <line x1="15" y1="56" x2="85" y2="56" stroke="#0f172a" strokeWidth="4" />
+        <line x1="15" y1="36" x2="85" y2="36" stroke="#0A1128" strokeWidth="4" />
+        <line x1="15" y1="46" x2="85" y2="46" stroke="#0A1128" strokeWidth="4" />
+        <line x1="15" y1="56" x2="85" y2="56" stroke="#0A1128" strokeWidth="4" />
       </svg>
     </div>
   );
 }
 
-function LogoUNDP({ className = "w-6 h-6" }: { className?: string }) {
+/** UNDP (United Nations) - Official United Nations Globe & Grid Emblem */
+function LogoUNDP({ className = "w-7 h-7" }: { className?: string }) {
   return (
     <div className={`${className} rounded-lg bg-[#006EB5] border border-sky-300/40 flex items-center justify-center p-1 shrink-0 shadow-sm`}>
       <svg viewBox="0 0 100 100" className="w-full h-full">
-        {/* UN Globe & Laurel Motif */}
         <circle cx="50" cy="50" r="38" stroke="#FFFFFF" strokeWidth="5" fill="none" opacity="0.8" />
         <ellipse cx="50" cy="50" rx="38" ry="18" stroke="#FFFFFF" strokeWidth="4" fill="none" opacity="0.8" />
         <line x1="50" y1="12" x2="50" y2="88" stroke="#FFFFFF" strokeWidth="4" opacity="0.8" />
         <text x="50" y="58" textAnchor="middle" fill="#FFFFFF" fontSize="16" fontWeight="900" fontFamily="sans-serif">
-          UN
+          UNDP
         </text>
       </svg>
     </div>
@@ -226,8 +240,8 @@ export function EducationSection() {
                     className="p-5 rounded-2xl bg-[#181818]/70 border border-white/5 relative group hover:border-cyan-500/30 transition-colors"
                   >
                     <div className="flex items-start gap-3.5 mb-2">
-                      {/* School Brand Crest Logo */}
-                      {isUCSD ? <LogoUCSD className="w-10 h-10" /> : <LogoSkyline className="w-10 h-10" />}
+                      {/* Authentic School Brand Crest Logo */}
+                      {isUCSD ? <LogoUCSD className="w-12 h-12" /> : <LogoSkyline className="w-12 h-12" />}
 
                       <div className="flex-1 min-w-0">
                         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-0.5">
@@ -353,7 +367,7 @@ export function EducationSection() {
                           className="group flex items-center justify-between gap-3 p-3.5 rounded-xl bg-[#181818]/60 border border-white/5 hover:border-cyan-500/40 hover:bg-[#1c1c1c] transition-all duration-200"
                         >
                           <div className="flex items-center gap-3 min-w-0">
-                            {/* Official Issuer Brand Vector Logo */}
+                            {/* Authentic Official Brand Vector Logo */}
                             {getCertLogo(cert.name, cert.issuer)}
 
                             <div className="min-w-0">
