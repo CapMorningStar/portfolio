@@ -480,7 +480,7 @@ export function IntroOverlay() {
             {/* Glowing Futuristic Loading Telemetry (Only Visible during Singularity Charging; Disappears on Compression) */}
             <AnimatePresence>
               {phase === 'singularity' && (
-                <div className="absolute top-[64%] sm:top-[63.5%] left-1/2 -translate-x-1/2 flex flex-col items-center justify-center w-full max-w-sm pointer-events-none">
+                <div className="absolute top-[65%] sm:top-[63%] md:top-[62%] left-1/2 -translate-x-1/2 flex flex-col items-center justify-center w-full max-w-sm md:max-w-md pointer-events-none">
                   <motion.div
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -489,13 +489,13 @@ export function IntroOverlay() {
                     className="flex flex-col items-center text-center px-4 w-full"
                   >
                     {/* Header Badge */}
-                    <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[11px] font-mono tracking-widest uppercase mb-3 shadow-[0_0_15px_rgba(6,182,212,0.25)]">
+                    <div className="inline-flex items-center gap-1.5 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[10px] sm:text-[11px] md:text-xs font-mono tracking-widest uppercase mb-2.5 sm:mb-3 shadow-[0_0_15px_rgba(6,182,212,0.25)]">
                       <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
                       <span>✨ INITIALIZING COSMIC VOYAGE</span>
                     </div>
 
                     {/* Animated Progress Bar */}
-                    <div className="w-48 sm:w-56 h-1 rounded-full bg-white/10 overflow-hidden mb-2.5 relative">
+                    <div className="w-48 sm:w-56 md:w-64 h-1 sm:h-1.5 rounded-full bg-white/10 overflow-hidden mb-2 sm:mb-2.5 relative">
                       <motion.div
                         style={{ width: `${chargingPercent}%` }}
                         className="h-full bg-gradient-to-r from-cyan-500 via-sky-400 to-purple-500 shadow-[0_0_10px_#00f0ff] transition-all duration-75 ease-out"
@@ -503,7 +503,7 @@ export function IntroOverlay() {
                     </div>
 
                     {/* Dynamic 0 -> 100% Telemetry Status */}
-                    <p className="text-cyan-400/80 text-[11px] font-mono tracking-wider">
+                    <p className="text-cyan-400/80 text-[10px] sm:text-[11px] md:text-xs font-mono tracking-wider">
                       [ Quantum Singularity Charging · {chargingPercent}% ]
                     </p>
                   </motion.div>
@@ -519,20 +519,20 @@ export function IntroOverlay() {
         {phase === 'starlight_voyage' && (
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-20">
             <motion.div
-              initial={{ opacity: 0, scale: 0.92, filter: 'blur(8px)' }}
+              initial={{ opacity: 0, scale: 0.88, filter: 'blur(10px)' }}
               animate={{
                 opacity: [0, 1, 1, 0],
-                scale: [0.92, 1, 1.02, 1.06],
-                filter: ['blur(8px)', 'blur(0px)', 'blur(0px)', 'blur(10px)'],
+                scale: [0.88, 1, 1.03, 1.08],
+                filter: ['blur(10px)', 'blur(0px)', 'blur(0px)', 'blur(12px)'],
               }}
               transition={{
                 duration: 2.0,
                 times: [0, 0.2, 0.8, 1],
                 ease: 'easeInOut',
               }}
-              className="flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-black uppercase tracking-[0.35em] backdrop-blur-md shadow-[0_0_30px_rgba(6,182,212,0.25)]"
+              className="flex items-center gap-3 px-6 py-2.5 sm:px-8 sm:py-3.5 md:px-10 md:py-4 rounded-full bg-cyan-500/10 border border-cyan-500/40 text-cyan-300 text-xs sm:text-sm md:text-base font-mono font-black uppercase tracking-[0.3em] sm:tracking-[0.4em] md:tracking-[0.45em] backdrop-blur-xl shadow-[0_0_40px_rgba(6,182,212,0.35)]"
             >
-              <Sparkles className="w-4 h-4 text-cyan-400 animate-pulse" />
+              <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400 animate-pulse" />
               <span>BEYOND THE HORIZON</span>
             </motion.div>
           </div>
