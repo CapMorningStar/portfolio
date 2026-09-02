@@ -1,6 +1,6 @@
 ﻿'use client';
 
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import {
   Sparkles,
   Cpu,
@@ -249,10 +249,10 @@ export function SkillsSection() {
               </span>
             </div>
 
-            {/* Marquee Track (Drifting Right) */}
-            <div className="relative w-full overflow-hidden group">
-              <div className="flex gap-4 w-max animate-marquee-right group-hover:[animation-play-state:paused]">
-                {[...lane1GenAI, ...lane1GenAI].map((skill, idx) => (
+            {/* Continuous Marquee Track (Never stops on mouse hover) */}
+            <div className="relative w-full overflow-hidden">
+              <div className="flex gap-4 w-max animate-marquee-right">
+                {[...lane1GenAI, ...lane1GenAI, ...lane1GenAI].map((skill, idx) => (
                   <SkillCard key={`lane1-${idx}`} skill={skill} />
                 ))}
               </div>
@@ -269,10 +269,10 @@ export function SkillsSection() {
               </span>
             </div>
 
-            {/* Marquee Track (Drifting Left) */}
-            <div className="relative w-full overflow-hidden group">
-              <div className="flex gap-4 w-max animate-marquee-left group-hover:[animation-play-state:paused]">
-                {[...lane2DeepLearning, ...lane2DeepLearning].map((skill, idx) => (
+            {/* Continuous Marquee Track (Never stops on mouse hover) */}
+            <div className="relative w-full overflow-hidden">
+              <div className="flex gap-4 w-max animate-marquee-left">
+                {[...lane2DeepLearning, ...lane2DeepLearning, ...lane2DeepLearning].map((skill, idx) => (
                   <SkillCard key={`lane2-${idx}`} skill={skill} />
                 ))}
               </div>
@@ -289,10 +289,10 @@ export function SkillsSection() {
               </span>
             </div>
 
-            {/* Marquee Track (Drifting Right) */}
-            <div className="relative w-full overflow-hidden group">
-              <div className="flex gap-4 w-max animate-marquee-right group-hover:[animation-play-state:paused]">
-                {[...lane3DataScience, ...lane3DataScience].map((skill, idx) => (
+            {/* Continuous Marquee Track (Never stops on mouse hover) */}
+            <div className="relative w-full overflow-hidden">
+              <div className="flex gap-4 w-max animate-marquee-right">
+                {[...lane3DataScience, ...lane3DataScience, ...lane3DataScience].map((skill, idx) => (
                   <SkillCard key={`lane3-${idx}`} skill={skill} />
                 ))}
               </div>
@@ -309,12 +309,12 @@ export function SkillsSection() {
             transform: translateX(0%);
           }
           100% {
-            transform: translateX(-50%);
+            transform: translateX(-33.333%);
           }
         }
         @keyframes marqueeRight {
           0% {
-            transform: translateX(-50%);
+            transform: translateX(-33.333%);
           }
           100% {
             transform: translateX(0%);
@@ -335,15 +335,15 @@ export function SkillsSection() {
 
 function SkillCard({ skill }: { skill: SkillItem }) {
   return (
-    <div className="group relative w-[170px] sm:w-[185px] h-[105px] rounded-2xl bg-[#141418]/85 border border-white/10 hover:border-cyan-400/60 p-3.5 flex flex-col justify-between backdrop-blur-md transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_0_25px_rgba(0,240,255,0.25)] select-none cursor-pointer overflow-hidden">
+    <div className="group relative w-[170px] sm:w-[185px] h-[105px] rounded-2xl bg-[#141418]/85 border border-white/10 hover:border-cyan-400/60 p-3.5 flex flex-col justify-between backdrop-blur-md transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_0_25px_rgba(0,240,255,0.25)] select-none cursor-grab active:cursor-grabbing overflow-hidden">
       
       {/* HUD Reticle Targeters on Hover */}
-      <div className="absolute top-1.5 right-1.5 text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity">
+      <div className="absolute top-1.5 right-1.5 text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
         <Scan className="w-3.5 h-3.5" />
       </div>
 
       {/* Top: Tech Icon */}
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between pointer-events-none">
         <div className="p-1 rounded-lg bg-white/5 border border-white/10 group-hover:border-cyan-500/30 transition-colors">
           {skill.iconComponent}
         </div>
@@ -353,7 +353,7 @@ function SkillCard({ skill }: { skill: SkillItem }) {
       </div>
 
       {/* Bottom: Tech Name & Category */}
-      <div className="min-w-0">
+      <div className="min-w-0 pointer-events-none">
         <h4 className="text-xs font-mono font-bold text-gray-100 uppercase tracking-tight group-hover:text-cyan-300 transition-colors truncate">
           {skill.name}
         </h4>
