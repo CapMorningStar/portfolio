@@ -70,6 +70,7 @@ export function IntroOverlay() {
   const [phase, setPhase] = useState<IntroPhase>('singularity');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
+  const [chargingPercent, setChargingPercent] = useState(0);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const explosionParticles = useRef<Particle[]>([]);
   const shockwaves = useRef<Shockwave[]>([]);
@@ -93,7 +94,25 @@ export function IntroOverlay() {
     }, 650);
   };
 
-  // Phase Sequencer: Singularity -> Compression -> Detonation -> Starlight Voyage -> Matrix
+  // 0 -> 100% Charging Percentage Counter during Singularity Phase
+  useEffect(() => {
+    if (!isVisible) return;
+    const duration = 2400; // 2.4 seconds to reach 100%
+    const startTime = Date.now();
+
+    const interval = setInterval(() => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(100, Math.floor((elapsed / duration) * 100));
+      setChargingPercent(progress);
+      if (progress >= 100) {
+        clearInterval(interval);
+      }
+    }, 30);
+
+    return () => clearInterval(interval);
+  }, [isVisible]);
+
+  // Phase Sequencer: Singularity (2.4s) -> Compression (1.5s) -> Detonation BOOM! (1.2s) -> Starlight Voyage (1.5s) -> Matrix
   useEffect(() => {
     if (!isVisible) {
       document.body.style.overflow = 'auto';
@@ -101,12 +120,12 @@ export function IntroOverlay() {
     }
     document.body.style.overflow = 'hidden';
 
-    // 1. Slow Singularity glowing -> Compression at 2.1s
+    // 1. Singularity charges (0 to 100%) -> Shrinks to small concentrated compression at 2.4s
     const t1 = setTimeout(() => {
       setPhase('compression');
-    }, 2100);
+    }, 2400);
 
-    // 2. Compression -> Detonation (BOOM!) at 2.6s
+    // 2. Compression holds for 1.5s -> Detonation (BOOM!) at 3.9s
     const t2 = setTimeout(() => {
       setPhase('detonation');
       if (typeof window !== 'undefined') {
@@ -179,14 +198,14 @@ export function IntroOverlay() {
           alpha: 1,
         };
       }
-    }, 2600);
-
-    // 3. Detonation -> Starlight Voyage ("// BEYOND THE HORIZON") at 3.9s
-    const t3 = setTimeout(() => {
-      setPhase('starlight_voyage');
     }, 3900);
 
-    // 4. Starlight Voyage -> Graceful Dissolve -> Matrix (Name emerges) at 6.6s
+    // 3. Detonation -> Starlight Voyage ("BEYOND THE HORIZON") at 5.1s
+    const t3 = setTimeout(() => {
+      setPhase('starlight_voyage');
+    }, 5100);
+
+    // 4. Starlight Voyage (holds 1.5s) -> Matrix (Name emerges) at 6.6s
     const t4 = setTimeout(() => {
       setPhase('matrix');
     }, 6600);
@@ -421,15 +440,19 @@ export function IntroOverlay() {
                       ],
                     }
                   : {
-                      scale: [1.45, 0.05],
-                      opacity: [1, 1],
-                      boxShadow: '0 0 160px #ffffff, 0 0 260px #00f0ff',
+                      scale: [1.45, 0.15, 0.08, 0.14, 0.05],
+                      opacity: [1, 1, 0.95, 1, 1],
+                      boxShadow: [
+                        '0 0 160px #ffffff, 0 0 260px #00f0ff',
+                        '0 0 220px #ffffff, 0 0 320px #38bdf8',
+                        '0 0 260px #ffffff, 0 0 380px #00f0ff',
+                      ],
                     }
               }
               transition={
                 phase === 'singularity'
-                  ? { duration: 2.1, ease: 'easeInOut' }
-                  : { duration: 0.5, ease: 'easeIn' }
+                  ? { duration: 2.4, ease: 'easeInOut' }
+                  : { duration: 1.5, ease: 'easeInOut' }
               }
               className="relative w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-[0_0_90px_#00f0ff]"
             >
@@ -437,15 +460,15 @@ export function IntroOverlay() {
 
               {/* Coronal Light Ring 1 */}
               <motion.div
-                animate={{ rotate: 360, scale: [1, 1.25, 1] }}
-                transition={{ repeat: Infinity, duration: 2.4, ease: 'linear' }}
+                animate={{ rotate: 360, scale: phase === 'compression' ? [0.3, 0.5, 0.3] : [1, 1.25, 1] }}
+                transition={{ repeat: Infinity, duration: phase === 'compression' ? 0.6 : 2.4, ease: 'linear' }}
                 className="absolute -inset-5 rounded-full border-2 border-cyan-400/60 pointer-events-none"
               />
 
               {/* Coronal Light Ring 2 */}
               <motion.div
-                animate={{ rotate: -360, scale: [1.2, 0.8, 1.2] }}
-                transition={{ repeat: Infinity, duration: 2.0, ease: 'linear' }}
+                animate={{ rotate: -360, scale: phase === 'compression' ? [0.4, 0.2, 0.4] : [1.2, 0.8, 1.2] }}
+                transition={{ repeat: Infinity, duration: phase === 'compression' ? 0.5 : 2.0, ease: 'linear' }}
                 className="absolute -inset-9 rounded-full border border-cyan-300/40 border-dashed pointer-events-none"
               />
             </motion.div>
@@ -455,40 +478,33 @@ export function IntroOverlay() {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, filter: 'blur(8px)' }}
-              transition={{ duration: 0.5, delay: 0.15 }}
+              transition={{ duration: 0.4, delay: 0.1 }}
               className="mt-14 flex flex-col items-center text-center px-4 max-w-md"
             >
               {/* Header Badge */}
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[11px] font-mono tracking-widest uppercase mb-2.5 shadow-[0_0_15px_rgba(6,182,212,0.25)]">
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[11px] font-mono tracking-widest uppercase mb-3 shadow-[0_0_15px_rgba(6,182,212,0.25)]">
                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
                 <span>✨ INITIALIZING COSMIC VOYAGE</span>
               </div>
 
-              {/* Main Text */}
-              <h2 className="text-white text-sm sm:text-base font-medium tracking-tight mb-2.5 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
-                &ldquo;Prepare for descent into the neural universe...&rdquo;
-              </h2>
-
               {/* Animated Progress Bar */}
-              <div className="w-48 sm:w-56 h-1 rounded-full bg-white/10 overflow-hidden mb-2 relative">
+              <div className="w-48 sm:w-56 h-1 rounded-full bg-white/10 overflow-hidden mb-2.5 relative">
                 <motion.div
-                  initial={{ width: '0%' }}
-                  animate={{ width: '100%' }}
-                  transition={{ duration: 2.1, ease: 'easeInOut' }}
-                  className="h-full bg-gradient-to-r from-cyan-500 via-sky-400 to-purple-500 shadow-[0_0_10px_#00f0ff]"
+                  style={{ width: `${chargingPercent}%` }}
+                  className="h-full bg-gradient-to-r from-cyan-500 via-sky-400 to-purple-500 shadow-[0_0_10px_#00f0ff] transition-all duration-75 ease-out"
                 />
               </div>
 
-              {/* Telemetry / Status */}
+              {/* Dynamic 0 -> 100% Telemetry Status */}
               <p className="text-cyan-400/80 text-[11px] font-mono tracking-wider">
-                [ Quantum Singularity Charging · 100% ]
+                [ Quantum Singularity Charging · {chargingPercent}% ]
               </p>
             </motion.div>
           </div>
         )}
       </AnimatePresence>
 
-      {/* ================= 2. STARLIGHT COSMIC VOYAGE (Smooth Dissolve of BEYOND THE HORIZON) ================= */}
+      {/* ================= 2. STARLIGHT COSMIC VOYAGE (1.5s Smooth Dissolve of BEYOND THE HORIZON) ================= */}
       <AnimatePresence>
         {phase === 'starlight_voyage' && (
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-20">
@@ -496,12 +512,12 @@ export function IntroOverlay() {
               initial={{ opacity: 0, scale: 0.92, filter: 'blur(8px)' }}
               animate={{
                 opacity: [0, 1, 1, 0],
-                scale: [0.92, 1, 1.02, 1.08],
+                scale: [0.92, 1, 1.02, 1.06],
                 filter: ['blur(8px)', 'blur(0px)', 'blur(0px)', 'blur(10px)'],
               }}
               transition={{
-                duration: 2.7,
-                times: [0, 0.25, 0.7, 1],
+                duration: 1.5,
+                times: [0, 0.25, 0.75, 1],
                 ease: 'easeInOut',
               }}
               className="flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-black uppercase tracking-[0.35em] backdrop-blur-md shadow-[0_0_30px_rgba(6,182,212,0.25)]"
