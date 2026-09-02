@@ -545,30 +545,33 @@ export function IntroOverlay() {
         )}
       </AnimatePresence>
 
-      {/* ================= 3. MOBILE-ONLY TOP-RIGHT SKIP BUTTON (ONLY VISIBLE WHEN NAME POPS UP) ================= */}
-      {phase === 'matrix' && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="md:hidden fixed top-5 right-5 z-50 pointer-events-auto"
-        >
-          <button
-            onClick={(e) => {
-              e.stopPropagation();
-              handleExit(e);
-            }}
-            onTouchEnd={(e) => {
-              e.stopPropagation();
-              handleExit(e);
-            }}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-cyan-400 text-black font-black text-xs uppercase tracking-wider shadow-[0_0_25px_rgba(6,182,212,0.6)] cursor-pointer active:scale-95 transition-transform border border-cyan-300"
+      {/* ================= 3. MOBILE-ONLY TOP-RIGHT SKIP BUTTON (DISAPPEARS ON STEP 5) ================= */}
+      <AnimatePresence>
+        {phase === 'matrix' && !isFinalStep && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10, transition: { duration: 0.3 } }}
+            transition={{ duration: 0.6 }}
+            className="md:hidden fixed top-5 right-5 z-50 pointer-events-auto"
           >
-            <span>Skip</span>
-            <ChevronRight className="w-4 h-4 text-black stroke-[3]" />
-          </button>
-        </motion.div>
-      )}
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                handleExit(e);
+              }}
+              onTouchEnd={(e) => {
+                e.stopPropagation();
+                handleExit(e);
+              }}
+              className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-cyan-400 text-black font-black text-xs uppercase tracking-wider shadow-[0_0_25px_rgba(6,182,212,0.6)] cursor-pointer active:scale-95 transition-transform border border-cyan-300"
+            >
+              <span>Skip</span>
+              <ChevronRight className="w-4 h-4 text-black stroke-[3]" />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ================= 4. TRUE VIEWPORT-PINNED CORNER HUD (Desktop Only) ================= */}
       {phase === 'matrix' && (
@@ -607,24 +610,29 @@ export function IntroOverlay() {
             <span>INTERACTIVE TERMINAL READY</span>
           </motion.div>
 
-          {/* Bottom-Right: Clean Interactive Skip Button (Desktop - Larger & High Visibility) */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="fixed bottom-8 right-8 z-50 hidden md:flex pointer-events-auto"
-          >
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                handleExit(e);
-              }}
-              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-cyan-400 text-black hover:bg-cyan-300 font-mono font-black text-xs uppercase tracking-[0.25em] shadow-[0_0_30px_rgba(6,182,212,0.6)] hover:shadow-[0_0_45px_rgba(6,182,212,0.85)] border border-cyan-300 hover:scale-105 transition-all cursor-pointer active:scale-95"
-            >
-              <span>SKIP INTRO</span>
-              <ChevronRight className="w-4 h-4 text-black stroke-[3]" />
-            </button>
-          </motion.div>
+          {/* Bottom-Right: Clean Interactive Skip Button (Desktop - Disappears on Step 5) */}
+          <AnimatePresence>
+            {!isFinalStep && (
+              <motion.div
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 15, transition: { duration: 0.3 } }}
+                transition={{ duration: 0.8 }}
+                className="fixed bottom-8 right-8 z-50 hidden md:flex pointer-events-auto"
+              >
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleExit(e);
+                  }}
+                  className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-cyan-400 text-black hover:bg-cyan-300 font-mono font-black text-xs uppercase tracking-[0.25em] shadow-[0_0_30px_rgba(6,182,212,0.6)] hover:shadow-[0_0_45px_rgba(6,182,212,0.85)] border border-cyan-300 hover:scale-105 transition-all cursor-pointer active:scale-95"
+                >
+                  <span>SKIP INTRO</span>
+                  <ChevronRight className="w-4 h-4 text-black stroke-[3]" />
+                </button>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </>
       )}
 
