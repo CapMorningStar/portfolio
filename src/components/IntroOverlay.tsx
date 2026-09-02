@@ -409,8 +409,14 @@ export function IntroOverlay() {
     <div
       role="button"
       tabIndex={0}
-      onClick={(e) => handleExit(e)}
-      className={`fixed inset-0 z-[999999] flex flex-col items-center justify-center select-none overflow-hidden transition-all duration-700 ease-out cursor-pointer ${
+      onClick={(e) => {
+        if (phase !== 'matrix') {
+          handleExit(e);
+        }
+      }}
+      className={`fixed inset-0 z-[999999] flex flex-col items-center justify-center select-none overflow-hidden transition-all duration-700 ease-out ${
+        phase !== 'matrix' ? 'cursor-pointer' : 'cursor-default'
+      } ${
         isExiting
           ? 'opacity-0 scale-110 blur-sm pointer-events-none'
           : 'opacity-100 scale-100 blur-0'
@@ -545,15 +551,21 @@ export function IntroOverlay() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="md:hidden fixed top-4 right-4 z-40 pointer-events-auto"
+          className="md:hidden fixed top-5 right-5 z-50 pointer-events-auto"
         >
           <button
-            onClick={(e) => handleExit(e)}
-            onTouchEnd={(e) => handleExit(e)}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-cyan-400 text-black font-black text-[10px] uppercase tracking-wider shadow-[0_0_20px_rgba(6,182,212,0.6)] cursor-pointer active:scale-95 transition-transform"
+            onClick={(e) => {
+              e.stopPropagation();
+              handleExit(e);
+            }}
+            onTouchEnd={(e) => {
+              e.stopPropagation();
+              handleExit(e);
+            }}
+            className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-cyan-400 text-black font-black text-xs uppercase tracking-wider shadow-[0_0_25px_rgba(6,182,212,0.6)] cursor-pointer active:scale-95 transition-transform border border-cyan-300"
           >
             <span>Skip</span>
-            <ChevronRight className="w-3 h-3 text-black" />
+            <ChevronRight className="w-4 h-4 text-black stroke-[3]" />
           </button>
         </motion.div>
       )}
@@ -595,19 +607,22 @@ export function IntroOverlay() {
             <span>INTERACTIVE TERMINAL READY</span>
           </motion.div>
 
-          {/* Bottom-Right: Clean Interactive Skip Button (Desktop) */}
+          {/* Bottom-Right: Clean Interactive Skip Button (Desktop - Larger & High Visibility) */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="fixed bottom-8 right-8 z-30 hidden md:flex pointer-events-auto"
+            className="fixed bottom-8 right-8 z-50 hidden md:flex pointer-events-auto"
           >
             <button
-              onClick={(e) => handleExit(e)}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-white/5 hover:bg-cyan-400 text-cyan-400 hover:text-black font-mono font-bold text-[10px] uppercase tracking-[0.25em] border border-white/10 hover:border-cyan-400 backdrop-blur-md transition-all shadow-sm hover:shadow-[0_0_25px_rgba(6,182,212,0.6)] cursor-pointer active:scale-95"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleExit(e);
+              }}
+              className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-cyan-400 text-black hover:bg-cyan-300 font-mono font-black text-xs uppercase tracking-[0.25em] shadow-[0_0_30px_rgba(6,182,212,0.6)] hover:shadow-[0_0_45px_rgba(6,182,212,0.85)] border border-cyan-300 hover:scale-105 transition-all cursor-pointer active:scale-95"
             >
               <span>SKIP INTRO</span>
-              <ChevronRight className="w-3.5 h-3.5" />
+              <ChevronRight className="w-4 h-4 text-black stroke-[3]" />
             </button>
           </motion.div>
         </>
