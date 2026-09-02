@@ -654,17 +654,17 @@ export function IntroOverlay() {
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}
-                initial={{ opacity: 0, y: 35, scale: 0.92 }}
+                initial={{ opacity: 0, y: 16, scale: 0.96 }}
                 animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: -25, scale: 1.04 }}
-                transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+                exit={{ opacity: 0, y: -12, scale: 1.02, transition: { duration: 0.2 } }}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 className="flex flex-col items-center w-full"
               >
                 {/* Tag Badge */}
                 <motion.div
-                  initial={{ opacity: 0, y: 15 }}
+                  initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1.2, delay: 0.15 }}
+                  transition={{ duration: 0.3, delay: 0.05 }}
                   className="inline-flex items-center gap-2 px-3.5 py-1.2 sm:px-4 sm:py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] sm:tracking-[0.35em] mb-4 sm:mb-6 backdrop-blur-md shadow-[0_0_20px_rgba(6,182,212,0.2)]"
                 >
                   <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
@@ -673,9 +673,9 @@ export function IntroOverlay() {
 
                 {/* Main Headline (Responsive Auto Scaling) */}
                 <motion.h1
-                  initial={{ opacity: 0, scale: 0.90, filter: 'blur(10px)' }}
+                  initial={{ opacity: 0, scale: 0.95, filter: 'blur(4px)' }}
                   animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-                  transition={{ duration: 1.6, ease: [0.16, 1, 0.3, 1] }}
+                  transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                   className="text-2xl sm:text-4xl md:text-5xl lg:text-[4.2rem] font-black uppercase tracking-tight text-white leading-none mb-3 sm:mb-4 drop-shadow-[0_15px_50px_rgba(0,0,0,1)] whitespace-nowrap overflow-hidden"
                 >
                   {current.text}
@@ -683,9 +683,9 @@ export function IntroOverlay() {
 
                 {/* Subtitle */}
                 <motion.p
-                  initial={{ opacity: 0, y: 15 }}
+                  initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 1.3, delay: 0.35 }}
+                  transition={{ duration: 0.3, delay: 0.05 }}
                   className="text-[10px] sm:text-xs md:text-sm font-mono font-bold tracking-[0.15em] sm:tracking-[0.2em] text-gray-300 uppercase mt-1 sm:mt-2 whitespace-nowrap"
                 >
                   <span className="text-cyan-400">&gt; </span>
@@ -696,9 +696,9 @@ export function IntroOverlay() {
                 <div className="h-14 sm:h-16 mt-4 sm:mt-6 flex items-center justify-center w-full">
                   {isFinalStep && (
                     <motion.div
-                      initial={{ opacity: 0, scale: 0.9, y: 12 }}
+                      initial={{ opacity: 0, scale: 0.92, y: 8 }}
                       animate={{ opacity: 1, scale: 1, y: 0 }}
-                      transition={{ duration: 0.8, delay: 0.3 }}
+                      transition={{ duration: 0.35, delay: 0.05 }}
                       className="pointer-events-auto"
                     >
                       <button
