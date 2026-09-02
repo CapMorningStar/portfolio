@@ -404,7 +404,7 @@ export function IntroOverlay() {
       {/* ================= 1. PURE QUANTUM PROTON SINGULARITY ================= */}
       <AnimatePresence>
         {(phase === 'singularity' || phase === 'compression') && (
-          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
+          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-20">
             {/* The Vibrating Quantum Singularity Particle */}
             <motion.div
               initial={{ scale: 0, opacity: 0 }}
@@ -448,6 +448,41 @@ export function IntroOverlay() {
                 transition={{ repeat: Infinity, duration: 2.0, ease: 'linear' }}
                 className="absolute -inset-9 rounded-full border border-cyan-300/40 border-dashed pointer-events-none"
               />
+            </motion.div>
+
+            {/* Glowing Futuristic Loading Telemetry */}
+            <motion.div
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, filter: 'blur(8px)' }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              className="mt-14 flex flex-col items-center text-center px-4 max-w-md"
+            >
+              {/* Header Badge */}
+              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[11px] font-mono tracking-widest uppercase mb-2.5 shadow-[0_0_15px_rgba(6,182,212,0.25)]">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
+                <span>✨ INITIALIZING COSMIC VOYAGE</span>
+              </div>
+
+              {/* Main Text */}
+              <h2 className="text-white text-sm sm:text-base font-medium tracking-tight mb-2.5 drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)]">
+                &ldquo;Prepare for descent into the neural universe...&rdquo;
+              </h2>
+
+              {/* Animated Progress Bar */}
+              <div className="w-48 sm:w-56 h-1 rounded-full bg-white/10 overflow-hidden mb-2 relative">
+                <motion.div
+                  initial={{ width: '0%' }}
+                  animate={{ width: '100%' }}
+                  transition={{ duration: 2.1, ease: 'easeInOut' }}
+                  className="h-full bg-gradient-to-r from-cyan-500 via-sky-400 to-purple-500 shadow-[0_0_10px_#00f0ff]"
+                />
+              </div>
+
+              {/* Telemetry / Status */}
+              <p className="text-cyan-400/80 text-[11px] font-mono tracking-wider">
+                [ Quantum Singularity Charging · 100% ]
+              </p>
             </motion.div>
           </div>
         )}
