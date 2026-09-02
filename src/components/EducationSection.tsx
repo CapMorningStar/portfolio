@@ -4,14 +4,13 @@ import React from 'react';
 import { portfolioData } from '@/data/portfolioData';
 import { GraduationCap, Award, Trophy, ArrowUpRight, Sparkles } from 'lucide-react';
 
-/* ================= AUTHENTIC COMPANY & UNIVERSITY VECTOR LOGOS ================= */
+/* ================= EXACT OFFICIAL COMPANY & UNIVERSITY VECTOR LOGOS ================= */
 
 /** UC San Diego (UCSD) - Official Navy & Gold Triton Seal */
 function LogoUCSD({ className = "w-10 h-10" }: { className?: string }) {
   return (
     <div className={`${className} rounded-xl bg-[#182B49] border border-[#FFCD00]/50 flex items-center justify-center p-1.5 shadow-md shrink-0`}>
       <svg viewBox="0 0 100 100" className="w-full h-full" fill="none">
-        {/* Navy & Gold UCSD Emblem */}
         <circle cx="50" cy="50" r="44" stroke="#FFCD00" strokeWidth="5" fill="#182B49" />
         <circle cx="50" cy="50" r="36" stroke="#FFCD00" strokeWidth="1.5" strokeDasharray="3,3" fill="none" opacity="0.7" />
         <path d="M50 20 L58 35 L74 38 L62 50 L65 66 L50 58 L35 66 L38 50 L26 38 L42 35 Z" fill="#FFCD00" />
@@ -23,41 +22,48 @@ function LogoUCSD({ className = "w-10 h-10" }: { className?: string }) {
   );
 }
 
-/** Skyline College (San Bruno, CA - SF Bay Area) - Official Navy & Teal Horizon S-Wave */
+/** Skyline College (San Bruno, CA - SF Bay Area) - Official Red Sunburst & Wavy Lines Logo */
 function LogoSkyline({ className = "w-10 h-10" }: { className?: string }) {
   return (
-    <div className={`${className} rounded-xl bg-[#003B71] border border-[#00A3E0]/50 flex items-center justify-center p-1.5 shadow-md shrink-0`}>
+    <div className={`${className} rounded-xl bg-white border border-red-500/30 flex items-center justify-center p-1.5 shadow-md shrink-0`}>
       <svg viewBox="0 0 100 100" className="w-full h-full" fill="none">
-        {/* Skyline College Bay Area Horizon Crest */}
-        <rect width="100" height="100" rx="20" fill="#003B71" />
-        <path d="M20 62 Q50 32 80 62 Q50 92 20 62 Z" fill="#00A3E0" opacity="0.9" />
-        <path d="M30 70 Q50 48 70 70 Q50 88 30 70 Z" fill="#EAAA00" opacity="0.85" />
-        {/* Stylized Skyline S Wave */}
-        <path d="M35 48 C45 35 55 35 65 48 C55 60 45 60 35 48 Z" fill="#FFFFFF" />
-        <text x="50" y="88" textAnchor="middle" fill="#FFFFFF" fontSize="13" fontWeight="900" fontFamily="-apple-system, sans-serif" letterSpacing="1">
-          SKYLINE
-        </text>
+        {/* Red Box Border */}
+        <rect x="8" y="8" width="84" height="84" stroke="#C8102E" strokeWidth="7" rx="6" fill="none" />
+        
+        {/* 5 Radiant Sunburst Rays */}
+        <line x1="50" y1="18" x2="50" y2="38" stroke="#C8102E" strokeWidth="6" strokeLinecap="round" />
+        <line x1="28" y1="26" x2="40" y2="42" stroke="#C8102E" strokeWidth="6" strokeLinecap="round" />
+        <line x1="72" y1="26" x2="60" y2="42" stroke="#C8102E" strokeWidth="6" strokeLinecap="round" />
+        <line x1="18" y1="46" x2="34" y2="50" stroke="#C8102E" strokeWidth="6" strokeLinecap="round" />
+        <line x1="82" y1="46" x2="66" y2="50" stroke="#C8102E" strokeWidth="6" strokeLinecap="round" />
+        
+        {/* Semi-Circle Sun */}
+        <path d="M34 56 A16 16 0 0 1 66 56 Z" fill="#C8102E" />
+        
+        {/* 2 Wavy Horizon Water Lines */}
+        <path d="M16 68 Q28 62 40 68 T64 68 T84 68" stroke="#C8102E" strokeWidth="5.5" strokeLinecap="round" fill="none" />
+        <path d="M16 79 Q28 73 40 79 T64 79 T84 79" stroke="#C8102E" strokeWidth="5.5" strokeLinecap="round" fill="none" />
       </svg>
     </div>
   );
 }
 
-/** DeepLearning.AI (Andrew Ng) - Official 3D Isometric Coral Red & Orange Faceted Cube */
+/** DeepLearning.AI (Andrew Ng) - Official Concentric Ripple / Eye Logo */
 function LogoDeepLearningAI({ className = "w-7 h-7" }: { className?: string }) {
   return (
-    <div className={`${className} rounded-lg bg-[#0E1628] border border-red-500/40 flex items-center justify-center p-1 shrink-0 shadow-sm`}>
-      <svg viewBox="0 0 100 100" className="w-full h-full">
-        {/* Top Facet (Coral Light) */}
-        <polygon points="50,15 85,35 50,55 15,35" fill="#FF6B6B" />
-        {/* Left Facet (Deep Coral Crimson) */}
-        <polygon points="15,35 50,55 50,92 15,72" fill="#FF334B" />
-        {/* Right Facet (Dark Crimson Ruby) */}
-        <polygon points="50,55 85,35 85,72 50,92" fill="#D32F2F" />
-        {/* Central Core Glow */}
-        <circle cx="50" cy="55" r="7" fill="#00F0FF" />
-        <line x1="50" y1="25" x2="50" y2="48" stroke="#00F0FF" strokeWidth="3" strokeLinecap="round" />
-        <line x1="28" y1="62" x2="44" y2="58" stroke="#FFD166" strokeWidth="3" strokeLinecap="round" />
-        <line x1="72" y1="62" x2="56" y2="58" stroke="#FF6B6B" strokeWidth="3" strokeLinecap="round" />
+    <div className={`${className} rounded-lg bg-[#111111] border border-red-500/30 flex items-center justify-center p-0.5 shrink-0 shadow-sm`}>
+      <svg viewBox="0 0 100 100" className="w-full h-full" fill="none">
+        {/* Coral Pink Solid Background Circle */}
+        <circle cx="50" cy="50" r="46" fill="#FF4757" />
+        
+        {/* Outer Ring */}
+        <circle cx="50" cy="50" r="35" stroke="#FFFFFF" strokeWidth="5.5" fill="none" />
+        
+        {/* Inner Ring */}
+        <circle cx="50" cy="50" r="23" stroke="#FFFFFF" strokeWidth="5.5" fill="none" />
+        
+        {/* Center White Core Eye */}
+        <circle cx="50" cy="50" r="11" fill="#FFFFFF" />
       </svg>
     </div>
   );
@@ -85,7 +91,6 @@ function LogoGoogleCloud({ className = "w-7 h-7" }: { className?: string }) {
   return (
     <div className={`${className} rounded-lg bg-[#1A1F2C] border border-blue-400/40 flex items-center justify-center p-1 shrink-0 shadow-sm`}>
       <svg viewBox="0 0 100 100" className="w-full h-full">
-        {/* Google Cloud 4-Color Platform */}
         <path d="M38 65 L28 55 Q20 40 35 30 Q50 20 62 32 Q78 28 82 45 Q88 60 74 65 Z" fill="#4285F4" opacity="0.3" />
         <path d="M32 60 L24 50 A15 15 0 0 1 45 35 A22 22 0 0 1 72 40 A16 16 0 0 1 78 60 Z" stroke="#4285F4" strokeWidth="6" fill="none" />
         <circle cx="34" cy="52" r="5" fill="#EA4335" />
@@ -101,7 +106,6 @@ function LogoMichigan({ className = "w-7 h-7" }: { className?: string }) {
   return (
     <div className={`${className} rounded-lg bg-[#00274C] border border-[#FFCB05]/60 flex items-center justify-center p-0.5 shrink-0 shadow-sm`}>
       <svg viewBox="0 0 100 100" className="w-full h-full">
-        {/* Michigan Block M */}
         <path d="M22 30 H36 L50 58 L64 30 H78 V70 H64 V48 L52 70 H48 L36 48 V70 H22 Z" fill="#FFCB05" />
       </svg>
     </div>
@@ -113,7 +117,6 @@ function LogoAWS({ className = "w-7 h-7" }: { className?: string }) {
   return (
     <div className={`${className} rounded-lg bg-[#232F3E] border border-amber-500/40 flex items-center justify-center p-1 shrink-0 shadow-sm`}>
       <svg viewBox="0 0 100 100" className="w-full h-full">
-        {/* AWS Typography & Orange Smile Curve */}
         <text x="50" y="46" textAnchor="middle" fill="#FFFFFF" fontSize="28" fontWeight="900" fontFamily="sans-serif">
           aws
         </text>
@@ -367,7 +370,7 @@ export function EducationSection() {
                           className="group flex items-center justify-between gap-3 p-3.5 rounded-xl bg-[#181818]/60 border border-white/5 hover:border-cyan-500/40 hover:bg-[#1c1c1c] transition-all duration-200"
                         >
                           <div className="flex items-center gap-3 min-w-0">
-                            {/* Authentic Official Brand Vector Logo */}
+                            {/* Exact Official Brand Vector Logo */}
                             {getCertLogo(cert.name, cert.issuer)}
 
                             <div className="min-w-0">
