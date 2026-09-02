@@ -97,17 +97,17 @@ export function IntroOverlay() {
     }, 600);
   };
 
-  // Punchy Fast-Paced Phase Sequencer (Singularity pulse ~1.2s -> Boom!)
+  // Cinematic Slow Buildup Phase Sequencer (2.5s Majestic Singularity -> Boom!)
   useEffect(() => {
     if (!isVisible) return;
     document.body.style.overflow = 'hidden';
 
-    // 1. Singularity single pulse -> Compression at 0.85s
+    // 1. Slow, graceful Singularity glowing -> Compression at 2.1s
     const t1 = setTimeout(() => {
       setPhase('compression');
-    }, 850);
+    }, 2100);
 
-    // 2. Compression -> Detonation (BOOM!) at 1.25s (less than 1.5s total!)
+    // 2. Compression -> Detonation (BOOM!) at 2.6s (2.6s slow majestic buildup)
     const t2 = setTimeout(() => {
       setPhase('detonation');
       if (typeof window !== 'undefined') {
@@ -180,17 +180,17 @@ export function IntroOverlay() {
           alpha: 1,
         };
       }
-    }, 1250);
+    }, 2600);
 
-    // 3. Detonation -> Starlight Voyage ("// BEYOND THE HORIZON") at 2.4s
+    // 3. Detonation -> Starlight Voyage ("// BEYOND THE HORIZON") at 3.9s
     const t3 = setTimeout(() => {
       setPhase('starlight_voyage');
-    }, 2400);
+    }, 3900);
 
-    // 4. Starlight Voyage -> Matrix (Name emerges) at 4.6s
+    // 4. Starlight Voyage -> Matrix (Name emerges) at 6.1s
     const t4 = setTimeout(() => {
       setPhase('matrix');
-    }, 4600);
+    }, 6100);
 
     // Keydown skip listener
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -400,7 +400,7 @@ export function IntroOverlay() {
       {/* 3D Canvas Background */}
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
 
-      {/* ================= 1. PURE QUANTUM PROTON SINGULARITY (1.2s Single Pulse -> BOOM, No Surrounding Text) ================= */}
+      {/* ================= 1. PURE QUANTUM PROTON SINGULARITY (Slow 2.5s Majestic Buildup -> BOOM) ================= */}
       <AnimatePresence>
         {(phase === 'singularity' || phase === 'compression') && (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
@@ -410,23 +410,25 @@ export function IntroOverlay() {
               animate={
                 phase === 'singularity'
                   ? {
-                      scale: [0.6, 1.45],
-                      opacity: [0.6, 1],
+                      scale: [0.75, 1.4, 1.1, 1.45],
+                      opacity: [0.6, 1, 0.85, 1],
                       boxShadow: [
                         '0 0 35px #00f0ff, 0 0 70px #06b6d4, 0 0 110px #fff',
                         '0 0 90px #00f0ff, 0 0 160px #38bdf8, 0 0 220px #fff',
+                        '0 0 50px #00f0ff, 0 0 100px #06b6d4, 0 0 140px #fff',
+                        '0 0 100px #00f0ff, 0 0 180px #38bdf8, 0 0 250px #fff',
                       ],
                     }
                   : {
-                      scale: [1.45, 0.05], // Quick single compression right before BOOM
+                      scale: [1.45, 0.05], // Majestic compression right before BOOM
                       opacity: [1, 1],
-                      boxShadow: '0 0 150px #ffffff, 0 0 240px #00f0ff',
+                      boxShadow: '0 0 160px #ffffff, 0 0 260px #00f0ff',
                     }
               }
               transition={
                 phase === 'singularity'
-                  ? { duration: 0.85, ease: 'easeOut' }
-                  : { duration: 0.4, ease: 'easeIn' }
+                  ? { duration: 2.1, ease: 'easeInOut' }
+                  : { duration: 0.5, ease: 'easeIn' }
               }
               className="relative w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-[0_0_90px_#00f0ff]"
             >
@@ -435,14 +437,14 @@ export function IntroOverlay() {
               {/* Coronal Light Ring 1 */}
               <motion.div
                 animate={{ rotate: 360, scale: [1, 1.25, 1] }}
-                transition={{ duration: 1.2, ease: 'linear' }}
+                transition={{ repeat: Infinity, duration: 2.4, ease: 'linear' }}
                 className="absolute -inset-5 rounded-full border-2 border-cyan-400/60 pointer-events-none"
               />
 
               {/* Coronal Light Ring 2 */}
               <motion.div
                 animate={{ rotate: -360, scale: [1.2, 0.8, 1.2] }}
-                transition={{ duration: 1.2, ease: 'linear' }}
+                transition={{ repeat: Infinity, duration: 2.0, ease: 'linear' }}
                 className="absolute -inset-9 rounded-full border border-cyan-300/40 border-dashed pointer-events-none"
               />
             </motion.div>
