@@ -192,18 +192,6 @@ export function HeroBento() {
             {/* Gradient Darkening Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-black/40" />
 
-            {/* Top Badge: AI/ML Engineer + Class Year */}
-            <div className="absolute top-5 left-5 right-5 flex items-center justify-between z-10">
-              <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-cyan-300 text-[10px] font-black uppercase tracking-[0.25em] shadow-lg">
-                <Sparkles className="w-3 h-3 text-cyan-400" />
-                <span>{portfolioData.personal.badge}</span>
-              </div>
-
-              <span className="text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-black/60 backdrop-blur-md border border-white/15 text-gray-300">
-                2026
-              </span>
-            </div>
-
             {/* Bottom Metrics Counter Bar */}
             <div className="absolute bottom-5 left-5 right-5 z-10">
               <div className="grid grid-cols-3 gap-2 p-3.5 rounded-2xl bg-black/75 backdrop-blur-md border border-white/15 text-center shadow-xl">
