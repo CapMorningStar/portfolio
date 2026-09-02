@@ -1,12 +1,10 @@
 ﻿'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import {
   Sparkles,
   Cpu,
-  Brain,
   Database,
-  Cloud,
   Layers,
   Terminal,
   Code2,
@@ -159,7 +157,7 @@ function IconGeneric({ icon: Icon, color = "text-cyan-400" }: { icon: any; color
   return <Icon className={`w-7 h-7 ${color}`} />;
 }
 
-/* ================= 3 DOMAIN LANES SPECIFICATIONS ================= */
+/* ================= 3 DOMAIN LANES DATA ================= */
 
 interface SkillItem {
   name: string;
@@ -236,98 +234,172 @@ export function SkillsSection() {
           </svg>
         </div>
 
-        {/* 3 Sequential Lanes Container */}
+        {/* 3 Interactive Drag-and-Scroll Lanes */}
         <div className="space-y-10 relative z-10">
 
-          {/* ================= LANE 1: AI, GENERATIVE LLMS & CLOUD ================= */}
+          {/* LANE 1: AI, GENERATIVE LLMS & CLOUD */}
           <div>
-            {/* Clean Domain Header */}
             <div className="flex items-center gap-2 mb-4 px-2">
               <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
               <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-[0.2em] text-cyan-300">
                 DOMAIN: AI, GENERATIVE LLMS &amp; CLOUD
               </span>
             </div>
-
-            {/* Continuous Marquee Track (Never stops on mouse hover) */}
-            <div className="relative w-full overflow-hidden">
-              <div className="flex gap-4 w-max animate-marquee-right">
-                {[...lane1GenAI, ...lane1GenAI, ...lane1GenAI].map((skill, idx) => (
-                  <SkillCard key={`lane1-${idx}`} skill={skill} />
-                ))}
-              </div>
-            </div>
+            <DraggableInteractiveLane items={lane1GenAI} speed={0.65} direction="right" />
           </div>
 
-          {/* ================= LANE 2: DEEP LEARNING, MACHINE LEARNING & CV ================= */}
+          {/* LANE 2: DEEP LEARNING, MACHINE LEARNING & CV */}
           <div>
-            {/* Clean Domain Header */}
             <div className="flex items-center gap-2 mb-4 px-2">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
               <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-[0.2em] text-emerald-300">
                 DOMAIN: DEEP LEARNING, MACHINE LEARNING &amp; CV
               </span>
             </div>
-
-            {/* Continuous Marquee Track (Never stops on mouse hover) */}
-            <div className="relative w-full overflow-hidden">
-              <div className="flex gap-4 w-max animate-marquee-left">
-                {[...lane2DeepLearning, ...lane2DeepLearning, ...lane2DeepLearning].map((skill, idx) => (
-                  <SkillCard key={`lane2-${idx}`} skill={skill} />
-                ))}
-              </div>
-            </div>
+            <DraggableInteractiveLane items={lane2DeepLearning} speed={0.65} direction="left" />
           </div>
 
-          {/* ================= LANE 3: DATA SCIENCE, PROGRAMMING & SYSTEMS ================= */}
+          {/* LANE 3: DATA SCIENCE, PROGRAMMING & SYSTEMS */}
           <div>
-            {/* Clean Domain Header */}
             <div className="flex items-center gap-2 mb-4 px-2">
               <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
               <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-[0.2em] text-cyan-300">
                 DOMAIN: DATA SCIENCE, PROGRAMMING &amp; SYSTEMS
               </span>
             </div>
-
-            {/* Continuous Marquee Track (Never stops on mouse hover) */}
-            <div className="relative w-full overflow-hidden">
-              <div className="flex gap-4 w-max animate-marquee-right">
-                {[...lane3DataScience, ...lane3DataScience, ...lane3DataScience].map((skill, idx) => (
-                  <SkillCard key={`lane3-${idx}`} skill={skill} />
-                ))}
-              </div>
-            </div>
+            <DraggableInteractiveLane items={lane3DataScience} speed={0.65} direction="right" />
           </div>
 
         </div>
       </div>
-
-      {/* Keyframes Injection for Smooth GPU Acceleration */}
-      <style jsx>{`
-        @keyframes marqueeLeft {
-          0% {
-            transform: translateX(0%);
-          }
-          100% {
-            transform: translateX(-33.333%);
-          }
-        }
-        @keyframes marqueeRight {
-          0% {
-            transform: translateX(-33.333%);
-          }
-          100% {
-            transform: translateX(0%);
-          }
-        }
-        .animate-marquee-left {
-          animation: marqueeLeft 34s linear infinite;
-        }
-        .animate-marquee-right {
-          animation: marqueeRight 34s linear infinite;
-        }
-      `}</style>
     </section>
+  );
+}
+
+/* ================= FULLY INTERACTIVE AUTO-DRIFT + MOUSE DRAGGABLE LANE ================= */
+
+function DraggableInteractiveLane({
+  items,
+  speed = 0.65,
+  direction = 'right',
+}: {
+  items: SkillItem[];
+  speed?: number;
+  direction?: 'left' | 'right';
+}) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const offsetRef = useRef(0);
+  const isDraggingRef = useRef(false);
+  const startXRef = useRef(0);
+  const prevOffsetRef = useRef(0);
+  const [isGrabbing, setIsGrabbing] = useState(false);
+
+  // Triple items for seamless infinite wrap
+  const displayItems = [...items, ...items, ...items, ...items];
+
+  useEffect(() => {
+    let animId: number;
+    const dirFactor = direction === 'left' ? -1 : 1;
+
+    const loop = () => {
+      const track = trackRef.current;
+      if (track) {
+        const totalWidth = track.scrollWidth / 2;
+
+        if (!isDraggingRef.current) {
+          offsetRef.current += speed * dirFactor;
+
+          if (direction === 'left' && offsetRef.current <= -totalWidth) {
+            offsetRef.current += totalWidth;
+          } else if (direction === 'right' && offsetRef.current >= 0) {
+            offsetRef.current -= totalWidth;
+          }
+        }
+
+        track.style.transform = `translate3d(${offsetRef.current}px, 0, 0)`;
+      }
+
+      animId = requestAnimationFrame(loop);
+    };
+
+    animId = requestAnimationFrame(loop);
+
+    return () => cancelAnimationFrame(animId);
+  }, [speed, direction]);
+
+  // Left-click Drag / Mouse Handlers
+  const handleMouseDown = (e: React.MouseEvent) => {
+    isDraggingRef.current = true;
+    setIsGrabbing(true);
+    startXRef.current = e.clientX;
+    prevOffsetRef.current = offsetRef.current;
+  };
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDraggingRef.current) return;
+    const deltaX = e.clientX - startXRef.current;
+    offsetRef.current = prevOffsetRef.current + deltaX;
+
+    const track = trackRef.current;
+    if (track) {
+      const totalWidth = track.scrollWidth / 2;
+      if (offsetRef.current > 0) {
+        offsetRef.current -= totalWidth;
+        startXRef.current = e.clientX;
+        prevOffsetRef.current = offsetRef.current;
+      } else if (offsetRef.current < -totalWidth) {
+        offsetRef.current += totalWidth;
+        startXRef.current = e.clientX;
+        prevOffsetRef.current = offsetRef.current;
+      }
+    }
+  };
+
+  const handleMouseUp = () => {
+    isDraggingRef.current = false;
+    setIsGrabbing(false);
+  };
+
+  // Touch handlers for mobile scrubbing
+  const handleTouchStart = (e: React.TouchEvent) => {
+    isDraggingRef.current = true;
+    setIsGrabbing(true);
+    startXRef.current = e.touches[0].clientX;
+    prevOffsetRef.current = offsetRef.current;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDraggingRef.current) return;
+    const deltaX = e.touches[0].clientX - startXRef.current;
+    offsetRef.current = prevOffsetRef.current + deltaX;
+  };
+
+  const handleTouchEnd = () => {
+    isDraggingRef.current = false;
+    setIsGrabbing(false);
+  };
+
+  return (
+    <div
+      ref={containerRef}
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+      onMouseLeave={handleMouseUp}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      className={`relative w-full overflow-hidden select-none py-1 cursor-grab active:cursor-grabbing ${
+        isGrabbing ? 'cursor-grabbing' : 'cursor-grab'
+      }`}
+    >
+      <div ref={trackRef} className="flex gap-4 w-max will-change-transform">
+        {displayItems.map((skill, idx) => (
+          <SkillCard key={idx} skill={skill} />
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -335,7 +407,7 @@ export function SkillsSection() {
 
 function SkillCard({ skill }: { skill: SkillItem }) {
   return (
-    <div className="group relative w-[170px] sm:w-[185px] h-[105px] rounded-2xl bg-[#141418]/85 border border-white/10 hover:border-cyan-400/60 p-3.5 flex flex-col justify-between backdrop-blur-md transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_0_25px_rgba(0,240,255,0.25)] select-none cursor-grab active:cursor-grabbing overflow-hidden">
+    <div className="group relative w-[170px] sm:w-[185px] h-[105px] rounded-2xl bg-[#141418]/85 border border-white/10 hover:border-cyan-400/60 p-3.5 flex flex-col justify-between backdrop-blur-md transition-all duration-300 hover:scale-[1.04] hover:shadow-[0_0_25px_rgba(0,240,255,0.25)] select-none pointer-events-auto overflow-hidden">
       
       {/* HUD Reticle Targeters on Hover */}
       <div className="absolute top-1.5 right-1.5 text-cyan-400 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
