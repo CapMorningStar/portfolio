@@ -205,10 +205,10 @@ export function IntroOverlay() {
       setPhase('starlight_voyage');
     }, 5100);
 
-    // 4. Starlight Voyage (holds 1.5s) -> Matrix (Name emerges) at 6.6s
+    // 4. Starlight Voyage (holds 2.0s for clear reading) -> Matrix (Name emerges) at 7.1s
     const t4 = setTimeout(() => {
       setPhase('matrix');
-    }, 6600);
+    }, 7100);
 
     // Keydown skip listener
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -514,7 +514,7 @@ export function IntroOverlay() {
         )}
       </AnimatePresence>
 
-      {/* ================= 2. STARLIGHT COSMIC VOYAGE (1.5s Smooth Dissolve of BEYOND THE HORIZON) ================= */}
+      {/* ================= 2. STARLIGHT COSMIC VOYAGE (2.0s Smooth Dissolve of BEYOND THE HORIZON) ================= */}
       <AnimatePresence>
         {phase === 'starlight_voyage' && (
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-20">
@@ -526,8 +526,8 @@ export function IntroOverlay() {
                 filter: ['blur(8px)', 'blur(0px)', 'blur(0px)', 'blur(10px)'],
               }}
               transition={{
-                duration: 1.5,
-                times: [0, 0.25, 0.75, 1],
+                duration: 2.0,
+                times: [0, 0.2, 0.8, 1],
                 ease: 'easeInOut',
               }}
               className="flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-black uppercase tracking-[0.35em] backdrop-blur-md shadow-[0_0_30px_rgba(6,182,212,0.25)]"
