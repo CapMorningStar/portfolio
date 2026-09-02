@@ -210,11 +210,20 @@ export function IntroOverlay() {
       setPhase('matrix');
     }, 7100);
 
+    // Global keyboard skip listener
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' || e.key === ' ' || e.key === 'Enter') {
+        handleExit();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+
     return () => {
       clearTimeout(t1);
       clearTimeout(t2);
       clearTimeout(t3);
       clearTimeout(t4);
+      window.removeEventListener('keydown', handleKeyDown);
       document.body.style.overflow = 'auto';
     };
   }, [isVisible]);
@@ -398,7 +407,10 @@ export function IntroOverlay() {
 
   return (
     <div
-      className={`fixed inset-0 z-[999999] flex flex-col items-center justify-center select-none overflow-hidden transition-all duration-700 ease-out cursor-default ${
+      role="button"
+      tabIndex={0}
+      onClick={(e) => handleExit(e)}
+      className={`fixed inset-0 z-[999999] flex flex-col items-center justify-center select-none overflow-hidden transition-all duration-700 ease-out cursor-pointer ${
         isExiting
           ? 'opacity-0 scale-110 blur-sm pointer-events-none'
           : 'opacity-100 scale-100 blur-0'
