@@ -82,6 +82,7 @@ export function IntroOverlay() {
       const hasSeen = sessionStorage.getItem('portfolio_intro_seen');
       if (hasSeen) {
         setIsVisible(false);
+        document.body.style.overflow = 'auto';
       }
     }
   }, []);
@@ -94,12 +95,16 @@ export function IntroOverlay() {
     }
     setTimeout(() => {
       setIsVisible(false);
-    }, 600);
+      document.body.style.overflow = 'auto';
+    }, 500);
   };
 
   // Phase Sequencer: Singularity -> Compression -> Detonation -> Starlight Voyage -> Matrix
   useEffect(() => {
-    if (!isVisible) return;
+    if (!isVisible) {
+      document.body.style.overflow = 'auto';
+      return;
+    }
     document.body.style.overflow = 'hidden';
 
     // 1. Slow, graceful Singularity glowing -> Compression at 2.1s
@@ -237,8 +242,8 @@ export function IntroOverlay() {
     if (!ctx) return;
 
     let animId: number;
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
+    let width = (canvas.width = window.innerWidth || 1200);
+    let height = (canvas.height = window.innerHeight || 800);
 
     const handleResize = () => {
       if (!canvas) return;
@@ -392,7 +397,8 @@ export function IntroOverlay() {
       role="button"
       tabIndex={0}
       onClick={handleExit}
-      className={`fixed inset-0 z-[999999] flex flex-col items-center justify-center select-none cursor-pointer overflow-hidden transition-all duration-700 ease-out ${
+      onTouchEnd={handleExit}
+      className={`fixed inset-0 z-[999999] flex flex-col items-center justify-center select-none cursor-pointer overflow-hidden transition-all duration-500 ease-out ${
         isExiting ? 'opacity-0 scale-105 pointer-events-none' : 'opacity-100 scale-100'
       }`}
       style={{ backgroundColor: '#02000c' }}
