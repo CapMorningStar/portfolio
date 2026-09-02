@@ -171,10 +171,10 @@ export function ProjectsSection() {
         })}
       </div>
 
-      {/* 3D DOUBLE-SIDED CARD FLIP (GLITCH-FREE WITH DUAL BACKFACE CULLING) */}
+      {/* 3D DOUBLE-SIDED CARD MODAL (ABOVE NAVBAR, PERFECTLY CENTERED & RESPONSIVE) */}
       <AnimatePresence>
         {selectedProject && (
-          <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 [perspective:1400px]">
+          <div className="fixed inset-0 z-[999999] flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
             {/* Dark Backdrop */}
             <motion.div
               initial={{ opacity: 0 }}
@@ -182,192 +182,129 @@ export function ProjectsSection() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.25 }}
               onClick={handleClose}
-              className="fixed inset-0 bg-black/75 backdrop-blur-sm"
+              className="fixed inset-0 bg-black/80 backdrop-blur-md"
             />
 
-            {/* FLOAT-IN CONTAINER — travels toward the viewer first, no rotation here */}
+            {/* Centered Modal Card Container */}
             <motion.div
-              initial={{ scale: 0.5, opacity: 0, y: 60, z: -260 }}
-              animate={{ scale: 1, opacity: 1, y: 0, z: 0 }}
-              exit={{ scale: 0.5, opacity: 0, y: 60, z: -260, transition: { delay: 0.55, duration: 0.3 } }}
-              transition={{ type: 'spring', stiffness: 210, damping: 22, mass: 0.9 }}
+              initial={{
+                scale: 0.85,
+                opacity: 0,
+                y: 30,
+              }}
+              animate={{
+                scale: 1,
+                opacity: 1,
+                y: 0,
+              }}
+              exit={{
+                scale: 0.85,
+                opacity: 0,
+                y: 30,
+              }}
+              transition={{
+                scale: { type: 'spring', stiffness: 300, damping: 25 },
+                opacity: { duration: 0.2 },
+                y: { type: 'spring', stiffness: 300, damping: 25 },
+              }}
               onClick={(e) => e.stopPropagation()}
-              style={{ transformStyle: 'preserve-3d' }}
-              className="relative z-10 w-full max-w-3xl min-h-[500px]"
+              className="relative z-10 w-full max-w-2xl max-h-[88vh] rounded-[2.5rem] bg-[#0c0c0c] border border-cyan-500/50 p-6 sm:p-8 text-white shadow-[0_30px_100px_rgba(0,0,0,1),0_0_80px_rgba(6,182,212,0.25)] flex flex-col justify-between overflow-y-auto my-auto"
             >
-              {/* FLIP CONTAINER — starts rotating only once the float-in has mostly settled */}
-              <motion.div
-                initial={{ rotateY: 0 }}
-                animate={{ rotateY: 180 }}
-                exit={{ rotateY: 0, transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] } }}
-                transition={{ duration: 0.6, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-                style={{
-                  transformStyle: 'preserve-3d',
-                  WebkitTransformStyle: 'preserve-3d',
-                  width: '100%',
-                  height: '100%',
-                  position: 'relative',
-                }}
-              >
-                {/* 1. FRONT FACE — backface-culling lives on a plain (non-clipped) layer;
-                    the rounded/overflow-hidden styling is pushed to an inner wrapper so
-                    Chromium's border-radius + backface-visibility compositing bug can't mirror it through */}
-                <div
-                  style={{
-                    backfaceVisibility: 'hidden',
-                    WebkitBackfaceVisibility: 'hidden',
-                    transform: 'rotateY(0deg) translateZ(0.5px)',
-                  }}
-                  className="absolute inset-0 w-full h-full"
-                >
-                  <div className="w-full h-full rounded-[2.5rem] bg-[#0c0c0c] border border-cyan-500/40 p-7 sm:p-10 text-white shadow-[0_30px_100px_rgba(0,0,0,1)] flex flex-col justify-between overflow-hidden">
-                    {/* Top Bar */}
-                    <div className="flex items-center justify-between mb-6">
-                      <span className="text-[11px] font-black uppercase tracking-[0.25em] text-cyan-400 font-mono">
-                        {selectedProject.number} — {selectedProject.category}
-                      </span>
-                      <span className="text-[10px] font-bold px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-gray-300">
-                        {selectedProject.year}
-                      </span>
-                    </div>
+              {/* Glowing Ambient Halo */}
+              <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/15 blur-3xl rounded-full -mr-20 -mt-20 pointer-events-none" />
 
-                    {/* Title & Description */}
-                    <div className="my-auto py-4">
-                      <h3 className="text-2xl sm:text-3xl font-black text-white leading-snug mb-3">
-                        {selectedProject.title}
-                      </h3>
-                      <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
-                        {selectedProject.description}
-                      </p>
+              {/* Top Bar: Title & Dismiss Button */}
+              <div className="flex items-start justify-between gap-4 mb-5 relative z-10 shrink-0">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0 shadow-inner">
+                    <Layers className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-cyan-400 font-mono font-bold">
+                      <span>{selectedProject.number}</span>
+                      <span>//</span>
+                      <span>{selectedProject.category}</span>
+                      <span>//</span>
+                      <span>{selectedProject.year}</span>
                     </div>
-
-                    {/* Bottom Tags */}
-                    <div className="pt-4 border-t border-white/10 flex items-center justify-between">
-                      <div className="flex flex-wrap gap-1.5">
-                        {selectedProject.tags.slice(0, 4).map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-2.5 py-1 rounded-lg text-[9px] font-bold uppercase tracking-wider bg-white/5 border border-white/10 text-cyan-300"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-                      <span className="text-[10px] font-mono text-cyan-400 animate-pulse">
-                        Flipping to architecture...
-                      </span>
-                    </div>
+                    <h3 className="text-xl sm:text-2xl font-black uppercase tracking-tight text-white mt-0.5">
+                      {selectedProject.title}
+                    </h3>
                   </div>
                 </div>
 
-                {/* 2. BACK FACE — same plain outer layer + clipped inner wrapper pattern */}
-                <div
-                  style={{
-                    backfaceVisibility: 'hidden',
-                    WebkitBackfaceVisibility: 'hidden',
-                    transform: 'rotateY(180deg) translateZ(0.5px)',
-                  }}
-                  className="absolute inset-0 w-full h-full"
+                <motion.button
+                  whileHover={{ scale: 1.1, rotate: 90 }}
+                  whileTap={{ scale: 0.9 }}
+                  onClick={handleClose}
+                  aria-label="Close dialog"
+                  className="w-9 h-9 rounded-full bg-white/10 hover:bg-cyan-400 hover:text-black border border-white/10 flex items-center justify-center text-gray-200 transition-colors shrink-0 cursor-pointer shadow-md"
                 >
-                  <div className="w-full h-full rounded-[2.5rem] bg-[#0c0c0c] border border-cyan-500/50 p-7 sm:p-10 text-white shadow-[0_30px_100px_rgba(0,0,0,1),0_0_70px_rgba(6,182,212,0.25)] relative overflow-hidden flex flex-col justify-between">
-                    {/* Glowing Ambient Halo */}
-                    <div className="absolute top-0 right-0 w-80 h-80 bg-cyan-500/15 blur-3xl rounded-full -mr-20 -mt-20 pointer-events-none" />
+                  <X className="w-4 h-4" />
+                </motion.button>
+              </div>
 
-                    {/* Top Bar: Title & 3D Dismiss Button */}
-                    <div className="flex items-start justify-between gap-4 mb-6 relative z-10">
-                      <div className="flex items-center gap-3">
-                        <div className="w-11 h-11 rounded-2xl bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shrink-0 shadow-inner">
-                          <Layers className="w-5 h-5" />
-                        </div>
-                        <div>
-                          <div className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.25em] text-cyan-400 font-mono font-bold">
-                            <span>{selectedProject.number}</span>
-                            <span>//</span>
-                            <span>{selectedProject.category}</span>
-                            <span>//</span>
-                            <span>{selectedProject.year}</span>
-                          </div>
-                          <h3 className="text-2xl sm:text-3xl font-black uppercase tracking-tight text-white mt-0.5">
-                            {selectedProject.title}
-                          </h3>
-                        </div>
-                      </div>
+              {/* Overview Description Box (100% Solid) */}
+              <div className="text-gray-200 text-xs sm:text-sm leading-relaxed mb-5 relative z-10 bg-[#161616] p-4 rounded-2xl border border-white/10 shadow-inner shrink-0">
+                {selectedProject.description}
+              </div>
 
-                      <motion.button
-                        whileHover={{ scale: 1.1, rotate: 90 }}
-                        whileTap={{ scale: 0.9 }}
-                        onClick={handleClose}
-                        aria-label="Close and flip back"
-                        className="w-10 h-10 rounded-full bg-white/10 hover:bg-cyan-400 hover:text-black border border-white/10 flex items-center justify-center text-gray-200 transition-colors shrink-0 cursor-pointer shadow-md"
-                      >
-                        <X className="w-5 h-5" />
-                      </motion.button>
-                    </div>
-
-                    {/* Overview Description Box (100% Solid) */}
-                    <div className="text-gray-200 text-xs sm:text-sm leading-relaxed mb-6 relative z-10 bg-[#161616] p-4 sm:p-5 rounded-2xl border border-white/10 shadow-inner">
-                      {selectedProject.description}
-                    </div>
-
-                    {/* Engineering Highlights & Architecture Breakdown (The Back Wall) */}
-                    <div className="mb-6 p-5 sm:p-6 rounded-2xl bg-[#141414] border border-cyan-500/30 space-y-3 relative z-10 shadow-inner">
-                      <div className="flex items-center gap-2 text-[11px] font-mono font-black uppercase tracking-wider text-cyan-400 mb-1">
-                        <Sparkle className="w-3.5 h-3.5 fill-cyan-400" />
-                        <span>Key Engineering &amp; Architecture Breakdown</span>
-                      </div>
-                      <div className="space-y-2.5">
-                        {selectedProject.bullets.map((bullet, idx) => (
-                          <div key={idx} className="flex items-start gap-2.5 text-xs text-gray-100 leading-snug">
-                            <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
-                            <span>{bullet}</span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    {/* Tech Stack & Action Row */}
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-white/10 relative z-10">
-                      <div className="flex flex-wrap gap-1.5 max-w-md">
-                        {selectedProject.tags.map((tag) => (
-                          <span
-                            key={tag}
-                            className="px-3 py-1 rounded-xl text-[10px] font-bold uppercase tracking-wider bg-[#1c1c1c] border border-white/10 text-cyan-300 shadow-sm"
-                          >
-                            {tag}
-                          </span>
-                        ))}
-                      </div>
-
-                      <div className="flex items-center gap-3 shrink-0">
-                        <motion.button
-                          whileHover={{ scale: 1.05 }}
-                          whileTap={{ scale: 0.95 }}
-                          onClick={handleClose}
-                          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-[#181818] hover:bg-[#252525] border border-white/10 text-gray-300 hover:text-white text-xs font-bold transition-all cursor-pointer shadow-sm"
-                        >
-                          <RotateCw className="w-3.5 h-3.5 text-cyan-400" />
-                          <span>Flip Back to Grid</span>
-                        </motion.button>
-
-                        {selectedProject.github && (
-                          <motion.a
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            href={selectedProject.github}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black font-black text-xs uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/25 cursor-pointer"
-                          >
-                            <Github className="w-4 h-4" />
-                            <span>View GitHub Repo</span>
-                            <ArrowUpRight className="w-3.5 h-3.5" />
-                          </motion.a>
-                        )}
-                      </div>
-                    </div>
-                  </div>
+              {/* Engineering Highlights & Architecture Breakdown */}
+              <div className="mb-5 p-4 sm:p-5 rounded-2xl bg-[#141414] border border-cyan-500/30 space-y-2.5 relative z-10 shadow-inner">
+                <div className="flex items-center gap-2 text-[11px] font-mono font-black uppercase tracking-wider text-cyan-400 mb-1">
+                  <Sparkle className="w-3.5 h-3.5 fill-cyan-400" />
+                  <span>Key Engineering &amp; Architecture Breakdown</span>
                 </div>
-              </motion.div>
+                <div className="space-y-2">
+                  {selectedProject.bullets.map((bullet, idx) => (
+                    <div key={idx} className="flex items-start gap-2.5 text-xs text-gray-100 leading-snug">
+                      <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
+                      <span>{bullet}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Tech Stack & Action Row */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pt-4 border-t border-white/10 relative z-10 shrink-0">
+                <div className="flex flex-wrap gap-1.5 max-w-sm">
+                  {selectedProject.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="px-2.5 py-1 rounded-xl text-[9px] font-bold uppercase tracking-wider bg-[#1c1c1c] border border-white/10 text-cyan-300 shadow-sm"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <div className="flex items-center gap-3 shrink-0">
+                  <motion.button
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    onClick={handleClose}
+                    className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-[#181818] hover:bg-[#252525] border border-white/10 text-gray-300 hover:text-white text-xs font-bold transition-all cursor-pointer shadow-sm"
+                  >
+                    <RotateCw className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>Back to Grid</span>
+                  </motion.button>
+
+                  {selectedProject.github && (
+                    <motion.a
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      href={selectedProject.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black font-black text-xs uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/25 cursor-pointer"
+                    >
+                      <Github className="w-4 h-4" />
+                      <span>View GitHub</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </motion.a>
+                  )}
+                </div>
+              </div>
             </motion.div>
           </div>
         )}
