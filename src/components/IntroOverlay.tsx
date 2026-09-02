@@ -66,6 +66,7 @@ interface SupernovaFlash {
 }
 
 export function IntroOverlay() {
+  // Always visible on every fresh load & refresh
   const [isVisible, setIsVisible] = useState(true);
   const [phase, setPhase] = useState<IntroPhase>('singularity');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -76,23 +77,9 @@ export function IntroOverlay() {
   const supernovaFlash = useRef<SupernovaFlash | null>(null);
   const backgroundStars = useRef<{ x: number; y: number; z: number; speed: number; size: number }[]>([]);
 
-  // Check if user already saw the intro in this session
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const hasSeen = sessionStorage.getItem('portfolio_intro_seen');
-      if (hasSeen) {
-        setIsVisible(false);
-        document.body.style.overflow = 'auto';
-      }
-    }
-  }, []);
-
   const handleExit = () => {
     if (isExiting) return;
     setIsExiting(true);
-    if (typeof window !== 'undefined') {
-      sessionStorage.setItem('portfolio_intro_seen', 'true');
-    }
     setTimeout(() => {
       setIsVisible(false);
       document.body.style.overflow = 'auto';
