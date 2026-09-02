@@ -241,16 +241,11 @@ export function SkillsSection() {
 
           {/* ================= LANE 1: AI, GENERATIVE LLMS & CLOUD ================= */}
           <div>
-            {/* Domain Telemetry Status Header */}
-            <div className="flex items-center justify-between mb-4 px-2">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-                <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-[0.2em] text-cyan-300">
-                  DOMAIN: AI, GENERATIVE LLMS &amp; CLOUD
-                </span>
-              </div>
-              <span className="text-[10px] font-mono text-gray-500 font-bold uppercase tracking-wider bg-white/5 px-2.5 py-1 rounded-md border border-white/5">
-                [ 8 NODES // ACTIVE ]
+            {/* Clean Domain Header */}
+            <div className="flex items-center gap-2 mb-4 px-2">
+              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+              <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-[0.2em] text-cyan-300">
+                DOMAIN: AI, GENERATIVE LLMS &amp; CLOUD
               </span>
             </div>
 
@@ -266,16 +261,11 @@ export function SkillsSection() {
 
           {/* ================= LANE 2: DEEP LEARNING, MACHINE LEARNING & CV ================= */}
           <div>
-            {/* Domain Telemetry Status Header */}
-            <div className="flex items-center justify-between mb-4 px-2">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-[0.2em] text-emerald-300">
-                  DOMAIN: DEEP LEARNING, MACHINE LEARNING &amp; CV
-                </span>
-              </div>
-              <span className="text-[10px] font-mono text-gray-500 font-bold uppercase tracking-wider bg-white/5 px-2.5 py-1 rounded-md border border-white/5">
-                [ 8 NODES // ACTIVE ]
+            {/* Clean Domain Header */}
+            <div className="flex items-center gap-2 mb-4 px-2">
+              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+              <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-[0.2em] text-emerald-300">
+                DOMAIN: DEEP LEARNING, MACHINE LEARNING &amp; CV
               </span>
             </div>
 
@@ -291,16 +281,11 @@ export function SkillsSection() {
 
           {/* ================= LANE 3: DATA SCIENCE, PROGRAMMING & SYSTEMS ================= */}
           <div>
-            {/* Domain Telemetry Status Header */}
-            <div className="flex items-center justify-between mb-4 px-2">
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-                <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-[0.2em] text-cyan-300">
-                  DOMAIN: DATA SCIENCE, PROGRAMMING &amp; SYSTEMS
-                </span>
-              </div>
-              <span className="text-[10px] font-mono text-gray-500 font-bold uppercase tracking-wider bg-white/5 px-2.5 py-1 rounded-md border border-white/5">
-                [ 8 NODES // ACTIVE ]
+            {/* Clean Domain Header */}
+            <div className="flex items-center gap-2 mb-4 px-2">
+              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+              <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-[0.2em] text-cyan-300">
+                DOMAIN: DATA SCIENCE, PROGRAMMING &amp; SYSTEMS
               </span>
             </div>
 
