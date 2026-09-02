@@ -38,7 +38,8 @@ const introSteps = [
 ];
 
 export function IntroOverlay() {
-  const [isVisible, setIsVisible] = useState(false);
+  // Default to true so there is ZERO flash of the main page on initial load
+  const [isVisible, setIsVisible] = useState(true);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -47,8 +48,8 @@ export function IntroOverlay() {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const hasSeen = sessionStorage.getItem('portfolio_intro_seen');
-      if (!hasSeen) {
-        setIsVisible(true);
+      if (hasSeen) {
+        setIsVisible(false);
       }
     }
   }, []);
@@ -186,7 +187,7 @@ export function IntroOverlay() {
       role="button"
       tabIndex={0}
       onClick={handleExit}
-      className={`fixed inset-0 z-[100] flex flex-col items-center justify-between p-8 sm:p-12 select-none cursor-pointer overflow-hidden transition-all duration-700 ease-out ${
+      className={`fixed inset-0 z-[999999] flex flex-col items-center justify-between p-8 sm:p-12 select-none cursor-pointer overflow-hidden transition-all duration-700 ease-out ${
         isExiting ? 'opacity-0 scale-105 pointer-events-none' : 'opacity-100 scale-100'
       }`}
       style={{ backgroundColor: '#030014' }}
