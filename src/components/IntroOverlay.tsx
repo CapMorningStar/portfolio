@@ -66,7 +66,6 @@ interface SupernovaFlash {
 }
 
 export function IntroOverlay() {
-  // Always visible on every fresh load & refresh
   const [isVisible, setIsVisible] = useState(true);
   const [phase, setPhase] = useState<IntroPhase>('singularity');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -94,7 +93,7 @@ export function IntroOverlay() {
     }
     document.body.style.overflow = 'hidden';
 
-    // 1. Slow, graceful Singularity glowing -> Compression at 2.1s
+    // 1. Slow Singularity glowing -> Compression at 2.1s
     const t1 = setTimeout(() => {
       setPhase('compression');
     }, 2100);
@@ -179,10 +178,10 @@ export function IntroOverlay() {
       setPhase('starlight_voyage');
     }, 3900);
 
-    // 4. Starlight Voyage -> Matrix (Name emerges slowly and majestically) at 6.1s
+    // 4. Starlight Voyage -> Graceful Dissolve -> Matrix (Name emerges) at 6.6s
     const t4 = setTimeout(() => {
       setPhase('matrix');
-    }, 6100);
+    }, 6600);
 
     // Keydown skip listener
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -215,7 +214,7 @@ export function IntroOverlay() {
           return prev;
         }
       });
-    }, 3600); // Equal, comfortable reading time of 3.6s per card
+    }, 3600);
 
     return () => clearInterval(interval);
   }, [isVisible, phase]);
@@ -445,26 +444,28 @@ export function IntroOverlay() {
         )}
       </AnimatePresence>
 
-      {/* ================= 2. STARLIGHT COSMIC VOYAGE ("// BEYOND THE HORIZON") ================= */}
+      {/* ================= 2. STARLIGHT COSMIC VOYAGE (Smooth Dissolve of BEYOND THE HORIZON) ================= */}
       <AnimatePresence>
         {phase === 'starlight_voyage' && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 1.05 }}
-            transition={{ duration: 0.7, ease: 'easeOut' }}
-            className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-20"
-          >
+          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-20">
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: [0.7, 1, 0.7], y: [0, -3, 0] }}
-              transition={{ repeat: Infinity, duration: 2.2, ease: 'easeInOut' }}
+              initial={{ opacity: 0, scale: 0.92, filter: 'blur(8px)' }}
+              animate={{
+                opacity: [0, 1, 1, 0],
+                scale: [0.92, 1, 1.02, 1.08],
+                filter: ['blur(8px)', 'blur(0px)', 'blur(0px)', 'blur(10px)'],
+              }}
+              transition={{
+                duration: 2.7,
+                times: [0, 0.25, 0.7, 1], // Smooth entrance, steady hover, and 0.8s gradual dissolve
+                ease: 'easeInOut',
+              }}
               className="flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-black uppercase tracking-[0.35em] backdrop-blur-md shadow-[0_0_30px_rgba(6,182,212,0.25)]"
             >
               <Sparkles className="w-4 h-4 text-cyan-400 animate-pulse" />
               <span>// BEYOND THE HORIZON</span>
             </motion.div>
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
 
