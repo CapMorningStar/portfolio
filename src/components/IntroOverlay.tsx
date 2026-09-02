@@ -480,7 +480,7 @@ export function IntroOverlay() {
             {/* Glowing Futuristic Loading Telemetry (Only Visible during Singularity Charging; Disappears on Compression) */}
             <AnimatePresence>
               {phase === 'singularity' && (
-                <div className="absolute top-[65%] sm:top-[63%] md:top-[62%] left-1/2 -translate-x-1/2 flex flex-col items-center justify-center w-full max-w-sm md:max-w-md pointer-events-none">
+                <div className="absolute top-[calc(50%+68px)] left-1/2 -translate-x-1/2 flex flex-col items-center justify-center w-full max-w-xs sm:max-w-sm md:max-w-md pointer-events-none">
                   <motion.div
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
