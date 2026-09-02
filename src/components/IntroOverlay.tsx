@@ -66,6 +66,7 @@ interface SupernovaFlash {
 }
 
 export function IntroOverlay() {
+  // Always visible on every fresh load & refresh
   const [isVisible, setIsVisible] = useState(true);
   const [phase, setPhase] = useState<IntroPhase>('singularity');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -79,10 +80,23 @@ export function IntroOverlay() {
   const handleExit = () => {
     if (isExiting) return;
     setIsExiting(true);
+    document.body.style.overflow = 'auto';
+
+    // On mobile screens (< 768px), smoothly glide directly to the Education & Certifications section
+    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+    if (isMobile) {
+      setTimeout(() => {
+        const target = document.getElementById('education');
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 250);
+    }
+
     setTimeout(() => {
       setIsVisible(false);
       document.body.style.overflow = 'auto';
-    }, 500);
+    }, 650);
   };
 
   // Phase Sequencer: Singularity -> Compression -> Detonation -> Starlight Voyage -> Matrix
@@ -259,10 +273,10 @@ export function IntroOverlay() {
 
       // 1. Render 3D Background Warp Starfield
       if (phase === 'detonation' || phase === 'starlight_voyage' || phase === 'matrix') {
-        const starAcceleration = phase === 'starlight_voyage' ? 1.6 : 1;
+        const starAcceleration = isExiting ? 32 : phase === 'starlight_voyage' ? 1.6 : 1;
 
         backgroundStars.current.forEach((star) => {
-          star.z -= isExiting ? 28 : star.speed * starAcceleration;
+          star.z -= star.speed * starAcceleration;
 
           if (star.z <= 0) {
             star.z = width;
@@ -384,8 +398,10 @@ export function IntroOverlay() {
       tabIndex={0}
       onClick={handleExit}
       onTouchEnd={handleExit}
-      className={`fixed inset-0 z-[999999] flex flex-col items-center justify-center select-none cursor-pointer overflow-hidden transition-all duration-500 ease-out ${
-        isExiting ? 'opacity-0 scale-105 pointer-events-none' : 'opacity-100 scale-100'
+      className={`fixed inset-0 z-[999999] flex flex-col items-center justify-center select-none cursor-pointer overflow-hidden transition-all duration-700 ease-out ${
+        isExiting
+          ? 'opacity-0 scale-110 blur-sm pointer-events-none'
+          : 'opacity-100 scale-100 blur-0'
       }`}
       style={{ backgroundColor: '#02000c' }}
     >
@@ -457,7 +473,7 @@ export function IntroOverlay() {
               }}
               transition={{
                 duration: 2.7,
-                times: [0, 0.25, 0.7, 1], // Smooth entrance, steady hover, and 0.8s gradual dissolve
+                times: [0, 0.25, 0.7, 1],
                 ease: 'easeInOut',
               }}
               className="flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-black uppercase tracking-[0.35em] backdrop-blur-md shadow-[0_0_30px_rgba(6,182,212,0.25)]"
@@ -514,7 +530,7 @@ export function IntroOverlay() {
             className="fixed bottom-4 sm:bottom-8 right-4 sm:right-8 z-30 flex items-center gap-1.5 text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-[0.2em] sm:tracking-[0.25em] text-cyan-400 hover:text-white transition-colors bg-white/5 hover:bg-cyan-500/20 px-3.5 py-1.5 rounded-full border border-white/10 backdrop-blur-md shadow-sm"
           >
             <span>CLICK TO SKIP</span>
-            <ChevronRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 animate-pulse" />
+            <ChevronRight className="w-3.5 h-3.5 animate-pulse" />
           </motion.div>
         </>
       )}
@@ -538,7 +554,7 @@ export function IntroOverlay() {
                 transition={{ duration: 1.2, delay: 0.15 }}
                 className="inline-flex items-center gap-2 px-3.5 py-1.2 sm:px-4 sm:py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] sm:tracking-[0.35em] mb-4 sm:mb-6 backdrop-blur-md shadow-[0_0_20px_rgba(6,182,212,0.2)]"
               >
-                <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-cyan-400" />
+                <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
                 <span>{current.tag}</span>
               </motion.div>
 
