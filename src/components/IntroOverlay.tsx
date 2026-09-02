@@ -483,9 +483,9 @@ export function IntroOverlay() {
             initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="fixed top-6 sm:top-8 left-6 sm:left-8 z-30 flex items-center gap-2.5 text-[11px] font-mono font-bold uppercase tracking-[0.25em] text-cyan-400 pointer-events-none"
+            className="fixed top-4 sm:top-8 left-4 sm:left-8 z-30 flex items-center gap-2 text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-[0.2em] sm:tracking-[0.25em] text-cyan-400 pointer-events-none"
           >
-            <div className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping" />
+            <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-cyan-400 animate-ping" />
             <span>GENESIS BOOT // V3.0</span>
           </motion.div>
 
@@ -494,7 +494,7 @@ export function IntroOverlay() {
             initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="fixed top-6 sm:top-8 right-6 sm:right-8 z-30 flex items-center gap-2 font-mono text-[10px] text-gray-400 font-bold uppercase tracking-widest bg-white/5 px-3.5 py-1.5 rounded-full border border-white/10 backdrop-blur-md pointer-events-none shadow-sm"
+            className="fixed top-4 sm:top-8 right-4 sm:right-8 z-30 flex items-center gap-1.5 font-mono text-[9px] sm:text-[10px] text-gray-400 font-bold uppercase tracking-widest bg-white/5 px-3 py-1.2 rounded-full border border-white/10 backdrop-blur-md pointer-events-none shadow-sm"
           >
             <span className="text-cyan-400 font-black">{current.step}</span>
             <span className="text-gray-600">//</span>
@@ -506,7 +506,7 @@ export function IntroOverlay() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="fixed bottom-6 sm:bottom-8 left-6 sm:left-8 z-30 hidden sm:flex items-center gap-2 text-[11px] font-mono text-gray-400 font-bold uppercase tracking-[0.25em] pointer-events-none"
+            className="fixed bottom-4 sm:bottom-8 left-4 sm:left-8 z-30 hidden sm:flex items-center gap-2 text-[11px] font-mono text-gray-400 font-bold uppercase tracking-[0.25em] pointer-events-none"
           >
             <Terminal className="w-3.5 h-3.5 text-cyan-400" />
             <span>INTERACTIVE TERMINAL READY</span>
@@ -517,17 +517,17 @@ export function IntroOverlay() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="fixed bottom-6 sm:bottom-8 right-6 sm:right-8 z-30 flex items-center gap-2 text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-cyan-400 hover:text-white transition-colors bg-white/5 hover:bg-cyan-500/20 px-4 py-2 rounded-full border border-white/10 backdrop-blur-md shadow-sm"
+            className="fixed bottom-4 sm:bottom-8 right-4 sm:right-8 z-30 flex items-center gap-1.5 text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-[0.2em] sm:tracking-[0.25em] text-cyan-400 hover:text-white transition-colors bg-white/5 hover:bg-cyan-500/20 px-3.5 py-1.5 rounded-full border border-white/10 backdrop-blur-md shadow-sm"
           >
             <span>CLICK TO SKIP</span>
-            <ChevronRight className="w-3.5 h-3.5 animate-pulse" />
+            <ChevronRight className="w-3 h-3 sm:w-3.5 sm:h-3.5 animate-pulse" />
           </motion.div>
         </>
       )}
 
-      {/* ================= 4. CENTER: SLOW, MAJESTIC IDENTITY & CREDENTIAL EMERGENCE ================= */}
+      {/* ================= 4. CENTER: RESPONSIVE SINGLE-ROW IDENTITY MATRIX ================= */}
       {phase === 'matrix' && (
-        <div className="relative z-20 text-center max-w-5xl px-6 w-full flex flex-col items-center justify-center my-auto">
+        <div className="relative z-20 text-center max-w-5xl px-4 sm:px-6 w-full flex flex-col items-center justify-center my-auto">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
@@ -542,18 +542,18 @@ export function IntroOverlay() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.9, delay: 0.15 }}
-                className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[10px] font-black uppercase tracking-[0.35em] mb-6 backdrop-blur-md shadow-[0_0_20px_rgba(6,182,212,0.2)]"
+                className="inline-flex items-center gap-2 px-3.5 py-1.2 sm:px-4 sm:py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] sm:tracking-[0.35em] mb-4 sm:mb-6 backdrop-blur-md shadow-[0_0_20px_rgba(6,182,212,0.2)]"
               >
-                <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-cyan-400" />
                 <span>{current.tag}</span>
               </motion.div>
 
-              {/* Main Headline (Slow Majestic Deceleration onto Screen) */}
+              {/* Main Headline (Responsive Auto Scaling - Fits 1 Row on Mobile 360px+) */}
               <motion.h1
                 initial={{ opacity: 0, scale: 0.92, filter: 'blur(8px)' }}
                 animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
                 transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-                className="text-3xl sm:text-5xl md:text-6xl lg:text-[4.2rem] font-black uppercase tracking-tight text-white leading-none mb-4 drop-shadow-[0_15px_50px_rgba(0,0,0,1)] whitespace-nowrap overflow-hidden"
+                className="text-2xl sm:text-4xl md:text-5xl lg:text-[4.2rem] font-black uppercase tracking-tight text-white leading-none mb-3 sm:mb-4 drop-shadow-[0_15px_50px_rgba(0,0,0,1)] whitespace-nowrap overflow-hidden"
               >
                 {current.text}
               </motion.h1>
@@ -563,7 +563,7 @@ export function IntroOverlay() {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1.0, delay: 0.25 }}
-                className="text-xs sm:text-sm md:text-base font-mono font-bold tracking-[0.2em] text-gray-300 uppercase mt-2 whitespace-nowrap"
+                className="text-[10px] sm:text-xs md:text-sm font-mono font-bold tracking-[0.15em] sm:tracking-[0.2em] text-gray-300 uppercase mt-1 sm:mt-2 whitespace-nowrap"
               >
                 <span className="text-cyan-400">&gt; </span>
                 {current.subtitle}
@@ -575,11 +575,11 @@ export function IntroOverlay() {
                   initial={{ opacity: 0, scale: 0.9, y: 20 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: 0.3 }}
-                  className="mt-8"
+                  className="mt-6 sm:mt-8"
                 >
-                  <div className="inline-flex items-center gap-3 px-9 py-4 rounded-full bg-cyan-400 text-black font-black text-xs uppercase tracking-[0.25em] shadow-[0_0_35px_rgba(6,182,212,0.6)] hover:bg-cyan-300 hover:scale-105 transition-all">
+                  <div className="inline-flex items-center gap-2.5 sm:gap-3 px-7 py-3.5 sm:px-9 sm:py-4 rounded-full bg-cyan-400 text-black font-black text-[10px] sm:text-xs uppercase tracking-[0.25em] shadow-[0_0_35px_rgba(6,182,212,0.6)] hover:bg-cyan-300 hover:scale-105 transition-all">
                     <span>ENTER PORTFOLIO</span>
-                    <ArrowRight className="w-4 h-4" />
+                    <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                   </div>
                 </motion.div>
               )}
@@ -587,16 +587,16 @@ export function IntroOverlay() {
           </AnimatePresence>
 
           {/* Progress Segmented Bar */}
-          <div className="mt-12 flex justify-center items-center gap-2.5">
+          <div className="mt-8 sm:mt-12 flex justify-center items-center gap-2 sm:gap-2.5">
             {introSteps.map((_, idx) => (
               <div
                 key={idx}
-                className={`h-1.5 rounded-full transition-all duration-500 ${
+                className={`h-1.2 sm:h-1.5 rounded-full transition-all duration-500 ${
                   idx === currentIndex
-                    ? 'w-12 bg-cyan-400 shadow-[0_0_12px_#06b6d4]'
+                    ? 'w-9 sm:w-12 bg-cyan-400 shadow-[0_0_12px_#06b6d4]'
                     : idx < currentIndex
-                    ? 'w-4 bg-white/30'
-                    : 'w-4 bg-white/10'
+                    ? 'w-3 sm:w-4 bg-white/30'
+                    : 'w-3 sm:w-4 bg-white/10'
                 }`}
               />
             ))}
