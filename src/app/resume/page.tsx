@@ -1,7 +1,8 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
   ArrowLeft,
@@ -12,23 +13,11 @@ import {
 
 export default function ResumePage() {
   const router = useRouter();
-  const [isLeaving, setIsLeaving] = useState(false);
-
-  const handleBack = () => {
-    setIsLeaving(true);
-    setTimeout(() => {
-      if (typeof window !== 'undefined' && window.history.length > 1) {
-        window.history.back();
-      } else {
-        router.push('/');
-      }
-    }, 250);
-  };
 
   return (
     <motion.div
       initial={{ opacity: 0, filter: 'blur(8px)' }}
-      animate={isLeaving ? { opacity: 0, y: 15, filter: 'blur(8px)' } : { opacity: 1, y: 0, filter: 'blur(0px)' }}
+      animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
       transition={{ duration: 0.35, ease: 'easeOut' }}
       className="min-h-screen bg-[#070707] text-white flex flex-col selection:bg-cyan-500/30 overflow-x-hidden"
     >
@@ -40,16 +29,17 @@ export default function ResumePage() {
         className="sticky top-0 z-50 bg-[#111111]/90 backdrop-blur-2xl border-b border-white/10 px-4 sm:px-8 py-3.5 flex items-center justify-between shadow-2xl"
       >
         {/* Interactive Back to Portfolio Button with Tactile Feedback */}
-        <motion.button
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.94 }}
-          transition={{ type: 'spring', stiffness: 400, damping: 25 }}
-          onClick={handleBack}
-          className="group inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-cyan-500/10 border border-white/10 hover:border-cyan-500/40 text-xs font-bold text-gray-200 hover:text-white transition-all cursor-pointer shadow-sm"
-        >
-          <ArrowLeft className="w-4 h-4 text-cyan-400 transition-transform duration-300 group-hover:-translate-x-1.5" />
-          <span>Back to Portfolio</span>
-        </motion.button>
+        <Link href="/">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.94 }}
+            transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+            className="group inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 hover:bg-cyan-500/10 border border-white/10 hover:border-cyan-500/40 text-xs font-bold text-gray-200 hover:text-white transition-all cursor-pointer shadow-sm"
+          >
+            <ArrowLeft className="w-4 h-4 text-cyan-400 transition-transform duration-300 group-hover:-translate-x-1.5" />
+            <span>Back to Portfolio</span>
+          </motion.button>
+        </Link>
 
         <div className="flex items-center gap-3">
           <div className="hidden md:flex items-center gap-2 text-xs font-mono text-cyan-400">

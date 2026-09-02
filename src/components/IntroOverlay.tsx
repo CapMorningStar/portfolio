@@ -66,7 +66,7 @@ interface SupernovaFlash {
 }
 
 export function IntroOverlay() {
-  const [isVisible, setIsVisible] = useState(true);
+  const [isVisible, setIsVisible] = useState(false);
   const [phase, setPhase] = useState<IntroPhase>('singularity');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
@@ -77,6 +77,16 @@ export function IntroOverlay() {
   const supernovaFlash = useRef<SupernovaFlash | null>(null);
   const backgroundStars = useRef<{ x: number; y: number; z: number; speed: number; size: number }[]>([]);
 
+  // Check if intro has already been experienced in this session
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const seen = sessionStorage.getItem('intro_seen');
+      if (!seen) {
+        setIsVisible(true);
+      }
+    }
+  }, []);
+
   const handleExit = (e?: React.MouseEvent | React.TouchEvent) => {
     if (e) {
       e.stopPropagation();
@@ -86,6 +96,9 @@ export function IntroOverlay() {
     }
     if (isExiting) return;
     setIsExiting(true);
+    if (typeof window !== 'undefined') {
+      sessionStorage.setItem('intro_seen', 'true');
+    }
     document.body.style.overflow = 'auto';
 
     setTimeout(() => {
