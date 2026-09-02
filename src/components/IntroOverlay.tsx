@@ -66,7 +66,6 @@ interface SupernovaFlash {
 }
 
 export function IntroOverlay() {
-  // Always visible on every fresh load & refresh
   const [isVisible, setIsVisible] = useState(true);
   const [phase, setPhase] = useState<IntroPhase>('singularity');
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -77,21 +76,16 @@ export function IntroOverlay() {
   const supernovaFlash = useRef<SupernovaFlash | null>(null);
   const backgroundStars = useRef<{ x: number; y: number; z: number; speed: number; size: number }[]>([]);
 
-  const handleExit = () => {
+  const handleExit = (e?: React.MouseEvent | React.TouchEvent) => {
+    if (e) {
+      e.stopPropagation();
+      if ('preventDefault' in e && typeof e.preventDefault === 'function') {
+        e.preventDefault();
+      }
+    }
     if (isExiting) return;
     setIsExiting(true);
     document.body.style.overflow = 'auto';
-
-    // On mobile screens (< 768px), smoothly glide directly to the Education & Certifications section
-    const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
-    if (isMobile) {
-      setTimeout(() => {
-        const target = document.getElementById('education');
-        if (target) {
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      }, 250);
-    }
 
     setTimeout(() => {
       setIsVisible(false);
@@ -396,9 +390,8 @@ export function IntroOverlay() {
     <div
       role="button"
       tabIndex={0}
-      onClick={handleExit}
-      onTouchEnd={handleExit}
-      className={`fixed inset-0 z-[999999] flex flex-col items-center justify-center select-none cursor-pointer overflow-hidden transition-all duration-700 ease-out ${
+      onClick={(e) => handleExit(e)}
+      className={`fixed inset-0 z-[999999] flex flex-col items-center justify-center select-none overflow-hidden transition-all duration-700 ease-out cursor-pointer ${
         isExiting
           ? 'opacity-0 scale-110 blur-sm pointer-events-none'
           : 'opacity-100 scale-100 blur-0'
@@ -407,6 +400,18 @@ export function IntroOverlay() {
     >
       {/* 3D Canvas Background */}
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
+
+      {/* ================= MOBILE-ONLY STATIONARY TOP-RIGHT ENTER BUTTON ================= */}
+      <div className="md:hidden fixed top-4 right-4 z-40 pointer-events-auto">
+        <button
+          onClick={(e) => handleExit(e)}
+          onTouchEnd={(e) => handleExit(e)}
+          className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-cyan-400 text-black font-black text-[10px] uppercase tracking-wider shadow-[0_0_20px_rgba(6,182,212,0.6)] cursor-pointer active:scale-95 transition-transform"
+        >
+          <span>Enter</span>
+          <ArrowRight className="w-3 h-3 text-black" />
+        </button>
+      </div>
 
       {/* ================= 1. PURE QUANTUM PROTON SINGULARITY ================= */}
       <AnimatePresence>
@@ -485,7 +490,7 @@ export function IntroOverlay() {
         )}
       </AnimatePresence>
 
-      {/* ================= 3. TRUE VIEWPORT-PINNED CORNER HUD ================= */}
+      {/* ================= 3. TRUE VIEWPORT-PINNED CORNER HUD (Desktop Only) ================= */}
       {phase === 'matrix' && (
         <>
           {/* Top-Left: Genesis Telemetry */}
@@ -493,18 +498,18 @@ export function IntroOverlay() {
             initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="fixed top-4 sm:top-8 left-4 sm:left-8 z-30 flex items-center gap-2 text-[10px] sm:text-[11px] font-mono font-bold uppercase tracking-[0.2em] sm:tracking-[0.25em] text-cyan-400 pointer-events-none"
+            className="fixed top-8 left-8 z-30 hidden md:flex items-center gap-2 text-[11px] font-mono font-bold uppercase tracking-[0.25em] text-cyan-400 pointer-events-none"
           >
-            <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-cyan-400 animate-ping" />
+            <div className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping" />
             <span>GENESIS BOOT // V3.0</span>
           </motion.div>
 
-          {/* Top-Right: Step Counter */}
+          {/* Top-Right: Step Counter (Desktop) */}
           <motion.div
             initial={{ opacity: 0, y: -15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="fixed top-4 sm:top-8 right-4 sm:right-8 z-30 flex items-center gap-1.5 font-mono text-[9px] sm:text-[10px] text-gray-400 font-bold uppercase tracking-widest bg-white/5 px-3 py-1.2 rounded-full border border-white/10 backdrop-blur-md pointer-events-none shadow-sm"
+            className="fixed top-8 right-8 z-30 hidden md:flex items-center gap-1.5 font-mono text-[10px] text-gray-400 font-bold uppercase tracking-widest bg-white/5 px-3.5 py-1.5 rounded-full border border-white/10 backdrop-blur-md pointer-events-none shadow-sm"
           >
             <span className="text-cyan-400 font-black">{current.step}</span>
             <span className="text-gray-600">//</span>
@@ -516,7 +521,7 @@ export function IntroOverlay() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="fixed bottom-4 sm:bottom-8 left-4 sm:left-8 z-30 hidden sm:flex items-center gap-2 text-[11px] font-mono text-gray-400 font-bold uppercase tracking-[0.25em] pointer-events-none"
+            className="fixed bottom-8 left-8 z-30 hidden md:flex items-center gap-2 text-[11px] font-mono text-gray-400 font-bold uppercase tracking-[0.25em] pointer-events-none"
           >
             <Terminal className="w-3.5 h-3.5 text-cyan-400" />
             <span>INTERACTIVE TERMINAL READY</span>
@@ -527,7 +532,7 @@ export function IntroOverlay() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="fixed bottom-4 sm:bottom-8 right-4 sm:right-8 z-30 flex items-center gap-1.5 text-[9px] sm:text-[10px] font-mono font-bold uppercase tracking-[0.2em] sm:tracking-[0.25em] text-cyan-400 hover:text-white transition-colors bg-white/5 hover:bg-cyan-500/20 px-3.5 py-1.5 rounded-full border border-white/10 backdrop-blur-md shadow-sm"
+            className="fixed bottom-8 right-8 z-30 hidden md:flex items-center gap-1.5 text-[10px] font-mono font-bold uppercase tracking-[0.25em] text-cyan-400 hover:text-white transition-colors bg-white/5 hover:bg-cyan-500/20 px-3.5 py-1.5 rounded-full border border-white/10 backdrop-blur-md shadow-sm"
           >
             <span>CLICK TO SKIP</span>
             <ChevronRight className="w-3.5 h-3.5 animate-pulse" />
@@ -535,9 +540,9 @@ export function IntroOverlay() {
         </>
       )}
 
-      {/* ================= 4. CENTER: SLOW, MAJESTIC IDENTITY & CREDENTIAL EMERGENCE ================= */}
+      {/* ================= 4. CENTER: RESPONSIVE SINGLE-ROW IDENTITY MATRIX ================= */}
       {phase === 'matrix' && (
-        <div className="relative z-20 text-center max-w-5xl px-4 sm:px-6 w-full flex flex-col items-center justify-center my-auto">
+        <div className="relative z-20 text-center max-w-5xl px-4 sm:px-6 w-full flex flex-col items-center justify-center my-auto pointer-events-none">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentIndex}
@@ -554,11 +559,11 @@ export function IntroOverlay() {
                 transition={{ duration: 1.2, delay: 0.15 }}
                 className="inline-flex items-center gap-2 px-3.5 py-1.2 sm:px-4 sm:py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[9px] sm:text-[10px] font-black uppercase tracking-[0.3em] sm:tracking-[0.35em] mb-4 sm:mb-6 backdrop-blur-md shadow-[0_0_20px_rgba(6,182,212,0.2)]"
               >
-                <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+                <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-cyan-400" />
                 <span>{current.tag}</span>
               </motion.div>
 
-              {/* Main Headline (Slow, Majestic 1.6s Blur-to-Sharp Deceleration) */}
+              {/* Main Headline (Responsive Auto Scaling) */}
               <motion.h1
                 initial={{ opacity: 0, scale: 0.90, filter: 'blur(10px)' }}
                 animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
@@ -568,7 +573,7 @@ export function IntroOverlay() {
                 {current.text}
               </motion.h1>
 
-              {/* Subtitle (Smooth 1.3s Glide In) */}
+              {/* Subtitle */}
               <motion.p
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -585,12 +590,15 @@ export function IntroOverlay() {
                   initial={{ opacity: 0, scale: 0.9, y: 20 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.4 }}
-                  className="mt-6 sm:mt-8"
+                  className="mt-6 sm:mt-8 pointer-events-auto"
                 >
-                  <div className="inline-flex items-center gap-2.5 sm:gap-3 px-7 py-3.5 sm:px-9 sm:py-4 rounded-full bg-cyan-400 text-black font-black text-[10px] sm:text-xs uppercase tracking-[0.25em] shadow-[0_0_35px_rgba(6,182,212,0.6)] hover:bg-cyan-300 hover:scale-105 transition-all">
+                  <button
+                    onClick={(e) => handleExit(e)}
+                    className="inline-flex items-center gap-2.5 sm:gap-3 px-7 py-3.5 sm:px-9 sm:py-4 rounded-full bg-cyan-400 text-black font-black text-[10px] sm:text-xs uppercase tracking-[0.25em] shadow-[0_0_35px_rgba(6,182,212,0.6)] hover:bg-cyan-300 hover:scale-105 transition-all cursor-pointer"
+                  >
                     <span>ENTER PORTFOLIO</span>
                     <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                  </div>
+                  </button>
                 </motion.div>
               )}
             </motion.div>
