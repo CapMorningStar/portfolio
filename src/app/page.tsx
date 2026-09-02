@@ -1,6 +1,6 @@
-﻿'use client';
+'use client';
 
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { StarfieldCanvas } from '@/components/StarfieldCanvas';
 import { IntroOverlay } from '@/components/IntroOverlay';
 import { CursorFollower } from '@/components/CursorFollower';
@@ -23,8 +23,10 @@ export default function Home() {
       {/* Interactive Cursor Follower & Trail */}
       <CursorFollower />
 
-      {/* Intro Screen Animation (Plays only once per session) */}
-      <IntroOverlay />
+      {/* Intro Screen Animation (Plays on page load/refresh; skipped when returning from resume) */}
+      <Suspense fallback={null}>
+        <IntroOverlay />
+      </Suspense>
 
       {/* Persistent Ambient Starfield Background with Mouse Reaction */}
       <StarfieldCanvas />
