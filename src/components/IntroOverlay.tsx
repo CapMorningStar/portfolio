@@ -304,7 +304,7 @@ export function IntroOverlay() {
         });
       }
 
-      // 2. Render Supernova Flash Radiant Bloom (Pure Canvas Radial Gradient)
+      // 2. Render Supernova Flash Radiant Bloom
       if (supernovaFlash.current && supernovaFlash.current.alpha > 0) {
         const sf = supernovaFlash.current;
         sf.r += (sf.maxR - sf.r) * 0.12;
@@ -347,12 +347,12 @@ export function IntroOverlay() {
         shockwaves.current = shockwaves.current.filter((sw) => sw.r < sw.maxR && sw.alpha > 0);
       }
 
-      // 4. Render Explosive Big Bang Particles with Smooth Aerodynamic Physics
+      // 4. Render Explosive Big Bang Particles
       if (explosionParticles.current.length > 0) {
         explosionParticles.current.forEach((p) => {
           p.x += p.vx;
           p.y += p.vy;
-          p.vx *= 0.96; // Smooth air resistance
+          p.vx *= 0.96;
           p.vy *= 0.96;
           p.alpha -= p.decay;
 
@@ -398,7 +398,7 @@ export function IntroOverlay() {
       }`}
       style={{ backgroundColor: '#02000c' }}
     >
-      {/* 3D Canvas Background (High-Performance GPU Pipeline) */}
+      {/* 3D Canvas Background */}
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
 
       {/* ================= 1. QUANTUM PROTON SINGULARITY ================= */}
@@ -420,7 +420,7 @@ export function IntroOverlay() {
                       ],
                     }
                   : {
-                      scale: [1.2, 0.05], // Smooth, clean compression before explosion
+                      scale: [1.2, 0.05],
                       opacity: [1, 1],
                       boxShadow: '0 0 140px #ffffff, 0 0 220px #00f0ff',
                     }
@@ -468,24 +468,24 @@ export function IntroOverlay() {
         )}
       </AnimatePresence>
 
-      {/* ================= 2. STARLIGHT COSMIC VOYAGE (Stars for ~2.2s) ================= */}
+      {/* ================= 2. STARLIGHT COSMIC VOYAGE ("// BEYOND THE HORIZON") ================= */}
       <AnimatePresence>
         {phase === 'starlight_voyage' && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.05 }}
+            transition={{ duration: 0.5, ease: 'easeOut' }}
             className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-20"
           >
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: [0.3, 0.8, 0.3], scale: [0.95, 1.05, 0.95] }}
-              transition={{ repeat: Infinity, duration: 2.2 }}
-              className="flex items-center gap-2.5 px-5 py-2 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[10px] font-mono font-bold uppercase tracking-[0.35em] backdrop-blur-md"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: [0.7, 1, 0.7], y: [0, -3, 0] }}
+              transition={{ repeat: Infinity, duration: 2.2, ease: 'easeInOut' }}
+              className="flex items-center gap-2.5 px-6 py-2.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-xs font-mono font-black uppercase tracking-[0.35em] backdrop-blur-md shadow-[0_0_30px_rgba(6,182,212,0.25)]"
             >
-              <Compass className="w-3.5 h-3.5 text-cyan-400 animate-spin" />
-              <span>COSMOS EXPANDING · 3D SPACE INITIALIZED</span>
+              <Sparkles className="w-4 h-4 text-cyan-400 animate-pulse" />
+              <span>// BEYOND THE HORIZON</span>
             </motion.div>
           </motion.div>
         )}
