@@ -29,7 +29,7 @@ export default function ResumePage() {
         className="sticky top-0 z-50 bg-[#111111]/90 backdrop-blur-2xl border-b border-white/10 px-4 sm:px-8 py-3.5 flex items-center justify-between shadow-2xl"
       >
         {/* Interactive Back to Portfolio Button with Tactile Feedback */}
-        <Link href="/?from=resume">
+        <Link href="/">
           <motion.button
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.94 }}

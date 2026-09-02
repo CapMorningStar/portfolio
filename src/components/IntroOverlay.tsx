@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useEffect, useState, useRef } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Zap, Terminal, ArrowRight, Sparkles, ChevronRight, ChevronLeft } from 'lucide-react';
 
@@ -66,11 +65,10 @@ interface SupernovaFlash {
   alpha: number;
 }
 
-export function IntroOverlay() {
-  const searchParams = useSearchParams();
-  const fromResume = searchParams.get('from') === 'resume';
+let hasExperiencedIntroInSession = false;
 
-  const [isVisible, setIsVisible] = useState(!fromResume);
+export function IntroOverlay() {
+  const [isVisible, setIsVisible] = useState(() => !hasExperiencedIntroInSession);
   const [phase, setPhase] = useState<IntroPhase>('singularity');
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isExiting, setIsExiting] = useState(false);
@@ -82,11 +80,11 @@ export function IntroOverlay() {
   const backgroundStars = useRef<{ x: number; y: number; z: number; speed: number; size: number }[]>([]);
 
   useEffect(() => {
-    if (fromResume) {
+    if (hasExperiencedIntroInSession) {
       setIsVisible(false);
       document.body.style.overflow = 'auto';
     }
-  }, [fromResume]);
+  }, []);
 
   const handleExit = (e?: React.MouseEvent | React.TouchEvent) => {
     if (e) {
@@ -96,6 +94,7 @@ export function IntroOverlay() {
       }
     }
     if (isExiting) return;
+    hasExperiencedIntroInSession = true;
     setIsExiting(true);
     document.body.style.overflow = 'auto';
 
