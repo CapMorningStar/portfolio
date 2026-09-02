@@ -97,17 +97,17 @@ export function IntroOverlay() {
     }, 600);
   };
 
-  // Phase Sequencer: Singularity -> Compression -> Detonation -> Starlight Voyage -> Matrix
+  // Punchy Fast-Paced Phase Sequencer (Singularity pulse ~1.2s -> Boom!)
   useEffect(() => {
     if (!isVisible) return;
     document.body.style.overflow = 'hidden';
 
-    // 1. Singularity -> Compression at 1.8s
+    // 1. Singularity single pulse -> Compression at 0.85s
     const t1 = setTimeout(() => {
       setPhase('compression');
-    }, 1800);
+    }, 850);
 
-    // 2. Compression -> Detonation (Big Bang explosion) at 2.25s
+    // 2. Compression -> Detonation (BOOM!) at 1.25s (less than 1.5s total!)
     const t2 = setTimeout(() => {
       setPhase('detonation');
       if (typeof window !== 'undefined') {
@@ -145,7 +145,7 @@ export function IntroOverlay() {
         }
         explosionParticles.current = particles;
 
-        // B. Radial Shockwave Rings (Canvas GPU anti-aliased)
+        // B. Radial Shockwave Rings
         shockwaves.current = [
           {
             r: 5,
@@ -180,17 +180,17 @@ export function IntroOverlay() {
           alpha: 1,
         };
       }
-    }, 2250);
+    }, 1250);
 
-    // 3. Detonation -> Starlight Voyage ("// BEYOND THE HORIZON") at 3.7s
+    // 3. Detonation -> Starlight Voyage ("// BEYOND THE HORIZON") at 2.4s
     const t3 = setTimeout(() => {
       setPhase('starlight_voyage');
-    }, 3700);
+    }, 2400);
 
-    // 4. Starlight Voyage -> Matrix (Name emerges) at 5.9s
+    // 4. Starlight Voyage -> Matrix (Name emerges) at 4.6s
     const t4 = setTimeout(() => {
       setPhase('matrix');
-    }, 5900);
+    }, 4600);
 
     // Keydown skip listener
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -400,67 +400,51 @@ export function IntroOverlay() {
       {/* 3D Canvas Background */}
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full pointer-events-none" />
 
-      {/* ================= 1. QUANTUM PROTON SINGULARITY ================= */}
+      {/* ================= 1. PURE QUANTUM PROTON SINGULARITY (1.2s Single Pulse -> BOOM, No Surrounding Text) ================= */}
       <AnimatePresence>
         {(phase === 'singularity' || phase === 'compression') && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-20">
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
             {/* The Vibrating Quantum Singularity Particle */}
             <motion.div
               initial={{ scale: 0, opacity: 0 }}
               animate={
                 phase === 'singularity'
                   ? {
-                      scale: [0.85, 1.4, 1, 1.45, 0.9, 1.35],
-                      opacity: [0.75, 1, 0.85, 1, 0.9, 1],
+                      scale: [0.6, 1.45],
+                      opacity: [0.6, 1],
                       boxShadow: [
                         '0 0 35px #00f0ff, 0 0 70px #06b6d4, 0 0 110px #fff',
-                        '0 0 80px #00f0ff, 0 0 150px #38bdf8, 0 0 200px #fff',
-                        '0 0 45px #00f0ff, 0 0 90px #06b6d4, 0 0 130px #fff',
+                        '0 0 90px #00f0ff, 0 0 160px #38bdf8, 0 0 220px #fff',
                       ],
                     }
                   : {
-                      scale: [1.2, 0.05],
+                      scale: [1.45, 0.05], // Quick single compression right before BOOM
                       opacity: [1, 1],
-                      boxShadow: '0 0 140px #ffffff, 0 0 220px #00f0ff',
+                      boxShadow: '0 0 150px #ffffff, 0 0 240px #00f0ff',
                     }
               }
               transition={
                 phase === 'singularity'
-                  ? { repeat: Infinity, duration: 1.4, ease: 'easeInOut' }
-                  : { duration: 0.45, ease: 'easeIn' }
+                  ? { duration: 0.85, ease: 'easeOut' }
+                  : { duration: 0.4, ease: 'easeIn' }
               }
-              className="relative w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-[0_0_80px_#00f0ff]"
+              className="relative w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-[0_0_90px_#00f0ff]"
             >
               <div className="w-4 h-4 rounded-full bg-cyan-300 animate-ping" />
 
               {/* Coronal Light Ring 1 */}
               <motion.div
-                animate={{ rotate: 360, scale: [1, 1.2, 1] }}
-                transition={{ repeat: Infinity, duration: 2, ease: 'linear' }}
+                animate={{ rotate: 360, scale: [1, 1.25, 1] }}
+                transition={{ duration: 1.2, ease: 'linear' }}
                 className="absolute -inset-5 rounded-full border-2 border-cyan-400/60 pointer-events-none"
               />
 
               {/* Coronal Light Ring 2 */}
               <motion.div
-                animate={{ rotate: -360, scale: [1.15, 0.85, 1.15] }}
-                transition={{ repeat: Infinity, duration: 1.6, ease: 'linear' }}
+                animate={{ rotate: -360, scale: [1.2, 0.8, 1.2] }}
+                transition={{ duration: 1.2, ease: 'linear' }}
                 className="absolute -inset-9 rounded-full border border-cyan-300/40 border-dashed pointer-events-none"
               />
-            </motion.div>
-
-            {/* Monospace Telemetry */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: [0.4, 0.9, 0.4], y: 0 }}
-              transition={{ repeat: Infinity, duration: 1.8 }}
-              className="mt-14 flex items-center gap-2 text-[10px] font-mono uppercase tracking-[0.4em] text-cyan-400 font-bold"
-            >
-              <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
-              <span>
-                {phase === 'singularity'
-                  ? 'INITIALIZING QUANTUM SINGULARITY'
-                  : 'CRITICAL MASS // DETONATING'}
-              </span>
             </motion.div>
           </div>
         )}
