@@ -489,7 +489,7 @@ export function IntroOverlay() {
                     {/* Header Badge */}
                     <div className="inline-flex items-center gap-1.5 px-3 py-1 sm:px-4 sm:py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 text-[10px] sm:text-[11px] md:text-xs font-mono tracking-widest uppercase mb-2.5 sm:mb-3 shadow-[0_0_15px_rgba(6,182,212,0.25)]">
                       <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
-                      <span>✨ INITIALIZING COSMIC VOYAGE</span>
+                      <span>INITIALIZING COSMIC VOYAGE</span>
                     </div>
 
                     {/* Animated Progress Bar */}
