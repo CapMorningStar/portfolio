@@ -444,7 +444,7 @@ export function IntroOverlay() {
                     : {
                         scale: [1.45, 0.15, 0.08, 0.14, 0.05],
                         opacity: [1, 1, 0.95, 1, 1],
-                        y: [0, -18, -12, -16, 0],
+                        y: 0,
                         boxShadow: [
                           '0 0 160px #ffffff, 0 0 260px #00f0ff',
                           '0 0 220px #ffffff, 0 0 320px #38bdf8',
