@@ -141,7 +141,7 @@ export function IntroOverlay() {
     };
   }, [isVisible]);
 
-  // Word Matrix Step Sequencer (Only runs once matrix phase begins)
+  // Word Matrix Step Sequencer
   useEffect(() => {
     if (!isVisible || phase !== 'matrix') return;
 
@@ -196,7 +196,7 @@ export function IntroOverlay() {
       ctx.fillStyle = '#02000c';
       ctx.fillRect(0, 0, width, height);
 
-      // 1. Render Background Warp Stars (Subtle)
+      // 1. Render Background Warp Stars
       if (phase === 'matrix' || phase === 'detonation') {
         backgroundStars.current.forEach((star) => {
           star.z -= isExiting ? 28 : star.speed;
@@ -236,7 +236,7 @@ export function IntroOverlay() {
         explosionParticles.current.forEach((p) => {
           p.x += p.vx;
           p.y += p.vy;
-          p.vx *= 0.96; // drag
+          p.vx *= 0.96;
           p.vy *= 0.96;
           p.alpha -= p.decay;
 
@@ -305,7 +305,7 @@ export function IntroOverlay() {
                       ],
                     }
                   : {
-                      scale: [1.2, 0.1], // Violent compression before explosion
+                      scale: [1.2, 0.1],
                       opacity: [1, 1],
                       boxShadow: '0 0 120px #ffffff, 0 0 200px #00f0ff',
                     }
@@ -408,8 +408,8 @@ export function IntroOverlay() {
             </div>
           </motion.div>
 
-          {/* CENTER: Identity & Credential Matrix */}
-          <div className="relative z-10 text-center max-w-4xl px-4 my-auto">
+          {/* CENTER: Identity & Credential Matrix (Single Clean Row Always) */}
+          <div className="relative z-10 text-center max-w-5xl px-4 my-auto w-full">
             <AnimatePresence mode="wait">
               <motion.div
                 key={currentIndex}
@@ -417,7 +417,7 @@ export function IntroOverlay() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={{ opacity: 0, y: -30, scale: 1.04 }}
                 transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                className="flex flex-col items-center"
+                className="flex flex-col items-center w-full"
               >
                 {/* Tag Badge */}
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[10px] font-black uppercase tracking-[0.35em] mb-6 backdrop-blur-md shadow-[0_0_20px_rgba(6,182,212,0.2)]">
@@ -425,13 +425,13 @@ export function IntroOverlay() {
                   <span>{current.tag}</span>
                 </div>
 
-                {/* Main Headline */}
-                <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black uppercase tracking-tighter text-white leading-none mb-4 drop-shadow-[0_15px_50px_rgba(0,0,0,1)]">
+                {/* Main Headline (Strictly 1 Single Row With Responsive Auto Sizing) */}
+                <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-[4.2rem] font-black uppercase tracking-tight text-white leading-none mb-4 drop-shadow-[0_15px_50px_rgba(0,0,0,1)] whitespace-nowrap overflow-hidden">
                   {current.text}
                 </h1>
 
                 {/* Subtitle */}
-                <p className="text-xs sm:text-sm md:text-base font-mono font-bold tracking-[0.25em] text-gray-300 uppercase mt-2">
+                <p className="text-xs sm:text-sm md:text-base font-mono font-bold tracking-[0.2em] text-gray-300 uppercase mt-2 whitespace-nowrap">
                   <span className="text-cyan-400">&gt; </span>
                   {current.subtitle}
                 </p>
