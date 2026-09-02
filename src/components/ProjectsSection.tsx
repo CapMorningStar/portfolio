@@ -26,10 +26,14 @@ export function ProjectsSection() {
       ? projects
       : projects.filter((p) => p.category === activeCategory);
 
-  // Close on Escape key
+  const handleClose = () => {
+    setSelectedProject(null);
+  };
+
+  // Close on Escape key and clean up body scroll
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setSelectedProject(null);
+      if (e.key === 'Escape') handleClose();
     };
 
     if (selectedProject) {
@@ -74,7 +78,7 @@ export function ProjectsSection() {
                 key={cat}
                 onClick={() => {
                   setActiveCategory(cat);
-                  setSelectedProject(null);
+                  handleClose();
                 }}
                 className={`px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-wider transition-all duration-200 flex items-center gap-2 cursor-pointer ${
                   isActive
@@ -150,56 +154,50 @@ export function ProjectsSection() {
               {/* 3D Flip & Float Indicator */}
               <div className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 group-hover:bg-cyan-400 group-hover:text-black transition-all text-[10px] font-black uppercase tracking-wider shadow-sm shrink-0">
                 <RotateCw className="w-3 h-3 group-hover:rotate-180 transition-transform duration-500" />
-                <span>Flip &amp; Float</span>
+                <span>Details</span>
               </div>
             </div>
           </div>
         ))}
       </div>
 
-      {/* 3D FLIP-IN & FLOATING FORWARD MODAL CARD */}
+      {/* 3D FLIP-IN & FLOATING FORWARD MODAL CARD (Guaranteed Clean Unmount) */}
       <AnimatePresence>
         {selectedProject && (
-          <div className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 [perspective:2000px]">
-            {/* Dark Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.3 }}
-              onClick={() => setSelectedProject(null)}
-              className="fixed inset-0 bg-black/75 backdrop-blur-sm"
-            />
-
+          <motion.div
+            key="modal-backdrop"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
+            onClick={handleClose}
+            className="fixed inset-0 z-[99999] flex items-center justify-center p-4 sm:p-6 bg-black/75 backdrop-blur-sm [perspective:2000px]"
+          >
             {/* 3D FLIPPING & FLOATING CARD */}
             <motion.div
               initial={{
-                rotateY: 180,
-                scale: 0.35,
+                rotateY: 140,
+                scale: 0.45,
                 opacity: 0,
-                y: 80,
+                y: 50,
               }}
               animate={{
                 rotateY: 0,
                 scale: 1,
                 opacity: 1,
-                y: [0, -10, 0],
+                y: 0,
               }}
               exit={{
-                rotateY: -180,
-                scale: 0.35,
+                rotateY: -140,
+                scale: 0.45,
                 opacity: 0,
-                y: 80,
+                y: 50,
               }}
               transition={{
-                rotateY: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
-                scale: { type: 'spring', stiffness: 260, damping: 22 },
-                opacity: { duration: 0.3 },
-                y: {
-                  repeat: Infinity,
-                  duration: 3.8,
-                  ease: 'easeInOut',
-                },
+                rotateY: { duration: 0.45, ease: [0.22, 1, 0.36, 1] },
+                scale: { type: 'spring', stiffness: 320, damping: 25 },
+                opacity: { duration: 0.2 },
+                y: { type: 'spring', stiffness: 320, damping: 25 },
               }}
               onClick={(e) => e.stopPropagation()}
               className="relative z-10 w-full max-w-3xl rounded-[2.5rem] bg-[#0c0c0c] border border-cyan-500/50 p-7 sm:p-10 text-white shadow-[0_30px_100px_rgba(0,0,0,1),0_0_70px_rgba(6,182,212,0.25)] overflow-hidden [transform-style:preserve-3d]"
@@ -230,7 +228,7 @@ export function ProjectsSection() {
                 <motion.button
                   whileHover={{ scale: 1.1, rotate: 90 }}
                   whileTap={{ scale: 0.9 }}
-                  onClick={() => setSelectedProject(null)}
+                  onClick={handleClose}
                   aria-label="Close and flip back"
                   className="w-10 h-10 rounded-full bg-white/10 hover:bg-cyan-400 hover:text-black border border-white/10 flex items-center justify-center text-gray-200 transition-colors shrink-0 cursor-pointer shadow-md"
                 >
@@ -276,7 +274,7 @@ export function ProjectsSection() {
                   <motion.button
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={() => setSelectedProject(null)}
+                    onClick={handleClose}
                     className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-[#181818] hover:bg-[#252525] border border-white/10 text-gray-300 hover:text-white text-xs font-bold transition-all cursor-pointer shadow-sm"
                   >
                     <RotateCw className="w-3.5 h-3.5 text-cyan-400" />
@@ -300,7 +298,7 @@ export function ProjectsSection() {
                 </div>
               </div>
             </motion.div>
-          </div>
+          </motion.div>
         )}
       </AnimatePresence>
     </section>
