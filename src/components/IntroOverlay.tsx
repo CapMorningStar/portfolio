@@ -239,24 +239,6 @@ export function IntroOverlay() {
     };
   }, [isVisible]);
 
-  // Word Matrix Step Sequencer: Generous, Equal Reading Time (3.6s per step)
-  useEffect(() => {
-    if (!isVisible || phase !== 'matrix') return;
-
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => {
-        if (prev < introSteps.length - 1) {
-          return prev + 1;
-        } else {
-          clearInterval(interval);
-          return prev;
-        }
-      });
-    }, 3600);
-
-    return () => clearInterval(interval);
-  }, [isVisible, phase, currentIndex]);
-
   // Canvas Physics: Pure GPU Big Bang Explosion + Shockwaves + 3D Warp Starfield
   useEffect(() => {
     if (!isVisible) return;
