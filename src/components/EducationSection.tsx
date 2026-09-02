@@ -6,15 +6,52 @@ import { GraduationCap, Award, Trophy, ArrowUpRight, Sparkles } from 'lucide-rea
 
 /* ================= EXACT OFFICIAL COMPANY & UNIVERSITY VECTOR LOGOS ================= */
 
-/** UC San Diego (UCSD) - Official Navy & Gold Triton Seal */
+/** UC San Diego (UCSD) - Official Navy & Gold Tritons Trident Spear & Wordmark */
 function LogoUCSD({ className = "w-10 h-10" }: { className?: string }) {
   return (
-    <div className={`${className} rounded-xl bg-[#182B49] border border-[#FFCD00]/50 flex items-center justify-center p-1.5 shadow-md shrink-0`}>
-      <svg viewBox="0 0 100 100" className="w-full h-full" fill="none">
-        <circle cx="50" cy="50" r="44" stroke="#FFCD00" strokeWidth="5" fill="#182B49" />
-        <circle cx="50" cy="50" r="36" stroke="#FFCD00" strokeWidth="1.5" strokeDasharray="3,3" fill="none" opacity="0.7" />
-        <path d="M50 20 L58 35 L74 38 L62 50 L65 66 L50 58 L35 66 L38 50 L26 38 L42 35 Z" fill="#FFCD00" />
-        <text x="50" y="86" textAnchor="middle" fill="#FFCD00" fontSize="16" fontWeight="900" fontFamily="-apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" letterSpacing="1.5">
+    <div className={`${className} rounded-xl bg-[#182B49] border border-[#FFCD00]/60 flex items-center justify-center p-1 shadow-md shrink-0`}>
+      <svg viewBox="0 0 120 120" className="w-full h-full" fill="none">
+        {/* Navy Background Base */}
+        <rect width="120" height="120" rx="18" fill="#182B49" />
+        
+        {/* Central Vertical Spear (Gold Outline + Navy Core) */}
+        <path
+          d="M60 10 L70 38 H64 V70 H56 V38 H50 Z"
+          fill="#182B49"
+          stroke="#FFCD00"
+          strokeWidth="4"
+          strokeLinejoin="round"
+        />
+        
+        {/* Left Angled Trident Barb */}
+        <path
+          d="M24 28 L46 42 L42 50 L56 64 L50 68 L36 54 L32 62 Z"
+          fill="#182B49"
+          stroke="#FFCD00"
+          strokeWidth="4"
+          strokeLinejoin="round"
+        />
+        
+        {/* Right Angled Trident Barb */}
+        <path
+          d="M96 28 L88 62 L84 54 L70 68 L64 64 L78 50 L74 42 Z"
+          fill="#182B49"
+          stroke="#FFCD00"
+          strokeWidth="4"
+          strokeLinejoin="round"
+        />
+        
+        {/* Bold Athletic Block "UCSD" in Gold */}
+        <text
+          x="60"
+          y="104"
+          textAnchor="middle"
+          fill="#FFCD00"
+          fontSize="24"
+          fontWeight="900"
+          fontFamily="-apple-system, BlinkMacSystemFont, Impact, sans-serif"
+          letterSpacing="2"
+        >
           UCSD
         </text>
       </svg>
