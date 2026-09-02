@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import Image from 'next/image';
@@ -177,14 +177,14 @@ export function HeroBento() {
 
         {/* ================= RIGHT 4 COLUMNS: STUDIO PORTRAIT CARD ================= */}
         <div className="col-span-12 lg:col-span-4">
-          <div className="relative h-[480px] sm:h-[540px] lg:h-full min-h-[520px] rounded-[2.2rem] overflow-hidden border border-white/10 group shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
+          <div className="relative h-[520px] sm:h-[600px] lg:h-full min-h-[520px] rounded-[2.2rem] overflow-hidden border border-white/10 group shadow-[0_10px_40px_rgba(0,0,0,0.5)]">
             
             {/* Background Portrait Image */}
             <Image
               src="/profile.jpg"
               alt={portfolioData.personal.name}
               fill
-              className="object-cover object-center group-hover:scale-105 transition-transform duration-700"
+              className="object-cover object-[center_10%] group-hover:scale-105 transition-transform duration-700"
               priority
               sizes="(max-width: 1024px) 100vw, 33vw"
             />
