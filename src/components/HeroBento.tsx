@@ -27,7 +27,7 @@ export function HeroBento() {
     <section className="grid grid-cols-1 md:grid-cols-12 gap-5 mb-28">
       {/* ================= COLUMN 1 (LEFT, 4 COLS) ================= */}
       <div className="md:col-span-4 flex flex-col gap-5">
-        {/* CARD 1: Identity & Name */}
+        {/* CARD 1: Identity & Name (Sole Prominent Home of UC San Diego Data Science) */}
         <div className="h-[270px] rounded-[2.5rem] p-7 sm:p-8 flex flex-col justify-between relative overflow-hidden shadow-[0_10px_45px_rgba(0,0,0,0.4)] bg-[#111111]/70 backdrop-blur-xl border border-white/10 text-white group hover:border-cyan-500/40 transition-all duration-300">
           {/* Subtle Background Watermark: KSL */}
           <span
@@ -57,7 +57,7 @@ export function HeroBento() {
             <div className="flex items-center gap-2 min-w-0">
               <span className="w-1.5 h-1.5 rounded-full bg-cyan-400/80 shrink-0" />
               <p className="text-xs font-bold text-gray-300 tracking-wider uppercase whitespace-nowrap truncate">
-                AI & ML Systems
+                AI &amp; ML Systems
               </p>
             </div>
             
@@ -67,7 +67,7 @@ export function HeroBento() {
           </div>
         </div>
 
-        {/* CARD 4: Mindset & Honors (Click to view Education & Honors) */}
+        {/* CARD 4: Mindset & Honors (Deduplicated Clean Academic Foundation) */}
         <div 
           onClick={() => scrollTo('education')}
           className="h-[330px] rounded-[2.5rem] p-7 sm:p-8 flex flex-col justify-between shadow-[0_0_35px_rgba(255,255,255,0.04)] bg-[#111111]/70 backdrop-blur-xl border border-white/10 text-white group hover:border-cyan-500/40 hover:-translate-y-0.5 transition-all cursor-pointer"
@@ -79,7 +79,7 @@ export function HeroBento() {
                   <Award className="w-4 h-4" />
                 </div>
                 <h3 className="text-lg font-black uppercase tracking-tight text-white group-hover:text-cyan-300 transition-colors">
-                  MINDSET & HONORS
+                  MINDSET &amp; HONORS
                 </h3>
               </div>
               <ArrowDownRight className="w-4 h-4 text-gray-500 group-hover:text-cyan-400 group-hover:translate-x-0.5 group-hover:translate-y-0.5 transition-all" />
@@ -92,22 +92,22 @@ export function HeroBento() {
               </span>{' '}
               and recipient of the{' '}
               <span className="text-cyan-400 font-semibold">
-                Sterling Redman & F.L. Griffin Scholarships
+                Sterling Redman &amp; F.L. Griffin Scholarships
               </span>
               . Approaching machine learning with mathematical rigor and continuous curiosity.
             </p>
           </div>
 
-          {/* Academic Badge */}
+          {/* Academic Foundation Box (Clean & Non-redundant) */}
           <div className="rounded-2xl p-4 bg-[#181818]/80 border border-white/10 flex flex-col gap-2">
             <div className="flex items-center gap-2 text-cyan-400">
               <GraduationCap className="w-4 h-4" />
               <span className="text-[11px] font-black uppercase tracking-widest">
-                UC San Diego · Data Science
+                Academic Foundations
               </span>
             </div>
             <div className="flex justify-between items-center text-xs text-gray-400 pt-1 border-t border-white/5">
-              <span>Core Coursework</span>
+              <span>Core Focus</span>
               <span className="text-white font-bold text-[11px]">DSA · Linear Algebra · Calc</span>
             </div>
           </div>
@@ -195,7 +195,7 @@ export function HeroBento() {
 
             <div className="space-y-2 py-3 border-y border-white/10 text-xs">
               <div className="flex items-center justify-between">
-                <span className="text-gray-400">RAG & GenAI</span>
+                <span className="text-gray-400">RAG &amp; GenAI</span>
                 <span className="text-cyan-400 font-bold">Chroma · Claude API</span>
               </div>
               <div className="flex items-center justify-between">
@@ -203,7 +203,7 @@ export function HeroBento() {
                 <span className="text-cyan-400 font-bold">XGBoost · Optuna · SHAP</span>
               </div>
               <div className="flex items-center justify-between">
-                <span className="text-gray-400">Deep Learning & CV</span>
+                <span className="text-gray-400">Deep Learning &amp; CV</span>
                 <span className="text-cyan-400 font-bold">PyTorch · OpenCV · CNNs</span>
               </div>
             </div>
