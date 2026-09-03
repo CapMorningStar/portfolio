@@ -1,4 +1,5 @@
-﻿import type { Metadata } from 'next';
+import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
     'Computer Vision',
     'PyTorch',
     'TensorFlow',
-  ],
+    ],
   authors: [{ name: 'Kyaw Soe Lwin' }],
   openGraph: {
     title: 'Kyaw Soe Lwin | Data Science & AI/ML Engineer',
@@ -34,9 +35,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className="min-h-screen bg-[#0a0a0a] text-white selection:bg-emerald-500/30 overflow-x-hidden antialiased">
-        {children}
-      </body>
+    <body className="min-h-screen bg-[#0a0a0a] text-white selection:bg-emerald-500/30 overflow-x-hidden antialiased">
+      {children}
+    <Analytics />
+    </body>
     </html>
   );
-}
+}</html>
