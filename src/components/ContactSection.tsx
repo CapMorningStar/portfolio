@@ -57,7 +57,7 @@ export function ContactSection() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="GitHub"
-              className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/10 text-white hover:bg-white/20 hover:text-cyan-400 border border-white/10 transition-colors"
+              className="lg:hidden inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/10 text-white hover:bg-white/20 hover:text-cyan-400 border border-white/10 transition-colors"
             >
               <Github className="w-5 h-5" />
             </a>
@@ -67,7 +67,7 @@ export function ContactSection() {
               target="_blank"
               rel="noopener noreferrer"
               aria-label="LinkedIn"
-              className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/10 text-white hover:bg-white/20 hover:text-cyan-400 border border-white/10 transition-colors"
+              className="lg:hidden inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/10 text-white hover:bg-white/20 hover:text-cyan-400 border border-white/10 transition-colors"
             >
               <Linkedin className="w-5 h-5" />
             </a>
