@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Zap, Terminal, ArrowRight, Sparkles, ChevronRight, ChevronLeft } from 'lucide-react';
+import { Zap, ArrowRight, Sparkles, ChevronRight, ChevronLeft } from 'lucide-react';
 
 const introSteps = [
   {
@@ -568,17 +568,6 @@ export function IntroOverlay() {
       {/* ================= 4. TRUE VIEWPORT-PINNED CORNER HUD (Desktop Only) ================= */}
       {phase === 'matrix' && (
         <>
-          {/* Top-Left: Genesis Telemetry */}
-          <motion.div
-            initial={{ opacity: 0, y: -15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="fixed top-8 left-8 z-30 hidden md:flex items-center gap-2 text-[11px] font-mono font-bold uppercase tracking-[0.25em] text-cyan-400 pointer-events-none"
-          >
-            <div className="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping" />
-            <span>GENESIS BOOT // V3.0</span>
-          </motion.div>
-
           {/* Top-Right: Step Counter (Desktop) */}
           <motion.div
             initial={{ opacity: 0, y: -15 }}
@@ -589,17 +578,6 @@ export function IntroOverlay() {
             <span className="text-cyan-400 font-black">{current.step}</span>
             <span className="text-gray-600">//</span>
             <span>05</span>
-          </motion.div>
-
-          {/* Bottom-Left: Terminal Status */}
-          <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="fixed bottom-8 left-8 z-30 hidden md:flex items-center gap-2 text-[11px] font-mono text-gray-400 font-bold uppercase tracking-[0.25em] pointer-events-none"
-          >
-            <Terminal className="w-3.5 h-3.5 text-cyan-400" />
-            <span>INTERACTIVE TERMINAL READY</span>
           </motion.div>
 
           {/* Bottom-Right: Clean Interactive Skip Button (Desktop - Disappears on Step 5) */}
