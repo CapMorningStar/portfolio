@@ -51,7 +51,7 @@ export function SocialSidebar() {
   };
 
   return (
-    <aside className="fixed top-1/2 -translate-y-1/2 left-4 sm:left-6 z-50 hidden lg:flex flex-col items-center gap-3 p-2.5 rounded-full shadow-2xl bg-[#121212]/85 backdrop-blur-2xl border border-white/10 text-white">
+    <aside className="fixed top-1/2 -translate-y-1/2 left-4 sm:left-6 z-50 hidden lg:flex flex-col items-center gap-3 p-2.5 rounded-full shadow-2xl bg-[#121212] backdrop-blur-2xl border border-white/20 text-white">
       {socials.map((social) => {
         const Icon = social.icon;
         const isCopied = copiedLabel === social.name;
@@ -68,10 +68,10 @@ export function SocialSidebar() {
                   handleCopy(social.name, social.copyValue);
                 }
               }}
-              className={`inline-flex items-center justify-center w-11 h-11 rounded-full transition-all duration-200 ${
+              className={`inline-flex items-center justify-center w-11 h-11 rounded-full border transition-all duration-200 ${
                 isCopied
-                  ? 'bg-cyan-400 text-black border border-cyan-300 scale-105'
-                  : 'text-gray-400 hover:text-cyan-400 hover:bg-white/10 hover:border hover:border-cyan-500/30'
+                  ? 'bg-cyan-400 text-black border-cyan-300 scale-105'
+                  : 'text-gray-300 bg-white/5 border-white/10 hover:text-cyan-400 hover:bg-white/10 hover:border-cyan-500/30'
               }`}
             >
               {isCopied ? (
