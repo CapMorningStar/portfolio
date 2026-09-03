@@ -95,17 +95,17 @@ export function ServicesSection() {
 
               <div className="relative z-10">
                 {/* Top Step & Badge */}
-                <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-cyan-400 group-hover:border-cyan-500/40 group-hover:bg-cyan-500/10 transition-colors">
+                <div className="flex items-center justify-between gap-3 mb-6">
+                  <div className="flex items-center gap-3 min-w-0">
+                    <div className="w-12 h-12 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-cyan-400 group-hover:border-cyan-500/40 group-hover:bg-cyan-500/10 transition-colors shrink-0">
                       <Icon className="w-6 h-6" />
                     </div>
-                    <span className="text-xs font-mono font-black uppercase tracking-[0.25em] text-cyan-400">
+                    <span className="text-xs font-mono font-black uppercase tracking-[0.25em] text-cyan-400 truncate">
                       {item.step} // {item.tag}
                     </span>
                   </div>
 
-                  <span className="text-[10px] font-mono font-bold text-gray-300 bg-white/5 px-3 py-1 rounded-full border border-white/10 whitespace-nowrap">
+                  <span className="text-[10px] font-mono font-bold text-gray-300 bg-white/5 px-3 py-1 rounded-full border border-white/10 whitespace-nowrap shrink-0">
                     {item.badge}
                   </span>
                 </div>
