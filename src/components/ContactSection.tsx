@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { portfolioData } from '@/data/portfolioData';
-import { Mail, Phone, MapPin, Send, Sparkles, Check, Copy } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Sparkles, Check, Copy, Github, Linkedin } from 'lucide-react';
 
 export function ContactSection() {
   const { personal } = portfolioData;
@@ -51,6 +51,26 @@ export function ContactSection() {
               {copied ? <Check className="w-4 h-4 text-cyan-400" /> : <Copy className="w-4 h-4" />}
               <span>{copied ? 'Copied to Clipboard!' : 'Copy Email Address'}</span>
             </button>
+
+            <a
+              href={personal.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/10 text-white hover:bg-white/20 hover:text-cyan-400 border border-white/10 transition-colors"
+            >
+              <Github className="w-5 h-5" />
+            </a>
+
+            <a
+              href={personal.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="LinkedIn"
+              className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white/10 text-white hover:bg-white/20 hover:text-cyan-400 border border-white/10 transition-colors"
+            >
+              <Linkedin className="w-5 h-5" />
+            </a>
           </div>
 
           {/* Direct Details Grid */}
