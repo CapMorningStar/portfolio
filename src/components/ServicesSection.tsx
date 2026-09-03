@@ -11,10 +11,10 @@ export function ServicesSection() {
       tag: 'DATA INTEGRITY',
       badge: 'ColumnTransformer',
       description:
-        'Strict feature preprocessing isolated strictly to training folds. Zero data snooping across numerical scaling (StandardScaler) and categorical encoding (OneHotEncoder).',
+        'Every pipeline enforces strict train/validation/test isolation before any preprocessing touches the data — no scaler, encoder, or imputer ever sees information outside its designated fold.',
       bullets: [
-        'Stratified 70/15/15 train/validation/test isolation',
-        'Automated data validation and unit testing'
+        'Fold-isolated preprocessing across scaling, encoding, and imputation',
+        'Automated validation and unit testing on every pipeline stage'
       ],
       icon: ShieldCheck,
       gradient: 'from-cyan-500/10 via-sky-500/5 to-transparent'
@@ -25,10 +25,10 @@ export function ServicesSection() {
       tag: 'MODEL TUNING',
       badge: 'Optuna Framework',
       description:
-        'Multi-trial automated Bayesian search over tree depths, learning rates, and regularization penalties, targeting ROC-AUC and PR-AUC optimization.',
+        'Hyperparameters are tuned through automated multi-trial Bayesian search rather than manual guesswork, optimizing for the metric that actually matters to the problem — not just raw accuracy.',
       bullets: [
-        '<3.5 point generalization gap verification',
-        'Cross-validated objective scoring'
+        'Cross-validated objective scoring to prevent overfitting',
+        'Generalization gap tracked between train and validation splits'
       ],
       icon: Sliders,
       gradient: 'from-sky-500/10 via-blue-500/5 to-transparent'
@@ -39,10 +39,10 @@ export function ServicesSection() {
       tag: 'INTERPRETABILITY',
       badge: 'Cost-Sensitive Modeling',
       description:
-        'Global and local feature attribution via TreeSHAP to diagnose predictions. Integration of cost-benefit matrices ($20 retention cost / $200 LTV) to guide real-world decisions.',
+        'Every model ships with global and local feature attribution, so predictions can be explained — not just trusted. Decision thresholds are tuned against real cost-benefit tradeoffs instead of a fixed default.',
       bullets: [
-        'Feature contribution impact plots',
-        'Custom decision threshold tuning'
+        'Feature contribution and impact visualization',
+        'Threshold tuning against business cost/benefit tradeoffs'
       ],
       icon: Eye,
       gradient: 'from-indigo-500/10 via-purple-500/5 to-transparent'
@@ -53,10 +53,10 @@ export function ServicesSection() {
       tag: 'DEPLOYMENT',
       badge: 'ChromaDB & Claude API',
       description:
-        'End-to-end document intelligence with page-by-page overlapping chunking, local sentence embeddings, vector cosine retrieval, and swappable LLM provider interfaces.',
+        'Retrieval pipelines are built for grounded, citeable answers — every response traces back to an exact source rather than a hallucinated guess, with a provider-agnostic architecture behind it.',
       bullets: [
-        'Deterministic source and page citations',
-        'Swappable Claude API & local Ollama backends'
+        'Deterministic source citations on every generated answer',
+        'Swappable cloud and local LLM backends'
       ],
       icon: Network,
       gradient: 'from-cyan-500/10 via-slate-500/5 to-transparent'
