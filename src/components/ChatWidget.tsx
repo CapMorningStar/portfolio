@@ -181,27 +181,58 @@ export function ChatWidget() {
 
   return (
     <div className="fixed bottom-6 right-6 z-50 font-sans">
-      {/* Floating Toggle Button */}
+      {/* Floating Toggle Button - Concept 1: MorningStar Orbital Orb (Circular FAB) */}
       <AnimatePresence>
         {!isOpen && (
           <motion.button
             initial={{ scale: 0, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0, opacity: 0 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.08 }}
+            whileTap={{ scale: 0.92 }}
             onClick={() => setIsOpen(true)}
-            className="group relative flex items-center gap-2.5 px-4 py-3 bg-[#111111]/90 hover:bg-[#1a1a1a] border border-emerald-500/30 hover:border-emerald-500/60 rounded-full shadow-[0_0_25px_rgba(16,185,129,0.2)] backdrop-blur-xl text-white transition-all duration-300"
-            aria-label="Open AI Copilot Chat"
+            className="group relative w-14 h-14 rounded-full flex items-center justify-center bg-gradient-to-b from-[#141a17]/90 via-[#0e1411]/95 to-[#060a08] border border-emerald-500/40 hover:border-emerald-400/80 shadow-[0_0_20px_rgba(16,185,129,0.25),inset_0_0_15px_rgba(16,185,129,0.12)] hover:shadow-[0_0_35px_rgba(16,185,129,0.5),inset_0_0_25px_rgba(16,185,129,0.3)] backdrop-blur-xl transition-all duration-300"
+            aria-label="Open Kyaw's AI Copilot"
           >
-            <span className="relative flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
-            </span>
-            <Sparkles className="w-4 h-4 text-emerald-400 group-hover:rotate-12 transition-transform" />
-            <span className="text-xs font-semibold tracking-wide uppercase bg-gradient-to-r from-white via-neutral-200 to-emerald-400 bg-clip-text text-transparent">
-              Ask Kyaw&apos;s AI
-            </span>
+            {/* Outer Rotating Cybernetic Orbit Ring */}
+            <motion.div
+              animate={{ rotate: 360 }}
+              transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
+              className="absolute -inset-1.5 rounded-full border border-dashed border-emerald-400/30 group-hover:border-emerald-400/60 pointer-events-none transition-colors"
+            >
+              {/* Micro Orbiting Satellite Node */}
+              <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,1)]" />
+            </motion.div>
+
+            {/* Ambient Radial Aura Bloom (expands on hover) */}
+            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-emerald-500/20 via-cyan-500/10 to-transparent opacity-50 group-hover:opacity-100 group-hover:scale-125 transition-all duration-300 blur-sm pointer-events-none" />
+
+            {/* Central Iconic 4-Pointed MorningStar / Gemini Celestial Glyph */}
+            <div className="relative z-10 flex items-center justify-center">
+              <svg
+                viewBox="0 0 24 24"
+                className="w-6 h-6 text-emerald-400 group-hover:text-emerald-300 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 drop-shadow-[0_0_10px_rgba(16,185,129,0.7)]"
+                fill="currentColor"
+              >
+                {/* 4-pointed astroid / morning star */}
+                <path d="M12 2C12 7.5 16.5 12 22 12C16.5 12 12 16.5 12 22C12 16.5 7.5 12 2 12C7.5 12 12 7.5 12 2Z" />
+              </svg>
+            </div>
+
+            {/* Live Radar Ping Dot (Top-Right Badge) */}
+            <div className="absolute top-0 right-0 z-20 flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-80"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-400 border border-black shadow-[0_0_6px_rgba(16,185,129,1)]"></span>
+            </div>
+
+            {/* HUD Tooltip (Reveals smoothly to the left on hover) */}
+            <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-200 pointer-events-none whitespace-nowrap">
+              <div className="px-3 py-1.5 rounded-lg bg-[#0d120f]/95 border border-emerald-500/40 text-[11px] font-mono tracking-wider text-emerald-300 shadow-[0_0_20px_rgba(0,0,0,0.8),0_0_10px_rgba(16,185,129,0.2)] flex items-center gap-2 backdrop-blur-md">
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                <span>ASK KYAW&apos;S AI</span>
+                <span className="text-[9px] text-neutral-400">// GEMINI</span>
+              </div>
+            </div>
           </motion.button>
         )}
       </AnimatePresence>
