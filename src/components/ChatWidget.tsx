@@ -35,7 +35,7 @@ export function ChatWidget() {
       id: 'welcome',
       role: 'model',
       content:
-        "Hi! I'm **Kyaw's AI Copilot**, powered by Gemini and grounded directly in his portfolio data. Ask me anything about his machine learning projects, technical skills, UCSD coursework, or how to get in touch!",
+        "Hi! I'm **MorningStar AI**, powered by Gemini and grounded directly in Kyaw's portfolio data. Ask me anything about his machine learning projects, technical skills, UCSD coursework, or how to get in touch!",
     },
   ]);
   const [input, setInput] = useState('');
@@ -63,7 +63,7 @@ export function ChatWidget() {
         id: 'welcome',
         role: 'model',
         content:
-          "Hi! I'm **Kyaw's AI Copilot**, powered by Gemini and grounded directly in his portfolio data. Ask me anything about his machine learning projects, technical skills, UCSD coursework, or how to get in touch!",
+          "Hi! I'm **MorningStar AI**, powered by Gemini and grounded directly in Kyaw's portfolio data. Ask me anything about his machine learning projects, technical skills, UCSD coursework, or how to get in touch!",
       },
     ]);
   };
@@ -185,14 +185,15 @@ export function ChatWidget() {
       <AnimatePresence>
         {!isOpen && (
           <motion.button
-            initial={{ scale: 0, opacity: 0 }}
+            initial={{ scale: 0.3, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0, opacity: 0 }}
+            exit={{ scale: 0.3, opacity: 0, transition: { duration: 0.15 } }}
+            transition={{ type: 'spring', damping: 25, stiffness: 360 }}
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.92 }}
             onClick={() => setIsOpen(true)}
             className="group relative w-14 h-14 rounded-full flex items-center justify-center bg-gradient-to-b from-[#0b171c]/90 via-[#071116]/95 to-[#030709] border border-cyan-500/40 hover:border-cyan-400/80 shadow-[0_0_20px_rgba(6,182,212,0.25),inset_0_0_15px_rgba(6,182,212,0.12)] hover:shadow-[0_0_35px_rgba(6,182,212,0.55),inset_0_0_25px_rgba(6,182,212,0.3)] backdrop-blur-xl transition-all duration-300"
-            aria-label="Open Kyaw's AI Copilot"
+            aria-label="Open MorningStar AI"
           >
             {/* Outer Rotating Cybernetic Orbit Ring */}
             <motion.div
@@ -229,7 +230,7 @@ export function ChatWidget() {
             <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-200 pointer-events-none whitespace-nowrap">
               <div className="px-3 py-1.5 rounded-lg bg-[#071116]/95 border border-cyan-500/40 text-[11px] font-mono tracking-wider text-cyan-300 shadow-[0_0_20px_rgba(0,0,0,0.8),0_0_10px_rgba(6,182,212,0.25)] flex items-center gap-2 backdrop-blur-md">
                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
-                <span>ASK KYAW&apos;S AI</span>
+                <span>MORNINGSTAR AI</span>
                 <span className="text-[9px] text-neutral-400">// GEMINI</span>
               </div>
             </div>
@@ -237,14 +238,21 @@ export function ChatWidget() {
         )}
       </AnimatePresence>
 
-      {/* Chat Window Modal */}
+      {/* Chat Window Modal with Smooth Morphing Circle Exit */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: 30, scale: 0.94 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 25, scale: 0.94 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            style={{ transformOrigin: 'calc(100% - 28px) calc(100% - 28px)' }}
+            initial={{ opacity: 0, scale: 0.12, borderRadius: 36, filter: 'blur(4px)' }}
+            animate={{ opacity: 1, scale: 1, borderRadius: 16, filter: 'blur(0px)' }}
+            exit={{
+              opacity: 0,
+              scale: 0.12,
+              borderRadius: 36,
+              filter: 'blur(4px)',
+              transition: { duration: 0.22, ease: [0.32, 0.72, 0, 1] },
+            }}
+            transition={{ type: 'spring', damping: 28, stiffness: 360, mass: 0.8 }}
             className="w-[92vw] sm:w-[420px] h-[580px] max-h-[82vh] flex flex-col bg-[#0b1013]/95 border border-white/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(6,182,212,0.18)] backdrop-blur-2xl overflow-hidden"
           >
             {/* Window Header */}
@@ -255,7 +263,7 @@ export function ChatWidget() {
                 </div>
                 <div>
                   <div className="flex items-center gap-1.5">
-                    <h3 className="text-xs font-semibold text-white tracking-wide">Kyaw&apos;s AI Copilot</h3>
+                    <h3 className="text-xs font-semibold text-white tracking-wide">MorningStar AI</h3>
                     <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono">
                       Gemini
                     </span>
@@ -274,10 +282,11 @@ export function ChatWidget() {
                 </button>
                 <button
                   onClick={() => setIsOpen(false)}
-                  title="Minimize chat"
-                  className="p-1.5 text-neutral-400 hover:text-white rounded-lg hover:bg-white/5 transition-colors"
+                  title="Close MorningStar AI"
+                  className="p-1.5 text-neutral-400 hover:text-cyan-300 rounded-lg hover:bg-white/5 transition-colors"
+                  aria-label="Close chat"
                 >
-                  <Minimize2 className="w-3.5 h-3.5" />
+                  <X className="w-4 h-4" />
                 </button>
               </div>
             </div>
