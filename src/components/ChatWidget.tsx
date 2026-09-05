@@ -180,19 +180,19 @@ export function ChatWidget() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 font-sans">
-      {/* Floating Toggle Button - Concept 1: MorningStar Orbital Orb (Circular FAB) in Electric Cyan */}
-      <AnimatePresence>
-        {!isOpen && (
+    <div className="fixed bottom-6 right-6 z-50 font-sans pointer-events-none">
+      <AnimatePresence mode="wait">
+        {!isOpen ? (
           <motion.button
-            initial={{ scale: 0.3, opacity: 0 }}
+            key="chat-toggle"
+            initial={{ scale: 0.5, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.3, opacity: 0, transition: { duration: 0.15 } }}
-            transition={{ type: 'spring', damping: 25, stiffness: 360 }}
+            exit={{ scale: 0.5, opacity: 0, transition: { duration: 0.15, ease: 'easeOut' } }}
+            transition={{ type: 'spring', damping: 24, stiffness: 320 }}
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.92 }}
             onClick={() => setIsOpen(true)}
-            className="group relative w-14 h-14 rounded-full flex items-center justify-center bg-gradient-to-b from-[#0b171c]/90 via-[#071116]/95 to-[#030709] border border-cyan-500/40 hover:border-cyan-400/80 shadow-[0_0_20px_rgba(6,182,212,0.25),inset_0_0_15px_rgba(6,182,212,0.12)] hover:shadow-[0_0_35px_rgba(6,182,212,0.55),inset_0_0_25px_rgba(6,182,212,0.3)] backdrop-blur-xl transition-all duration-300"
+            className="group relative w-14 h-14 rounded-full flex items-center justify-center bg-gradient-to-b from-[#0b171c]/90 via-[#071116]/95 to-[#030709] border border-cyan-500/40 hover:border-cyan-400/80 shadow-[0_0_20px_rgba(6,182,212,0.25),inset_0_0_15px_rgba(6,182,212,0.12)] hover:shadow-[0_0_35px_rgba(6,182,212,0.55),inset_0_0_25px_rgba(6,182,212,0.3)] backdrop-blur-xl transition-colors duration-300 pointer-events-auto"
             aria-label="Open MorningStar AI"
           >
             {/* Outer Rotating Cybernetic Orbit Ring */}
@@ -235,25 +235,21 @@ export function ChatWidget() {
               </div>
             </div>
           </motion.button>
-        )}
-      </AnimatePresence>
-
-      {/* Chat Window Modal with Smooth Morphing Circle Exit */}
-      <AnimatePresence>
-        {isOpen && (
+        ) : (
           <motion.div
-            style={{ transformOrigin: 'calc(100% - 28px) calc(100% - 28px)' }}
-            initial={{ opacity: 0, scale: 0.12, borderRadius: 36, filter: 'blur(4px)' }}
-            animate={{ opacity: 1, scale: 1, borderRadius: 16, filter: 'blur(0px)' }}
+            key="chat-window"
+            style={{ transformOrigin: 'bottom right' }}
+            initial={{ opacity: 0, scale: 0.15, y: 20, x: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0, x: 0 }}
             exit={{
               opacity: 0,
-              scale: 0.12,
-              borderRadius: 36,
-              filter: 'blur(4px)',
-              transition: { duration: 0.22, ease: [0.32, 0.72, 0, 1] },
+              scale: 0.15,
+              y: 20,
+              x: 20,
+              transition: { duration: 0.22, ease: [0.16, 1, 0.3, 1] },
             }}
-            transition={{ type: 'spring', damping: 28, stiffness: 360, mass: 0.8 }}
-            className="w-[92vw] sm:w-[420px] h-[580px] max-h-[82vh] flex flex-col bg-[#0b1013]/95 border border-white/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(6,182,212,0.18)] backdrop-blur-2xl overflow-hidden"
+            transition={{ type: 'spring', damping: 26, stiffness: 320, mass: 0.7 }}
+            className="w-[92vw] sm:w-[420px] h-[580px] max-h-[82vh] flex flex-col bg-[#0b1013]/95 border border-white/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(6,182,212,0.18)] backdrop-blur-2xl overflow-hidden pointer-events-auto"
           >
             {/* Window Header */}
             <div className="flex items-center justify-between px-4 py-3.5 bg-white/[0.03] border-b border-white/10">
