@@ -127,6 +127,43 @@ export default function ResumePage() {
             </p>
           </section>
 
+          {/* SECTION 1.5: PROFESSIONAL EXPERIENCE */}
+          <section className="mb-8 relative z-10">
+            <h2 className="text-xs font-black uppercase tracking-[0.25em] text-cyan-400 mb-3 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-cyan-400" />
+              <span>Professional Experience</span>
+            </h2>
+            <div className="space-y-4">
+              <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-1.5">
+                  <h3 className="text-sm font-black text-white">
+                    Data Science Volunteer &mdash; Data Science Alliance
+                  </h3>
+                  <span className="text-[10px] font-mono text-cyan-400 whitespace-nowrap">Sep 2026 &ndash; Present</span>
+                </div>
+                <p className="text-[11px] font-mono text-gray-400 mb-2">San Diego, CA &middot; Part-time</p>
+                <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
+                  <li>Contributing to a public-interest data science project analyzing longitudinal unsheltered homelessness data across Downtown San Diego (2012&ndash;present) in partnership with municipal stakeholders.</li>
+                  <li>Designed and executed an end-to-end data auditing and validation pipeline, cross-referencing multi-year counts against source reports to ensure 97.5%+ data fidelity.</li>
+                  <li>Standardized schemas and built geospatial crosswalks across 380+ downtown blocks to enable spatial panel modeling.</li>
+                </ul>
+              </div>
+
+              <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-1.5">
+                  <h3 className="text-sm font-black text-white">
+                    Academic Tutor &mdash; Teacher Ni Language Centre
+                  </h3>
+                  <span className="text-[10px] font-mono text-cyan-400 whitespace-nowrap">Oct 2022 &ndash; Dec 2023</span>
+                </div>
+                <p className="text-[11px] font-mono text-gray-400 mb-2">International</p>
+                <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
+                  <li>Mentored cohorts of 40+ students through structured technical curricula, conducting weekly evaluations and individualized feedback.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
           {/* SECTION 2: TECHNICAL SKILLS */}
           <section className="mb-8 relative z-10">
             <h2 className="text-xs font-black uppercase tracking-[0.25em] text-cyan-400 mb-3 flex items-center gap-2">
@@ -149,6 +186,10 @@ export default function ResumePage() {
               <div className="p-3 rounded-xl bg-white/5 border border-white/5">
                 <span className="font-bold text-white block mb-1">Cloud &amp; MLOps</span>
                 <span className="text-gray-400">GCP (Vertex AI, GKE), AWS, Docker, Kubernetes, Git/GitHub, Streamlit</span>
+              </div>
+              <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                <span className="font-bold text-white block mb-1">AI-Assisted Development</span>
+                <span className="text-gray-400">Google Antigravity, Anthropic Claude (Claude Code), Agentic Coding Workflows</span>
               </div>
             </div>
           </section>
@@ -256,6 +297,23 @@ export default function ResumePage() {
                 <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
                   <li>Trained lightweight mini-XCEPTION CNN with depthwise separable convolutions on FER-2013 dataset.</li>
                   <li>Engineered low-latency, multi-frame OpenCV inference pipeline rendering probability distributions across 7 emotion classes in real time.</li>
+                </ul>
+              </div>
+
+              {/* Project 5 */}
+              <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+                <div className="flex justify-between items-baseline mb-1.5">
+                  <h3 className="text-sm font-black text-white">
+                    Priceout Collective &mdash; Affordability Policy Simulator
+                  </h3>
+                  <span className="text-[10px] font-mono text-cyan-400">2026</span>
+                </div>
+                <p className="text-[11px] font-mono text-gray-400 mb-2">
+                  Python, Pandas, XGBoost, Scikit-Learn, JavaScript &middot; Building for Good Hackathon
+                </p>
+                <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
+                  <li>Modeled 1.17M household records across 4 policy dimensions, precomputing 945 scenario combinations for zero-latency interactive simulation.</li>
+                  <li>Diagnosed and eliminated target leakage in an XGBoost model, reaching 97.3% accuracy / 0.998 AUC, validated against ALICE and HUD CHAS housing benchmarks.</li>
                 </ul>
               </div>
             </div>
