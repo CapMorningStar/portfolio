@@ -1,226 +1,163 @@
 # Generates public/resume.pdf, the file served by /api/resume and /api/resume/preview
-# (the "Download PDF" button and preview iframe on the /resume page).
+# (the "Download PDF" button and preview iframe on the /resume page, and the "Download"
+# button on the homepage).
 #
-# Content here should stay in sync with:
+# Content here mirrors the finalized general/master resume built and approved in the
+# separate D:\Projects\Resume repo (build_resume_general.py), which is kept in sync with:
 #   D:\MSI\Scholarship Document\Kyaw Soe Lwin\JOB\MY CV\MASTER_BACKGROUND.md  (source of truth)
+#   D:\MSI\Scholarship Document\Kyaw Soe Lwin\JOB\MY CV\Kyaw_Soe_Lwin_Resume.pdf (approved copy)
 #   src/data/portfolioData.ts                                                (site + chatbot data)
 #   src/app/resume/page.tsx                                                  (on-site HTML preview)
 #
-# Format follows the ATS-friendly guidelines from the tailored-resume-generator skill
-# (D:\MSI\Scholarship Document\Kyaw Soe Lwin\JOB\MY CV\SKILL.md): standard section headings,
-# no tables/graphics, action-verb bullets, reverse-chronological order.
+# Section order: Summary -> Education -> Technical Skills -> Technical Projects ->
+# Experience & Honors. No separate Certifications section (folded into Technical Skills
+# instead, per feedback to favor skills/experience over listing certs). No GPA line and
+# no Skyline College entry (dropped per feedback). Project GitHub links and header
+# LinkedIn/GitHub/Portfolio/email links are real clickable link annotations (plain
+# black underlined text, not blue) to signal they're links without color.
 #
-# Requires: pip install reportlab
+# Requires: pip install reportlab pypdf
 # Run from anywhere: python scripts/generate_resume_pdf.py
 
 import os
-from reportlab.lib.pagesizes import LETTER
+from reportlab.lib.pagesizes import letter
 from reportlab.lib.units import inch
-from reportlab.lib.colors import HexColor
+from reportlab.lib.enums import TA_CENTER, TA_JUSTIFY
+from reportlab.lib.colors import black
+from reportlab.platypus import SimpleDocTemplate, Paragraph, HRFlowable, Table, TableStyle
 from reportlab.lib.styles import ParagraphStyle
-from reportlab.lib.enums import TA_CENTER
-from reportlab.platypus import (
-    SimpleDocTemplate, Paragraph, Spacer, HRFlowable, ListFlowable, ListItem
-)
+from pypdf import PdfReader
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT_PATH = os.path.join(REPO_ROOT, "public", "resume.pdf")
+OUT = os.path.join(REPO_ROOT, "public", "resume.pdf")
 
-DARK = HexColor("#111111")
-ACCENT = HexColor("#0e7490")  # cyan-ish, print-safe
-GRAY = HexColor("#444444")
-LIGHT_GRAY = HexColor("#666666")
+doc = SimpleDocTemplate(
+    OUT, pagesize=letter,
+    topMargin=0.25 * inch, bottomMargin=0.20 * inch,
+    leftMargin=0.50 * inch, rightMargin=0.50 * inch,
+    title="Kyaw Soe Lwin - Resume",
+    author="Kyaw Soe Lwin",
+)
 
-styles = {
-    "name": ParagraphStyle("name", fontName="Helvetica-Bold", fontSize=20, leading=22, textColor=DARK, alignment=TA_CENTER, spaceAfter=2),
-    "headline": ParagraphStyle("headline", fontName="Helvetica-Bold", fontSize=10.5, leading=13, textColor=ACCENT, alignment=TA_CENTER, spaceAfter=6),
-    "contact": ParagraphStyle("contact", fontName="Helvetica", fontSize=8.5, leading=11, textColor=GRAY, alignment=TA_CENTER, spaceAfter=10),
-    "section": ParagraphStyle("section", fontName="Helvetica-Bold", fontSize=10, leading=12, textColor=ACCENT, spaceBefore=10, spaceAfter=4, letterSpacing=0.6),
-    "role": ParagraphStyle("role", fontName="Helvetica-Bold", fontSize=9.5, leading=12, textColor=DARK),
-    "meta": ParagraphStyle("meta", fontName="Helvetica-Oblique", fontSize=8, leading=10, textColor=LIGHT_GRAY, spaceAfter=2),
-    "body": ParagraphStyle("body", fontName="Helvetica", fontSize=8.5, leading=11.5, textColor=GRAY),
-    "bullet": ParagraphStyle("bullet", fontName="Helvetica", fontSize=8.3, leading=11, textColor=GRAY, leftIndent=10, spaceAfter=1.5),
-    "skillval": ParagraphStyle("skillval", fontName="Helvetica", fontSize=8.3, leading=11, textColor=GRAY, spaceAfter=4),
-}
+name_style = ParagraphStyle('name', fontName='Helvetica-Bold', fontSize=22, alignment=TA_CENTER, spaceAfter=3, leading=24)
+contact_style = ParagraphStyle('contact', fontName='Helvetica', fontSize=9.3, alignment=TA_CENTER, spaceAfter=5, leading=11.2)
+h2_style = ParagraphStyle('h2', fontName='Helvetica-Bold', fontSize=9.7, spaceBefore=5, spaceAfter=1.9, leading=11)
+body_style = ParagraphStyle('body', fontName='Helvetica', fontSize=8.9, alignment=TA_JUSTIFY, leading=11.9, spaceAfter=1.9)
+skill_style = ParagraphStyle('skill', fontName='Helvetica', fontSize=8.7, leading=11.7, spaceAfter=1.9)
+proj_meta_style = ParagraphStyle('projmeta', fontName='Helvetica-Oblique', fontSize=8.4, leading=10.8, spaceAfter=1.8)
+bullet_style = ParagraphStyle('bullet', fontName='Helvetica', fontSize=8.7, leading=11.3, leftIndent=12, bulletIndent=2, spaceAfter=1.8)
+row_label_style = ParagraphStyle('rowlabel', fontName='Helvetica-Bold', fontSize=8.9, leading=11.3)
+row_date_style = ParagraphStyle('rowdate', fontName='Helvetica', fontSize=8.7, leading=11.3, alignment=2)
+plain_style = ParagraphStyle('plain', fontName='Helvetica', fontSize=8.7, leading=11.3, spaceAfter=1.9)
 
 
 def hr():
-    return HRFlowable(width="100%", thickness=0.6, color=HexColor("#cccccc"), spaceBefore=2, spaceAfter=6)
+    return HRFlowable(width="100%", thickness=1.0, color=black, spaceBefore=0, spaceAfter=4)
 
 
-def section_title(text):
-    return Paragraph(text.upper(), styles["section"])
-
-
-def bullets(items):
-    return ListFlowable(
-        [ListItem(Paragraph(item, styles["bullet"]), leftIndent=10, bulletColor=GRAY) for item in items],
-        bulletType="bullet", bulletFontSize=6, start="circle", leftIndent=12, spaceBefore=1, spaceAfter=4,
-    )
-
-
-def project_block(title, meta, desc_items):
-    return [
-        Paragraph(title, styles["role"]),
-        Paragraph(meta, styles["meta"]),
-        bullets(desc_items),
-    ]
-
-
-def build():
-    doc = SimpleDocTemplate(
-        OUT_PATH, pagesize=LETTER,
-        topMargin=0.55 * inch, bottomMargin=0.55 * inch,
-        leftMargin=0.65 * inch, rightMargin=0.65 * inch,
-        title="Kyaw Soe Lwin - AI/ML Engineer Resume",
-        author="Kyaw Soe Lwin",
-    )
-
-    story = []
-
-    # Header
-    story.append(Paragraph("KYAW SOE LWIN", styles["name"]))
-    story.append(Paragraph("Data Science &amp; AI/ML Engineer", styles["headline"]))
-    story.append(Paragraph(
-        "San Diego, CA &nbsp;|&nbsp; kylwin@ucsd.edu &nbsp;|&nbsp; (+1) 650-609-8498 &nbsp;|&nbsp; "
-        "linkedin.com/in/kyaw-soe-lwin-687643314 &nbsp;|&nbsp; github.com/CapMorningStar",
-        styles["contact"],
-    ))
-    story.append(hr())
-
-    # Professional Summary
-    story.append(section_title("Professional Summary"))
-    story.append(Paragraph(
-        "Data Science &amp; AI/ML Engineer with deep hands-on expertise building production machine learning "
-        "pipelines, Retrieval-Augmented Generation (RAG) systems, and real-time computer vision engines. Proven "
-        "track record in parameter-efficient fine-tuning (PEFT/LoRA), leakage-free tabular modeling "
-        "(0.844 ROC-AUC), and cloud deployment across AWS and GCP (Vertex AI). Backed by a 4.0 GPA at UC San "
-        "Diego, national Jack Kent Cooke Semifinalist honors, and 9 verified industry credentials in "
-        "Generative AI and Deep Learning.",
-        styles["body"],
-    ))
-
-    # Professional Experience
-    story.append(section_title("Professional Experience"))
-    story.append(Paragraph("Data Science Volunteer &mdash; Data Science Alliance", styles["role"]))
-    story.append(Paragraph("San Diego, CA (Part-time) &middot; Sep 2026 &ndash; Present", styles["meta"]))
-    story.append(bullets([
-        "Contributing to a public-interest data science project analyzing longitudinal unsheltered homelessness "
-        "data across Downtown San Diego (2012&ndash;present) in partnership with municipal stakeholders.",
-        "Designed and executed an end-to-end data auditing and validation pipeline, cross-referencing multi-year "
-        "counts against source reports to ensure high data integrity (97.5%+ fidelity).",
-        "Standardized schemas and built geospatial crosswalks across 380+ downtown blocks and neighborhood "
-        "boundaries to enable spatial panel modeling.",
-        "Preparing datasets for time-series decomposition, spatial hotspot analysis (Getis-Ord Gi*), and "
-        "predictive forecasting models. <i>Tools: Python, Pandas, NumPy, GeoJSON, Asana.</i>",
+def row(left, right, lstyle=row_label_style, rstyle=row_date_style):
+    t = Table([[Paragraph(left, lstyle), Paragraph(right, rstyle)]], colWidths=[5.5 * inch, 2.0 * inch], hAlign='LEFT')
+    t.setStyle(TableStyle([
+        ('LEFTPADDING', (0, 0), (-1, -1), 0),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 0),
+        ('TOPPADDING', (0, 0), (-1, -1), 0),
+        ('BOTTOMPADDING', (0, 0), (-1, -1), 0),
+        ('VALIGN', (0, 0), (-1, -1), 'TOP'),
     ]))
-    story.append(Paragraph("Academic Tutor &mdash; Teacher Ni Language Centre", styles["role"]))
-    story.append(Paragraph("International &middot; Oct 2022 &ndash; Dec 2023", styles["meta"]))
-    story.append(bullets([
-        "Mentored cohorts of 40+ students through structured technical curricula, conducting weekly evaluations "
-        "and providing individualized feedback.",
-    ]))
+    return t
 
-    # Technical Skills (plain paragraphs, no tables/graphics -- ATS-safe per resume-generator skill)
-    story.append(section_title("Technical Skills"))
-    skills_data = [
-        ("Programming &amp; Data", "Python, SQL, Java, Bash/Linux, Pandas, NumPy, Feature Engineering"),
-        ("Machine Learning", "Scikit-Learn, XGBoost, Optuna (Bayesian Hyperparameter Tuning), SHAP Explainability, ROI Modeling"),
-        ("Deep Learning &amp; Generative AI", "PyTorch, TensorFlow, Keras, Hugging Face Transformers, PEFT/LoRA Fine-Tuning, Retrieval-Augmented Generation (RAG), ChromaDB, Anthropic Claude API"),
-        ("Cloud &amp; MLOps", "Amazon Web Services (AWS), Google Cloud Platform (Vertex AI, GKE), Docker, Kubernetes, Git/GitHub, Streamlit, CI/CD"),
-        ("AI-Assisted Development", "Google Antigravity, Anthropic Claude (Claude Code), Agentic Coding Workflows"),
-    ]
-    for label, value in skills_data:
-        story.append(Paragraph(f"<b>{label}:</b> {value}", styles["skillval"]))
 
-    # Education
-    story.append(section_title("Education"))
-    story.append(Paragraph("University of California, San Diego (UCSD) &mdash; Bachelor of Science in Data Science &middot; Class of 2028", styles["body"]))
-    story.append(Paragraph("Skyline College &mdash; Associate Studies in Data Science &middot; GPA: 4.0/4.0 &middot; Aug 2024 &ndash; May 2026", styles["body"]))
+story = []
+
+story.append(Paragraph("Kyaw Soe Lwin", name_style))
+story.append(Paragraph(
+    '<link href="https://linkedin.com/in/kyaw-soe-lwin-687643314"><u>LinkedIn</u></link> | '
+    '<link href="https://github.com/CapMorningStar"><u>GitHub</u></link> | '
+    '<link href="https://kyawsoelwin.vercel.app"><u>Portfolio</u></link> | '
+    '<link href="mailto:kylwin@ucsd.edu"><u>kylwin@ucsd.edu</u></link> | '
+    '(+1) 650-609-8498',
+    contact_style))
+
+story.append(Paragraph("PROFESSIONAL SUMMARY", h2_style))
+story.append(hr())
+story.append(Paragraph(
+    "Data Science undergraduate at UC San Diego (4.0 GPA) building leakage-free ML pipelines, Generative AI/LLM "
+    "systems (RAG, PEFT/LoRA), and computer vision applications in Python. Proficient in Scikit-Learn, XGBoost, "
+    "PyTorch, and SQL, with hands-on cloud deployment across AWS and GCP (Vertex AI).",
+    body_style))
+
+story.append(Paragraph("EDUCATION", h2_style))
+story.append(hr())
+story.append(row("<b>University of California, San Diego (UCSD)</b> \u2013 San Diego, CA", "Expected June 2028", row_label_style, row_date_style))
+story.append(Paragraph("Bachelor of Science in Data Science", plain_style))
+story.append(Paragraph("<b>Relevant Coursework:</b> Advanced Machine Learning, Data Engineering, Statistical Modeling, Algorithmic Data Analysis, Linear Algebra, Multivariable Calculus, Data Structures &amp; Algorithms, Object-Oriented Programming (Java)", plain_style))
+
+story.append(Paragraph("TECHNICAL SKILLS", h2_style))
+story.append(hr())
+skills = [
+    ("Statistics &amp; Experimentation:", "A/B Testing, Hypothesis Testing, Statistical Data Analysis, Leakage Audits, Generalization Validation, Bayesian Optimization (Optuna), Time Series Analysis, Geospatial Analysis (Getis-Ord Gi*)"),
+    ("Data Science &amp; Machine Learning:", "Scikit-Learn, XGBoost, PyTorch, TensorFlow/Keras, Supervised/Unsupervised Learning, SHAP Interpretability, Feature Engineering, ColumnTransformer Pipelines, CNNs, Computer Vision (OpenCV)"),
+    ("Programming &amp; Data Systems:", "Python, SQL (Querying &amp; Aggregations), Java, Bash/Linux, Pandas, NumPy, Exploratory Data Analysis, Data Auditing &amp; Schema Standardization"),
+    ("GenAI, LLMs &amp; Agents:", "Hugging Face Transformers, RAG Architectures, Chroma Vector DB, LLM APIs (Anthropic Claude), Prompt Engineering, PEFT/LoRA Fine-Tuning, RLHF"),
+    ("Cloud &amp; MLOps:", "AWS, GCP (Vertex AI), Docker, Kubernetes (GKE), Streamlit, Git/GitHub, Agile/Scrum, Automated Unit Testing, CI/CD"),
+    ("AI-Assisted Development:", "Anthropic Claude Code, Google Antigravity, Agentic Coding Workflows"),
+]
+for label, val in skills:
+    story.append(Paragraph(f"<b>{label}</b> {val}", skill_style))
+
+story.append(Paragraph("TECHNICAL PROJECTS", h2_style))
+story.append(hr())
+
+projects = [
+    ("Telco Customer Churn Prediction &amp; Profit Thresholding", "2026",
+     "https://github.com/CapMorningStar/telco-churn-pipeline",
+     "Python, SQL, Scikit-Learn, XGBoost, Optuna, SHAP, Streamlit",
+     [
+        "Formulated a leakage-free predictive ML framework on 7,043 customer records, enforcing a stratified 70/15/15 train/val/test split to guarantee generalization.",
+        "Executed a 30-trial Bayesian hyperparameter search (Optuna) with cross-validation, achieving 0.844 ROC-AUC / 0.671 PR-AUC with a &lt;3.5-point generalization gap.",
+        "Interpreted model decisions using TreeSHAP attribution and mapped findings to a cost-sensitive ROI matrix ($20 cost / $200 LTV) via an interactive Streamlit dashboard.",
+     ]),
+    ("Priceout Collective \u2014 Affordability Policy Simulator", "2026",
+     "https://github.com/eliseoa-dev/priceoutcollective",
+     "Python, Pandas, XGBoost, Scikit-Learn, JavaScript \u00b7 Building for Good Hackathon",
+     [
+        "Modeled 1.17M household records across 4 policy dimensions, precomputing 945 scenario combinations for zero-latency, stakeholder-facing simulation.",
+        "Diagnosed and eliminated target leakage in an XGBoost model, reaching 97.3% accuracy / 0.998 AUC, and validated results against ALICE and HUD CHAS housing benchmarks.",
+     ]),
+    ("Local Expert \u2014 Offline PDF QA Engine (RAG Pipeline)", "2026",
+     "https://github.com/CapMorningStar/-local-expert-rag",
+     "Python, Hugging Face Transformers, Chroma, Anthropic Claude API, Streamlit",
+     [
+        "Architected an end-to-end Retrieval-Augmented Generation system, hand-crafting chunking, sentence embeddings, and vector indexing to deliver citation-grounded answers over private documents.",
+        "Designed a swappable LLM provider interface (Anthropic Claude API and local Ollama) behind a shared configuration layer.",
+     ]),
+    ("LoRA TinyLlama-1.1B Instruction Fine-Tuning", "2026",
+     "https://github.com/CapMorningStar/lora-tinyllama-finetune",
+     "PyTorch, Hugging Face, PEFT/LoRA, Transformers, Google Colab",
+     [
+        "Configured low-rank adaptation (LoRA) matrices targeting attention projection layers, reducing trainable parameter footprint by &gt;95% on a resource-constrained T4 GPU.",
+     ]),
+]
+
+for title, date, repo_url, meta, bullets in projects:
+    story.append(row(title, date, row_label_style, row_date_style))
     story.append(Paragraph(
-        "<i>Relevant Coursework:</i> Data Structures &amp; Algorithms, Object-Oriented Programming (Java), "
-        "Linear Algebra, Multivariable Calculus",
-        styles["body"],
-    ))
+        f'{meta} &nbsp;\u00b7&nbsp; <link href="{repo_url}"><u>GitHub Repo</u></link>',
+        proj_meta_style))
+    for b in bullets:
+        story.append(Paragraph(f"- {b}", bullet_style))
 
-    # Technical Projects
-    story.append(section_title("Technical Projects"))
-    story.extend(project_block(
-        "Local Expert &mdash; Offline PDF QA Engine (RAG Pipeline)",
-        "Python, Hugging Face, ChromaDB, Anthropic Claude API, Ollama, Streamlit &middot; 2026",
-        [
-            "Architected an end-to-end local RAG pipeline for grounded question-answering over private PDFs "
-            "with page-by-page chunking, local embeddings, and Chroma vector indexing.",
-            "Designed a swappable LLM provider interface (Claude API &amp; local Ollama) delivering answers "
-            "grounded with source file and page citations.",
-        ],
-    ))
-    story.extend(project_block(
-        "LoRA TinyLlama-1.1B Instruction Fine-Tuning",
-        "PyTorch, Hugging Face, PEFT/LoRA, Google Colab (T4 GPU) &middot; 2026",
-        [
-            "Configured Parameter-Efficient Fine-Tuning (PEFT/LoRA) on TinyLlama-1.1B-Chat, reducing trainable "
-            "parameters by &gt;95% while retaining baseline perplexity.",
-        ],
-    ))
-    story.extend(project_block(
-        "Telco Customer Churn Prediction &amp; ROI Pipeline",
-        "Python, Scikit-Learn, XGBoost, Optuna, SHAP, Streamlit &middot; 2026",
-        [
-            "Built a leakage-free ML pipeline on 7,043 records with stratified 70/15/15 splits; 30-trial Optuna "
-            "search achieved 0.844 ROC-AUC / 0.671 PR-AUC.",
-            "Deployed a multi-tab Streamlit dashboard with SHAP explainability and cost-sensitive ROI modeling "
-            "($20 cost / $200 LTV).",
-        ],
-    ))
-    story.extend(project_block(
-        "Priceout Collective &mdash; Affordability Policy Simulator",
-        "Python, Pandas, XGBoost, Scikit-Learn, JavaScript &middot; Building for Good Hackathon &middot; 2026",
-        [
-            "Modeled 1.17M household records across 4 policy dimensions, precomputing 945 scenario combinations "
-            "for zero-latency interactive simulation.",
-            "Diagnosed and eliminated target leakage in an XGBoost model, reaching 97.3% accuracy / 0.998 AUC, "
-            "validated against ALICE and HUD CHAS housing benchmarks.",
-        ],
-    ))
-    story.extend(project_block(
-        "Real-Time Facial Emotion Detection Engine",
-        "Python, OpenCV, TensorFlow, Keras, mini-XCEPTION (FER-2013) &middot; 2026",
-        [
-            "Trained a lightweight mini-XCEPTION CNN with depthwise separable convolutions on FER-2013.",
-            "Engineered a low-latency, multi-frame OpenCV inference pipeline rendering live probability "
-            "distributions across 7 emotion classes.",
-        ],
-    ))
+story.append(Paragraph("EXPERIENCE &amp; HONORS", h2_style))
+story.append(hr())
+story.append(row("<b>Data Science Alliance</b> \u2013 <i>Data Science Volunteer</i>", "Sep 2026 \u2013 Present"))
+story.append(Paragraph("- Built an end-to-end data auditing/validation pipeline on longitudinal unsheltered-homelessness data across Downtown San Diego (2012\u2013present), cross-referencing multi-year counts to reach 97.5%+ fidelity.", bullet_style))
+story.append(Paragraph("- Standardized schemas and built geospatial crosswalks across 380+ downtown blocks, preparing datasets for time-series decomposition and spatial hotspot forecasting (Getis-Ord Gi*).", bullet_style))
+story.append(row("<b>Teacher Ni Language Centre</b> \u2013 <i>Academic Tutor</i>", "Oct 2022 \u2013 Dec 2023"))
+story.append(Paragraph("- Mentored 40+ students through structured technical curricula, delivering clear, actionable feedback via weekly evaluations.", bullet_style))
+story.append(Paragraph("<b>Honors:</b> Jack Kent Cooke Transfer Scholarship Semifinalist (2026) \u00b7 Sterling Redman &amp; F.L. Griffin Scholar (2025\u20132026)", plain_style))
 
-    # Certifications
-    story.append(section_title("Certifications &amp; Specialized Training"))
-    story.append(Paragraph(
-        "<b>DeepLearning.AI, Stanford Online &amp; AWS</b> (2025&ndash;2026): Generative AI with Large Language "
-        "Models &middot; Deep Learning Specialization &middot; Machine Learning Specialization &middot; "
-        "Mathematics for Machine Learning and Data Science",
-        styles["body"],
-    ))
-    story.append(Spacer(1, 3))
-    story.append(Paragraph(
-        "<b>Google Cloud, IBM &amp; University Programs</b> (2025&ndash;2026): Google Cloud Skills Boost "
-        "Portfolio (Vertex AI, LLM Prompting, Model Tuning) &middot; Frontier Tech Leaders Programme (UNDP) "
-        "&middot; Applied Python &amp; Software Development (Harvard CS50P) &middot; Agile Scrum (IBM) &middot; "
-        "Python for Everybody (Univ. of Michigan)",
-        styles["body"],
-    ))
+doc.build(story)
 
-    # Honors
-    story.append(section_title("Honors &amp; Leadership"))
-    story.append(bullets([
-        "<b>Jack Kent Cooke Undergraduate Transfer Scholarship</b> &mdash; National Semifinalist (2026)",
-        "<b>Sterling Redman Scholarship &amp; F.L. Griffin Scholarship</b> &mdash; Skyline College Recipient (2025&ndash;2026)",
-        "<b>Teacher Ni Language Centre</b> &mdash; Academic Tutor, mentored 40+ students (2022&ndash;2023)",
-    ]))
-
-    doc.build(story)
-    print("Wrote", OUT_PATH)
-
-
-if __name__ == "__main__":
-    build()
+reader = PdfReader(OUT)
+print(f"Build successful! Total pages: {len(reader.pages)}")
+assert len(reader.pages) == 1, "Must be exactly 1 page!"

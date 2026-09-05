@@ -9,6 +9,7 @@ import {
   Download,
   Linkedin,
   Github,
+  Globe,
 } from 'lucide-react';
 
 export default function ResumePage() {
@@ -113,6 +114,15 @@ export default function ResumePage() {
                 <Github className="w-3.5 h-3.5 text-cyan-400" />
                 <span>github.com/CapMorningStar</span>
               </a>
+              <a
+                href="https://kyawsoelwin.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-cyan-400 flex items-center gap-1 transition-colors"
+              >
+                <Globe className="w-3.5 h-3.5 text-cyan-400" />
+                <span>kyawsoelwin.vercel.app</span>
+              </a>
             </div>
           </div>
 
@@ -123,17 +133,182 @@ export default function ResumePage() {
               <span>Professional Summary</span>
             </h2>
             <p className="text-xs sm:text-sm text-gray-300 leading-relaxed">
-              <span className="text-white font-semibold">Data Science student at UC San Diego (4.0 GPA)</span> and AI/ML Engineer with deep hands-on expertise building production machine learning pipelines, Retrieval-Augmented Generation (RAG) systems, and real-time computer vision engines in Python. Proven track record in parameter-efficient fine-tuning (PEFT/LoRA), leakage-free tabular modeling (0.844 ROC-AUC), and cloud deployment across AWS and GCP (Vertex AI). Backed by national <span className="text-cyan-400 font-semibold">Jack Kent Cooke Semifinalist</span> honors and 9 verified credentials in Deep Learning and Generative AI.
+              <span className="text-white font-semibold">Data Science student at UC San Diego (4.0 GPA)</span> building leakage-free ML pipelines, Generative AI/LLM systems (RAG, PEFT/LoRA), and computer vision applications in Python. Proficient in Scikit-Learn, XGBoost, PyTorch, and SQL, with hands-on cloud deployment across AWS and GCP (Vertex AI). Backed by national <span className="text-cyan-400 font-semibold">Jack Kent Cooke Semifinalist</span> honors.
             </p>
           </section>
 
-          {/* SECTION 1.5: PROFESSIONAL EXPERIENCE */}
+          {/* SECTION 2: EDUCATION */}
           <section className="mb-8 relative z-10">
             <h2 className="text-xs font-black uppercase tracking-[0.25em] text-cyan-400 mb-3 flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-cyan-400" />
-              <span>Professional Experience</span>
+              <span>Education</span>
             </h2>
-            <div className="space-y-4">
+            <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-1.5">
+                <h3 className="text-sm font-black text-white">University of California, San Diego (UCSD)</h3>
+                <span className="text-xs font-mono font-bold text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20 w-fit">
+                  Expected June 2028
+                </span>
+              </div>
+              <p className="text-xs text-gray-400 mb-2">Bachelor of Science in Data Science &middot; San Diego, CA</p>
+              <p className="text-[11px] text-gray-400">
+                <span className="font-bold text-gray-300">Relevant Coursework:</span> Advanced Machine Learning, Data Engineering, Statistical Modeling, Algorithmic Data Analysis, Linear Algebra, Multivariable Calculus, Data Structures &amp; Algorithms, Object-Oriented Programming (Java)
+              </p>
+            </div>
+          </section>
+
+          {/* SECTION 3: TECHNICAL SKILLS */}
+          <section className="mb-8 relative z-10">
+            <h2 className="text-xs font-black uppercase tracking-[0.25em] text-cyan-400 mb-3 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-cyan-400" />
+              <span>Technical Skills</span>
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                <span className="font-bold text-white block mb-1">Statistics &amp; Experimentation</span>
+                <span className="text-gray-400">A/B Testing, Hypothesis Testing, Leakage Audits, Generalization Validation, Bayesian Optimization (Optuna), Time Series Analysis, Geospatial Analysis (Getis-Ord Gi*)</span>
+              </div>
+              <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                <span className="font-bold text-white block mb-1">Data Science &amp; Machine Learning</span>
+                <span className="text-gray-400">Scikit-Learn, XGBoost, PyTorch, TensorFlow/Keras, SHAP Interpretability, Feature Engineering, CNNs, Computer Vision (OpenCV)</span>
+              </div>
+              <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                <span className="font-bold text-white block mb-1">Programming &amp; Data Systems</span>
+                <span className="text-gray-400">Python, SQL, Java, Bash/Linux, Pandas, NumPy, Exploratory Data Analysis, Data Auditing &amp; Schema Standardization</span>
+              </div>
+              <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                <span className="font-bold text-white block mb-1">GenAI, LLMs &amp; Agents</span>
+                <span className="text-gray-400">Hugging Face Transformers, RAG Architectures, ChromaDB, LLM APIs (Anthropic Claude), Prompt Engineering, PEFT/LoRA Fine-Tuning, RLHF</span>
+              </div>
+              <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                <span className="font-bold text-white block mb-1">Cloud &amp; MLOps</span>
+                <span className="text-gray-400">AWS, GCP (Vertex AI), Docker, Kubernetes (GKE), Streamlit, Git/GitHub, Agile/Scrum, CI/CD</span>
+              </div>
+              <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                <span className="font-bold text-white block mb-1">AI-Assisted Development</span>
+                <span className="text-gray-400">Anthropic Claude Code, Google Antigravity, Agentic Coding Workflows</span>
+              </div>
+            </div>
+          </section>
+
+          {/* SECTION 4: TECHNICAL PROJECTS */}
+          <section className="mb-8 relative z-10">
+            <h2 className="text-xs font-black uppercase tracking-[0.25em] text-cyan-400 mb-4 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-cyan-400" />
+              <span>Technical Projects</span>
+            </h2>
+            <div className="space-y-5">
+              {/* Project 1 */}
+              <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+                <div className="flex justify-between items-baseline mb-1.5">
+                  <h3 className="text-sm font-black text-white">
+                    Telco Customer Churn Prediction &amp; Profit Thresholding
+                  </h3>
+                  <span className="text-[10px] font-mono text-cyan-400">2026</span>
+                </div>
+                <p className="text-[11px] font-mono text-gray-400 mb-2 flex flex-wrap items-center gap-2">
+                  <span>Python, Scikit-Learn, XGBoost, Optuna, SHAP, Streamlit</span>
+                  <a href="https://github.com/CapMorningStar/telco-churn-pipeline" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-cyan-400 hover:underline">
+                    <Github className="w-3 h-3" /> Repo
+                  </a>
+                </p>
+                <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
+                  <li>Constructed ColumnTransformer-based preprocessing on stratified 70/15/15 splits to guarantee leakage-free evaluation on 7,043 records.</li>
+                  <li>Executed 30-trial Optuna Bayesian search, achieving 0.844 ROC-AUC / 0.671 PR-AUC with &lt;3.5 point generalization gap.</li>
+                  <li>Deployed multi-tab Streamlit dashboard with TreeSHAP explainability and cost-sensitive ROI modeling ($20 cost / $200 LTV).</li>
+                </ul>
+              </div>
+
+              {/* Project 2 */}
+              <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+                <div className="flex justify-between items-baseline mb-1.5">
+                  <h3 className="text-sm font-black text-white">
+                    Priceout Collective &mdash; Affordability Policy Simulator
+                  </h3>
+                  <span className="text-[10px] font-mono text-cyan-400">2026</span>
+                </div>
+                <p className="text-[11px] font-mono text-gray-400 mb-2 flex flex-wrap items-center gap-2">
+                  <span>Python, Pandas, XGBoost, Scikit-Learn, JavaScript &middot; Building for Good Hackathon</span>
+                  <a href="https://github.com/eliseoa-dev/priceoutcollective" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-cyan-400 hover:underline">
+                    <Github className="w-3 h-3" /> Repo
+                  </a>
+                </p>
+                <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
+                  <li>Modeled 1.17M household records across 4 policy dimensions, precomputing 945 scenario combinations for zero-latency interactive simulation.</li>
+                  <li>Diagnosed and eliminated target leakage in an XGBoost model, reaching 97.3% accuracy / 0.998 AUC, validated against ALICE and HUD CHAS housing benchmarks.</li>
+                </ul>
+              </div>
+
+              {/* Project 3 */}
+              <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+                <div className="flex justify-between items-baseline mb-1.5">
+                  <h3 className="text-sm font-black text-white">
+                    Local Expert &mdash; Offline PDF QA Engine (RAG Pipeline)
+                  </h3>
+                  <span className="text-[10px] font-mono text-cyan-400">2026</span>
+                </div>
+                <p className="text-[11px] font-mono text-gray-400 mb-2 flex flex-wrap items-center gap-2">
+                  <span>Python, Hugging Face, ChromaDB, Anthropic Claude API, Streamlit</span>
+                  <a href="https://github.com/CapMorningStar/-local-expert-rag" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-cyan-400 hover:underline">
+                    <Github className="w-3 h-3" /> Repo
+                  </a>
+                </p>
+                <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
+                  <li>Architected an end-to-end local RAG pipeline for grounded question-answering over private PDFs with page-by-page chunking.</li>
+                  <li>Built local document ingestion embedding text via Hugging Face sentence-transformers into Chroma vector DB for high-precision retrieval.</li>
+                  <li>Designed swappable LLM provider interface (Claude API &amp; local Ollama) delivering grounded answers with source file and page citations.</li>
+                </ul>
+              </div>
+
+              {/* Project 4 */}
+              <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+                <div className="flex justify-between items-baseline mb-1.5">
+                  <h3 className="text-sm font-black text-white">
+                    LoRA TinyLlama-1.1B Instruction Fine-Tuning
+                  </h3>
+                  <span className="text-[10px] font-mono text-cyan-400">2026</span>
+                </div>
+                <p className="text-[11px] font-mono text-gray-400 mb-2 flex flex-wrap items-center gap-2">
+                  <span>PyTorch, Hugging Face, PEFT / LoRA, Google Colab (T4 GPU)</span>
+                  <a href="https://github.com/CapMorningStar/lora-tinyllama-finetune" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-cyan-400 hover:underline">
+                    <Github className="w-3 h-3" /> Repo
+                  </a>
+                </p>
+                <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
+                  <li>Configured Parameter-Efficient Fine-Tuning (PEFT/LoRA) on TinyLlama-1.1B-Chat, reducing trainable parameters by &gt;95%.</li>
+                  <li>Engineered custom prompt formatting templates, sequence length bucketing, and gradient accumulation for resource-constrained training.</li>
+                </ul>
+              </div>
+
+              {/* Project 5 */}
+              <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+                <div className="flex justify-between items-baseline mb-1.5">
+                  <h3 className="text-sm font-black text-white">
+                    Real-Time Facial Emotion Detection Engine
+                  </h3>
+                  <span className="text-[10px] font-mono text-cyan-400">2026</span>
+                </div>
+                <p className="text-[11px] font-mono text-gray-400 mb-2 flex flex-wrap items-center gap-2">
+                  <span>Python, OpenCV, TensorFlow, Keras, mini-XCEPTION (FER-2013)</span>
+                  <a href="https://github.com/CapMorningStar/emotion-detector" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-cyan-400 hover:underline">
+                    <Github className="w-3 h-3" /> Repo
+                  </a>
+                </p>
+                <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
+                  <li>Trained lightweight mini-XCEPTION CNN with depthwise separable convolutions on FER-2013 dataset.</li>
+                  <li>Engineered low-latency, multi-frame OpenCV inference pipeline rendering probability distributions across 7 emotion classes in real time.</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+
+          {/* SECTION 5: EXPERIENCE & HONORS */}
+          <section className="relative z-10">
+            <h2 className="text-xs font-black uppercase tracking-[0.25em] text-cyan-400 mb-3 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-cyan-400" />
+              <span>Experience &amp; Honors</span>
+            </h2>
+            <div className="space-y-4 mb-4">
               <div className="p-4 rounded-xl bg-white/5 border border-white/5">
                 <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-1.5">
                   <h3 className="text-sm font-black text-white">
@@ -162,185 +337,12 @@ export default function ResumePage() {
                 </ul>
               </div>
             </div>
-          </section>
-
-          {/* SECTION 2: TECHNICAL SKILLS */}
-          <section className="mb-8 relative z-10">
-            <h2 className="text-xs font-black uppercase tracking-[0.25em] text-cyan-400 mb-3 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-cyan-400" />
-              <span>Technical Skills</span>
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <div className="p-3 rounded-xl bg-white/5 border border-white/5">
-                <span className="font-bold text-white block mb-1">Programming &amp; Data</span>
-                <span className="text-gray-400">Python, SQL, Java, Bash/Linux, Pandas, NumPy, Feature Engineering</span>
-              </div>
-              <div className="p-3 rounded-xl bg-white/5 border border-white/5">
-                <span className="font-bold text-white block mb-1">Machine Learning</span>
-                <span className="text-gray-400">Scikit-Learn, XGBoost, Optuna (Bayesian Tuning), SHAP Explainability, ROI Modeling</span>
-              </div>
-              <div className="p-3 rounded-xl bg-white/5 border border-white/5">
-                <span className="font-bold text-white block mb-1">Deep Learning &amp; GenAI</span>
-                <span className="text-gray-400">PyTorch, TensorFlow, Keras, Hugging Face, PEFT/LoRA, RAG, ChromaDB, Claude API</span>
-              </div>
-              <div className="p-3 rounded-xl bg-white/5 border border-white/5">
-                <span className="font-bold text-white block mb-1">Cloud &amp; MLOps</span>
-                <span className="text-gray-400">GCP (Vertex AI, GKE), AWS, Docker, Kubernetes, Git/GitHub, Streamlit</span>
-              </div>
-              <div className="p-3 rounded-xl bg-white/5 border border-white/5">
-                <span className="font-bold text-white block mb-1">AI-Assisted Development</span>
-                <span className="text-gray-400">Google Antigravity, Anthropic Claude (Claude Code), Agentic Coding Workflows</span>
-              </div>
-            </div>
-          </section>
-
-          {/* SECTION 3: EDUCATION */}
-          <section className="mb-8 relative z-10">
-            <h2 className="text-xs font-black uppercase tracking-[0.25em] text-cyan-400 mb-3 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-cyan-400" />
-              <span>Education</span>
-            </h2>
-            <div className="space-y-4">
-              <div className="p-4 rounded-xl bg-white/5 border border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <div>
-                  <h3 className="text-sm font-black text-white">University of California, San Diego (UCSD)</h3>
-                  <p className="text-xs text-gray-400">Bachelor of Science in Data Science</p>
-                </div>
-                <span className="text-xs font-mono font-bold text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20 w-fit">
-                  Class of 2028
-                </span>
-              </div>
-
-              <div className="p-4 rounded-xl bg-white/5 border border-white/5 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <div>
-                  <h3 className="text-sm font-black text-white">Skyline College</h3>
-                  <p className="text-xs text-gray-400">Associate Studies in Data Science · Coursework: DSA, Linear Algebra, Calc</p>
-                </div>
-                <span className="text-xs font-mono font-bold text-cyan-400 bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/20 w-fit">
-                  4.0 GPA
-                </span>
-              </div>
-            </div>
-          </section>
-
-          {/* SECTION 4: TECHNICAL PROJECTS */}
-          <section className="mb-8 relative z-10">
-            <h2 className="text-xs font-black uppercase tracking-[0.25em] text-cyan-400 mb-4 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-cyan-400" />
-              <span>Technical Projects</span>
-            </h2>
-            <div className="space-y-5">
-              {/* Project 1 */}
-              <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-                <div className="flex justify-between items-baseline mb-1.5">
-                  <h3 className="text-sm font-black text-white">
-                    Local Expert &mdash; Private PDF QA Engine (RAG Pipeline)
-                  </h3>
-                  <span className="text-[10px] font-mono text-cyan-400">2026</span>
-                </div>
-                <p className="text-[11px] font-mono text-gray-400 mb-2">
-                  Python, Hugging Face, ChromaDB, Anthropic Claude API, Streamlit
-                </p>
-                <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
-                  <li>Architected an end-to-end local RAG pipeline for grounded question-answering over private PDFs with page-by-page chunking.</li>
-                  <li>Built local document ingestion embedding text via Hugging Face sentence-transformers into Chroma vector DB for high-precision retrieval.</li>
-                  <li>Designed swappable LLM provider interface (Claude API &amp; local Ollama) delivering grounded answers with source file and page citations.</li>
-                </ul>
-              </div>
-
-              {/* Project 2 */}
-              <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-                <div className="flex justify-between items-baseline mb-1.5">
-                  <h3 className="text-sm font-black text-white">
-                    LoRA TinyLlama-1.1B Instruction Fine-Tuning
-                  </h3>
-                  <span className="text-[10px] font-mono text-cyan-400">2026</span>
-                </div>
-                <p className="text-[11px] font-mono text-gray-400 mb-2">
-                  PyTorch, Hugging Face, PEFT / LoRA, Google Colab (T4 GPU)
-                </p>
-                <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
-                  <li>Configured Parameter-Efficient Fine-Tuning (PEFT/LoRA) on TinyLlama-1.1B-Chat, reducing trainable parameters by &gt;95%.</li>
-                  <li>Engineered custom prompt formatting templates, sequence length bucketing, and gradient accumulation for resource-constrained training.</li>
-                </ul>
-              </div>
-
-              {/* Project 3 */}
-              <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-                <div className="flex justify-between items-baseline mb-1.5">
-                  <h3 className="text-sm font-black text-white">
-                    Telco Customer Churn Prediction &amp; ROI Pipeline
-                  </h3>
-                  <span className="text-[10px] font-mono text-cyan-400">2026</span>
-                </div>
-                <p className="text-[11px] font-mono text-gray-400 mb-2">
-                  Python, Scikit-Learn, XGBoost, Optuna, SHAP, Streamlit
-                </p>
-                <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
-                  <li>Constructed ColumnTransformer-based preprocessing on stratified 70/15/15 splits to guarantee leakage-free evaluation on 7,043 records.</li>
-                  <li>Executed 30-trial Optuna Bayesian search, achieving 0.844 ROC-AUC / 0.671 PR-AUC with &lt;3.5 point generalization gap.</li>
-                  <li>Deployed multi-tab Streamlit dashboard with TreeSHAP explainability and cost-sensitive ROI retention modeling ($20 cost / $200 LTV).</li>
-                </ul>
-              </div>
-
-              {/* Project 4 */}
-              <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-                <div className="flex justify-between items-baseline mb-1.5">
-                  <h3 className="text-sm font-black text-white">
-                    Real-Time Facial Emotion Detection Engine
-                  </h3>
-                  <span className="text-[10px] font-mono text-cyan-400">2026</span>
-                </div>
-                <p className="text-[11px] font-mono text-gray-400 mb-2">
-                  Python, OpenCV, TensorFlow, Keras, mini-XCEPTION (FER-2013)
-                </p>
-                <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
-                  <li>Trained lightweight mini-XCEPTION CNN with depthwise separable convolutions on FER-2013 dataset.</li>
-                  <li>Engineered low-latency, multi-frame OpenCV inference pipeline rendering probability distributions across 7 emotion classes in real time.</li>
-                </ul>
-              </div>
-
-              {/* Project 5 */}
-              <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-                <div className="flex justify-between items-baseline mb-1.5">
-                  <h3 className="text-sm font-black text-white">
-                    Priceout Collective &mdash; Affordability Policy Simulator
-                  </h3>
-                  <span className="text-[10px] font-mono text-cyan-400">2026</span>
-                </div>
-                <p className="text-[11px] font-mono text-gray-400 mb-2">
-                  Python, Pandas, XGBoost, Scikit-Learn, JavaScript &middot; Building for Good Hackathon
-                </p>
-                <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
-                  <li>Modeled 1.17M household records across 4 policy dimensions, precomputing 945 scenario combinations for zero-latency interactive simulation.</li>
-                  <li>Diagnosed and eliminated target leakage in an XGBoost model, reaching 97.3% accuracy / 0.998 AUC, validated against ALICE and HUD CHAS housing benchmarks.</li>
-                </ul>
-              </div>
-            </div>
-          </section>
-
-          {/* SECTION 5: HONORS & CERTIFICATIONS */}
-          <section className="relative z-10">
-            <h2 className="text-xs font-black uppercase tracking-[0.25em] text-cyan-400 mb-3 flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-cyan-400" />
-              <span>Honors &amp; Verified Certifications</span>
-            </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-              <div className="p-3.5 rounded-xl bg-white/5 border border-white/5">
-                <span className="font-bold text-white block mb-1">Scholarships &amp; Honors</span>
-                <p className="text-gray-400">
-                  • Jack Kent Cooke Semifinalist (2026)<br />
-                  • Sterling Redman &amp; F.L. Griffin Scholarships
-                </p>
-              </div>
-              <div className="p-3.5 rounded-xl bg-white/5 border border-white/5">
-                <span className="font-bold text-white block mb-1">Specializations</span>
-                <p className="text-gray-400">
-                  • DeepLearning.AI &amp; AWS Generative AI<br />
-                  • DeepLearning.AI Deep Learning &amp; Math<br />
-                  • Google Cloud Skills Boost Vertex AI Portfolio
-                </p>
-              </div>
+            <div className="p-3.5 rounded-xl bg-white/5 border border-white/5 text-xs">
+              <span className="font-bold text-white block mb-1">Honors</span>
+              <p className="text-gray-400">
+                • Jack Kent Cooke Undergraduate Transfer Scholarship &mdash; National Semifinalist (2026)<br />
+                • Sterling Redman Scholarship &amp; F.L. Griffin Scholarship (2025&ndash;2026)
+              </p>
             </div>
           </section>
         </motion.div>
