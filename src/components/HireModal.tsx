@@ -164,7 +164,7 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                   href="/api/resume"
-                  download="Kyaw_Soe_Lwin_AI_ML_Resume.pdf"
+                  download="Kyaw_Soe_Lwin_Resume.pdf"
                   className="px-5 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg shadow-cyan-500/25 cursor-pointer"
                 >
                   <Download className="w-4 h-4 text-black" />

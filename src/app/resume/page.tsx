@@ -53,7 +53,7 @@ export default function ResumePage() {
             whileTap={{ scale: 0.94 }}
             transition={{ type: 'spring', stiffness: 400, damping: 25 }}
             href="/api/resume"
-            download="Kyaw_Soe_Lwin_AI_ML_Resume.pdf"
+            download="Kyaw_Soe_Lwin_Resume.pdf"
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/25 cursor-pointer"
           >
             <Download className="w-3.5 h-3.5 text-black" />
