@@ -41,30 +41,28 @@ export function CursorFollower() {
         ringX = mouseX;
         ringY = mouseY;
       }
+    };
 
-      const target = e.target as HTMLElement | null;
-      if (target) {
-        // Proximity check: bottom-right corner where MorningStar widget lives
-        const distFromRight = window.innerWidth - mouseX;
-        const distFromBottom = window.innerHeight - mouseY;
-        const isNearWidgetCorner = distFromRight <= 90 && distFromBottom <= 90;
-
-        isOverWidget =
-          isNearWidgetCorner ||
-          !!(
-            target.closest('button[aria-label="Open MorningStar AI"]') ||
-            target.closest('[data-hide-custom-cursor]') ||
-            target.closest('.fixed.bottom-6.right-6')
-          );
-
-        const isClickable =
-          target.closest('button') ||
-          target.closest('a') ||
-          target.closest('[role="button"]') ||
-          target.tagName === 'BUTTON' ||
-          target.tagName === 'A';
-        isHovering = !!isClickable;
+    // Re-hit-test the live DOM every frame (see render loop) instead of relying
+    // on the stale element captured at the last physical mousemove. This is what
+    // keeps the cursor in sync while the chat widget animates open/closed:
+    // shrinking/moving elements don't fire mousemove on their own, so a
+    // mousemove-only check would freeze isOverWidget mid-animation and then
+    // "pop" once the mouse actually moves again (the twinkle/leftover glitch).
+    const updateHoverState = () => {
+      if (mouseX < 0 || mouseY < 0) return;
+      const el = document.elementFromPoint(mouseX, mouseY) as HTMLElement | null;
+      if (!el) {
+        isOverWidget = false;
+        isHovering = false;
+        return;
       }
+      isOverWidget = !!el.closest('[data-chat-widget-root]');
+      isHovering = !!(
+        el.closest('button') ||
+        el.closest('a') ||
+        el.closest('[role="button"]')
+      );
     };
 
     const handleMouseDown = () => (isClicking = true);
@@ -83,6 +81,8 @@ export function CursorFollower() {
 
     const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      updateHoverState();
 
       const targetOpacity = isOverWidget ? 0 : 1;
       cursorOpacity += (targetOpacity - cursorOpacity) * 0.25;

@@ -5,6 +5,12 @@
 :root {
   --background: #0a0a0a;
   --foreground: #ffffff;
+  /* Clearance below the fixed navbar for scroll-to-section anchors (Navbar.tsx).
+     Measured desktop pill nav: top-7 (28px) + ~50.6px rendered height ≈ 79px bottom edge;
+     this adds breathing room on top of that. Single source of truth — every scroll-target
+     section should use scroll-mt-[var(--nav-height)] instead of a hardcoded Tailwind value,
+     so a navbar height change only needs updating here. */
+  --nav-height: 7rem;
 }
 
 body {

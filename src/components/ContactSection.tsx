@@ -15,7 +15,7 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="mb-28 scroll-mt-28">
+    <section id="contact" className="mb-28 scroll-mt-[var(--nav-height)]">
       <div className="max-w-4xl mx-auto rounded-[2.8rem] p-8 sm:p-12 bg-[#121212]/80 backdrop-blur-2xl border border-white/10 text-center relative overflow-hidden shadow-[0_10px_60px_rgba(0,0,0,0.6)]">
         {/* Glow */}
         <div className="absolute -top-32 left-1/2 -translate-x-1/2 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />

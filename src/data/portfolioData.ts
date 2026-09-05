@@ -22,6 +22,16 @@ export interface SkillCategory {
   }[];
 }
 
+export interface ExperienceItem {
+  role: string;
+  company: string;
+  location: string;
+  period: string;
+  type: string;
+  bullets: string[];
+  tools: string[];
+}
+
 export interface EducationItem {
   school: string;
   location: string;
@@ -246,6 +256,23 @@ export const portfolioData = {
       ]
     }
   ] as SkillCategory[],
+
+  experience: [
+    {
+      role: "Data Science Volunteer",
+      company: "Data Science Alliance",
+      location: "San Diego, CA",
+      period: "Sep 2026 – Present",
+      type: "Part-time",
+      bullets: [
+        "Contributing to a public-interest data science project analyzing longitudinal unsheltered homelessness data across Downtown San Diego (2012–present) in partnership with municipal stakeholders.",
+        "Designed and executed an end-to-end data auditing and validation pipeline, cross-referencing multi-year counts against source reports to ensure high data integrity (97.5%+ fidelity).",
+        "Standardized schemas and built geospatial crosswalks across 380+ downtown blocks and neighborhood boundaries to enable spatial panel modeling.",
+        "Preparing datasets for time-series decomposition, spatial hotspot analysis (Getis-Ord Gi*), and predictive forecasting models."
+      ],
+      tools: ["Python", "Pandas", "NumPy", "Time Series Analysis", "Geospatial Data (GeoJSON)", "Asana"]
+    }
+  ] as ExperienceItem[],
 
   education: [
     {

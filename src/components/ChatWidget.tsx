@@ -180,7 +180,7 @@ export function ChatWidget() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 font-sans pointer-events-none">
+    <div data-chat-widget-root className="fixed bottom-6 right-6 z-50 font-sans pointer-events-none">
       <AnimatePresence mode="wait">
         {!isOpen ? (
           <motion.button
@@ -242,7 +242,7 @@ export function ChatWidget() {
               x: 20,
               transition: { duration: 0.22, ease: [0.16, 1, 0.3, 1] },
             }}
-            transition={{ type: 'spring', damping: 26, stiffness: 320, mass: 0.7 }}
+            transition={{ type: 'spring', damping: 15, stiffness: 300, mass: 0.8 }}
             className="w-[92vw] sm:w-[420px] h-[580px] max-h-[82vh] flex flex-col bg-[#0b1013]/95 border border-white/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(6,182,212,0.18)] backdrop-blur-2xl overflow-hidden pointer-events-auto"
           >
             {/* Window Header */}
@@ -282,7 +282,7 @@ export function ChatWidget() {
             </div>
 
             {/* Messages Scroll Area */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-3.5 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+            <div className="flex-1 overflow-y-auto p-4 flex flex-col space-y-3.5 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
               {messages.map((msg) => (
                 <div
                   key={msg.id}
@@ -324,7 +324,7 @@ export function ChatWidget() {
 
               {/* Quick Starter Chips on first message */}
               {messages.length === 1 && (
-                <div className="pt-2">
+                <div className="pt-2 mt-auto">
                   <p className="text-[10px] text-neutral-500 uppercase tracking-wider mb-2 font-mono">Suggested Questions</p>
                   <div className="flex flex-wrap gap-1.5">
                     {QUICK_PROMPTS.map((prompt, idx) => (

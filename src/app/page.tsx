@@ -7,6 +7,7 @@ import { CursorFollower } from '@/components/CursorFollower';
 import { Navbar } from '@/components/Navbar';
 import { SocialSidebar } from '@/components/SocialSidebar';
 import { HeroBento } from '@/components/HeroBento';
+import { ExperienceSection } from '@/components/ExperienceSection';
 import { ProjectsSection } from '@/components/ProjectsSection';
 import { SkillsSection } from '@/components/SkillsSection';
 import { EducationSection } from '@/components/EducationSection';
@@ -42,8 +43,9 @@ export default function Home() {
       />
 
       {/* Main Page Container (Always Crisp, Bright & Interactive) */}
-      <main id="home" className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-28 md:pt-36 pb-20">
+      <main className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 pt-28 md:pt-36 pb-20">
         <HeroBento />
+        <ExperienceSection />
         <ProjectsSection />
         <SkillsSection />
         <EducationSection />

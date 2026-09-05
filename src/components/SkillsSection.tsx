@@ -200,7 +200,7 @@ const lane3DataScience: SkillItem[] = [
 
 export function SkillsSection() {
   return (
-    <section id="skills" className="mb-32 scroll-mt-28 relative overflow-hidden">
+    <section id="skills" className="mb-32 scroll-mt-[var(--nav-height)] relative overflow-hidden">
       
       {/* Header */}
       <div className="text-center mb-16 relative z-10">
