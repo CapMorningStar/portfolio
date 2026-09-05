@@ -44,10 +44,18 @@ export function CursorFollower() {
 
       const target = e.target as HTMLElement | null;
       if (target) {
-        isOverWidget = !!(
-          target.closest('button[aria-label="Open MorningStar AI"]') ||
-          target.closest('[data-hide-custom-cursor]')
-        );
+        // Proximity check: bottom-right corner where MorningStar widget lives
+        const distFromRight = window.innerWidth - mouseX;
+        const distFromBottom = window.innerHeight - mouseY;
+        const isNearWidgetCorner = distFromRight <= 90 && distFromBottom <= 90;
+
+        isOverWidget =
+          isNearWidgetCorner ||
+          !!(
+            target.closest('button[aria-label="Open MorningStar AI"]') ||
+            target.closest('[data-hide-custom-cursor]') ||
+            target.closest('.fixed.bottom-6.right-6')
+          );
 
         const isClickable =
           target.closest('button') ||
