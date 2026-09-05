@@ -165,7 +165,7 @@ export function ChatWidget() {
           href={match[2]}
           target={match[2].startsWith('http') ? '_blank' : '_self'}
           rel={match[2].startsWith('http') ? 'noopener noreferrer' : ''}
-          className="text-emerald-400 underline underline-offset-2 hover:text-emerald-300 inline-flex items-center gap-0.5"
+          className="text-cyan-400 underline underline-offset-2 hover:text-cyan-300 inline-flex items-center gap-0.5"
         >
           {match[1]}
           {match[2].startsWith('http') && <ExternalLink className="w-3 h-3 inline" />}
@@ -181,7 +181,7 @@ export function ChatWidget() {
 
   return (
     <div className="fixed bottom-6 right-6 z-50 font-sans">
-      {/* Floating Toggle Button - Concept 1: MorningStar Orbital Orb (Circular FAB) */}
+      {/* Floating Toggle Button - Concept 1: MorningStar Orbital Orb (Circular FAB) in Electric Cyan */}
       <AnimatePresence>
         {!isOpen && (
           <motion.button
@@ -191,27 +191,27 @@ export function ChatWidget() {
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.92 }}
             onClick={() => setIsOpen(true)}
-            className="group relative w-14 h-14 rounded-full flex items-center justify-center bg-gradient-to-b from-[#141a17]/90 via-[#0e1411]/95 to-[#060a08] border border-emerald-500/40 hover:border-emerald-400/80 shadow-[0_0_20px_rgba(16,185,129,0.25),inset_0_0_15px_rgba(16,185,129,0.12)] hover:shadow-[0_0_35px_rgba(16,185,129,0.5),inset_0_0_25px_rgba(16,185,129,0.3)] backdrop-blur-xl transition-all duration-300"
+            className="group relative w-14 h-14 rounded-full flex items-center justify-center bg-gradient-to-b from-[#0b171c]/90 via-[#071116]/95 to-[#030709] border border-cyan-500/40 hover:border-cyan-400/80 shadow-[0_0_20px_rgba(6,182,212,0.25),inset_0_0_15px_rgba(6,182,212,0.12)] hover:shadow-[0_0_35px_rgba(6,182,212,0.55),inset_0_0_25px_rgba(6,182,212,0.3)] backdrop-blur-xl transition-all duration-300"
             aria-label="Open Kyaw's AI Copilot"
           >
             {/* Outer Rotating Cybernetic Orbit Ring */}
             <motion.div
               animate={{ rotate: 360 }}
               transition={{ duration: 10, repeat: Infinity, ease: 'linear' }}
-              className="absolute -inset-1.5 rounded-full border border-dashed border-emerald-400/30 group-hover:border-emerald-400/60 pointer-events-none transition-colors"
+              className="absolute -inset-1.5 rounded-full border border-dashed border-cyan-400/30 group-hover:border-cyan-400/60 pointer-events-none transition-colors"
             >
               {/* Micro Orbiting Satellite Node */}
-              <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(16,185,129,1)]" />
+              <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(6,182,212,1)]" />
             </motion.div>
 
             {/* Ambient Radial Aura Bloom (expands on hover) */}
-            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-emerald-500/20 via-cyan-500/10 to-transparent opacity-50 group-hover:opacity-100 group-hover:scale-125 transition-all duration-300 blur-sm pointer-events-none" />
+            <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-500/25 via-sky-400/15 to-transparent opacity-50 group-hover:opacity-100 group-hover:scale-125 transition-all duration-300 blur-sm pointer-events-none" />
 
             {/* Central Iconic 4-Pointed MorningStar / Gemini Celestial Glyph */}
             <div className="relative z-10 flex items-center justify-center">
               <svg
                 viewBox="0 0 24 24"
-                className="w-6 h-6 text-emerald-400 group-hover:text-emerald-300 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 drop-shadow-[0_0_10px_rgba(16,185,129,0.7)]"
+                className="w-6 h-6 text-cyan-400 group-hover:text-cyan-300 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 drop-shadow-[0_0_10px_rgba(6,182,212,0.8)]"
                 fill="currentColor"
               >
                 {/* 4-pointed astroid / morning star */}
@@ -221,14 +221,14 @@ export function ChatWidget() {
 
             {/* Live Radar Ping Dot (Top-Right Badge) */}
             <div className="absolute top-0 right-0 z-20 flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-80"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-400 border border-black shadow-[0_0_6px_rgba(16,185,129,1)]"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-80"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-400 border border-black shadow-[0_0_6px_rgba(6,182,212,1)]"></span>
             </div>
 
             {/* HUD Tooltip (Reveals smoothly to the left on hover) */}
             <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-200 pointer-events-none whitespace-nowrap">
-              <div className="px-3 py-1.5 rounded-lg bg-[#0d120f]/95 border border-emerald-500/40 text-[11px] font-mono tracking-wider text-emerald-300 shadow-[0_0_20px_rgba(0,0,0,0.8),0_0_10px_rgba(16,185,129,0.2)] flex items-center gap-2 backdrop-blur-md">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <div className="px-3 py-1.5 rounded-lg bg-[#071116]/95 border border-cyan-500/40 text-[11px] font-mono tracking-wider text-cyan-300 shadow-[0_0_20px_rgba(0,0,0,0.8),0_0_10px_rgba(6,182,212,0.25)] flex items-center gap-2 backdrop-blur-md">
+                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
                 <span>ASK KYAW&apos;S AI</span>
                 <span className="text-[9px] text-neutral-400">// GEMINI</span>
               </div>
@@ -245,18 +245,18 @@ export function ChatWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 25, scale: 0.94 }}
             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="w-[92vw] sm:w-[420px] h-[580px] max-h-[82vh] flex flex-col bg-[#0d0d0d]/95 border border-white/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(16,185,129,0.15)] backdrop-blur-2xl overflow-hidden"
+            className="w-[92vw] sm:w-[420px] h-[580px] max-h-[82vh] flex flex-col bg-[#0b1013]/95 border border-white/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(6,182,212,0.18)] backdrop-blur-2xl overflow-hidden"
           >
             {/* Window Header */}
             <div className="flex items-center justify-between px-4 py-3.5 bg-white/[0.03] border-b border-white/10">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-full bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shadow-[0_0_10px_rgba(16,185,129,0.2)]">
+                <div className="w-8 h-8 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.2)]">
                   <Bot className="w-4 h-4" />
                 </div>
                 <div>
                   <div className="flex items-center gap-1.5">
                     <h3 className="text-xs font-semibold text-white tracking-wide">Kyaw&apos;s AI Copilot</h3>
-                    <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono">
+                    <span className="text-[9px] px-1.5 py-0.2 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-mono">
                       Gemini
                     </span>
                   </div>
@@ -290,7 +290,7 @@ export function ChatWidget() {
                   className={`flex gap-2.5 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
                 >
                   {msg.role === 'model' && (
-                    <div className="w-6 h-6 rounded-full bg-emerald-500/20 border border-emerald-500/30 flex-shrink-0 flex items-center justify-center text-emerald-400 mt-1">
+                    <div className="w-6 h-6 rounded-full bg-cyan-500/20 border border-cyan-500/30 flex-shrink-0 flex items-center justify-center text-cyan-400 mt-1">
                       <Sparkles className="w-3 h-3" />
                     </div>
                   )}
@@ -298,8 +298,8 @@ export function ChatWidget() {
                   <div
                     className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-xs leading-relaxed ${
                       msg.role === 'user'
-                        ? 'bg-emerald-600 text-white rounded-br-none shadow-[0_2px_12px_rgba(16,185,129,0.3)]'
-                        : 'bg-[#161616] text-neutral-200 border border-white/10 rounded-bl-none shadow-[0_2px_10px_rgba(0,0,0,0.5)]'
+                        ? 'bg-cyan-600/90 text-white rounded-br-none shadow-[0_2px_12px_rgba(6,182,212,0.3)]'
+                        : 'bg-[#14181a] text-neutral-200 border border-white/10 rounded-bl-none shadow-[0_2px_10px_rgba(0,0,0,0.5)]'
                     }`}
                   >
                     {msg.content ? (
@@ -308,9 +308,9 @@ export function ChatWidget() {
                       </div>
                     ) : (
                       <div className="flex items-center gap-1.5 py-1 text-neutral-400">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-bounce"></span>
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-bounce [animation-delay:0.15s]"></span>
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-bounce [animation-delay:0.3s]"></span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-bounce"></span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-bounce [animation-delay:0.15s]"></span>
+                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-bounce [animation-delay:0.3s]"></span>
                       </div>
                     )}
                   </div>
@@ -332,7 +332,7 @@ export function ChatWidget() {
                       <button
                         key={idx}
                         onClick={() => handleSendMessage(prompt)}
-                        className="text-[11px] text-left px-2.5 py-1.5 rounded-xl bg-white/[0.04] hover:bg-emerald-500/10 border border-white/10 hover:border-emerald-500/40 text-neutral-300 hover:text-emerald-300 transition-all duration-200"
+                        className="text-[11px] text-left px-2.5 py-1.5 rounded-xl bg-white/[0.04] hover:bg-cyan-500/10 border border-white/10 hover:border-cyan-500/40 text-neutral-300 hover:text-cyan-300 transition-all duration-200"
                       >
                         {prompt}
                       </button>
@@ -359,12 +359,12 @@ export function ChatWidget() {
                 onChange={(e) => setInput(e.target.value)}
                 placeholder="Ask about Kyaw's projects, skills..."
                 disabled={isLoading}
-                className="flex-1 bg-[#141414] border border-white/10 focus:border-emerald-500/50 rounded-xl px-3.5 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-emerald-500/50 transition-colors disabled:opacity-50"
+                className="flex-1 bg-[#101518] border border-white/10 focus:border-cyan-500/50 rounded-xl px-3.5 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-colors disabled:opacity-50"
               />
               <button
                 type="submit"
                 disabled={!input.trim() || isLoading}
-                className="p-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 disabled:opacity-40 disabled:hover:bg-emerald-500 text-black font-semibold transition-all duration-200 flex-shrink-0 shadow-[0_0_15px_rgba(16,185,129,0.3)]"
+                className="p-2 rounded-xl bg-cyan-400 hover:bg-cyan-300 disabled:opacity-40 disabled:hover:bg-cyan-400 text-black font-semibold transition-all duration-200 flex-shrink-0 shadow-[0_0_15px_rgba(6,182,212,0.35)]"
                 aria-label="Send message"
               >
                 <Send className="w-3.5 h-3.5" />
