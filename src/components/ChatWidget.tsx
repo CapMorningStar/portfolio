@@ -220,12 +220,6 @@ export function ChatWidget() {
               </svg>
             </div>
 
-            {/* Live Radar Ping Dot (Top-Right Badge) */}
-            <div className="absolute top-0 right-0 z-20 flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-80"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-cyan-400 border border-black shadow-[0_0_6px_rgba(6,182,212,1)]"></span>
-            </div>
-
             {/* HUD Tooltip (Reveals smoothly to the left on hover) */}
             <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-200 pointer-events-none whitespace-nowrap">
               <div className="px-3 py-1.5 rounded-lg bg-[#071116]/95 border border-cyan-500/40 text-[11px] font-mono tracking-wider text-cyan-300 shadow-[0_0_20px_rgba(0,0,0,0.8),0_0_10px_rgba(6,182,212,0.25)] flex items-center gap-2 backdrop-blur-md">
