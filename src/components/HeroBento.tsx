@@ -12,7 +12,7 @@ export function HeroBento() {
   };
 
   return (
-    <section className="mb-24">
+    <section id="home" className="mb-24 scroll-mt-[var(--nav-height)]">
       {/* 2-Zone Master Grid: Left 8-Cols (Info Grid) + Right 4-Cols (Studio Portrait) */}
       <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch">
         

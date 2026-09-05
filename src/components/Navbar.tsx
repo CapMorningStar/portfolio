@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
 import { portfolioData } from '@/data/portfolioData';
@@ -18,6 +18,7 @@ export function Navbar({ onOpenHireModal }: NavbarProps) {
 
   const navItems = [
     { label: 'Home', id: 'home' },
+    { label: 'Experience', id: 'experience' },
     { label: 'Projects', id: 'projects' },
     { label: 'Skills', id: 'skills' },
     { label: 'Education', id: 'education' },
@@ -31,14 +32,27 @@ export function Navbar({ onOpenHireModal }: NavbarProps) {
 
       if (isClickScrolling.current) return;
 
-      const sectionIds = ['home', 'projects', 'skills', 'education', 'services', 'contact'];
-      const scrollPos = window.scrollY + 260;
+      // Handle top and bottom boundaries
+      if (window.scrollY < 120) {
+        setActiveSection('home');
+        return;
+      }
+
+      if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 60) {
+        setActiveSection('contact');
+        return;
+      }
+
+      const sectionIds = ['home', 'experience', 'projects', 'skills', 'education', 'services', 'contact'];
 
       for (let i = sectionIds.length - 1; i >= 0; i--) {
         const el = document.getElementById(sectionIds[i]);
-        if (el && el.offsetTop <= scrollPos) {
-          setActiveSection(sectionIds[i]);
-          break;
+        if (el) {
+          const rect = el.getBoundingClientRect();
+          if (rect.top <= 240) {
+            setActiveSection(sectionIds[i]);
+            break;
+          }
         }
       }
     };

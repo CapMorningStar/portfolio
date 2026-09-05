@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useEffect, useRef } from 'react';
 
@@ -23,6 +23,7 @@ export function CursorFollower() {
     let targetRadius = 18;
     let isHovering = false;
     let isClicking = false;
+    let isOverWidget = false;
     let animId: number;
 
     const syncSize = () => {
@@ -40,17 +41,28 @@ export function CursorFollower() {
         ringX = mouseX;
         ringY = mouseY;
       }
+    };
 
-      const target = e.target as HTMLElement | null;
-      if (target) {
-        const isClickable =
-          target.closest('button') ||
-          target.closest('a') ||
-          target.closest('[role="button"]') ||
-          target.tagName === 'BUTTON' ||
-          target.tagName === 'A';
-        isHovering = !!isClickable;
+    // Re-hit-test the live DOM every frame (see render loop) instead of relying
+    // on the stale element captured at the last physical mousemove. This is what
+    // keeps the cursor in sync while the chat widget animates open/closed:
+    // shrinking/moving elements don't fire mousemove on their own, so a
+    // mousemove-only check would freeze isOverWidget mid-animation and then
+    // "pop" once the mouse actually moves again (the twinkle/leftover glitch).
+    const updateHoverState = () => {
+      if (mouseX < 0 || mouseY < 0) return;
+      const el = document.elementFromPoint(mouseX, mouseY) as HTMLElement | null;
+      if (!el) {
+        isOverWidget = false;
+        isHovering = false;
+        return;
       }
+      isOverWidget = !!el.closest('[data-chat-widget-root]');
+      isHovering = !!(
+        el.closest('button') ||
+        el.closest('a') ||
+        el.closest('[role="button"]')
+      );
     };
 
     const handleMouseDown = () => (isClicking = true);
@@ -65,16 +77,26 @@ export function CursorFollower() {
     window.addEventListener('mouseup', handleMouseUp);
     window.addEventListener('mouseleave', handleMouseLeave);
 
+    let cursorOpacity = 1;
+
     const render = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      if (mouseX > 0 && mouseY > 0) {
+      updateHoverState();
+
+      const targetOpacity = isOverWidget ? 0 : 1;
+      cursorOpacity += (targetOpacity - cursorOpacity) * 0.25;
+
+      if (mouseX > 0 && mouseY > 0 && cursorOpacity > 0.01) {
         // Tight, responsive follow
         ringX += (mouseX - ringX) * 0.45;
         ringY += (mouseY - ringY) * 0.45;
 
         targetRadius = isHovering ? 25 : isClicking ? 13 : 18;
         ringRadius += (targetRadius - ringRadius) * 0.3;
+
+        ctx.save();
+        ctx.globalAlpha = cursorOpacity;
 
         // 1. Draw Outer Glowing Electric Cyan Ring
         ctx.save();
@@ -108,6 +130,8 @@ export function CursorFollower() {
         ctx.shadowBlur = 6;
         ctx.fill();
         ctx.restore();
+
+        ctx.restore(); // Restore globalAlpha
       }
 
       animId = requestAnimationFrame(render);

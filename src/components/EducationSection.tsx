@@ -242,7 +242,7 @@ export function EducationSection() {
   const { education, certifications, honors } = portfolioData;
 
   return (
-    <section id="education" className="mb-32 scroll-mt-28">
+    <section id="education" className="mb-32 scroll-mt-[var(--nav-height)]">
       {/* Header */}
       <div className="text-center mb-16">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-[10px] font-black uppercase tracking-[0.3em] mb-4">
