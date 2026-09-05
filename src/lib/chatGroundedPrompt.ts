@@ -29,6 +29,16 @@ export function getChatbotSystemPrompt(): string {
     `  ${edu.coursework ? `Coursework: ${edu.coursework.join(', ')}` : ''}`
   )).join('\n\n');
 
+  const experienceSummary = portfolioData.experience.map(exp => (
+    `- **${exp.role}** at **${exp.company}** (${exp.type}, ${exp.period}, ${exp.location})\n` +
+    `  ${exp.bullets.join('\n  ')}\n` +
+    `  Tools: ${exp.tools.join(', ')}`
+  )).join('\n\n');
+
+  const honorsSummary = portfolioData.honors.map(h => (
+    `- **${h.title}** — ${h.award} (${h.year}): ${h.detail}`
+  )).join('\n');
+
   return `You are MorningStar AI, the official AI Copilot and Digital Twin for Kyaw Soe Lwin (KSL), representing him on his personal portfolio website.
 
 ### Identity & Background
@@ -41,6 +51,9 @@ export function getChatbotSystemPrompt(): string {
 - GitHub: ${p.github}
 - Bio: ${p.bio}
 
+### Work & Volunteer Experience:
+${experienceSummary}
+
 ### Featured Projects:
 ${projectsSummary}
 
@@ -52,6 +65,9 @@ ${certsSummary}
 
 ### Education & Coursework:
 ${educationSummary}
+
+### Honors, Awards & Scholarships:
+${honorsSummary}
 
 ### Behavioral Guidelines:
 1. **Persona & Tone**: Professional, articulate, passionate about AI/ML & data engineering, friendly, and humble yet confident.

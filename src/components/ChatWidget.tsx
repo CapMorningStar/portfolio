@@ -40,15 +40,40 @@ export function ChatWidget() {
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showScrollToBottom, setShowScrollToBottom] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const isNearBottomRef = useRef(true);
 
-  // Auto-scroll to bottom on new messages
+  const scrollToBottom = (behavior: ScrollBehavior = 'smooth') => {
+    messagesEndRef.current?.scrollIntoView({ behavior });
+  };
+
+  const handleMessagesScroll = () => {
+    const el = messagesContainerRef.current;
+    if (!el) return;
+    const distanceFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
+    const nearBottom = distanceFromBottom < 80;
+    isNearBottomRef.current = nearBottom;
+    setShowScrollToBottom(!nearBottom);
+  };
+
+  // Auto-scroll to bottom on new messages, but only if the user hasn't scrolled up to read history
   useEffect(() => {
-    if (isOpen) {
-      messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (isOpen && isNearBottomRef.current) {
+      scrollToBottom();
     }
   }, [messages, isOpen]);
+
+  // Reset scroll state whenever the widget is opened
+  useEffect(() => {
+    if (isOpen) {
+      isNearBottomRef.current = true;
+      setShowScrollToBottom(false);
+      requestAnimationFrame(() => scrollToBottom('auto'));
+    }
+  }, [isOpen]);
 
   // Focus input on open
   useEffect(() => {
@@ -243,7 +268,7 @@ export function ChatWidget() {
               transition: { duration: 0.22, ease: [0.16, 1, 0.3, 1] },
             }}
             transition={{ type: 'spring', damping: 15, stiffness: 300, mass: 0.8 }}
-            className="w-[92vw] sm:w-[420px] h-[580px] max-h-[82vh] flex flex-col bg-[#0b1013]/95 border border-white/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(6,182,212,0.18)] backdrop-blur-2xl overflow-hidden pointer-events-auto"
+            className="relative w-[92vw] sm:w-[420px] h-[580px] max-h-[82vh] flex flex-col bg-[#0b1013]/95 border border-white/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(6,182,212,0.18)] backdrop-blur-2xl overflow-hidden pointer-events-auto"
           >
             {/* Window Header */}
             <div className="flex items-center justify-between px-4 py-3.5 bg-white/[0.03] border-b border-white/10">
@@ -282,7 +307,17 @@ export function ChatWidget() {
             </div>
 
             {/* Messages Scroll Area */}
-            <div className="flex-1 overflow-y-auto p-4 flex flex-col space-y-3.5 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent">
+            {/* Note: the scroll container itself must NOT be `flex flex-col justify-end` —
+                combined with overflow-y-auto that's a known Chromium flexbox bug where
+                content overflowing past the top becomes unscrollable/unreachable
+                (scrollHeight gets clamped to clientHeight). Instead, the inner wrapper
+                below handles bottom-anchoring for short conversations via `min-h-full`. */}
+            <div
+              ref={messagesContainerRef}
+              onScroll={handleMessagesScroll}
+              className="flex-1 overflow-y-auto p-4 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent"
+            >
+            <div className="min-h-full flex flex-col justify-end gap-3.5">
               {messages.map((msg) => (
                 <div
                   key={msg.id}
@@ -324,8 +359,8 @@ export function ChatWidget() {
 
               {/* Quick Starter Chips on first message */}
               {messages.length === 1 && (
-                <div className="pt-2 mt-auto">
-                  <p className="text-[10px] text-neutral-500 uppercase tracking-wider mb-2 font-mono">Suggested Questions</p>
+                <div className="flex flex-col gap-2">
+                  <p className="text-[10px] text-neutral-500 uppercase tracking-wider font-mono">Suggested Questions</p>
                   <div className="flex flex-wrap gap-1.5">
                     {QUICK_PROMPTS.map((prompt, idx) => (
                       <button
@@ -342,6 +377,29 @@ export function ChatWidget() {
 
               <div ref={messagesEndRef} />
             </div>
+            </div>
+
+            {/* Scroll-to-latest button (appears when user has scrolled up) */}
+            <AnimatePresence>
+              {showScrollToBottom && (
+                <motion.button
+                  initial={{ opacity: 0, y: 8, scale: 0.9 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 8, scale: 0.9 }}
+                  transition={{ duration: 0.15 }}
+                  onClick={() => {
+                    isNearBottomRef.current = true;
+                    setShowScrollToBottom(false);
+                    scrollToBottom();
+                  }}
+                  title="Jump to latest"
+                  aria-label="Scroll to latest message"
+                  className="absolute bottom-[74px] right-4 z-10 w-8 h-8 rounded-full bg-[#14181a] border border-cyan-500/40 text-cyan-400 flex items-center justify-center shadow-[0_2px_12px_rgba(0,0,0,0.6),0_0_10px_rgba(6,182,212,0.25)] hover:bg-cyan-500/10 hover:border-cyan-400/70 transition-colors"
+                >
+                  <ChevronDown className="w-4 h-4" />
+                </motion.button>
+              )}
+            </AnimatePresence>
 
             {/* Input Bar */}
             <form

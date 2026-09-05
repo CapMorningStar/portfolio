@@ -1,4 +1,13 @@
-﻿export interface ProjectItem {
+﻿// SOURCE OF TRUTH NOTE:
+// The canonical, human-maintained record of Kyaw's full background (education,
+// experience, projects, skills, certifications, honors) lives in:
+//   D:\MSI\Scholarship Document\Kyaw Soe Lwin\JOB\MY CV\MASTER_BACKGROUND.md
+// Whenever Kyaw reports a new achievement, job, project, cert, or award, check
+// that file first (or ask him to update it), then mirror the change here so the
+// portfolio site and its AI chatbot (see src/lib/chatGroundedPrompt.ts) stay
+// grounded in the latest information.
+
+export interface ProjectItem {
   id: string;
   number: string;
   title: string;
@@ -212,6 +221,23 @@ export const portfolioData = {
       github: "https://github.com/CapMorningStar/cat-classifier",
       gradient: "from-sky-600/30 via-slate-900/20 to-black",
       badge: "CNN Classification"
+    },
+    {
+      id: "priceout-collective",
+      number: "08",
+      title: "Priceout Collective — Affordability Policy Simulator",
+      category: "Machine Learning",
+      year: "2026",
+      description: "A household affordability policy simulator built at the Building for Good Hackathon, modeling 1.17M household records across 4 policy dimensions for zero-latency interactive scenario exploration.",
+      bullets: [
+        "Preprocessed and modeled 1.17M household records across 4 policy dimensions, precomputing 945 scenario combinations for zero-latency interactive simulation.",
+        "Diagnosed and eliminated target leakage in an XGBoost classification model through rigorous feature evaluation, reaching 97.3% accuracy / 0.998 AUC.",
+        "Validated model results against ALICE and HUD CHAS housing affordability benchmarks."
+      ],
+      tags: ["Python", "Pandas", "XGBoost", "Scikit-Learn", "JavaScript"],
+      github: "https://github.com/eliseoa-dev/priceoutcollective/tree/main",
+      gradient: "from-lime-600/30 via-green-950/20 to-black",
+      badge: "Building for Good Hackathon"
     }
   ] as ProjectItem[],
 
@@ -253,6 +279,14 @@ export const portfolioData = {
         { name: "Anthropic Claude API", iconName: "bot" },
         { name: "AWS & GCP (Vertex AI)", iconName: "cloud" },
         { name: "Docker & Kubernetes (GKE)", iconName: "container" }
+      ]
+    },
+    {
+      title: "AI-Assisted Development",
+      skills: [
+        { name: "Google Antigravity", iconName: "sparkles" },
+        { name: "Anthropic Claude (Claude Code)", iconName: "bot" },
+        { name: "Agentic Coding Workflows", iconName: "workflow" }
       ]
     }
   ] as SkillCategory[],
