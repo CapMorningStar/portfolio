@@ -1,8 +1,8 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import { portfolioData } from '@/data/portfolioData';
-import { Mail, Phone, MapPin, Send, Sparkles, Check, Copy, Github, Linkedin } from 'lucide-react';
+import { Mail, Phone, MapPin, Send, Sparkles, Check, Copy, Github, Linkedin, Download } from 'lucide-react';
 
 export function ContactSection() {
   const { personal } = portfolioData;
@@ -51,6 +51,15 @@ export function ContactSection() {
               {copied ? <Check className="w-4 h-4 text-cyan-400" /> : <Copy className="w-4 h-4" />}
               <span>{copied ? 'Copied to Clipboard!' : 'Copy Email Address'}</span>
             </button>
+
+            <a
+              href="/api/resume"
+              download="Kyaw_Soe_Lwin_Resume.pdf"
+              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-300 hover:text-white font-black text-xs uppercase tracking-widest border border-cyan-500/30 hover:border-cyan-500/50 transition-all shadow-lg shadow-cyan-500/10 hover:scale-105"
+            >
+              <Download className="w-4 h-4 text-cyan-400" />
+              <span>Download Resume (PDF)</span>
+            </a>
 
             <a
               href={personal.github}

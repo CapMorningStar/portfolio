@@ -10,11 +10,12 @@
 #   src/app/resume/page.tsx                                                  (on-site HTML preview)
 #
 # Section order: Summary -> Education -> Technical Skills -> Technical Projects ->
-# Experience & Honors. No separate Certifications section (folded into Technical Skills
-# instead, per feedback to favor skills/experience over listing certs). No GPA line and
-# no Skyline College entry (dropped per feedback). Project GitHub links and header
-# LinkedIn/GitHub/Portfolio/email links are real clickable link annotations (plain
-# black underlined text, not blue) to signal they're links without color.
+# Experience & Honors -> Certifications. (2026-09-10: re-added a dedicated Certifications
+# section, reversing the earlier "fold into skills" decision, per updated feedback; all
+# other font sizes/margins were nudged down slightly to keep this at exactly 1 page.)
+# No GPA line and no Skyline College entry (dropped per feedback). Project GitHub links
+# and header LinkedIn/GitHub/Portfolio/email links are real clickable link annotations
+# (plain black underlined text, not blue) to signal they're links without color.
 #
 # Requires: pip install reportlab pypdf
 # Run from anywhere: python scripts/generate_resume_pdf.py
@@ -33,26 +34,27 @@ OUT = os.path.join(REPO_ROOT, "public", "resume.pdf")
 
 doc = SimpleDocTemplate(
     OUT, pagesize=letter,
-    topMargin=0.25 * inch, bottomMargin=0.20 * inch,
-    leftMargin=0.50 * inch, rightMargin=0.50 * inch,
+    topMargin=0.14 * inch, bottomMargin=0.12 * inch,
+    leftMargin=0.42 * inch, rightMargin=0.42 * inch,
     title="Kyaw Soe Lwin - Resume",
     author="Kyaw Soe Lwin",
 )
 
-name_style = ParagraphStyle('name', fontName='Helvetica-Bold', fontSize=22, alignment=TA_CENTER, spaceAfter=3, leading=24)
-contact_style = ParagraphStyle('contact', fontName='Helvetica', fontSize=9.3, alignment=TA_CENTER, spaceAfter=5, leading=11.2)
-h2_style = ParagraphStyle('h2', fontName='Helvetica-Bold', fontSize=9.7, spaceBefore=5, spaceAfter=1.9, leading=11)
-body_style = ParagraphStyle('body', fontName='Helvetica', fontSize=8.9, alignment=TA_JUSTIFY, leading=11.9, spaceAfter=1.9)
-skill_style = ParagraphStyle('skill', fontName='Helvetica', fontSize=8.7, leading=11.7, spaceAfter=1.9)
-proj_meta_style = ParagraphStyle('projmeta', fontName='Helvetica-Oblique', fontSize=8.4, leading=10.8, spaceAfter=1.8)
-bullet_style = ParagraphStyle('bullet', fontName='Helvetica', fontSize=8.7, leading=11.3, leftIndent=12, bulletIndent=2, spaceAfter=1.8)
-row_label_style = ParagraphStyle('rowlabel', fontName='Helvetica-Bold', fontSize=8.9, leading=11.3)
-row_date_style = ParagraphStyle('rowdate', fontName='Helvetica', fontSize=8.7, leading=11.3, alignment=2)
-plain_style = ParagraphStyle('plain', fontName='Helvetica', fontSize=8.7, leading=11.3, spaceAfter=1.9)
+name_style = ParagraphStyle('name', fontName='Helvetica-Bold', fontSize=20, alignment=TA_CENTER, spaceAfter=2, leading=22)
+contact_style = ParagraphStyle('contact', fontName='Helvetica', fontSize=8.6, alignment=TA_CENTER, spaceAfter=3, leading=10.4)
+h2_style = ParagraphStyle('h2', fontName='Helvetica-Bold', fontSize=9.0, spaceBefore=3, spaceAfter=1.4, leading=10.2)
+body_style = ParagraphStyle('body', fontName='Helvetica', fontSize=8.4, alignment=TA_JUSTIFY, leading=11.0, spaceAfter=1.4)
+skill_style = ParagraphStyle('skill', fontName='Helvetica', fontSize=8.2, leading=10.8, spaceAfter=1.4)
+proj_meta_style = ParagraphStyle('projmeta', fontName='Helvetica-Oblique', fontSize=7.9, leading=10.1, spaceAfter=1.3)
+bullet_style = ParagraphStyle('bullet', fontName='Helvetica', fontSize=8.2, leading=10.4, leftIndent=12, bulletIndent=2, spaceAfter=1.3)
+row_label_style = ParagraphStyle('rowlabel', fontName='Helvetica-Bold', fontSize=8.4, leading=10.4)
+row_date_style = ParagraphStyle('rowdate', fontName='Helvetica', fontSize=8.2, leading=10.4, alignment=2)
+plain_style = ParagraphStyle('plain', fontName='Helvetica', fontSize=8.2, leading=10.4, spaceAfter=1.4)
+cert_style = ParagraphStyle('cert', fontName='Helvetica', fontSize=7.3, leading=9.2, spaceAfter=0.9)
 
 
 def hr():
-    return HRFlowable(width="100%", thickness=1.0, color=black, spaceBefore=0, spaceAfter=4)
+    return HRFlowable(width="100%", thickness=1.0, color=black, spaceBefore=0, spaceAfter=3)
 
 
 def row(left, right, lstyle=row_label_style, rstyle=row_date_style):
@@ -154,7 +156,49 @@ story.append(Paragraph("- Built an end-to-end data auditing/validation pipeline 
 story.append(Paragraph("- Standardized schemas and built geospatial crosswalks across 380+ downtown blocks, preparing datasets for time-series decomposition and spatial hotspot forecasting (Getis-Ord Gi*).", bullet_style))
 story.append(row("<b>Teacher Ni Language Centre</b> \u2013 <i>Academic Tutor</i>", "Oct 2022 \u2013 Dec 2023"))
 story.append(Paragraph("- Mentored 40+ students through structured technical curricula, delivering clear, actionable feedback via weekly evaluations.", bullet_style))
-story.append(Paragraph("<b>Honors:</b> Jack Kent Cooke Transfer Scholarship Semifinalist (2026) \u00b7 Sterling Redman &amp; F.L. Griffin Scholar (2025\u20132026)", plain_style))
+story.append(Paragraph("<b>Honors:</b> Jack Kent Cooke Scholarship Semifinalist (2026) \u00b7 Sterling Redman &amp; F.L. Griffin Scholar (2025\u20132026)", plain_style))
+
+story.append(Paragraph("CERTIFICATIONS", h2_style))
+story.append(hr())
+
+certs = [
+    ("Generative AI with Large Language Models", "DeepLearning.AI & AWS", "https://www.coursera.org/account/accomplishments/verify/5QI73UPMCSYY"),
+    ("Deep Learning Specialization", "DeepLearning.AI", "https://www.coursera.org/account/accomplishments/specialization/DDUQD294T6YG"),
+    ("Machine Learning Specialization", "Stanford Online & DeepLearning.AI", "https://www.coursera.org/account/accomplishments/specialization/APSG10B8RIFD"),
+    ("Mathematics for ML and Data Science", "DeepLearning.AI", "https://www.coursera.org/account/accomplishments/specialization/XXZEJ28KIL6B"),
+    ("Google Cloud Skills Boost Portfolio", "Google Cloud", "https://www.skills.google/public_profiles/7fbe1d02-3600-47d0-b4e3-ad475c1e9425"),
+    ("Python for Everybody Specialization", "University of Michigan", "https://www.coursera.org/account/accomplishments/specialization/H7S9D5HB2ARL"),
+    ("Python for Data Science, AI & Development", "IBM", "https://www.coursera.org/account/accomplishments/verify/GX0PKGYXUS5H"),
+    ("Introduction to Agile Development and Scrum", "IBM", "https://www.coursera.org/account/accomplishments/verify/SR3OHZRW0HNE"),
+    ("CS50P: Intro to Programming with Python", "Harvard (CS50)", None),
+    ("Frontier Tech Leaders Programme (ML Bootcamp)", "UNDP", None),
+]
+
+
+def cert_para(title, org, url):
+    text = f"<b>{title}</b> \u2013 {org}"
+    if url:
+        text += f' &nbsp;<link href="{url}"><u>(Verify)</u></link>'
+    return Paragraph(text, cert_style)
+
+
+cert_rows = []
+for i in range(0, len(certs), 3):
+    chunk = certs[i:i + 3]
+    row_cells = [cert_para(*c) for c in chunk]
+    while len(row_cells) < 3:
+        row_cells.append(Paragraph("", cert_style))
+    cert_rows.append(row_cells)
+
+cert_table = Table(cert_rows, colWidths=[2.55 * inch, 2.55 * inch, 2.5 * inch], hAlign='LEFT')
+cert_table.setStyle(TableStyle([
+    ('LEFTPADDING', (0, 0), (-1, -1), 0),
+    ('RIGHTPADDING', (0, 0), (-1, -1), 6),
+    ('TOPPADDING', (0, 0), (-1, -1), 0),
+    ('BOTTOMPADDING', (0, 0), (-1, -1), 0),
+    ('VALIGN', (0, 0), (-1, -1), 'TOP'),
+]))
+story.append(cert_table)
 
 doc.build(story)
 

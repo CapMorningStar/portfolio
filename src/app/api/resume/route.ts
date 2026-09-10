@@ -1,6 +1,8 @@
-﻿import { NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import fs from 'fs';
 import path from 'path';
+
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
@@ -17,6 +19,9 @@ export async function GET() {
         'Content-Type': 'application/pdf',
         'Content-Disposition': 'attachment; filename="Kyaw_Soe_Lwin_Resume.pdf"',
         'Content-Length': fileBuffer.length.toString(),
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache',
+        'Expires': '0',
       },
     });
   } catch (error) {

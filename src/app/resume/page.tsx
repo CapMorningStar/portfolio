@@ -152,7 +152,7 @@ export default function ResumePage() {
               </div>
               <p className="text-xs text-gray-400 mb-2">Bachelor of Science in Data Science &middot; San Diego, CA</p>
               <p className="text-[11px] text-gray-400">
-                <span className="font-bold text-gray-300">Relevant Coursework:</span> Advanced Machine Learning, Data Engineering, Statistical Modeling, Algorithmic Data Analysis, Linear Algebra, Multivariable Calculus, Data Structures &amp; Algorithms, Object-Oriented Programming (Java)
+                <span className="font-bold text-gray-300">Relevant Coursework:</span> Machine Learning, Deep Learning, Computer Vision, Statistical Natural Language Processing
               </p>
             </div>
           </section>
@@ -202,7 +202,47 @@ export default function ResumePage() {
               <div className="p-4 rounded-xl bg-white/5 border border-white/5">
                 <div className="flex justify-between items-baseline mb-1.5">
                   <h3 className="text-sm font-black text-white">
-                    Telco Customer Churn Prediction &amp; Profit Thresholding
+                    Local Expert &mdash; Offline PDF QA Engine (RAG Pipeline)
+                  </h3>
+                  <span className="text-[10px] font-mono text-cyan-400">2026</span>
+                </div>
+                <p className="text-[11px] font-mono text-gray-400 mb-2 flex flex-wrap items-center gap-2">
+                  <span>Python, Hugging Face sentence-transformers, ChromaDB, Anthropic Claude API, Streamlit</span>
+                  <a href="https://github.com/CapMorningStar/-local-expert-rag" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-cyan-400 hover:underline">
+                    <Github className="w-3 h-3" /> Repo
+                  </a>
+                </p>
+                <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
+                  <li>Built a fully offline, hand-coded RAG pipeline (no LangChain) that answers questions about your own PDFs and cites the exact source page, covering chunking, embedding, vector search, and prompt assembly end to end.</li>
+                  <li>Split PDFs into overlapping ~800-character chunks, embedded them locally with sentence-transformers, and indexed them in a local Chroma vector database for private, offline retrieval.</li>
+                </ul>
+              </div>
+
+              {/* Project 2 */}
+              <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+                <div className="flex justify-between items-baseline mb-1.5">
+                  <h3 className="text-sm font-black text-white">
+                    LoRA TinyLlama-1.1B Instruction Fine-Tuning
+                  </h3>
+                  <span className="text-[10px] font-mono text-cyan-400">2026</span>
+                </div>
+                <p className="text-[11px] font-mono text-gray-400 mb-2 flex flex-wrap items-center gap-2">
+                  <span>PyTorch, Hugging Face, PEFT / LoRA, bitsandbytes, Google Colab (T4 GPU)</span>
+                  <a href="https://github.com/CapMorningStar/lora-tinyllama-finetune" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-cyan-400 hover:underline">
+                    <Github className="w-3 h-3" /> Repo
+                  </a>
+                </p>
+                <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
+                  <li>Fine-tuned TinyLlama-1.1B with LoRA, adapting only the attention projection layers (q/k/v/o) to cut trainable parameters by over 95% while keeping the base model frozen.</li>
+                  <li>Used 4-bit quantization to fit the entire training run on a free Colab T4 GPU, then diagnosed and fixed a KV-cache/gradient-checkpointing conflict that was causing garbled output at inference.</li>
+                </ul>
+              </div>
+
+              {/* Project 3 */}
+              <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+                <div className="flex justify-between items-baseline mb-1.5">
+                  <h3 className="text-sm font-black text-white">
+                    Telco Customer Churn Pipeline &amp; Profit Thresholding
                   </h3>
                   <span className="text-[10px] font-mono text-cyan-400">2026</span>
                 </div>
@@ -213,74 +253,12 @@ export default function ResumePage() {
                   </a>
                 </p>
                 <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
-                  <li>Constructed ColumnTransformer-based preprocessing on stratified 70/15/15 splits to guarantee leakage-free evaluation on 7,043 records.</li>
-                  <li>Executed 30-trial Optuna Bayesian search, achieving 0.844 ROC-AUC / 0.671 PR-AUC with &lt;3.5 point generalization gap.</li>
-                  <li>Deployed multi-tab Streamlit dashboard with TreeSHAP explainability and cost-sensitive ROI modeling ($20 cost / $200 LTV).</li>
-                </ul>
-              </div>
-
-              {/* Project 2 */}
-              <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-                <div className="flex justify-between items-baseline mb-1.5">
-                  <h3 className="text-sm font-black text-white">
-                    Priceout Collective &mdash; Affordability Policy Simulator
-                  </h3>
-                  <span className="text-[10px] font-mono text-cyan-400">2026</span>
-                </div>
-                <p className="text-[11px] font-mono text-gray-400 mb-2 flex flex-wrap items-center gap-2">
-                  <span>Python, Pandas, XGBoost, Scikit-Learn, JavaScript &middot; Building for Good Hackathon</span>
-                  <a href="https://github.com/eliseoa-dev/priceoutcollective" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-cyan-400 hover:underline">
-                    <Github className="w-3 h-3" /> Repo
-                  </a>
-                </p>
-                <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
-                  <li>Modeled 1.17M household records across 4 policy dimensions, precomputing 945 scenario combinations for zero-latency interactive simulation.</li>
-                  <li>Diagnosed and eliminated target leakage in an XGBoost model, reaching 97.3% accuracy / 0.998 AUC, validated against ALICE and HUD CHAS housing benchmarks.</li>
-                </ul>
-              </div>
-
-              {/* Project 3 */}
-              <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-                <div className="flex justify-between items-baseline mb-1.5">
-                  <h3 className="text-sm font-black text-white">
-                    Local Expert &mdash; Offline PDF QA Engine (RAG Pipeline)
-                  </h3>
-                  <span className="text-[10px] font-mono text-cyan-400">2026</span>
-                </div>
-                <p className="text-[11px] font-mono text-gray-400 mb-2 flex flex-wrap items-center gap-2">
-                  <span>Python, Hugging Face, ChromaDB, Anthropic Claude API, Streamlit</span>
-                  <a href="https://github.com/CapMorningStar/-local-expert-rag" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-cyan-400 hover:underline">
-                    <Github className="w-3 h-3" /> Repo
-                  </a>
-                </p>
-                <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
-                  <li>Architected an end-to-end local RAG pipeline for grounded question-answering over private PDFs with page-by-page chunking.</li>
-                  <li>Built local document ingestion embedding text via Hugging Face sentence-transformers into Chroma vector DB for high-precision retrieval.</li>
-                  <li>Designed swappable LLM provider interface (Claude API &amp; local Ollama) delivering grounded answers with source file and page citations.</li>
+                  <li>Built a leakage-audited preprocessing pipeline and tuned an XGBoost model via a 30-trial Optuna search, reaching 0.844 ROC-AUC and 0.671 PR-AUC on a held-out test set of 1,057 customers.</li>
+                  <li>Built a Streamlit dashboard with SHAP explainability and a profit-threshold analysis that weighs outreach cost against customer lifetime value to recommend an action cutoff.</li>
                 </ul>
               </div>
 
               {/* Project 4 */}
-              <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-                <div className="flex justify-between items-baseline mb-1.5">
-                  <h3 className="text-sm font-black text-white">
-                    LoRA TinyLlama-1.1B Instruction Fine-Tuning
-                  </h3>
-                  <span className="text-[10px] font-mono text-cyan-400">2026</span>
-                </div>
-                <p className="text-[11px] font-mono text-gray-400 mb-2 flex flex-wrap items-center gap-2">
-                  <span>PyTorch, Hugging Face, PEFT / LoRA, Google Colab (T4 GPU)</span>
-                  <a href="https://github.com/CapMorningStar/lora-tinyllama-finetune" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-cyan-400 hover:underline">
-                    <Github className="w-3 h-3" /> Repo
-                  </a>
-                </p>
-                <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
-                  <li>Configured Parameter-Efficient Fine-Tuning (PEFT/LoRA) on TinyLlama-1.1B-Chat, reducing trainable parameters by &gt;95%.</li>
-                  <li>Engineered custom prompt formatting templates, sequence length bucketing, and gradient accumulation for resource-constrained training.</li>
-                </ul>
-              </div>
-
-              {/* Project 5 */}
               <div className="p-4 rounded-xl bg-white/5 border border-white/5">
                 <div className="flex justify-between items-baseline mb-1.5">
                   <h3 className="text-sm font-black text-white">
@@ -295,8 +273,8 @@ export default function ResumePage() {
                   </a>
                 </p>
                 <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
-                  <li>Trained lightweight mini-XCEPTION CNN with depthwise separable convolutions on FER-2013 dataset.</li>
-                  <li>Engineered low-latency, multi-frame OpenCV inference pipeline rendering probability distributions across 7 emotion classes in real time.</li>
+                  <li>Built a real-time webcam pipeline using OpenCV face detection and a pretrained mini-XCEPTION model (FER-2013, ~66% accuracy) to classify emotions live.</li>
+                  <li>Rendered live bounding boxes, emotion labels, and a probability bar chart across all 7 emotion categories with low-latency OpenCV rendering.</li>
                 </ul>
               </div>
             </div>
@@ -318,31 +296,75 @@ export default function ResumePage() {
                 </div>
                 <p className="text-[11px] font-mono text-gray-400 mb-2">San Diego, CA &middot; Part-time</p>
                 <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
-                  <li>Contributing to a public-interest data science project analyzing longitudinal unsheltered homelessness data across Downtown San Diego (2012&ndash;present) in partnership with municipal stakeholders.</li>
-                  <li>Designed and executed an end-to-end data auditing and validation pipeline, cross-referencing multi-year counts against source reports to ensure 97.5%+ data fidelity.</li>
-                  <li>Standardized schemas and built geospatial crosswalks across 380+ downtown blocks to enable spatial panel modeling.</li>
-                </ul>
-              </div>
-
-              <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-1.5">
-                  <h3 className="text-sm font-black text-white">
-                    Academic Tutor &mdash; Teacher Ni Language Centre
-                  </h3>
-                  <span className="text-[10px] font-mono text-cyan-400 whitespace-nowrap">Oct 2022 &ndash; Dec 2023</span>
-                </div>
-                <p className="text-[11px] font-mono text-gray-400 mb-2">International</p>
-                <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
-                  <li>Mentored cohorts of 40+ students through structured technical curricula, conducting weekly evaluations and individualized feedback.</li>
+                  <li>Designed and executed an end-to-end data auditing and validation pipeline, cross-referencing multi-year counts against source reports to ensure high data integrity (97.5%+ fidelity).</li>
+                  <li>Standardized schemas and built geospatial crosswalks across 380+ downtown blocks and neighborhood boundaries to enable spatial panel modeling.</li>
+                  <li>Preparing datasets for time-series decomposition, spatial hotspot analysis (Getis-Ord Gi*), and predictive modeling.</li>
                 </ul>
               </div>
             </div>
             <div className="p-3.5 rounded-xl bg-white/5 border border-white/5 text-xs">
               <span className="font-bold text-white block mb-1">Honors</span>
               <p className="text-gray-400">
-                • Jack Kent Cooke Undergraduate Transfer Scholarship &mdash; National Semifinalist (2026)<br />
-                • Sterling Redman Scholarship &amp; F.L. Griffin Scholarship (2025&ndash;2026)
+                • Jack Kent Cooke Undergraduate Scholarship &mdash; National Semifinalist (2026): Named a National Semifinalist for the Jack Kent Cooke Undergraduate Scholarship, recognizing top-tier high-achieving undergraduates nationwide.
               </p>
+            </div>
+          </section>
+
+          {/* SECTION 6: CERTIFICATIONS */}
+          <section className="mt-8 relative z-10">
+            <h2 className="text-xs font-black uppercase tracking-[0.25em] text-cyan-400 mb-3 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-cyan-400" />
+              <span>Certifications</span>
+            </h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                <span className="font-bold text-white block mb-1">Generative AI with Large Language Models</span>
+                <span className="text-gray-400">DeepLearning.AI &amp; AWS</span>{' '}
+                <a href="https://www.coursera.org/account/accomplishments/verify/5QI73UPMCSYY" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">Verify</a>
+              </div>
+              <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                <span className="font-bold text-white block mb-1">Deep Learning Specialization</span>
+                <span className="text-gray-400">DeepLearning.AI</span>{' '}
+                <a href="https://www.coursera.org/account/accomplishments/specialization/DDUQD294T6YG" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">Verify</a>
+              </div>
+              <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                <span className="font-bold text-white block mb-1">Machine Learning Specialization</span>
+                <span className="text-gray-400">Stanford Online &amp; DeepLearning.AI</span>{' '}
+                <a href="https://www.coursera.org/account/accomplishments/specialization/APSG10B8RIFD" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">Verify</a>
+              </div>
+              <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                <span className="font-bold text-white block mb-1">Mathematics for Machine Learning and Data Science</span>
+                <span className="text-gray-400">DeepLearning.AI</span>{' '}
+                <a href="https://www.coursera.org/account/accomplishments/specialization/XXZEJ28KIL6B" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">Verify</a>
+              </div>
+              <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                <span className="font-bold text-white block mb-1">Google Cloud Skills Boost Portfolio</span>
+                <span className="text-gray-400">Vertex AI, LLM Prompting, Model Tuning &middot; Google Cloud</span>{' '}
+                <a href="https://www.skills.google/public_profiles/7fbe1d02-3600-47d0-b4e3-ad475c1e9425" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">Profile</a>
+              </div>
+              <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                <span className="font-bold text-white block mb-1">Python for Everybody Specialization</span>
+                <span className="text-gray-400">University of Michigan</span>{' '}
+                <a href="https://www.coursera.org/account/accomplishments/specialization/H7S9D5HB2ARL" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">Verify</a>
+              </div>
+              <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                <span className="font-bold text-white block mb-1">Python for Data Science, AI &amp; Development</span>
+                <span className="text-gray-400">IBM</span>{' '}
+                <a href="https://www.coursera.org/account/accomplishments/verify/GX0PKGYXUS5H" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">Verify</a>
+              </div>
+              <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                <span className="font-bold text-white block mb-1">Introduction to Agile Development and Scrum</span>
+                <span className="text-gray-400">IBM</span>{' '}
+                <a href="https://www.coursera.org/account/accomplishments/verify/SR3OHZRW0HNE" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">Verify</a>
+              </div>
+              <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                <span className="font-bold text-white block mb-1">CS50P: Introduction to Programming with Python</span>
+                <span className="text-gray-400">Harvard (CS50)</span>
+              </div>
+              <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                <span className="font-bold text-white block mb-1">Frontier Tech Leaders Programme &mdash; ML Bootcamp</span>
+                <span className="text-gray-400">UNDP</span>
+              </div>
             </div>
           </section>
         </motion.div>
