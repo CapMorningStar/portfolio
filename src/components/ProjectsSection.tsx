@@ -1,8 +1,8 @@
-﻿'use client';
+'use client';
 
 import React, { useState } from 'react';
 import { portfolioData } from '@/data/portfolioData';
-import { ArrowUpRight, Github, Sparkles, CheckCircle2, RotateCw, ArrowLeft } from 'lucide-react';
+import { ArrowUpRight, Github, Sparkles, CheckCircle2, RotateCw, ArrowLeft, Play, ExternalLink } from 'lucide-react';
 
 export function ProjectsSection() {
   // Independent flipped state per card
@@ -213,19 +213,47 @@ export function ProjectsSection() {
                       ))}
                     </div>
 
-                    {project.github && (
-                      <a
-                        href={project.github}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={(e) => e.stopPropagation()}
-                        className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black font-black text-[9px] sm:text-[10px] uppercase tracking-wider transition-all shadow-md shadow-cyan-500/20 hover:scale-105 shrink-0 cursor-pointer"
-                      >
-                        <Github className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
-                        <span>GitHub</span>
-                        <ArrowUpRight className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
-                      </a>
-                    )}
+                    <div className="flex items-center gap-1.5 shrink-0">
+                      {project.demoVideo && (
+                        <a
+                          href={project.demoVideo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border border-purple-500/30 text-[9px] sm:text-[10px] font-black uppercase tracking-wider transition-all hover:scale-105 cursor-pointer shadow-sm"
+                          title="Watch Loom Demo Video"
+                        >
+                          <Play className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current" />
+                          <span>Demo</span>
+                        </a>
+                      )}
+                      {project.liveUrl && (
+                        <a
+                          href={project.apiDocs || project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 border border-blue-500/30 text-[9px] sm:text-[10px] font-black uppercase tracking-wider transition-all hover:scale-105 cursor-pointer shadow-sm"
+                          title="Interactive Cloud Run API Swagger Docs"
+                        >
+                          <ExternalLink className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                          <span>API</span>
+                        </a>
+                      )}
+                      {project.github && (
+                        <a
+                          href={project.github}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black font-black text-[9px] sm:text-[10px] uppercase tracking-wider transition-all shadow-md shadow-cyan-500/20 hover:scale-105 shrink-0 cursor-pointer"
+                        >
+                          <Github className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                          <span>GitHub</span>
+                          <ArrowUpRight className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
