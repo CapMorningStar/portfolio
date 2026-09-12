@@ -363,7 +363,8 @@ export default function ResumePage() {
               </div>
               <div className="p-3 rounded-xl bg-white/5 border border-white/5">
                 <span className="font-bold text-white block mb-1">Frontier Tech Leaders Programme &mdash; ML Bootcamp</span>
-                <span className="text-gray-400">UNDP</span>
+                <span className="text-gray-400">UNDP</span>{' '}
+                <a href="https://drive.google.com/drive/folders/13HOfL--zlcfJl6qbSEeXNSstzEL-gkC8?usp=sharing" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">Certificate</a>
               </div>
             </div>
           </section>
