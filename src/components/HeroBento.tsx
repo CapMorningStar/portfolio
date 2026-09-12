@@ -2,9 +2,8 @@
 
 import React from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { portfolioData } from '@/data/portfolioData';
-import { Sparkles, ArrowUpRight, Award, Brain, MapPin, Cpu, BookOpen, Quote, Download, FileText } from 'lucide-react';
+import { Sparkles, ArrowUpRight, Award, Brain, MapPin, Cpu, BookOpen, Quote } from 'lucide-react';
 
 export function HeroBento() {
   const scrollTo = (id: string) => {
@@ -53,27 +52,6 @@ export function HeroBento() {
               </h1>
             </div>
 
-            {/* Direct Resume Action CTAs */}
-            <div className="relative z-10 mb-4 flex flex-wrap items-center gap-3">
-              <a
-                href="/api/resume"
-                download="Kyaw_Soe_Lwin_Resume.pdf"
-                onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black text-xs font-black uppercase tracking-wider transition-all shadow-lg shadow-cyan-500/25 hover:scale-105 cursor-pointer"
-              >
-                <Download className="w-3.5 h-3.5 text-black" />
-                <span>Download Resume (PDF)</span>
-              </a>
-
-              <Link
-                href="/resume"
-                onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 hover:border-cyan-500/40 text-xs font-bold text-gray-200 hover:text-white transition-all cursor-pointer"
-              >
-                <FileText className="w-3.5 h-3.5 text-cyan-400" />
-                <span>View Resume</span>
-              </Link>
-            </div>
 
             {/* Sub-bar: Specialization & Quick Navigation Hint */}
             <div className="relative z-10 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
