@@ -202,19 +202,19 @@ export default function ResumePage() {
               <div className="p-4 rounded-xl bg-white/5 border border-white/5">
                 <div className="flex justify-between items-baseline mb-1.5">
                   <h3 className="text-sm font-black text-white">
-                    Local Expert &mdash; Offline PDF QA Engine (RAG Pipeline)
+                    Enterprise Corrective Multimodal RAGOps Platform (GCP)
                   </h3>
                   <span className="text-[10px] font-mono text-cyan-400">2026</span>
                 </div>
                 <p className="text-[11px] font-mono text-gray-400 mb-2 flex flex-wrap items-center gap-2">
-                  <span>Python, Hugging Face sentence-transformers, ChromaDB, Anthropic Claude API, Streamlit</span>
-                  <a href="https://github.com/CapMorningStar/-local-expert-rag" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-cyan-400 hover:underline">
+                  <span>Python, GCP (Vertex AI, Document AI, Cloud Run), LangGraph, Gemini 2.5 Flash, Ragas, FastAPI, Streamlit</span>
+                  <a href="https://github.com/CapMorningStar/multimodal-ragops-platform" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-cyan-400 hover:underline">
                     <Github className="w-3 h-3" /> Repo
                   </a>
                 </p>
                 <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
-                  <li>Built a fully offline, hand-coded RAG pipeline (no LangChain) that answers questions about your own PDFs and cites the exact source page, covering chunking, embedding, vector search, and prompt assembly end to end.</li>
-                  <li>Split PDFs into overlapping ~800-character chunks, embedded them locally with sentence-transformers, and indexed them in a local Chroma vector database for private, offline retrieval.</li>
+                  <li>Built an enterprise multimodal CRAG platform on GCP using Document AI Layout Parser and Vertex AI 1408-d embeddings to index text, Markdown tables, and cropped chart figures.</li>
+                  <li>Implemented a cyclic LangGraph state machine with dynamic relevance grading and grounded Gemini 2.5 Flash synthesis; evaluated via Ragas CI/CD (0.7519 Faithfulness) on Cloud Run.</li>
                 </ul>
               </div>
 
@@ -305,7 +305,7 @@ export default function ResumePage() {
             <div className="p-3.5 rounded-xl bg-white/5 border border-white/5 text-xs">
               <span className="font-bold text-white block mb-1">Honors</span>
               <p className="text-gray-400">
-                • Jack Kent Cooke Undergraduate Scholarship &mdash; National Semifinalist (2026): Named a National Semifinalist for the Jack Kent Cooke Undergraduate Scholarship, recognizing top-tier high-achieving undergraduates nationwide.
+                • <a href="https://www.jkcf.org/our-stories/2026-transfer-scholarship-semifinalists/" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">Jack Kent Cooke Undergraduate Scholarship</a> &mdash; National Semifinalist (2026): Named a National Semifinalist for the Jack Kent Cooke Undergraduate Scholarship, recognizing top-tier high-achieving undergraduates nationwide.
               </p>
             </div>
           </section>

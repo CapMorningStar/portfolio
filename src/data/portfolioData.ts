@@ -1,4 +1,4 @@
-﻿// SOURCE OF TRUTH NOTE:
+// SOURCE OF TRUTH NOTE:
 // The canonical, human-maintained record of Kyaw's full background (education,
 // experience, projects, skills, certifications, honors) lives in:
 //   D:\MSI\Scholarship Document\Kyaw Soe Lwin\JOB\MY CV\MASTER_BACKGROUND.md
@@ -106,21 +106,21 @@ export const portfolioData = {
 
   projects: [
     {
-      id: "local-expert-rag",
+      id: "multimodal-ragops-platform",
       number: "01",
-      title: "Local Expert — Offline PDF QA Engine (RAG Pipeline)",
+      title: "Enterprise Corrective Multimodal RAGOps Platform (GCP)",
       category: "GenAI & LLMs",
       year: "2026",
-      description: "A private, local RAG pipeline for grounded question-answering over personal PDFs with citations, running fully offline via Ollama & Anthropic Claude API.",
+      description: "An enterprise-grade Corrective Multimodal RAG platform on GCP parsing complex 10-Ks with Document AI, 1408-d Vertex AI embeddings, LangGraph CRAG state machine, Gemini 2.5 Flash, and Ragas CI/CD evals.",
       bullets: [
-        "Hand-built every stage: page-by-page overlapping ~800-char chunking, local sentence-transformers embedding, and local Chroma vector indexing.",
-        "Designed a swappable LLM provider interface (Anthropic Claude API & local Ollama) behind a shared configuration layer.",
-        "Delivered grounded answers with exact source file and page citations via an interactive Streamlit UI and CLI."
+        "Built an enterprise multimodal CRAG platform on GCP using Document AI Layout Parser and Vertex AI 1408-d embeddings to index text, Markdown tables, and cropped chart figures.",
+        "Implemented a cyclic LangGraph state machine with dynamic relevance grading and grounded Gemini 2.5 Flash synthesis; evaluated via Ragas CI/CD (0.7519 Faithfulness) on Cloud Run.",
+        "Containerized with zero-idle serverless deployment on Google Cloud Run with automated CI/CD and interactive Streamlit & FastAPI interfaces."
       ],
-      tags: ["Python", "RAG", "ChromaDB", "Ollama", "Hugging Face", "Claude API", "Streamlit"],
-      github: "https://github.com/CapMorningStar/-local-expert-rag",
-      gradient: "from-emerald-600/30 via-teal-900/20 to-black",
-      badge: "RAG & Offline LLMs"
+      tags: ["GCP", "Vertex AI", "Document AI", "LangGraph", "CRAG", "Gemini 2.5", "Cloud Run", "FastAPI", "Streamlit", "Ragas"],
+      github: "https://github.com/CapMorningStar/multimodal-ragops-platform",
+      gradient: "from-blue-600/30 via-cyan-900/20 to-black",
+      badge: "GCP & Multimodal CRAG"
     },
     {
       id: "lora-tinyllama",
