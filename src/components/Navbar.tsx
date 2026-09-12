@@ -22,7 +22,6 @@ export function Navbar({ onOpenHireModal }: NavbarProps) {
     { label: 'Projects', id: 'projects' },
     { label: 'Skills', id: 'skills' },
     { label: 'Education', id: 'education' },
-    { label: 'Methodology', id: 'services' },
     { label: 'Contact', id: 'contact' },
   ];
 
@@ -43,7 +42,7 @@ export function Navbar({ onOpenHireModal }: NavbarProps) {
         return;
       }
 
-      const sectionIds = ['home', 'experience', 'projects', 'skills', 'education', 'services', 'contact'];
+      const sectionIds = ['home', 'experience', 'projects', 'skills', 'education', 'contact'];
 
       for (let i = sectionIds.length - 1; i >= 0; i--) {
         const el = document.getElementById(sectionIds[i]);

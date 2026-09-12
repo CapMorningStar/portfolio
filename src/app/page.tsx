@@ -11,7 +11,6 @@ import { ExperienceSection } from '@/components/ExperienceSection';
 import { ProjectsSection } from '@/components/ProjectsSection';
 import { SkillsSection } from '@/components/SkillsSection';
 import { EducationSection } from '@/components/EducationSection';
-import { ServicesSection } from '@/components/ServicesSection';
 import { ContactSection } from '@/components/ContactSection';
 import { Footer } from '@/components/Footer';
 import { HireModal } from '@/components/HireModal';
@@ -49,7 +48,6 @@ export default function Home() {
         <ProjectsSection />
         <SkillsSection />
         <EducationSection />
-        <ServicesSection />
         <ContactSection />
       </main>
 
