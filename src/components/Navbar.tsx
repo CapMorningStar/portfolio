@@ -125,17 +125,6 @@ export function Navbar({ onOpenHireModal }: NavbarProps) {
           );
         })}
 
-        {/* Direct Resume Download Button */}
-        <a
-          href="/api/resume"
-          download="Kyaw_Soe_Lwin_Resume.pdf"
-          className="ml-1.5 inline-flex items-center gap-1.5 px-3.5 py-2 text-[10px] font-black uppercase tracking-[0.2em] rounded-full bg-white/10 hover:bg-cyan-500/20 text-gray-200 hover:text-cyan-300 border border-white/15 hover:border-cyan-500/30 transition-all hover:scale-105 cursor-pointer"
-          title="Download Resume (PDF)"
-        >
-          <Download className="w-3 h-3 text-cyan-400" />
-          <span>Resume</span>
-        </a>
-
         {/* High-Impact Hire Me Button (Opens Quick Connect & Resume Modal) */}
         <button
           onClick={handleHireClick}
@@ -153,15 +142,6 @@ export function Navbar({ onOpenHireModal }: NavbarProps) {
             {portfolioData.personal.initials}
           </span>
           <div className="flex items-center gap-2">
-            <a
-              href="/api/resume"
-              download="Kyaw_Soe_Lwin_Resume.pdf"
-              className="inline-flex items-center gap-1 px-3 py-1.5 text-[10px] font-black uppercase tracking-wider rounded-full bg-white/10 text-gray-200 hover:text-white border border-white/15"
-              title="Download Resume"
-            >
-              <Download className="w-3 h-3 text-cyan-400" />
-              <span>Resume</span>
-            </a>
             <button
               onClick={handleHireClick}
               className="px-3.5 py-1.5 text-[10px] font-black uppercase tracking-wider rounded-full bg-cyan-400 text-black font-black shadow-md shadow-cyan-500/20"
