@@ -85,23 +85,16 @@ function LogoSkyline({ className = "w-10 h-10" }: { className?: string }) {
   );
 }
 
-/** DeepLearning.AI (Andrew Ng) - Official Concentric Ripple / Eye Logo */
+/** DeepLearning.AI (Andrew Ng) - Official Stacked Bubble / Ripple Mark */
 function LogoDeepLearningAI({ className = "w-7 h-7" }: { className?: string }) {
   return (
-    <div className={`${className} rounded-lg bg-[#111111] border border-red-500/30 flex items-center justify-center p-0.5 shrink-0 shadow-sm`}>
-      <svg viewBox="0 0 100 100" className="w-full h-full" fill="none">
-        {/* Coral Pink Solid Background Circle */}
-        <circle cx="50" cy="50" r="46" fill="#FF4757" />
-        
-        {/* Outer Ring */}
-        <circle cx="50" cy="50" r="35" stroke="#FFFFFF" strokeWidth="5.5" fill="none" />
-        
-        {/* Inner Ring */}
-        <circle cx="50" cy="50" r="23" stroke="#FFFFFF" strokeWidth="5.5" fill="none" />
-        
-        {/* Center White Core Eye */}
-        <circle cx="50" cy="50" r="11" fill="#FFFFFF" />
-      </svg>
+    <div className={`${className} rounded-lg bg-white border border-red-400/40 flex items-center justify-center p-1 shrink-0 shadow-sm overflow-hidden`}>
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/images/logos/deeplearningai.png"
+        alt="DeepLearning.AI"
+        className="w-full h-full object-contain"
+      />
     </div>
   );
 }
