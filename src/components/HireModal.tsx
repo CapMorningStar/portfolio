@@ -145,7 +145,7 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
                 </div>
               </div>
 
-              <div className="flex items-center gap-2.5 shrink-0">
+              <div className="flex flex-nowrap items-center gap-2.5 shrink-0">
                 {/* 1. Instant Preview */}
                 <motion.button
                   whileHover={{ scale: 1.05 }}
@@ -165,7 +165,7 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
                   transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                   href="/api/resume"
                   download="Kyaw_Soe_Lwin_Resume.pdf"
-                  className="px-5 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black text-xs font-black uppercase tracking-wider flex items-center gap-2 whitespace-nowrap shrink-0 transition-all shadow-lg shadow-cyan-500/25 cursor-pointer"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black text-xs font-black uppercase tracking-wider whitespace-nowrap shrink-0 transition-all shadow-lg shadow-cyan-500/25 cursor-pointer"
                 >
                   <Download className="w-4 h-4 text-black shrink-0" />
                   <span className="whitespace-nowrap">Download CV</span>

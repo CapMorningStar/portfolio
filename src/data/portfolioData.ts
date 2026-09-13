@@ -370,7 +370,7 @@ export const portfolioData = {
           link: "https://www.coursera.org/account/accomplishments/specialization/DDUQD294T6YG"
         },
         {
-          name: "Machine Learning in Production",
+          name: "Machine Learning in Production (Coursera MLOps Specialization)",
           issuer: "DeepLearning.AI",
           link: "https://www.coursera.org/account/accomplishments/verify/E0C9SPQWUSF3"
         },

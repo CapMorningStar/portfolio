@@ -23,6 +23,7 @@ interface Message {
 
 const QUICK_PROMPTS = [
   'Tell me about your GCP Multimodal CRAG project 🚀',
+  'What are your MLOps certifications & skills? 🛠️',
   'What are your latest projects & live demos? 🤖',
   'What is your ML tech stack & skills? ⚡',
   'Summarize your UCSD education & GPA 🎓',
