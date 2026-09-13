@@ -145,14 +145,14 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
                 </div>
               </div>
 
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-2.5 shrink-0">
                 {/* 1. Instant Preview */}
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                   onClick={handlePreview}
-                  className="group px-4 py-2.5 rounded-full bg-white/5 hover:bg-cyan-500/10 border border-white/15 hover:border-cyan-500/40 text-xs font-bold text-gray-200 hover:text-white flex items-center gap-1.5 transition-all shadow-sm cursor-pointer"
+                  className="group px-4 py-2.5 rounded-full bg-white/5 hover:bg-cyan-500/10 border border-white/15 hover:border-cyan-500/40 text-xs font-bold text-gray-200 hover:text-white flex items-center gap-1.5 whitespace-nowrap shrink-0 transition-all shadow-sm cursor-pointer"
                 >
                   <span>Preview</span>
                   <ArrowUpRight className="w-3.5 h-3.5 text-cyan-400 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -165,10 +165,10 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
                   transition={{ type: 'spring', stiffness: 400, damping: 25 }}
                   href="/api/resume"
                   download="Kyaw_Soe_Lwin_Resume.pdf"
-                  className="px-5 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg shadow-cyan-500/25 cursor-pointer"
+                  className="px-5 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black text-xs font-black uppercase tracking-wider flex items-center gap-2 whitespace-nowrap shrink-0 transition-all shadow-lg shadow-cyan-500/25 cursor-pointer"
                 >
-                  <Download className="w-4 h-4 text-black" />
-                  <span>Download CV</span>
+                  <Download className="w-4 h-4 text-black shrink-0" />
+                  <span className="whitespace-nowrap">Download CV</span>
                 </motion.a>
               </div>
             </div>
