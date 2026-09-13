@@ -22,12 +22,8 @@ interface Message {
 }
 
 const QUICK_PROMPTS = [
-  'Tell me about your GCP Multimodal CRAG project 🚀',
-  'What are your MLOps certifications & skills? 🛠️',
-  'What are your latest projects & live demos? 🤖',
-  'What is your ML tech stack & skills? ⚡',
-  'Summarize your UCSD education & GPA 🎓',
-  'How can I get in touch with you? 📬',
+  'Tell me about your top AI/ML projects & demos 🚀',
+  'What are your technical skills & certifications? 🛠️',
 ];
 
 export function ChatWidget() {
