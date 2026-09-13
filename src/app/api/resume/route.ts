@@ -6,9 +6,13 @@ export const dynamic = 'force-dynamic';
 
 export async function GET() {
   try {
-    const filePath = path.join(process.cwd(), 'public', 'resume.pdf');
+    const candidatePaths = [
+      path.join(process.cwd(), 'public', 'Kyaw_Soe_Lwin_Resume.pdf'),
+      path.join(process.cwd(), 'public', 'resume.pdf'),
+    ];
+    const filePath = candidatePaths.find((p) => fs.existsSync(p));
     
-    if (!fs.existsSync(filePath)) {
+    if (!filePath) {
       return new NextResponse('Resume file not found', { status: 404 });
     }
 

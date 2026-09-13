@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -140,7 +140,7 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
                   <FileText className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-black text-white">Official Resume (PDF)</h4>
+                  <h4 className="text-sm font-black text-white">Official Resume / CV (PDF)</h4>
                   <p className="text-xs text-gray-400">ATS-Formatted · 1-Page Summary · 2026 Edition</p>
                 </div>
               </div>
@@ -168,7 +168,7 @@ export function HireModal({ isOpen, onClose }: HireModalProps) {
                   className="px-5 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black text-xs font-black uppercase tracking-wider flex items-center gap-2 transition-all shadow-lg shadow-cyan-500/25 cursor-pointer"
                 >
                   <Download className="w-4 h-4 text-black" />
-                  <span>Download</span>
+                  <span>Download CV</span>
                 </motion.a>
               </div>
             </div>
