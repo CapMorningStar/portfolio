@@ -360,6 +360,11 @@ export const portfolioData = {
       period: "2025 – 2026",
       certs: [
         {
+          name: "Machine Learning in Production",
+          issuer: "DeepLearning.AI",
+          link: "https://www.coursera.org/account/accomplishments/verify/E0C9SPQWUSF3"
+        },
+        {
           name: "Generative AI with Large Language Models",
           issuer: "DeepLearning.AI & AWS",
           link: "https://www.coursera.org/account/accomplishments/verify/5QI73UPMCSYY"

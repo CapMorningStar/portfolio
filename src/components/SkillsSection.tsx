@@ -174,6 +174,8 @@ const lane1GenAI: SkillItem[] = [
   { name: 'RLHF & Prompts', category: 'Alignment', iconComponent: <IconGeneric icon={Sparkles} color="text-amber-400" /> },
   { name: 'Vertex AI & GCP', category: 'Google Cloud', iconComponent: <IconGoogleCloud /> },
   { name: 'AWS Cloud', category: 'Infra & Deploy', iconComponent: <IconAWS /> },
+  { name: 'MLOps', category: 'Production ML', iconComponent: <IconGeneric icon={Network} color="text-cyan-300" /> },
+  { name: 'Software Deployment', category: 'Release Engineering', iconComponent: <IconGeneric icon={GitBranch} color="text-emerald-400" /> },
 ];
 
 const lane2DeepLearning: SkillItem[] = [
@@ -185,6 +187,8 @@ const lane2DeepLearning: SkillItem[] = [
   { name: 'SHAP Analysis', category: 'Explainability', iconComponent: <IconGeneric icon={Scan} color="text-cyan-300" /> },
   { name: 'OpenCV', category: 'Computer Vision', iconComponent: <IconOpenCV /> },
   { name: 'CNNs & Vision', category: 'Deep Vision', iconComponent: <IconGeneric icon={Layers} color="text-indigo-400" /> },
+  { name: 'Model Evaluation', category: 'ML Reliability', iconComponent: <IconGeneric icon={Scan} color="text-amber-400" /> },
+  { name: 'Data Validation', category: 'Data Quality', iconComponent: <IconGeneric icon={Database} color="text-teal-300" /> },
 ];
 
 const lane3DataScience: SkillItem[] = [
