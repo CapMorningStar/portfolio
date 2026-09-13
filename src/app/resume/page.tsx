@@ -328,6 +328,11 @@ export default function ResumePage() {
                 <a href="https://www.coursera.org/account/accomplishments/specialization/DDUQD294T6YG" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">Verify</a>
               </div>
               <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                <span className="font-bold text-white block mb-1">Machine Learning in Production</span>
+                <span className="text-gray-400">DeepLearning.AI</span>{' '}
+                <a href="https://www.coursera.org/account/accomplishments/verify/E0C9SPQWUSF3" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">Verify</a>
+              </div>
+              <div className="p-3 rounded-xl bg-white/5 border border-white/5">
                 <span className="font-bold text-white block mb-1">Machine Learning Specialization</span>
                 <span className="text-gray-400">Stanford Online &amp; DeepLearning.AI</span>{' '}
                 <a href="https://www.coursera.org/account/accomplishments/specialization/APSG10B8RIFD" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">Verify</a>

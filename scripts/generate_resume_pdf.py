@@ -164,6 +164,7 @@ story.append(hr())
 certs = [
     ("Generative AI with Large Language Models", "DeepLearning.AI & AWS", "https://www.coursera.org/account/accomplishments/verify/5QI73UPMCSYY"),
     ("Deep Learning Specialization", "DeepLearning.AI", "https://www.coursera.org/account/accomplishments/specialization/DDUQD294T6YG"),
+    ("Machine Learning in Production", "DeepLearning.AI", "https://www.coursera.org/account/accomplishments/verify/E0C9SPQWUSF3"),
     ("Machine Learning Specialization", "Stanford Online & DeepLearning.AI", "https://www.coursera.org/account/accomplishments/specialization/APSG10B8RIFD"),
     ("Mathematics for ML and Data Science", "DeepLearning.AI", "https://www.coursera.org/account/accomplishments/specialization/XXZEJ28KIL6B"),
     ("Google Cloud Skills Boost — Generative AI, LLMs & Data Science Labs", "Google Cloud", "https://www.skills.google/public_profiles/7fbe1d02-3600-47d0-b4e3-ad475c1e9425"),

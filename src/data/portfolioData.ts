@@ -360,11 +360,6 @@ export const portfolioData = {
       period: "2025 – 2026",
       certs: [
         {
-          name: "Machine Learning in Production",
-          issuer: "DeepLearning.AI",
-          link: "https://www.coursera.org/account/accomplishments/verify/E0C9SPQWUSF3"
-        },
-        {
           name: "Generative AI with Large Language Models",
           issuer: "DeepLearning.AI & AWS",
           link: "https://www.coursera.org/account/accomplishments/verify/5QI73UPMCSYY"
@@ -373,6 +368,11 @@ export const portfolioData = {
           name: "Deep Learning Specialization (CNNs, Sequence Models, Optimization)",
           issuer: "DeepLearning.AI",
           link: "https://www.coursera.org/account/accomplishments/specialization/DDUQD294T6YG"
+        },
+        {
+          name: "Machine Learning in Production",
+          issuer: "DeepLearning.AI",
+          link: "https://www.coursera.org/account/accomplishments/verify/E0C9SPQWUSF3"
         },
         {
           name: "Machine Learning Specialization (Supervised/Unsupervised, RL)",
