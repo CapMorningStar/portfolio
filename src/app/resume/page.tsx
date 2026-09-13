@@ -338,7 +338,7 @@ export default function ResumePage() {
                 <a href="https://www.coursera.org/account/accomplishments/specialization/XXZEJ28KIL6B" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">Verify</a>
               </div>
               <div className="p-3 rounded-xl bg-white/5 border border-white/5">
-                <span className="font-bold text-white block mb-1">Google Cloud Skills Boost Portfolio</span>
+                <span className="font-bold text-white block mb-1">Google Cloud Skills Boost — Generative AI, LLMs &amp; Data Science Labs</span>
                 <span className="text-gray-400">Vertex AI, LLM Prompting, Model Tuning &middot; Google Cloud</span>{' '}
                 <a href="https://www.skills.google/public_profiles/7fbe1d02-3600-47d0-b4e3-ad475c1e9425" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">Profile</a>
               </div>

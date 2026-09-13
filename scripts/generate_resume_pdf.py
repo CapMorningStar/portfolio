@@ -166,7 +166,7 @@ certs = [
     ("Deep Learning Specialization", "DeepLearning.AI", "https://www.coursera.org/account/accomplishments/specialization/DDUQD294T6YG"),
     ("Machine Learning Specialization", "Stanford Online & DeepLearning.AI", "https://www.coursera.org/account/accomplishments/specialization/APSG10B8RIFD"),
     ("Mathematics for ML and Data Science", "DeepLearning.AI", "https://www.coursera.org/account/accomplishments/specialization/XXZEJ28KIL6B"),
-    ("Google Cloud Skills Boost Portfolio", "Google Cloud", "https://www.skills.google/public_profiles/7fbe1d02-3600-47d0-b4e3-ad475c1e9425"),
+    ("Google Cloud Skills Boost — Generative AI, LLMs & Data Science Labs", "Google Cloud", "https://www.skills.google/public_profiles/7fbe1d02-3600-47d0-b4e3-ad475c1e9425"),
     ("Python for Everybody Specialization", "University of Michigan", "https://www.coursera.org/account/accomplishments/specialization/H7S9D5HB2ARL"),
     ("Python for Data Science, AI & Development", "IBM", "https://www.coursera.org/account/accomplishments/verify/GX0PKGYXUS5H"),
     ("Introduction to Agile Development and Scrum", "IBM", "https://www.coursera.org/account/accomplishments/verify/SR3OHZRW0HNE"),

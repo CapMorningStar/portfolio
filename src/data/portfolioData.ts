@@ -392,7 +392,7 @@ export const portfolioData = {
       period: "2025 – 2026",
       certs: [
         {
-          name: "Google Cloud Skills Boost Portfolio (Vertex AI, LLM Prompting, Model Tuning, Chaiyo GCP)",
+          name: "Google Cloud Skills Boost — Generative AI, LLMs & Data Science Labs",
           issuer: "Google Cloud",
           link: "https://www.skills.google/public_profiles/7fbe1d02-3600-47d0-b4e3-ad475c1e9425"
         },
