@@ -365,6 +365,11 @@ export const portfolioData = {
           link: "https://www.coursera.org/account/accomplishments/verify/5QI73UPMCSYY"
         },
         {
+          name: "Generative AI for Everyone",
+          issuer: "DeepLearning.AI",
+          link: "https://www.coursera.org/learn/generative-ai-for-everyone"
+        },
+        {
           name: "Deep Learning Specialization (CNNs, Sequence Models, Optimization)",
           issuer: "DeepLearning.AI",
           link: "https://www.coursera.org/account/accomplishments/specialization/DDUQD294T6YG"
@@ -400,11 +405,6 @@ export const portfolioData = {
           name: "Frontier Tech Leaders Programme (Myanmar Machine Learning Bootcamp)",
           issuer: "UNDP",
           link: "https://drive.google.com/drive/folders/13HOfL--zlcfJl6qbSEeXNSstzEL-gkC8?usp=sharing"
-        },
-        {
-          name: "Applied Python & Software Development",
-          issuer: "Harvard (CS50P)",
-          link: "https://www.coursera.org/account/accomplishments/verify/GX0PKGYXUS5H"
         },
         {
           name: "Agile Scrum Methodologies",

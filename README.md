@@ -1,4 +1,4 @@
-﻿# 🌌 Kyaw Soe Lwin — AI & ML Systems Engineer Portfolio
+# 🌌 Kyaw Soe Lwin — AI & ML Systems Engineer Portfolio
 
 > **Live Website:** [https://kyawsoelwin.vercel.app](https://kyawsoelwin.vercel.app)  
 > **Institution:** Data Science @ University of California, San Diego (Class of 2028, 4.0 GPA)  
@@ -12,7 +12,7 @@
 - **Hero Bento Grid:** Right-anchored studio portrait with wide UC San Diego (4.0 GPA) header banner and symmetrical Core Expertise & Mindset cards.
 - **In-Place 3D Project Flip Cards:** 180° 3D card rotation revealing architectural workflows, technical metrics, and source repositories without layout shifts.
 - **3-Lane Cybernetic Circuit Skills Matrix:** Interactive mouse drag-and-scroll + continuous auto-drift across AI/LLMs, Deep Learning/CV, and Data Science.
-- **Academic Foundation & Verified Certifications:** Authentic vector brand crests for UCSD (Triton Trident), Skyline College, DeepLearning.AI, Stanford Online, Google Cloud, University of Michigan (Block M), AWS, Harvard CS50, and IBM.
+- **Academic Foundation & Verified Certifications:** Authentic vector brand crests for UCSD (Triton Trident), Skyline College, DeepLearning.AI, Stanford Online, Google Cloud, University of Michigan (Block M), AWS, and IBM.
 
 ---
 

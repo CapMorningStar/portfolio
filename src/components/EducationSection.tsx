@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import { portfolioData } from '@/data/portfolioData';
@@ -428,7 +428,7 @@ export function EducationSection() {
             <div className="mt-8 p-4 rounded-2xl bg-cyan-500/5 border border-cyan-500/20 text-center">
               <p className="text-xs text-gray-400">
                 All certificates verified with cryptographic IDs via{' '}
-                <span className="text-cyan-400 font-semibold">Coursera, Stanford Online, Google Cloud &amp; Harvard</span>.
+                <span className="text-cyan-400 font-semibold">Coursera, Stanford Online &amp; Google Cloud</span>.
               </p>
             </div>
           </div>
