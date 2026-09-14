@@ -370,18 +370,18 @@ export const portfolioData = {
           link: "https://www.coursera.org/learn/generative-ai-for-everyone"
         },
         {
-          name: "Deep Learning Specialization (CNNs, Sequence Models, Optimization)",
-          issuer: "DeepLearning.AI",
-          link: "https://www.coursera.org/account/accomplishments/specialization/DDUQD294T6YG"
-        },
-        {
           name: "Machine Learning in Production (Coursera MLOps Specialization)",
           issuer: "DeepLearning.AI",
           link: "https://www.coursera.org/account/accomplishments/verify/E0C9SPQWUSF3"
         },
         {
+          name: "Deep Learning Specialization (CNNs, Sequence Models, Optimization)",
+          issuer: "DeepLearning.AI",
+          link: "https://www.coursera.org/account/accomplishments/specialization/DDUQD294T6YG"
+        },
+        {
           name: "Machine Learning Specialization (Supervised/Unsupervised, RL)",
-          issuer: "Stanford Online & DeepLearning.AI",
+          issuer: "DeepLearning.AI & Stanford Online",
           link: "https://www.coursera.org/account/accomplishments/specialization/APSG10B8RIFD"
         },
         {

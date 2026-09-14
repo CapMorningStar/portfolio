@@ -213,6 +213,9 @@ function getCertLogo(name: string, issuer: string) {
   if (combined.includes('google') || combined.includes('gcp') || combined.includes('vertex')) {
     return <LogoGoogleCloud />;
   }
+  if (combined.includes('machine learning specialization')) {
+    return <LogoDeepLearningAI />;
+  }
   if (combined.includes('stanford')) {
     return <LogoStanford />;
   }
