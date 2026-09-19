@@ -286,6 +286,7 @@ export const portfolioData = {
     {
       title: "Generative AI, LLMs & Cloud",
       skills: [
+        { name: "Agentic Workflows", iconName: "workflow" },
         { name: "RAG Architecture", iconName: "network" },
         { name: "Hugging Face", iconName: "smile" },
         { name: "ChromaDB (Vector DB)", iconName: "database" },
@@ -359,6 +360,11 @@ export const portfolioData = {
       category: "Coursera Credentials",
       period: "2025 – 2026",
       certs: [
+        {
+          name: "Agentic AI (Workflows, Reflection, Tool Use & Multi-Agent)",
+          issuer: "DeepLearning.AI",
+          link: "https://learn.deeplearning.ai/courses/agentic-ai/"
+        },
         {
           name: "Generative AI with Large Language Models",
           issuer: "DeepLearning.AI & AWS",
@@ -445,9 +451,9 @@ export const portfolioData = {
 
   services: [
     {
-      title: "Generative AI & RAG Pipelines",
+      title: "Generative AI & Agentic Systems",
       icon: "bot",
-      description: "End-to-end document intelligence systems with local vector embeddings, citation groundings, and multi-provider LLM integrations."
+      description: "End-to-end RAG document intelligence and autonomous agentic workflows featuring reflection loops, planning, and multi-step tool execution."
     },
     {
       title: "Tabular Machine Learning & Modeling",

@@ -162,6 +162,7 @@ story.append(Paragraph("CERTIFICATIONS", h2_style))
 story.append(hr())
 
 certs = [
+    ("Agentic AI (Workflows & Multi-Agent)", "DeepLearning.AI", "https://learn.deeplearning.ai/courses/agentic-ai/"),
     ("Generative AI with Large Language Models", "DeepLearning.AI & AWS", "https://www.coursera.org/account/accomplishments/verify/5QI73UPMCSYY"),
     ("Deep Learning Specialization", "DeepLearning.AI", "https://www.coursera.org/account/accomplishments/specialization/DDUQD294T6YG"),
     ("Machine Learning in Production", "DeepLearning.AI", "https://www.coursera.org/account/accomplishments/verify/E0C9SPQWUSF3"),

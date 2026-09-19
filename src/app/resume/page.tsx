@@ -318,6 +318,11 @@ export default function ResumePage() {
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
               <div className="p-3 rounded-xl bg-white/5 border border-white/5">
+                <span className="font-bold text-white block mb-1">Agentic AI (Workflows, Reflection &amp; Multi-Agent)</span>
+                <span className="text-gray-400">DeepLearning.AI</span>{' '}
+                <a href="https://learn.deeplearning.ai/courses/agentic-ai/" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">Syllabus</a>
+              </div>
+              <div className="p-3 rounded-xl bg-white/5 border border-white/5">
                 <span className="font-bold text-white block mb-1">Generative AI with Large Language Models</span>
                 <span className="text-gray-400">DeepLearning.AI &amp; AWS</span>{' '}
                 <a href="https://www.coursera.org/account/accomplishments/verify/5QI73UPMCSYY" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">Verify</a>

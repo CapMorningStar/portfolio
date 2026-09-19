@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React, { useRef, useEffect, useState } from 'react';
 import {
@@ -157,6 +157,8 @@ function IconGeneric({ icon: Icon, color = "text-cyan-400" }: { icon: any; color
   return <Icon className={`w-7 h-7 ${color}`} />;
 }
 
+
+
 /* ================= 3 DOMAIN LANES DATA ================= */
 
 interface SkillItem {
@@ -166,6 +168,7 @@ interface SkillItem {
 }
 
 const lane1GenAI: SkillItem[] = [
+  { name: 'Agentic Workflows', category: 'Autonomous AI', iconComponent: <IconGeneric icon={Sparkles} color="text-cyan-300" /> },
   { name: 'RAG Architecture', category: 'GenAI Systems', iconComponent: <IconGeneric icon={Network} color="text-cyan-400" /> },
   { name: 'Claude API', category: 'Anthropic LLMs', iconComponent: <IconClaude /> },
   { name: 'Hugging Face', category: 'Transformers', iconComponent: <IconHuggingFace /> },
