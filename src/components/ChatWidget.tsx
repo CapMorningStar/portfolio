@@ -396,9 +396,9 @@ export function ChatWidget() {
             <div
               ref={messagesContainerRef}
               onScroll={handleMessagesScroll}
-              className="flex-1 overflow-y-auto px-4 py-4 space-y-4 scroll-smooth min-h-0"
+              className="flex-1 overflow-y-auto px-4 py-3 scroll-smooth min-h-0 flex flex-col"
             >
-              <div className="flex flex-col space-y-4">
+              <div className="flex flex-col space-y-3 mt-auto">
                 {messages.map((msg) => (
                   <div
                     key={msg.id}
