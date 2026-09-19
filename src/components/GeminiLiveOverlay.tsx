@@ -10,7 +10,8 @@ import {
   Radio,
   Sparkles,
   Volume2,
-  AlertCircle
+  AlertCircle,
+  Send
 } from 'lucide-react';
 import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
 
@@ -35,7 +36,18 @@ export function GeminiLiveOverlay({
   const [lastUserSpeech, setLastUserSpeech] = useState<string>('');
   const [lastAiResponse, setLastAiResponse] = useState<string>('');
   const [isMuted, setIsMuted] = useState(false);
-  const silenceTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  const {
+    isListening,
+    fullLiveText,
+    error: speechError,
+    isSupported,
+    startListening,
+    stopListening,
+    resetTranscript,
+  } = useSpeechRecognition({
+    continuous: true, // Continuous mode: keeps listening so user can speak as long as they want
+  });
 
   const handleFinalSpeech = async (speechText: string) => {
     const trimmed = speechText.trim();
@@ -47,6 +59,7 @@ export function GeminiLiveOverlay({
 
     try {
       const response = await onSendMessage(trimmed);
+      resetTranscript();
       if (response && typeof response === 'string') {
         setLastAiResponse(response);
         setLiveState('speaking');
@@ -57,42 +70,33 @@ export function GeminiLiveOverlay({
             // Once Gemini finishes speaking, seamlessly re-arm the mic for the next question
             if (!isMuted) {
               setLiveState('listening');
+              resetTranscript();
               startListening();
             }
           },
           () => {
             if (!isMuted) {
               setLiveState('listening');
+              resetTranscript();
               startListening();
             }
           }
         );
       } else {
         setLiveState('listening');
-        if (!isMuted) startListening();
+        if (!isMuted) {
+          resetTranscript();
+          startListening();
+        }
       }
     } catch {
       setLiveState('listening');
-      if (!isMuted) startListening();
+      if (!isMuted) {
+        resetTranscript();
+        startListening();
+      }
     }
   };
-
-  const {
-    isListening,
-    fullLiveText,
-    error: speechError,
-    isSupported,
-    startListening,
-    stopListening,
-    resetTranscript,
-  } = useSpeechRecognition({
-    continuous: false,
-    onFinalTranscript: (text) => {
-      // Clear any pending silence timer
-      if (silenceTimerRef.current) clearTimeout(silenceTimerRef.current);
-      handleFinalSpeech(text);
-    },
-  });
 
   // When live overlay opens, activate listening
   useEffect(() => {
@@ -102,10 +106,9 @@ export function GeminiLiveOverlay({
       resetTranscript();
       setLastUserSpeech('');
       setLastAiResponse(
-        "I'm listening live! Ask me anything about Kyaw's machine learning projects, skills, or UCSD studies."
+        "I'm listening live! Take your time and talk as much as you'd like, then click 'Done Speaking' or tap the microphone."
       );
 
-      // Start listening after slight delay for audio hardware initialization
       const timer = setTimeout(() => {
         startListening();
       }, 350);
@@ -131,11 +134,12 @@ export function GeminiLiveOverlay({
     }
   };
 
-  // Toggle Mute
+  // Toggle Mute / Turn off microphone
   const handleToggleMute = () => {
-    if (isMuted) {
+    if (isMuted || !isListening) {
       setIsMuted(false);
       setLiveState('listening');
+      resetTranscript();
       startListening();
     } else {
       setIsMuted(true);
@@ -184,7 +188,12 @@ export function GeminiLiveOverlay({
         {/* Pulsating Ambient Glow Backing */}
         <motion.div
           animate={{
-            scale: liveState === 'speaking' ? [1, 1.35, 1.1, 1.4, 1] : liveState === 'listening' ? [1, 1.15, 1] : [1, 1.05, 1],
+            scale:
+              liveState === 'speaking'
+                ? [1, 1.35, 1.1, 1.4, 1]
+                : liveState === 'listening' && isListening
+                ? [1, 1.15, 1]
+                : [1, 1.05, 1],
             opacity: liveState === 'speaking' ? [0.4, 0.7, 0.4] : [0.25, 0.45, 0.25],
           }}
           transition={{ duration: liveState === 'speaking' ? 1.4 : 2.5, repeat: Infinity, ease: 'easeInOut' }}
@@ -202,7 +211,9 @@ export function GeminiLiveOverlay({
                 ? 'border-cyan-400/70 shadow-[0_0_25px_rgba(6,182,212,0.5)]'
                 : liveState === 'thinking'
                 ? 'border-amber-400/70 shadow-[0_0_20px_rgba(251,191,36,0.4)]'
-                : 'border-cyan-500/40'
+                : isListening
+                ? 'border-cyan-500/50 shadow-[0_0_15px_rgba(6,182,212,0.3)]'
+                : 'border-red-500/40'
             }`}
           />
 
@@ -215,7 +226,7 @@ export function GeminiLiveOverlay({
             className="absolute inset-2 rounded-full bg-gradient-to-b from-[#0b171c]/90 via-[#071116]/95 to-[#030709] border border-cyan-500/50 shadow-inner flex items-center justify-center"
           />
 
-          {/* Core Star Glyph */}
+          {/* Core Glyph */}
           <div className="relative z-10 flex flex-col items-center justify-center">
             {liveState === 'thinking' ? (
               <motion.div
@@ -231,6 +242,8 @@ export function GeminiLiveOverlay({
               >
                 <Volume2 className="w-10 h-10 text-cyan-300 drop-shadow-[0_0_15px_rgba(6,182,212,0.9)]" />
               </motion.div>
+            ) : isMuted || !isListening ? (
+              <MicOff className="w-10 h-10 text-rose-400 drop-shadow-[0_0_12px_rgba(244,63,94,0.8)]" />
             ) : (
               <Mic className="w-10 h-10 text-cyan-400 drop-shadow-[0_0_12px_rgba(6,182,212,0.8)]" />
             )}
@@ -241,10 +254,17 @@ export function GeminiLiveOverlay({
         <div className="mt-6 flex flex-col items-center gap-1.5">
           <div className="flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-mono">
             {liveState === 'listening' && (
-              <>
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-emerald-300 font-bold">Listening... Speak naturally</span>
-              </>
+              isListening ? (
+                <>
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="text-emerald-300 font-bold">Listening &middot; Talk as much as you want</span>
+                </>
+              ) : (
+                <>
+                  <span className="w-2 h-2 rounded-full bg-rose-400" />
+                  <span className="text-rose-300 font-bold">Microphone Paused &middot; Click to speak</span>
+                </>
+              )
             )}
             {liveState === 'thinking' && (
               <>
@@ -285,49 +305,77 @@ export function GeminiLiveOverlay({
               ? 'Processing inquiry with Gemini...'
               : lastAiResponse
               ? `"${lastAiResponse.slice(0, 140)}${lastAiResponse.length > 140 ? '...' : ''}"`
-              : 'Say "What projects has Kyaw built?" or "Tell me about his data science skills"'}
+              : 'Speak freely. When finished, tap "Done Speaking \u2014 Ask Gemini" below!'}
           </p>
         </div>
       </div>
 
-      {/* Bottom Control Deck */}
-      <div className="flex items-center justify-center gap-4 pt-2 border-t border-white/10">
-        {/* Mute Button */}
-        <button
-          onClick={handleToggleMute}
-          className={`p-3 rounded-full border transition-all ${
-            isMuted
-              ? 'bg-rose-500/20 border-rose-500/40 text-rose-400'
-              : 'bg-white/5 border-white/10 text-neutral-300 hover:text-white hover:bg-white/10'
-          }`}
-          title={isMuted ? 'Unmute microphone' : 'Mute microphone'}
-        >
-          {isMuted ? <MicOff className="w-5 h-5" /> : <Mic className="w-5 h-5" />}
-        </button>
+      {/* Bottom Control Deck with Clear Stop / Done Controls */}
+      <div className="flex flex-col items-center gap-3 pt-2 border-t border-white/10">
+        {/* Big Action Button when User is in Listening Mode */}
+        {liveState === 'listening' && (
+          <div className="flex items-center gap-3 w-full justify-center">
+            {fullLiveText.trim() ? (
+              <button
+                onClick={() => handleFinalSpeech(fullLiveText)}
+                className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-cyan-400 hover:bg-cyan-300 text-black text-xs font-black uppercase tracking-wider transition-all shadow-[0_0_20px_rgba(6,182,212,0.5)] cursor-pointer"
+                title="Send your question to Gemini now"
+              >
+                <Send className="w-3.5 h-3.5" />
+                <span>Done Speaking &mdash; Ask Gemini</span>
+              </button>
+            ) : null}
 
-        {/* Interrupt / Stop Button (Appears when AI is speaking) */}
+            <button
+              onClick={handleToggleMute}
+              className={`flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-bold transition-all cursor-pointer ${
+                isListening
+                  ? 'bg-red-500/20 border-red-500/50 text-red-300 hover:bg-red-500/30'
+                  : 'bg-cyan-500/20 border-cyan-500/50 text-cyan-300 hover:bg-cyan-500/30'
+              }`}
+              title={isListening ? 'Turn off microphone' : 'Start microphone'}
+            >
+              {isListening ? (
+                <>
+                  <Square className="w-3 h-3 fill-current text-red-400" />
+                  <span>Stop Microphone</span>
+                </>
+              ) : (
+                <>
+                  <Mic className="w-3 h-3 text-cyan-400" />
+                  <span>Turn On Mic</span>
+                </>
+              )}
+            </button>
+          </div>
+        )}
+
+        {/* Action Button when AI is Speaking */}
         {liveState === 'speaking' && (
           <button
             onClick={handleInterrupt}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/50 text-cyan-300 text-xs font-bold transition-all shadow-[0_0_15px_rgba(6,182,212,0.3)] cursor-pointer"
-            title="Interrupt AI speaking and talk"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-full bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/50 text-cyan-300 text-xs font-bold transition-all shadow-[0_0_15px_rgba(6,182,212,0.3)] cursor-pointer"
+            title="Interrupt AI speaking and ask something else"
           >
             <Square className="w-3.5 h-3.5 fill-current" />
-            <span>Interrupt</span>
+            <span>Interrupt &amp; Talk</span>
           </button>
         )}
 
-        {/* End Call / Return to Text */}
-        <button
-          onClick={() => {
-            cancelSpeech();
-            stopListening();
-            onClose();
-          }}
-          className="flex items-center gap-1.5 px-4 py-2.5 rounded-full bg-rose-500/10 hover:bg-rose-500/20 border border-rose-500/30 text-rose-300 hover:text-rose-200 text-xs font-bold transition-all cursor-pointer"
-        >
-          <span>End Live Talk</span>
-        </button>
+        {/* Secondary Bar: End Call */}
+        <div className="flex items-center justify-between w-full px-2 pt-1 text-xs text-neutral-400">
+          <span className="font-mono text-[10px]">Tap End Call to return to chat</span>
+          <button
+            onClick={() => {
+              cancelSpeech();
+              stopListening();
+              onClose();
+            }}
+            className="text-rose-400 hover:text-rose-300 font-bold transition-colors cursor-pointer text-xs"
+          >
+            End Live Talk
+          </button>
+        </div>
       </div>
     </motion.div>
   );

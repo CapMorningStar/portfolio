@@ -44,7 +44,7 @@ interface UseSpeechRecognitionOptions {
 export function useSpeechRecognition({
   onFinalTranscript,
   lang = 'en-US',
-  continuous = false,
+  continuous = true,
 }: UseSpeechRecognitionOptions = {}) {
   const [isListening, setIsListening] = useState(false);
   const [transcript, setTranscript] = useState('');
@@ -55,6 +55,7 @@ export function useSpeechRecognition({
   const recognitionRef = useRef<SpeechRecognitionInstance | null>(null);
   const onFinalTranscriptRef = useRef(onFinalTranscript);
   const isListeningRef = useRef(false);
+  const transcriptRef = useRef('');
 
   useEffect(() => {
     onFinalTranscriptRef.current = onFinalTranscript;
@@ -95,6 +96,7 @@ export function useSpeechRecognition({
           if (currentFinal) {
             setTranscript((prev) => {
               const updated = prev ? `${prev} ${currentFinal}`.trim() : currentFinal.trim();
+              transcriptRef.current = updated;
               if (onFinalTranscriptRef.current) {
                 onFinalTranscriptRef.current(updated);
               }
@@ -108,17 +110,30 @@ export function useSpeechRecognition({
 
         recognition.onerror = (event: SpeechRecognitionErrorEvent) => {
           const err = event.error as SpeechRecognitionErrorType;
-          if (err !== 'no-speech' && err !== 'aborted') {
+          if (err === 'not-allowed') {
+            setError('not-allowed');
+            setIsListening(false);
+            isListeningRef.current = false;
+          } else if (err !== 'no-speech' && err !== 'aborted') {
             console.warn('[WebSpeech] Recognition error:', event.error);
+            setError(err);
           }
-          setError(err);
-          setIsListening(false);
-          isListeningRef.current = false;
         };
 
         recognition.onend = () => {
-          setIsListening(false);
-          isListeningRef.current = false;
+          // If continuous is true and the user hasn't explicitly stopped listening,
+          // automatically keep listening so the user can speak as long as they want!
+          if (continuous && isListeningRef.current) {
+            try {
+              recognition.start();
+            } catch {
+              setIsListening(false);
+              isListeningRef.current = false;
+            }
+          } else {
+            setIsListening(false);
+            isListeningRef.current = false;
+          }
         };
 
         recognitionRef.current = recognition;
@@ -130,6 +145,7 @@ export function useSpeechRecognition({
 
     return () => {
       if (recognitionRef.current) {
+        isListeningRef.current = false;
         try {
           recognitionRef.current.abort();
         } catch {
@@ -143,12 +159,13 @@ export function useSpeechRecognition({
     if (!recognitionRef.current) return;
     setError(null);
     setTranscript('');
+    transcriptRef.current = '';
     setInterimTranscript('');
+    isListeningRef.current = true;
 
     try {
       recognitionRef.current.start();
     } catch (err: any) {
-      // In case start() was called while already running
       if (err?.name !== 'InvalidStateError') {
         console.warn('SpeechRecognition start error:', err);
       }
@@ -156,18 +173,20 @@ export function useSpeechRecognition({
   }, []);
 
   const stopListening = useCallback(() => {
-    if (!recognitionRef.current) return;
-    try {
-      recognitionRef.current.stop();
-    } catch {
-      // ignore
+    isListeningRef.current = false;
+    if (recognitionRef.current) {
+      try {
+        recognitionRef.current.stop();
+      } catch {
+        // ignore
+      }
     }
     setIsListening(false);
-    isListeningRef.current = false;
   }, []);
 
   const resetTranscript = useCallback(() => {
     setTranscript('');
+    transcriptRef.current = '';
     setInterimTranscript('');
     setError(null);
   }, []);
