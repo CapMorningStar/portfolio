@@ -12,8 +12,16 @@ import {
   RotateCcw,
   Minimize2,
   ExternalLink,
-  ChevronDown
+  ChevronDown,
+  Mic,
+  MicOff,
+  Radio,
+  Volume2,
+  AlertCircle
 } from 'lucide-react';
+import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
+import { useSpeechSynthesis } from '@/hooks/useSpeechSynthesis';
+import { GeminiLiveOverlay } from '@/components/GeminiLiveOverlay';
 
 interface Message {
   id: string;
@@ -28,6 +36,7 @@ const QUICK_PROMPTS = [
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isLiveMode, setIsLiveMode] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 'welcome',
@@ -44,6 +53,44 @@ export function ChatWidget() {
   const inputRef = useRef<HTMLInputElement>(null);
   const isNearBottomRef = useRef(true);
 
+  // Speech Recognition Hook (for inline input bar mic)
+  const {
+    isListening,
+    fullLiveText,
+    error: speechError,
+    isSupported: isSpeechSupported,
+    startListening,
+    stopListening,
+    resetTranscript,
+  } = useSpeechRecognition({
+    continuous: false,
+    onFinalTranscript: (finalText) => {
+      if (finalText.trim()) {
+        setInput(finalText.trim());
+      }
+    },
+  });
+
+  // Speech Synthesis Hook (for audio responses)
+  const { isSpeaking, speak, cancel: cancelSpeech } = useSpeechSynthesis();
+
+  // Keep input synchronized with live voice transcript as user speaks
+  useEffect(() => {
+    if (isListening && fullLiveText) {
+      setInput(fullLiveText);
+    }
+  }, [isListening, fullLiveText]);
+
+  const handleToggleMic = () => {
+    if (isListening) {
+      stopListening();
+    } else {
+      setInput('');
+      resetTranscript();
+      startListening();
+    }
+  };
+
   const scrollToBottom = (behavior: ScrollBehavior = 'smooth') => {
     messagesEndRef.current?.scrollIntoView({ behavior });
   };
@@ -57,14 +104,14 @@ export function ChatWidget() {
     setShowScrollToBottom(!nearBottom);
   };
 
-  // Auto-scroll to bottom on new messages, but only if the user hasn't scrolled up to read history
+  // Auto-scroll to bottom on new messages, but only if user hasn't scrolled up
   useEffect(() => {
     if (isOpen && isNearBottomRef.current) {
       scrollToBottom();
     }
   }, [messages, isOpen]);
 
-  // Reset scroll state whenever the widget is opened
+  // Reset scroll state whenever widget is opened
   useEffect(() => {
     if (isOpen) {
       isNearBottomRef.current = true;
@@ -73,14 +120,16 @@ export function ChatWidget() {
     }
   }, [isOpen]);
 
-  // Focus input on open
+  // Focus input on open (unless live mode)
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && !isLiveMode) {
       setTimeout(() => inputRef.current?.focus(), 250);
     }
-  }, [isOpen]);
+  }, [isOpen, isLiveMode]);
 
   const handleReset = () => {
+    cancelSpeech();
+    if (isListening) stopListening();
     setMessages([
       {
         id: 'welcome',
@@ -91,9 +140,13 @@ export function ChatWidget() {
     ]);
   };
 
-  const handleSendMessage = async (userText: string) => {
+  const handleSendMessage = async (userText: string): Promise<string | void> => {
     const text = userText.trim();
     if (!text || isLoading) return;
+
+    if (isListening) {
+      stopListening();
+    }
 
     const userMessage: Message = {
       id: `user-${Date.now()}`,
@@ -153,19 +206,18 @@ export function ChatWidget() {
           )
         );
       }
+
+      return accumulated;
     } catch (err: any) {
       console.error('Chat error:', err);
+      const fallbackError =
+        '⚠️ Sorry, I encountered a temporary connection error. Please make sure the Gemini API is reachable, or feel free to reach out directly via email at kylwin@ucsd.edu!';
       setMessages((prev) =>
         prev.map((msg) =>
-          msg.id === botMessageId
-            ? {
-                ...msg,
-                content:
-                  '⚠️ Sorry, I encountered a temporary connection error. Please make sure the Gemini API is reachable, or feel free to reach out directly via email at kylwin@ucsd.edu!',
-              }
-            : msg
+          msg.id === botMessageId ? { ...msg, content: fallbackError } : msg
         )
       );
+      return fallbackError;
     } finally {
       setIsLoading(false);
     }
@@ -215,7 +267,7 @@ export function ChatWidget() {
             whileHover={{ scale: 1.08 }}
             whileTap={{ scale: 0.92 }}
             onClick={() => setIsOpen(true)}
-            className="group relative w-14 h-14 rounded-full flex items-center justify-center bg-gradient-to-b from-[#0b171c]/90 via-[#071116]/95 to-[#030709] border border-cyan-500/40 hover:border-cyan-400/80 shadow-[0_0_20px_rgba(6,182,212,0.25),inset_0_0_15px_rgba(6,182,212,0.12)] hover:shadow-[0_0_35px_rgba(6,182,212,0.55),inset_0_0_25px_rgba(6,182,212,0.3)] backdrop-blur-xl transition-colors duration-300 pointer-events-auto"
+            className="group relative w-14 h-14 rounded-full flex items-center justify-center bg-gradient-to-b from-[#0b171c]/90 via-[#071116]/95 to-[#030709] border border-cyan-500/40 hover:border-cyan-400/80 shadow-[0_0_20px_rgba(6,182,212,0.25),inset_0_0_15px_rgba(6,182,212,0.12)] hover:shadow-[0_0_35px_rgba(6,182,212,0.55),inset_0_0_25px_rgba(6,182,212,0.3)] backdrop-blur-xl transition-colors duration-300 pointer-events-auto cursor-pointer"
             aria-label="Open MorningStar AI"
           >
             {/* Outer Rotating Cybernetic Orbit Ring */}
@@ -228,7 +280,7 @@ export function ChatWidget() {
               <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_8px_rgba(6,182,212,1)]" />
             </motion.div>
 
-            {/* Ambient Radial Aura Bloom (expands on hover) */}
+            {/* Ambient Radial Aura Bloom */}
             <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-cyan-500/25 via-sky-400/15 to-transparent opacity-50 group-hover:opacity-100 group-hover:scale-125 transition-all duration-300 blur-sm pointer-events-none" />
 
             {/* Central Iconic 4-Pointed MorningStar / Gemini Celestial Glyph */}
@@ -238,17 +290,16 @@ export function ChatWidget() {
                 className="w-6 h-6 text-cyan-400 group-hover:text-cyan-300 transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 drop-shadow-[0_0_10px_rgba(6,182,212,0.8)]"
                 fill="currentColor"
               >
-                {/* 4-pointed astroid / morning star */}
                 <path d="M12 2C12 7.5 16.5 12 22 12C16.5 12 12 16.5 12 22C12 16.5 7.5 12 2 12C7.5 12 12 7.5 12 2Z" />
               </svg>
             </div>
 
-            {/* HUD Tooltip (Reveals smoothly to the left on hover) */}
+            {/* HUD Tooltip */}
             <div className="absolute right-full mr-3 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 translate-x-2 group-hover:translate-x-0 transition-all duration-200 pointer-events-none whitespace-nowrap">
               <div className="px-3 py-1.5 rounded-lg bg-[#071116]/95 border border-cyan-500/40 text-[11px] font-mono tracking-wider text-cyan-300 shadow-[0_0_20px_rgba(0,0,0,0.8),0_0_10px_rgba(6,182,212,0.25)] flex items-center gap-2 backdrop-blur-md">
                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
                 <span>MORNINGSTAR AI</span>
-                <span className="text-[9px] text-neutral-400">// GEMINI</span>
+                <span className="text-[9px] text-neutral-400">// GEMINI LIVE</span>
               </div>
             </div>
           </motion.button>
@@ -269,7 +320,7 @@ export function ChatWidget() {
             className="relative w-[92vw] sm:w-[420px] h-[580px] max-h-[82vh] flex flex-col bg-[#0b1013]/95 border border-white/10 rounded-2xl shadow-[0_8px_40px_rgba(0,0,0,0.8),0_0_30px_rgba(6,182,212,0.18)] backdrop-blur-2xl overflow-hidden pointer-events-auto"
           >
             {/* Window Header */}
-            <div className="flex items-center justify-between px-4 py-3.5 bg-white/[0.03] border-b border-white/10">
+            <div className="flex items-center justify-between px-4 py-3 bg-white/[0.03] border-b border-white/10">
               <div className="flex items-center gap-2.5">
                 <div className="w-8 h-8 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.2)]">
                   <Bot className="w-4 h-4" />
@@ -285,18 +336,38 @@ export function ChatWidget() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-1">
+              {/* Header Action Tools */}
+              <div className="flex items-center gap-1.5">
+                {/* Live Talk Button */}
+                <button
+                  onClick={() => {
+                    if (isListening) stopListening();
+                    setIsLiveMode(true);
+                  }}
+                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 hover:border-cyan-400/60 text-cyan-300 text-[10px] font-mono tracking-wider transition-all duration-200 group shadow-[0_0_10px_rgba(6,182,212,0.15)] cursor-pointer"
+                  title="Start Live Gemini Voice Call"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse group-hover:scale-125 transition-transform" />
+                  <Radio className="w-3 h-3 text-cyan-400" />
+                  <span className="font-semibold">Live Talk</span>
+                </button>
+
                 <button
                   onClick={handleReset}
                   title="Reset conversation"
-                  className="p-1.5 text-neutral-400 hover:text-white rounded-lg hover:bg-white/5 transition-colors"
+                  className="p-1.5 text-neutral-400 hover:text-white rounded-lg hover:bg-white/5 transition-colors cursor-pointer"
                 >
                   <RotateCcw className="w-3.5 h-3.5" />
                 </button>
                 <button
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => {
+                    cancelSpeech();
+                    if (isListening) stopListening();
+                    setIsLiveMode(false);
+                    setIsOpen(false);
+                  }}
                   title="Close MorningStar AI"
-                  className="p-1.5 text-neutral-400 hover:text-cyan-300 rounded-lg hover:bg-white/5 transition-colors"
+                  className="p-1.5 text-neutral-400 hover:text-cyan-300 rounded-lg hover:bg-white/5 transition-colors cursor-pointer"
                   aria-label="Close chat"
                 >
                   <X className="w-4 h-4" />
@@ -304,80 +375,109 @@ export function ChatWidget() {
               </div>
             </div>
 
-            {/* Messages Scroll Area */}
-            {/* Note: the scroll container itself must NOT be `flex flex-col justify-end` —
-                combined with overflow-y-auto that's a known Chromium flexbox bug where
-                content overflowing past the top becomes unscrollable/unreachable
-                (scrollHeight gets clamped to clientHeight). Instead, the inner wrapper
-                below handles bottom-anchoring for short conversations via `min-h-full`. */}
+            {/* Live Talking Mode Overlay */}
+            <AnimatePresence>
+              {isLiveMode && (
+                <GeminiLiveOverlay
+                  isOpen={isLiveMode}
+                  onClose={() => setIsLiveMode(false)}
+                  onSendMessage={handleSendMessage}
+                  isSpeaking={isSpeaking}
+                  speak={speak}
+                  cancelSpeech={cancelSpeech}
+                />
+              )}
+            </AnimatePresence>
+
+            {/* Microphone Permission Warning Bar */}
+            {speechError === 'not-allowed' && (
+              <div className="px-3.5 py-1.5 bg-rose-500/10 border-b border-rose-500/20 text-rose-300 text-[11px] flex items-center justify-between">
+                <span className="flex items-center gap-1.5">
+                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+                  <span>Mic access blocked. Enable in browser settings.</span>
+                </span>
+                <button
+                  onClick={resetTranscript}
+                  className="text-white hover:underline text-[10px] ml-2 cursor-pointer"
+                >
+                  Dismiss
+                </button>
+              </div>
+            )}
+
+            {/* Chat Messages Area */}
             <div
               ref={messagesContainerRef}
               onScroll={handleMessagesScroll}
-              className="flex-1 overflow-y-auto p-4 scrollbar-thin scrollbar-thumb-white/10 scrollbar-track-transparent"
+              className="flex-1 overflow-y-auto px-4 py-4 space-y-4 scroll-smooth min-h-0"
             >
-            <div className="min-h-full flex flex-col justify-end gap-3.5">
-              {messages.map((msg) => (
-                <div
-                  key={msg.id}
-                  className={`flex gap-2.5 ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
-                >
-                  {msg.role === 'model' && (
-                    <div className="w-6 h-6 rounded-full bg-cyan-500/20 border border-cyan-500/30 flex-shrink-0 flex items-center justify-center text-cyan-400 mt-1">
-                      <Sparkles className="w-3 h-3" />
-                    </div>
-                  )}
-
+              <div className="flex flex-col space-y-4">
+                {messages.map((msg) => (
                   <div
-                    className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 text-xs leading-relaxed ${
-                      msg.role === 'user'
-                        ? 'bg-cyan-600/90 text-white rounded-br-none shadow-[0_2px_12px_rgba(6,182,212,0.3)]'
-                        : 'bg-[#14181a] text-neutral-200 border border-white/10 rounded-bl-none shadow-[0_2px_10px_rgba(0,0,0,0.5)]'
+                    key={msg.id}
+                    className={`flex items-start gap-2.5 ${
+                      msg.role === 'user' ? 'justify-end' : 'justify-start'
                     }`}
                   >
-                    {msg.content ? (
-                      <div className="whitespace-pre-wrap space-y-1">
-                        {formatContent(msg.content)}
+                    {msg.role === 'model' && (
+                      <div className="w-6 h-6 rounded-full bg-cyan-500/10 border border-cyan-500/30 flex-shrink-0 flex items-center justify-center text-cyan-400 mt-1 shadow-[0_0_8px_rgba(6,182,212,0.15)]">
+                        <Sparkles className="w-3 h-3" />
                       </div>
-                    ) : (
-                      <div className="flex items-center gap-1.5 py-1 text-neutral-400">
-                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-bounce"></span>
-                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-bounce [animation-delay:0.15s]"></span>
-                        <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-bounce [animation-delay:0.3s]"></span>
+                    )}
+
+                    <div
+                      className={`max-w-[82%] px-3.5 py-2.5 rounded-2xl text-xs leading-relaxed ${
+                        msg.role === 'user'
+                          ? 'bg-gradient-to-r from-cyan-600 to-cyan-500 text-white font-medium rounded-tr-none shadow-[0_2px_15px_rgba(6,182,212,0.3)]'
+                          : 'bg-[#14181a] border border-white/5 text-neutral-200 rounded-tl-none font-normal'
+                      }`}
+                    >
+                      {msg.content ? (
+                        <div className="space-y-1.5 whitespace-pre-wrap">
+                          {formatContent(msg.content)}
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-1 py-1">
+                          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse [animation-delay:0.2s]" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse [animation-delay:0.4s]" />
+                        </div>
+                      )}
+                    </div>
+
+                    {msg.role === 'user' && (
+                      <div className="w-6 h-6 rounded-full bg-white/10 border border-white/20 flex-shrink-0 flex items-center justify-center text-white mt-1">
+                        <User className="w-3 h-3" />
                       </div>
                     )}
                   </div>
+                ))}
 
-                  {msg.role === 'user' && (
-                    <div className="w-6 h-6 rounded-full bg-white/10 border border-white/20 flex-shrink-0 flex items-center justify-center text-white mt-1">
-                      <User className="w-3 h-3" />
+                {/* Quick Starter Chips on first message */}
+                {messages.length === 1 && (
+                  <div className="flex flex-col gap-2">
+                    <p className="text-[10px] text-neutral-500 uppercase tracking-wider font-mono">
+                      Suggested Questions
+                    </p>
+                    <div className="flex flex-wrap gap-1.5">
+                      {QUICK_PROMPTS.map((prompt, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => handleSendMessage(prompt)}
+                          className="text-[11px] text-left px-2.5 py-1.5 rounded-xl bg-white/[0.04] hover:bg-cyan-500/10 border border-white/10 hover:border-cyan-500/40 text-neutral-300 hover:text-cyan-300 transition-all duration-200 cursor-pointer"
+                        >
+                          {prompt}
+                        </button>
+                      ))}
                     </div>
-                  )}
-                </div>
-              ))}
-
-              {/* Quick Starter Chips on first message */}
-              {messages.length === 1 && (
-                <div className="flex flex-col gap-2">
-                  <p className="text-[10px] text-neutral-500 uppercase tracking-wider font-mono">Suggested Questions</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {QUICK_PROMPTS.map((prompt, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => handleSendMessage(prompt)}
-                        className="text-[11px] text-left px-2.5 py-1.5 rounded-xl bg-white/[0.04] hover:bg-cyan-500/10 border border-white/10 hover:border-cyan-500/40 text-neutral-300 hover:text-cyan-300 transition-all duration-200"
-                      >
-                        {prompt}
-                      </button>
-                    ))}
                   </div>
-                </div>
-              )}
+                )}
 
-              <div ref={messagesEndRef} />
-            </div>
+                <div ref={messagesEndRef} />
+              </div>
             </div>
 
-            {/* Scroll-to-latest button (appears when user has scrolled up) */}
+            {/* Scroll-to-latest button */}
             <AnimatePresence>
               {showScrollToBottom && (
                 <motion.button
@@ -392,7 +492,7 @@ export function ChatWidget() {
                   }}
                   title="Jump to latest"
                   aria-label="Scroll to latest message"
-                  className="absolute bottom-[74px] right-4 z-10 w-8 h-8 rounded-full bg-[#14181a] border border-cyan-500/40 text-cyan-400 flex items-center justify-center shadow-[0_2px_12px_rgba(0,0,0,0.6),0_0_10px_rgba(6,182,212,0.25)] hover:bg-cyan-500/10 hover:border-cyan-400/70 transition-colors"
+                  className="absolute bottom-[74px] right-4 z-10 w-8 h-8 rounded-full bg-[#14181a] border border-cyan-500/40 text-cyan-400 flex items-center justify-center shadow-[0_2px_12px_rgba(0,0,0,0.6),0_0_10px_rgba(6,182,212,0.25)] hover:bg-cyan-500/10 hover:border-cyan-400/70 transition-colors cursor-pointer"
                 >
                   <ChevronDown className="w-4 h-4" />
                 </motion.button>
@@ -403,6 +503,7 @@ export function ChatWidget() {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
+                if (isListening) stopListening();
                 handleSendMessage(input);
               }}
               className="p-3 bg-white/[0.02] border-t border-white/10 flex items-center gap-2"
@@ -412,14 +513,57 @@ export function ChatWidget() {
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                placeholder="Ask about Kyaw's projects, skills..."
+                placeholder={
+                  isListening
+                    ? 'Listening... Speak now 🎙️'
+                    : "Ask about Kyaw's projects, skills..."
+                }
                 disabled={isLoading}
-                className="flex-1 bg-[#101518] border border-white/10 focus:border-cyan-500/50 rounded-xl px-3.5 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none focus:ring-1 focus:ring-cyan-500/50 transition-colors disabled:opacity-50"
+                className={`flex-1 bg-[#101518] border rounded-xl px-3.5 py-2 text-xs text-white placeholder-neutral-500 focus:outline-none transition-all disabled:opacity-50 ${
+                  isListening
+                    ? 'border-cyan-400 ring-2 ring-cyan-500/40 shadow-[0_0_15px_rgba(6,182,212,0.25)] placeholder-cyan-300'
+                    : 'border-white/10 focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/50'
+                }`}
               />
+
+              {/* Microphone Speech Recognition Button */}
+              {isSpeechSupported ? (
+                <button
+                  type="button"
+                  onClick={handleToggleMic}
+                  disabled={isLoading}
+                  title={isListening ? 'Stop listening' : 'Click to speak'}
+                  className={`p-2 rounded-xl border transition-all duration-200 flex-shrink-0 flex items-center justify-center cursor-pointer ${
+                    isListening
+                      ? 'bg-cyan-500/20 border-cyan-400 text-cyan-300 shadow-[0_0_18px_rgba(6,182,212,0.6)] animate-pulse'
+                      : 'bg-white/5 border-white/10 text-neutral-400 hover:text-cyan-300 hover:border-cyan-500/40 hover:bg-white/10'
+                  }`}
+                  aria-label={isListening ? 'Stop recording' : 'Start recording'}
+                >
+                  {isListening ? (
+                    <div className="flex items-center gap-0.5 px-0.5">
+                      <span className="w-1 h-3 bg-cyan-400 rounded-full animate-bounce [animation-delay:-0.3s]" />
+                      <span className="w-1 h-4 bg-cyan-300 rounded-full animate-bounce [animation-delay:-0.15s]" />
+                      <span className="w-1 h-2.5 bg-cyan-400 rounded-full animate-bounce" />
+                    </div>
+                  ) : (
+                    <Mic className="w-3.5 h-3.5" />
+                  )}
+                </button>
+              ) : (
+                <div
+                  title="Speech recognition not supported in this browser (use Chrome, Edge, or Safari)"
+                  className="p-2 rounded-xl bg-white/5 border border-white/5 text-neutral-600 cursor-not-allowed flex-shrink-0"
+                >
+                  <MicOff className="w-3.5 h-3.5" />
+                </div>
+              )}
+
+              {/* Send Button */}
               <button
                 type="submit"
                 disabled={!input.trim() || isLoading}
-                className="p-2 rounded-xl bg-cyan-400 hover:bg-cyan-300 disabled:opacity-40 disabled:hover:bg-cyan-400 text-black font-semibold transition-all duration-200 flex-shrink-0 shadow-[0_0_15px_rgba(6,182,212,0.35)]"
+                className="p-2 rounded-xl bg-cyan-400 hover:bg-cyan-300 disabled:opacity-40 disabled:hover:bg-cyan-400 text-black font-semibold transition-all duration-200 flex-shrink-0 shadow-[0_0_15px_rgba(6,182,212,0.35)] cursor-pointer"
                 aria-label="Send message"
               >
                 <Send className="w-3.5 h-3.5" />
