@@ -15,14 +15,11 @@ import {
   ChevronDown,
   Mic,
   MicOff,
-  Radio,
-  Volume2,
   AlertCircle,
   Square
 } from 'lucide-react';
 import { useSpeechRecognition } from '@/hooks/useSpeechRecognition';
 import { useSpeechSynthesis } from '@/hooks/useSpeechSynthesis';
-import { GeminiLiveOverlay } from '@/components/GeminiLiveOverlay';
 
 interface Message {
   id: string;
@@ -55,7 +52,6 @@ function getSpeechErrorMessage(err: string | null): string {
 
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
-  const [isLiveMode, setIsLiveMode] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 'welcome',
@@ -140,12 +136,12 @@ export function ChatWidget() {
     }
   }, [isOpen]);
 
-  // Focus input on open (unless live mode)
+  // Focus input on open
   useEffect(() => {
-    if (isOpen && !isLiveMode) {
+    if (isOpen) {
       setTimeout(() => inputRef.current?.focus(), 250);
     }
-  }, [isOpen, isLiveMode]);
+  }, [isOpen]);
 
   const handleReset = () => {
     cancelSpeech();
@@ -319,7 +315,7 @@ export function ChatWidget() {
               <div className="px-3 py-1.5 rounded-lg bg-[#071116]/95 border border-cyan-500/40 text-[11px] font-mono tracking-wider text-cyan-300 shadow-[0_0_20px_rgba(0,0,0,0.8),0_0_10px_rgba(6,182,212,0.25)] flex items-center gap-2 backdrop-blur-md">
                 <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
                 <span>MORNINGSTAR AI</span>
-                <span className="text-[9px] text-neutral-400">// GEMINI LIVE</span>
+                <span className="text-[9px] text-neutral-400">// SPEECH AI</span>
               </div>
             </div>
           </motion.button>
@@ -358,20 +354,6 @@ export function ChatWidget() {
 
               {/* Header Action Tools */}
               <div className="flex items-center gap-1.5">
-                {/* Live Talk Button */}
-                <button
-                  onClick={() => {
-                    if (isListening) stopListening();
-                    setIsLiveMode(true);
-                  }}
-                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 hover:border-cyan-400/60 text-cyan-300 text-[10px] font-mono tracking-wider transition-all duration-200 group shadow-[0_0_10px_rgba(6,182,212,0.15)] cursor-pointer"
-                  title="Start Live Gemini Voice Call"
-                >
-                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse group-hover:scale-125 transition-transform" />
-                  <Radio className="w-3 h-3 text-cyan-400" />
-                  <span className="font-semibold">Live Talk</span>
-                </button>
-
                 <button
                   onClick={handleReset}
                   title="Reset conversation"
@@ -383,7 +365,6 @@ export function ChatWidget() {
                   onClick={() => {
                     cancelSpeech();
                     if (isListening) stopListening();
-                    setIsLiveMode(false);
                     setIsOpen(false);
                   }}
                   title="Close MorningStar AI"
@@ -394,20 +375,6 @@ export function ChatWidget() {
                 </button>
               </div>
             </div>
-
-            {/* Live Talking Mode Overlay */}
-            <AnimatePresence>
-              {isLiveMode && (
-                <GeminiLiveOverlay
-                  isOpen={isLiveMode}
-                  onClose={() => setIsLiveMode(false)}
-                  onSendMessage={handleSendMessage}
-                  isSpeaking={isSpeaking}
-                  speak={speak}
-                  cancelSpeech={cancelSpeech}
-                />
-              )}
-            </AnimatePresence>
 
             {/* Microphone / Speech Recognition Error Bar */}
             {speechError && (
