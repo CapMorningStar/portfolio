@@ -23,6 +23,24 @@ interface GeminiLiveOverlayProps {
   speak: (text: string, onEnd?: () => void, onError?: () => void) => void;
   cancelSpeech: () => void;
 }
+ 
+function getSpeechErrorMessage(err: string | null): string {
+  if (!err) return '';
+  switch (err) {
+    case 'not-allowed':
+      return 'Microphone permission blocked. Please allow mic access in your browser.';
+    case 'audio-capture':
+      return 'No microphone detected or audio capture failed.';
+    case 'network':
+      return 'Speech recognition network error. Please check your internet connection.';
+    case 'service-not-allowed':
+      return 'Speech service disallowed by browser or network policy.';
+    case 'not-supported':
+      return 'Voice recognition requires Chrome, Edge, or Safari.';
+    default:
+      return `Speech recognition error (${err}). Please try again.`;
+  }
+}
 
 export function GeminiLiveOverlay({
   isOpen,
@@ -288,10 +306,10 @@ export function GeminiLiveOverlay({
             </div>
           )}
 
-          {speechError === 'not-allowed' && (
-            <div className="flex items-center gap-1.5 text-xs text-rose-400 mt-1">
-              <AlertCircle className="w-3.5 h-3.5" />
-              <span>Microphone blocked. Please allow mic permissions in browser.</span>
+          {speechError && (
+            <div className="flex items-center gap-1.5 text-xs text-rose-400 mt-1 max-w-xs text-center">
+              <AlertCircle className="w-3.5 h-3.5 shrink-0" />
+              <span>{getSpeechErrorMessage(speechError)}</span>
             </div>
           )}
         </div>

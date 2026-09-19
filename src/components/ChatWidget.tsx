@@ -35,6 +35,24 @@ const QUICK_PROMPTS = [
   'What are your technical skills & certifications? 🛠️',
 ];
 
+function getSpeechErrorMessage(err: string | null): string {
+  if (!err) return '';
+  switch (err) {
+    case 'not-allowed':
+      return 'Microphone permission blocked. Please allow microphone access in your browser.';
+    case 'audio-capture':
+      return 'No microphone detected or audio capture failed. Please check your microphone.';
+    case 'network':
+      return 'Speech recognition network error. Please check your internet connection.';
+    case 'service-not-allowed':
+      return 'Speech recognition service disallowed by browser or network policy.';
+    case 'not-supported':
+      return 'Speech recognition is not supported in this browser. Please use Chrome, Edge, or Safari.';
+    default:
+      return `Speech recognition notice: ${err}. Please try again.`;
+  }
+}
+
 export function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false);
   const [isLiveMode, setIsLiveMode] = useState(false);
@@ -63,6 +81,7 @@ export function ChatWidget() {
     startListening,
     stopListening,
     resetTranscript,
+    clearError,
   } = useSpeechRecognition({
     continuous: true,
     onFinalTranscript: (finalText) => {
@@ -390,16 +409,16 @@ export function ChatWidget() {
               )}
             </AnimatePresence>
 
-            {/* Microphone Permission Warning Bar */}
-            {speechError === 'not-allowed' && (
-              <div className="px-3.5 py-1.5 bg-rose-500/10 border-b border-rose-500/20 text-rose-300 text-[11px] flex items-center justify-between">
-                <span className="flex items-center gap-1.5">
-                  <AlertCircle className="w-3.5 h-3.5 shrink-0" />
-                  <span>Mic access blocked. Enable in browser settings.</span>
+            {/* Microphone / Speech Recognition Error Bar */}
+            {speechError && (
+              <div className="px-3.5 py-2 bg-rose-500/10 border-b border-rose-500/25 text-rose-300 text-[11px] flex items-center justify-between gap-2">
+                <span className="flex items-center gap-1.5 min-w-0">
+                  <AlertCircle className="w-3.5 h-3.5 shrink-0 text-rose-400" />
+                  <span className="truncate">{getSpeechErrorMessage(speechError)}</span>
                 </span>
                 <button
-                  onClick={resetTranscript}
-                  className="text-white hover:underline text-[10px] ml-2 cursor-pointer"
+                  onClick={clearError}
+                  className="text-white hover:underline text-[10px] ml-2 cursor-pointer shrink-0 font-medium"
                 >
                   Dismiss
                 </button>
@@ -535,6 +554,8 @@ export function ChatWidget() {
             >
               <input
                 ref={inputRef}
+                id="chat-user-input"
+                name="chat-user-input"
                 type="text"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
