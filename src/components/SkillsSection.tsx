@@ -258,8 +258,8 @@ export function SkillsSection() {
           {/* LANE 2: DEEP LEARNING, MACHINE LEARNING & CV */}
           <div>
             <div className="flex items-center gap-2 mb-4 px-2">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-[0.2em] text-emerald-300">
+              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+              <span className="text-[11px] sm:text-xs font-mono font-bold uppercase tracking-[0.2em] text-cyan-300">
                 DOMAIN: DEEP LEARNING, MACHINE LEARNING &amp; CV
               </span>
             </div>

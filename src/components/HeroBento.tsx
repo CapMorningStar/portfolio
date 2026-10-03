@@ -131,7 +131,7 @@ export function HeroBento() {
               onClick={() => scrollTo('education')}
               className="group relative rounded-[2.2rem] bg-[#111111]/90 backdrop-blur-xl border border-white/10 hover:border-cyan-500/40 transition-all duration-300 p-6 sm:p-7 flex flex-col justify-between overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.5)] cursor-pointer"
             >
-              <div className="absolute top-0 right-0 w-48 h-48 bg-purple-500/10 blur-2xl rounded-full pointer-events-none" />
+              <div className="absolute top-0 right-0 w-48 h-48 bg-cyan-500/10 blur-2xl rounded-full pointer-events-none" />
 
               {/* Card Header */}
               <div className="relative z-10 flex items-center justify-between border-b border-white/10 pb-3">

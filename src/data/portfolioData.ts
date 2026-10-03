@@ -127,7 +127,7 @@ export const portfolioData = {
       apiDocs: "https://multimodal-crag-platform-381348374222.us-central1.run.app/docs",
       demoVideo: "https://www.loom.com/share/44f7e3e96d944c248fc26facb877b5a8",
       metrics: "39/39 Passing Tests (100%), Ragas Evals: Faithfulness 0.7519, Relevance 0.7333, Recall 0.7778, Strict Zero-Idle Burn ($0.00 idle)",
-      gradient: "from-blue-600/30 via-cyan-900/20 to-black",
+      gradient: "from-cyan-600/25 via-cyan-950/20 to-black",
       badge: "GCP & Multimodal CRAG"
     },
     {
@@ -145,7 +145,7 @@ export const portfolioData = {
       tags: ["PyTorch", "Hugging Face", "PEFT / LoRA", "Transformers", "LLM Fine-Tuning", "Google Colab"],
       github: "https://github.com/CapMorningStar/lora-tinyllama-finetune",
       metrics: ">95% parameter reduction via low-rank adaptation, 4-bit QLoRA on free Colab T4 GPU",
-      gradient: "from-purple-600/30 via-indigo-900/20 to-black",
+      gradient: "from-cyan-500/20 via-slate-950/30 to-black",
       badge: "PEFT / LoRA"
     },
     {
@@ -163,7 +163,7 @@ export const portfolioData = {
       tags: ["TypeScript", "MLOps", "Model Risk", "Data Drift", "Interactive UI", "Governance"],
       github: "https://github.com/CapMorningStar/zenithml-model-risk-sandbox",
       metrics: "Interactive PSI drift detection, feature stability scoring, and fairness disparity metrics",
-      gradient: "from-cyan-600/30 via-blue-900/20 to-black",
+      gradient: "from-sky-500/25 via-cyan-950/20 to-black",
       badge: "Model Risk / MLOps"
     },
     {
@@ -176,12 +176,12 @@ export const portfolioData = {
       bullets: [
         "Constructed ColumnTransformer-based preprocessing on stratified 70/15/15 splits to guarantee leakage-free model evaluation.",
         "Executed 30-trial Optuna Bayesian hyperparameter search, achieving 0.844 ROC-AUC / 0.671 PR-AUC with <3.5 point generalization gap.",
-        "Deployed a multi-tab Streamlit dashboard with what-if simulation, SHAP value plots, and cost-sensitive ROI modeling ($20 cost / $200 LTV)."
+        "Deployed a multi-tab Streamlit dashboard with what-if simulation, SHAP value plots, and cost-sensitive ROI modeling ($20 cost / $200 LTV).",
       ],
       tags: ["Python", "Scikit-Learn", "XGBoost", "Optuna", "SHAP", "Streamlit"],
       github: "https://github.com/CapMorningStar/telco-churn-pipeline",
       metrics: "30-trial Optuna Bayesian search, 0.844 ROC-AUC / 0.671 PR-AUC, <3.5% generalization gap, $20 cost / $200 LTV profit thresholding",
-      gradient: "from-emerald-700/30 via-teal-950/20 to-black",
+      gradient: "from-cyan-500/20 via-blue-950/25 to-black",
       badge: "0.844 ROC-AUC"
     },
     {
@@ -199,7 +199,7 @@ export const portfolioData = {
       tags: ["Python", "OpenCV", "TensorFlow", "Keras", "mini-XCEPTION", "FER-2013"],
       github: "https://github.com/CapMorningStar/emotion-detector",
       metrics: "mini-XCEPTION CNN on FER-2013 with depthwise separable convolutions, real-time OpenCV HUD inference",
-      gradient: "from-rose-600/30 via-red-950/20 to-black",
+      gradient: "from-cyan-400/25 via-cyan-950/30 to-black",
       badge: "Live Edge CV"
     },
     {
@@ -216,7 +216,7 @@ export const portfolioData = {
       tags: ["Python", "Scikit-Learn", "XGBoost", "Pandas", "NumPy", "Regression"],
       github: "https://github.com/CapMorningStar/daly-city-weather-ml",
       metrics: "Microclimate feature pipeline, tuned XGBoost regressor vs. baselines minimizing RMSE",
-      gradient: "from-amber-600/30 via-orange-950/20 to-black",
+      gradient: "from-sky-600/20 via-slate-950/30 to-black",
       badge: "Regression ML"
     },
     {
@@ -233,7 +233,7 @@ export const portfolioData = {
       tags: ["Python", "TensorFlow", "Keras", "CNNs", "Computer Vision", "Deep Learning"],
       github: "https://github.com/CapMorningStar/cat-classifier",
       metrics: "Deep CNN in TensorFlow/Keras with data augmentation pipeline and dropout regularization",
-      gradient: "from-sky-600/30 via-slate-900/20 to-black",
+      gradient: "from-cyan-500/20 via-slate-950/30 to-black",
       badge: "CNN Classification"
     },
     {
@@ -251,7 +251,7 @@ export const portfolioData = {
       tags: ["Python", "Pandas", "XGBoost", "Scikit-Learn", "JavaScript"],
       github: "https://github.com/eliseoa-dev/priceoutcollective/tree/main",
       metrics: "1.17M household records modeled across 4 policy dimensions, 945 precomputed scenario combinations, 97.3% accuracy / 0.998 AUC XGBoost",
-      gradient: "from-lime-600/30 via-green-950/20 to-black",
+      gradient: "from-cyan-600/20 via-cyan-950/25 to-black",
       badge: "Building for Good Hackathon"
     }
   ] as ProjectItem[],

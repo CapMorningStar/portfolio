@@ -496,7 +496,7 @@ export function IntroOverlay() {
                     <div className="w-48 sm:w-56 md:w-64 h-1 sm:h-1.5 rounded-full bg-white/10 overflow-hidden mb-2 sm:mb-2.5 relative">
                       <motion.div
                         style={{ width: `${chargingPercent}%` }}
-                        className="h-full bg-gradient-to-r from-cyan-500 via-sky-400 to-purple-500 shadow-[0_0_10px_#00f0ff] transition-all duration-75 ease-out"
+                        className="h-full bg-gradient-to-r from-cyan-500 via-sky-400 to-cyan-300 shadow-[0_0_10px_#00f0ff] transition-all duration-75 ease-out"
                       />
                     </div>
 

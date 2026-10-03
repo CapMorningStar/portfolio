@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 
 import React from 'react';
 import { Sparkles, ShieldCheck, Sliders, Eye, Network, CheckCircle2 } from 'lucide-react';
@@ -45,7 +45,7 @@ export function ServicesSection() {
         'Threshold tuning against business cost/benefit tradeoffs'
       ],
       icon: Eye,
-      gradient: 'from-indigo-500/10 via-purple-500/5 to-transparent'
+      gradient: 'from-cyan-500/10 via-blue-900/10 to-transparent'
     },
     {
       step: '04',

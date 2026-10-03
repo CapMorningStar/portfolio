@@ -220,7 +220,7 @@ export function ProjectsSection() {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
-                          className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border border-purple-500/30 text-[9px] sm:text-[10px] font-black uppercase tracking-wider transition-all hover:scale-105 cursor-pointer shadow-sm"
+                          className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-cyan-500/15 hover:bg-cyan-500/30 text-cyan-300 border border-cyan-500/30 text-[9px] sm:text-[10px] font-black uppercase tracking-wider transition-all hover:scale-105 cursor-pointer shadow-sm shadow-cyan-500/10"
                           title="Watch Loom Demo Video"
                         >
                           <Play className="w-2.5 h-2.5 sm:w-3 sm:h-3 fill-current" />
@@ -233,7 +233,7 @@ export function ProjectsSection() {
                           target="_blank"
                           rel="noopener noreferrer"
                           onClick={(e) => e.stopPropagation()}
-                          className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-blue-500/20 hover:bg-blue-500/30 text-blue-300 border border-blue-500/30 text-[9px] sm:text-[10px] font-black uppercase tracking-wider transition-all hover:scale-105 cursor-pointer shadow-sm"
+                          className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-full bg-cyan-500/10 hover:bg-cyan-500/25 text-cyan-300 border border-cyan-500/20 text-[9px] sm:text-[10px] font-black uppercase tracking-wider transition-all hover:scale-105 cursor-pointer shadow-sm"
                           title="Interactive Cloud Run API Swagger Docs"
                         >
                           <ExternalLink className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
