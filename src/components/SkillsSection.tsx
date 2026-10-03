@@ -252,7 +252,7 @@ export function SkillsSection() {
                 DOMAIN: AI, GENERATIVE LLMS &amp; CLOUD
               </span>
             </div>
-            <DraggableInteractiveLane items={lane1GenAI} speed={0.25} direction="right" />
+            <DraggableInteractiveLane items={lane1GenAI} speed={0.55} direction="right" />
           </div>
 
           {/* LANE 2: DEEP LEARNING, MACHINE LEARNING & CV */}
@@ -263,7 +263,7 @@ export function SkillsSection() {
                 DOMAIN: DEEP LEARNING, MACHINE LEARNING &amp; CV
               </span>
             </div>
-            <DraggableInteractiveLane items={lane2DeepLearning} speed={0.25} direction="left" />
+            <DraggableInteractiveLane items={lane2DeepLearning} speed={0.55} direction="left" />
           </div>
 
           {/* LANE 3: DATA SCIENCE, PROGRAMMING & SYSTEMS */}
@@ -274,7 +274,7 @@ export function SkillsSection() {
                 DOMAIN: DATA SCIENCE, PROGRAMMING &amp; SYSTEMS
               </span>
             </div>
-            <DraggableInteractiveLane items={lane3DataScience} speed={0.25} direction="right" />
+            <DraggableInteractiveLane items={lane3DataScience} speed={0.55} direction="right" />
           </div>
 
         </div>
@@ -287,7 +287,7 @@ export function SkillsSection() {
 
 function DraggableInteractiveLane({
   items,
-  speed = 0.25,
+  speed = 0.55,
   direction = 'right',
 }: {
   items: SkillItem[];
