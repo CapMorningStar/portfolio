@@ -252,7 +252,7 @@ export function SkillsSection() {
                 DOMAIN: AI, GENERATIVE LLMS &amp; CLOUD
               </span>
             </div>
-            <DraggableInteractiveLane items={lane1GenAI} speed={0.65} direction="right" />
+            <DraggableInteractiveLane items={lane1GenAI} speed={0.25} direction="right" />
           </div>
 
           {/* LANE 2: DEEP LEARNING, MACHINE LEARNING & CV */}
@@ -263,7 +263,7 @@ export function SkillsSection() {
                 DOMAIN: DEEP LEARNING, MACHINE LEARNING &amp; CV
               </span>
             </div>
-            <DraggableInteractiveLane items={lane2DeepLearning} speed={0.65} direction="left" />
+            <DraggableInteractiveLane items={lane2DeepLearning} speed={0.25} direction="left" />
           </div>
 
           {/* LANE 3: DATA SCIENCE, PROGRAMMING & SYSTEMS */}
@@ -274,7 +274,7 @@ export function SkillsSection() {
                 DOMAIN: DATA SCIENCE, PROGRAMMING &amp; SYSTEMS
               </span>
             </div>
-            <DraggableInteractiveLane items={lane3DataScience} speed={0.65} direction="right" />
+            <DraggableInteractiveLane items={lane3DataScience} speed={0.25} direction="right" />
           </div>
 
         </div>
@@ -287,7 +287,7 @@ export function SkillsSection() {
 
 function DraggableInteractiveLane({
   items,
-  speed = 0.65,
+  speed = 0.25,
   direction = 'right',
 }: {
   items: SkillItem[];
@@ -307,15 +307,26 @@ function DraggableInteractiveLane({
 
   useEffect(() => {
     let animId: number;
+    let lastTime: number | null = null;
     const dirFactor = direction === 'left' ? -1 : 1;
 
-    const loop = () => {
+    // For right-drifting lanes, offset initially by -totalWidth so it drifts smoothly into view
+    if (direction === 'right' && offsetRef.current === 0 && trackRef.current) {
+      offsetRef.current = -trackRef.current.scrollWidth / 2;
+    }
+
+    const loop = (currentTime: number) => {
       const track = trackRef.current;
       if (track) {
         const totalWidth = track.scrollWidth / 2;
 
         if (!isDraggingRef.current) {
-          offsetRef.current += speed * dirFactor;
+          if (lastTime !== null) {
+            const dt = (currentTime - lastTime) / 1000;
+            // Cap delta to prevent large jump when tab returns from background
+            const safeDt = Math.min(dt, 0.1);
+            offsetRef.current += speed * 60 * safeDt * dirFactor;
+          }
 
           if (direction === 'left' && offsetRef.current <= -totalWidth) {
             offsetRef.current += totalWidth;
@@ -327,6 +338,7 @@ function DraggableInteractiveLane({
         track.style.transform = `translate3d(${offsetRef.current}px, 0, 0)`;
       }
 
+      lastTime = currentTime;
       animId = requestAnimationFrame(loop);
     };
 
