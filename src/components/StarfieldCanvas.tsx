@@ -51,11 +51,11 @@ export function StarfieldCanvas() {
     window.addEventListener('resize', syncSize);
     document.addEventListener('visibilitychange', handleVisibilityChange);
 
-    // Lighter starfield: 95 delicate stars for clean aesthetics and high performance
-    const numStars = 95;
+    // Rich, balanced starfield: 165 visible stars with comfortable sizes
+    const numStars = 165;
     const stars = Array.from({ length: numStars }, () => {
-      const baseAlpha = Math.random() * 0.7 + 0.25;
-      const baseSize = Math.random() * 1.1 + 0.35;
+      const baseAlpha = Math.random() * 0.65 + 0.35;
+      const baseSize = Math.random() * 1.6 + 0.7;
       return {
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
@@ -63,9 +63,9 @@ export function StarfieldCanvas() {
         size: baseSize,
         baseAlpha,
         alpha: baseAlpha,
-        speedY: Math.random() * 0.3 + 0.06,
-        speedX: (Math.random() - 0.5) * 0.12,
-        twinkleSpeed: Math.random() * 0.015 + 0.004,
+        speedY: Math.random() * 0.32 + 0.08,
+        speedX: (Math.random() - 0.5) * 0.14,
+        twinkleSpeed: Math.random() * 0.016 + 0.005,
         twinkleDir: 1,
       };
     });
@@ -147,16 +147,16 @@ export function StarfieldCanvas() {
         if (star.x < 0) star.x = width;
         if (star.x > width) star.x = 0;
 
-        // Draw delicate outer Electric Cyan halo (lighter visual weight)
+        // Draw glowing outer Electric Cyan halo
         ctx.beginPath();
-        ctx.arc(star.x, star.y, star.size * 1.6, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(6, 182, 212, ${star.alpha * 0.2})`;
+        ctx.arc(star.x, star.y, star.size * 1.7, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(6, 182, 212, ${star.alpha * 0.26})`;
         ctx.fill();
 
-        // Draw crisp core star
+        // Draw luminous core star
         ctx.beginPath();
         ctx.arc(star.x, star.y, star.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha * 0.9})`;
+        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
         ctx.fill();
       });
 
