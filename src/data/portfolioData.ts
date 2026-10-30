@@ -309,6 +309,19 @@ export const portfolioData = {
 
   experience: [
     {
+      role: "AI Engineering Intern",
+      company: "Arcell AI",
+      location: "San Francisco, CA",
+      period: "Oct 2026 – Present",
+      type: "Internship",
+      bullets: [
+        "Engineered an adversarial evaluation harness and synthetic scenario generator for space threat intelligence (space-threat-eval), establishing an 'AI proposes, code verifies' verification architecture.",
+        "Constructed physics-grounded orbital maneuver detection benchmarks with hidden ground-truth manifests, targeting 0.0% false-high-confidence classifications.",
+        "Pinned platform-core submodule architecture, migrated plugin manifest to v0.3.2 schema (30/30 tests passing), and implemented 40-seed astrodynamics stress probes exposing late-burn failure modes."
+      ],
+      tools: ["Python", "Adversarial Evaluation", "Synthetic Scenario Generation", "Astrodynamics", "LLM Verification", "Pytest", "Git Submodules"]
+    },
+    {
       role: "Data Science Volunteer",
       company: "Data Science Alliance",
       location: "San Diego, CA",

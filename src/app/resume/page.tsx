@@ -257,26 +257,6 @@ export default function ResumePage() {
                   <li>Built a Streamlit dashboard with SHAP explainability and a profit-threshold analysis that weighs outreach cost against customer lifetime value to recommend an action cutoff.</li>
                 </ul>
               </div>
-
-              {/* Project 4 */}
-              <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-                <div className="flex justify-between items-baseline mb-1.5">
-                  <h3 className="text-sm font-black text-white">
-                    Real-Time Facial Emotion Detection Engine
-                  </h3>
-                  <span className="text-[10px] font-mono text-cyan-400">2026</span>
-                </div>
-                <p className="text-[11px] font-mono text-gray-400 mb-2 flex flex-wrap items-center gap-2">
-                  <span>Python, OpenCV, TensorFlow, Keras, mini-XCEPTION (FER-2013)</span>
-                  <a href="https://github.com/CapMorningStar/emotion-detector" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-cyan-400 hover:underline">
-                    <Github className="w-3 h-3" /> Repo
-                  </a>
-                </p>
-                <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
-                  <li>Built a real-time webcam pipeline using OpenCV face detection and a pretrained mini-XCEPTION model (FER-2013, ~66% accuracy) to classify emotions live.</li>
-                  <li>Rendered live bounding boxes, emotion labels, and a probability bar chart across all 7 emotion categories with low-latency OpenCV rendering.</li>
-                </ul>
-              </div>
             </div>
           </section>
 
@@ -287,6 +267,21 @@ export default function ResumePage() {
               <span>Experience &amp; Honors</span>
             </h2>
             <div className="space-y-4 mb-4">
+              <div className="p-4 rounded-xl bg-white/5 border border-white/5">
+                <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-1.5">
+                  <h3 className="text-sm font-black text-white">
+                    AI Engineering Intern &mdash; Arcell AI
+                  </h3>
+                  <span className="text-[10px] font-mono text-cyan-400 whitespace-nowrap">Oct 2026 &ndash; Present</span>
+                </div>
+                <p className="text-[11px] font-mono text-gray-400 mb-2">San Francisco, CA &middot; Internship</p>
+                <ul className="list-disc list-inside space-y-1 text-xs text-gray-300">
+                  <li>Engineered an adversarial evaluation harness and synthetic scenario generator for space threat intelligence (space-threat-eval), establishing an &apos;AI proposes, code verifies&apos; verification architecture.</li>
+                  <li>Constructed physics-grounded orbital maneuver detection benchmarks with hidden ground-truth manifests, targeting 0.0% false-high-confidence classifications.</li>
+                  <li>Pinned platform-core submodule architecture, migrated plugin manifest to v0.3.2 schema (30/30 tests passing), and implemented 40-seed astrodynamics stress probes exposing late-burn failure modes.</li>
+                </ul>
+              </div>
+
               <div className="p-4 rounded-xl bg-white/5 border border-white/5">
                 <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1 mb-1.5">
                   <h3 className="text-sm font-black text-white">

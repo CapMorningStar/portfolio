@@ -137,7 +137,12 @@ ${honorsSummary}
    - **Official Specialization**: [Verify Credential](https://www.coursera.org/account/accomplishments/specialization/APSG10B8RIFD).
    - **Core Focus**: Supervised learning (regression, neural networks), unsupervised learning (clustering, anomaly detection, recommender systems), and reinforcement learning.
 
-10. **Data Science Alliance Volunteer Experience (San Diego)**:
+10. **Arcell AI — AI Engineering Internship (San Francisco, CA | Oct 2026 – Present)**:
+    - **Role**: AI Engineering Intern building the \`space-threat-eval\` synthetic scenario generator and adversarial evaluation harness for space domain intelligence.
+    - **Core Architecture**: Established an *"AI proposes, code verifies"* verification architecture testing whether AI/LLM systems can reliably detect orbital satellite maneuvers from noisy, incomplete tracking telemetry.
+    - **Highlights**: Constructed physics-grounded orbital maneuver detection benchmarks with hidden ground-truth manifests (targeting 0.0% false-high-confidence classifications), pinned \`platform-core\` submodule architecture, migrated plugin manifest to \`v0.3.2\` schema (30/30 tests passing), and implemented 40-seed astrodynamics stress probes exposing late-burn failure modes.
+
+11. **Data Science Alliance Volunteer Experience (San Diego)**:
     - **Role**: Data Science Volunteer (Sep 2026 – Present) analyzing longitudinal unsheltered homelessness data across Downtown San Diego (2012–present).
     - **Highlights**: Built end-to-end data auditing pipeline (97.5%+ fidelity), standardized 380+ downtown block geospatial crosswalks, and built spatial hotspot (Getis-Ord Gi*) models.
 
