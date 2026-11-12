@@ -146,15 +146,15 @@ export function HeroBento() {
                 Excellence through discipline. <span className="text-cyan-300 font-bold">1st Place Winner (SDx &times; ElevenLabs &times; Daytona Hackathon)</span>, <span className="text-white font-bold">Jack Kent Cooke Semifinalist (2026)</span>, and recipient of the <span className="text-cyan-300 font-bold">Sterling Redman &amp; F.L. Griffin Scholarships</span>.
               </p>
 
-              {/* Academic Foundations Box */}
+              {/* Research & Engineering Focus Box */}
               <div className="relative z-10 p-3 rounded-xl bg-cyan-950/20 border border-cyan-500/20">
                 <div className="flex items-center gap-1.5 text-[9px] font-mono font-black uppercase text-cyan-400 tracking-wider mb-1">
                   <BookOpen className="w-3 h-3" />
-                  <span>Academic Foundations</span>
+                  <span>Research &amp; Engineering Focus</span>
                 </div>
                 <div className="text-[10px] font-mono text-gray-300">
                   <span className="text-gray-500">Core Focus: </span>
-                  <span className="font-bold text-gray-200">DSA · Linear Algebra · Calc</span>
+                  <span className="font-bold text-gray-200">Agentic AI · Multimodal RAG · Statistical ML</span>
                 </div>
               </div>
 
