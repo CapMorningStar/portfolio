@@ -134,7 +134,7 @@ export const portfolioData = {
     {
       id: "codevoice-ai-interviewer",
       number: "02",
-      title: "CodeVoice — Autonomous Voice AI Interviewer (1st Place Winner)",
+      title: "CodeVoice — Voice AI Technical Interviewer",
       category: "GenAI & LLMs",
       year: "2026",
       description: "1st Place Overall Winner at the SDx × ElevenLabs × Daytona Hackathon. Full-stack voice coding interview simulator pairing an ElevenLabs Conversational AI Staff Engineer with live Monaco code inspection and sub-90ms Daytona Cloud Sandboxes.",
