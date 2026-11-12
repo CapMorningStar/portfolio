@@ -139,11 +139,11 @@ export const portfolioData = {
       year: "2026",
       description: "1st Place Overall Winner at the SDx × ElevenLabs × Daytona Hackathon. Full-stack voice coding interview simulator pairing an ElevenLabs Conversational AI Staff Engineer with live Monaco code inspection and sub-90ms Daytona Cloud Sandboxes.",
       bullets: [
-        "Won 1st Place Overall ($3,000 Daytona Credits + ElevenLabs Pro) at the SDx × ElevenLabs × Daytona Voice Agent Hackathon building an autonomous technical interviewer in Next.js 16, TypeScript, and Monaco Editor.",
-        "Engineered 4 bidirectional client-side agent tools (get_problem, get_candidate_code, run_tests, show_scorecard) using latest-state React refs over sub-500ms WebRTC/WebSockets.",
-        "Built a live LeetCode GraphQL scraper for one-step problem imports and an isolated Python 3.11 test harness with Daytona container pre-warming and stdout capture."
+        "Won 1st Place Overall at the SDx × ElevenLabs × Daytona Hackathon building a voice AI coding interviewer in Next.js 16 and Monaco.",
+        "Engineered 4 bidirectional client tools with latest-state React refs to inspect live editor code over sub-500ms WebSockets.",
+        "Built a live LeetCode GraphQL scraper and isolated Python 3.11 test harness with pre-warmed Daytona Cloud Sandboxes."
       ],
-      tags: ["ElevenLabs Voice AI", "Daytona Sandbox", "Next.js 16", "TypeScript", "Claude Haiku 4.5", "Monaco Editor", "LeetCode GraphQL", "Python"],
+      tags: ["ElevenLabs", "Daytona", "Next.js", "TypeScript", "Claude Haiku 4.5", "Monaco Editor", "LeetCode GraphQL", "Python"],
       github: "https://github.com/CapMorningStar/CodeVoice",
       metrics: "1st Place Overall Winner (SDx × ElevenLabs × Daytona Hackathon), sub-90ms Daytona sandbox spin-up, 4 bidirectional voice client tools",
       gradient: "from-cyan-500/25 via-cyan-950/25 to-black",
