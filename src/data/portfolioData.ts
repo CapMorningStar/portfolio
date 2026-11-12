@@ -146,7 +146,7 @@ export const portfolioData = {
       tags: ["ElevenLabs Voice AI", "Daytona Sandbox", "Next.js 16", "TypeScript", "Claude Haiku 4.5", "Monaco Editor", "LeetCode GraphQL", "Python"],
       github: "https://github.com/CapMorningStar/CodeVoice",
       metrics: "🥇 1st Place Overall Winner (SDx × ElevenLabs × Daytona Hackathon), sub-90ms Daytona sandbox spin-up, 4 bidirectional voice client tools",
-      gradient: "from-amber-500/25 via-cyan-950/25 to-black",
+      gradient: "from-cyan-500/25 via-cyan-950/25 to-black",
       badge: "🥇 1st Place Hackathon Winner"
     },
     {
