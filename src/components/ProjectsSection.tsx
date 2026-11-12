@@ -126,10 +126,24 @@ export function ProjectsSection() {
 
                   {/* Title & Description */}
                   <div className="relative z-10 my-auto py-2">
-                    <h3 className="text-lg sm:text-xl font-black text-white group-hover:text-cyan-300 transition-colors leading-snug mb-2.5">
+                    {project.image && (
+                      <div className="mb-3 relative h-24 w-full rounded-xl overflow-hidden border border-white/10">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent" />
+                        <span className="absolute bottom-1.5 left-2.5 text-[9px] font-black uppercase tracking-wider px-2 py-0.5 rounded-full bg-amber-400/95 text-black shadow-sm">
+                          {project.badge}
+                        </span>
+                      </div>
+                    )}
+                    <h3 className={`text-lg sm:text-xl font-black text-white group-hover:text-cyan-300 transition-colors leading-snug mb-2 ${project.image ? 'line-clamp-2' : ''}`}>
                       {project.title}
                     </h3>
-                    <p className="text-gray-300 text-xs leading-relaxed line-clamp-3">
+                    <p className={`text-gray-300 text-xs leading-relaxed ${project.image ? 'line-clamp-2' : 'line-clamp-3'}`}>
                       {project.description}
                     </p>
                   </div>

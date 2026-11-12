@@ -20,6 +20,7 @@ export interface ProjectItem {
   liveUrl?: string;
   apiDocs?: string;
   demoVideo?: string;
+  image?: string;
   metrics?: string;
   gradient: string;
   badge: string;
@@ -103,7 +104,7 @@ export const portfolioData = {
 
   stats: [
     { label: "Data Science GPA", value: "4.0" },
-    { label: "ML & GenAI Repos", value: "7+" },
+    { label: "ML & GenAI Repos", value: "8+" },
     { label: "Specializations & Certs", value: "10+" },
     { label: "Students Mentored", value: "40+" }
   ],
@@ -131,8 +132,27 @@ export const portfolioData = {
       badge: "GCP & Multimodal CRAG"
     },
     {
-      id: "lora-tinyllama",
+      id: "codevoice-ai-interviewer",
       number: "02",
+      title: "CodeVoice — Autonomous Voice AI Interviewer (1st Place Winner)",
+      category: "GenAI & LLMs",
+      year: "2026",
+      description: "1st Place Overall Winner at the SDx × ElevenLabs × Daytona Hackathon. Full-stack voice coding interview simulator pairing an ElevenLabs Conversational AI Staff Engineer with live Monaco code inspection and sub-90ms Daytona Cloud Sandboxes.",
+      bullets: [
+        "Won 1st Place Overall ($3,000 Daytona Credits + ElevenLabs Pro) at the SDx × ElevenLabs × Daytona Voice Agent Hackathon building an autonomous technical interviewer in Next.js 16, TypeScript, and Monaco Editor.",
+        "Engineered 4 bidirectional client-side agent tools (get_problem, get_candidate_code, run_tests, show_scorecard) using latest-state React refs over sub-500ms WebRTC/WebSockets.",
+        "Built a live LeetCode GraphQL scraper for one-step problem imports and an isolated Python 3.11 test harness with Daytona container pre-warming and stdout capture."
+      ],
+      tags: ["ElevenLabs Voice AI", "Daytona Sandbox", "Next.js 16", "TypeScript", "Claude Haiku 4.5", "Monaco Editor", "LeetCode GraphQL", "Python"],
+      github: "https://github.com/CapMorningStar/CodeVoice",
+      image: "/images/hackathon/codevoice-team.jpg",
+      metrics: "🥇 1st Place Overall Winner (SDx × ElevenLabs × Daytona Hackathon), sub-90ms Daytona sandbox spin-up, 4 bidirectional voice client tools",
+      gradient: "from-amber-500/25 via-cyan-950/25 to-black",
+      badge: "🥇 1st Place Hackathon Winner"
+    },
+    {
+      id: "lora-tinyllama",
+      number: "03",
       title: "LoRA TinyLlama-1.1B Instruction Fine-Tuning",
       category: "GenAI & LLMs",
       year: "2026",
@@ -150,7 +170,7 @@ export const portfolioData = {
     },
     {
       id: "zenithml-sandbox",
-      number: "03",
+      number: "04",
       title: "ZenithML — Model Risk & Drift Monitoring Sandbox",
       category: "MLOps & Tools",
       year: "2026",
@@ -168,7 +188,7 @@ export const portfolioData = {
     },
     {
       id: "telco-churn",
-      number: "04",
+      number: "05",
       title: "Telco Customer Churn Pipeline & Profit Thresholding",
       category: "Machine Learning",
       year: "2026",
@@ -186,7 +206,7 @@ export const portfolioData = {
     },
     {
       id: "emotion-detector",
-      number: "05",
+      number: "06",
       title: "Real-Time Facial Emotion Detection Engine",
       category: "Computer Vision",
       year: "2026",
@@ -204,7 +224,7 @@ export const portfolioData = {
     },
     {
       id: "daly-city-weather",
-      number: "06",
+      number: "07",
       title: "Daly City Meteorological Forecasting Pipeline",
       category: "Machine Learning",
       year: "2025",
@@ -221,7 +241,7 @@ export const portfolioData = {
     },
     {
       id: "cat-classifier",
-      number: "07",
+      number: "08",
       title: "TensorFlow Deep Convolutional Cat Classifier",
       category: "Computer Vision",
       year: "2025",
@@ -238,7 +258,7 @@ export const portfolioData = {
     },
     {
       id: "priceout-collective",
-      number: "08",
+      number: "09",
       title: "Priceout Collective — Affordability Policy Simulator",
       category: "Machine Learning",
       year: "2026",
@@ -293,6 +313,8 @@ export const portfolioData = {
         { name: "PEFT / LoRA Fine-Tuning", iconName: "git-merge" },
         { name: "RLHF & Prompt Eng", iconName: "sparkles" },
         { name: "Anthropic Claude API", iconName: "bot" },
+        { name: "ElevenLabs Voice AI", iconName: "sparkles" },
+        { name: "Daytona Cloud Sandboxes", iconName: "container" },
         { name: "AWS & GCP (Vertex AI)", iconName: "cloud" },
         { name: "Docker & Kubernetes (GKE)", iconName: "container" }
       ]
@@ -440,6 +462,13 @@ export const portfolioData = {
   ] as CertificationCategory[],
 
   honors: [
+    {
+      title: "SDx × ElevenLabs × Daytona Voice Agent Hackathon",
+      award: "🥇 1st Place Overall Winner ($3,000 Daytona Credits + ElevenLabs Pro)",
+      year: "2026",
+      detail: "Won 1st Place Overall out of all tracks and 8 finalist stage demos at SDSU ZIP Launchpad with CodeVoice, an autonomous voice AI technical interviewer.",
+      link: "https://github.com/CapMorningStar/CodeVoice"
+    },
     {
       title: "Jack Kent Cooke Scholarship",
       award: "National Semifinalist",

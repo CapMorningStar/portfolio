@@ -99,7 +99,14 @@ ${honorsSummary}
      * Interactive Loom Video Demo (60s): https://www.loom.com/share/44f7e3e96d944c248fc26facb877b5a8
      * Test Coverage: 39/39 Passing Unit & Integration Tests (100%).
 
-2. **LoRA TinyLlama-1.1B Instruction Fine-Tuning**:
+2. **CodeVoice — Autonomous Voice AI Technical Interviewer (1st Place Hackathon Winner)**:
+   - **Award**: **1st Place Overall Winner** at the **SDx × ElevenLabs × Daytona Voice Agent Hackathon** (hosted by SDxSDSU at SDSU ZIP Launchpad, Nov 8, 2026), winning **$3,000 in Daytona Cloud Credits + 3 Months ElevenLabs Pro**.
+   - **Architecture**: Full-stack **Next.js 16 + TypeScript + Monaco Editor** IDE pairing an **ElevenLabs Conversational AI** Staff Engineer ("Alex", powered by \`claude-haiku-4-5\`) with isolated **Daytona Cloud Sandboxes** (<90ms spin-up).
+   - **Kyaw's Core Contributions**: Architected the 3-page Next.js 16 IDE (\`/\`, \`/manual\`, \`/interview\`), engineered 4 bidirectional client tools (\`get_problem\`, \`get_candidate_code\`, \`run_tests\`, \`show_scorecard\`) with latest-state React refs, built the live **LeetCode GraphQL scraper** (\`app/api/leetcode/route.ts\`), and created the **Python 3.11 test harness** (\`lib/harness.ts\`) with \`redirect_stdout\` isolation and 4-pillar hiring scorecard.
+   - **Team CodeVoice (Team 4)**: Built alongside SDSU/UCSD teammates **Ibrahim Ali**, **Daud Abdinasir**, and **Ayoob Al-Delaimy**.
+   - **GitHub Repo**: https://github.com/CapMorningStar/CodeVoice
+
+3. **LoRA TinyLlama-1.1B Instruction Fine-Tuning**:
    - Parameter-Efficient Fine-Tuning (PEFT/LoRA) on conversational instruction datasets.
    - Adapted only attention projection layers (q/k/v/o), slashing trainable parameters by >95%.
    - 4-bit QLoRA on free Colab T4 GPU; resolved KV-cache / gradient-checkpointing conflicts.

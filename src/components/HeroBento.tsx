@@ -148,7 +148,7 @@ export function HeroBento() {
 
               {/* Body Text */}
               <p className="relative z-10 text-[11px] text-gray-300 leading-relaxed my-3">
-                Excellence through discipline. <span className="text-white font-bold">Jack Kent Cooke Semifinalist (2026)</span> and recipient of the <span className="text-cyan-300 font-bold">Sterling Redman &amp; F.L. Griffin Scholarships</span>. Approaching machine learning with mathematical rigor.
+                Excellence through discipline. <span className="text-amber-300 font-bold">1st Place Winner (SDx &times; ElevenLabs &times; Daytona Hackathon)</span>, <span className="text-white font-bold">Jack Kent Cooke Semifinalist (2026)</span>, and recipient of the <span className="text-cyan-300 font-bold">Sterling Redman &amp; F.L. Griffin Scholarships</span>.
               </p>
 
               {/* Academic Foundations Box */}

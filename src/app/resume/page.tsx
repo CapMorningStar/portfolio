@@ -297,8 +297,11 @@ export default function ResumePage() {
                 </ul>
               </div>
             </div>
-            <div className="p-3.5 rounded-xl bg-white/5 border border-white/5 text-xs">
+            <div className="p-3.5 rounded-xl bg-white/5 border border-white/5 text-xs space-y-1.5">
               <span className="font-bold text-white block mb-1">Honors</span>
+              <p className="text-gray-400">
+                • <a href="https://github.com/CapMorningStar/CodeVoice" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">SDx &times; ElevenLabs &times; Daytona Voice Agent Hackathon</a> &mdash; 1st Place Overall Winner (Nov 2026): Won 1st Place Overall ($3,000 Daytona Credits + ElevenLabs Pro) building CodeVoice, an autonomous voice AI technical interviewer.
+              </p>
               <p className="text-gray-400">
                 • <a href="https://www.jkcf.org/our-stories/2026-transfer-scholarship-semifinalists/" target="_blank" rel="noopener noreferrer" className="text-cyan-400 hover:underline">Jack Kent Cooke Undergraduate Scholarship</a> &mdash; National Semifinalist (2026): Named a National Semifinalist for the Jack Kent Cooke Undergraduate Scholarship, recognizing top-tier high-achieving undergraduates nationwide.
               </p>
