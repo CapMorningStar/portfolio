@@ -145,9 +145,9 @@ export const portfolioData = {
       ],
       tags: ["ElevenLabs Voice AI", "Daytona Sandbox", "Next.js 16", "TypeScript", "Claude Haiku 4.5", "Monaco Editor", "LeetCode GraphQL", "Python"],
       github: "https://github.com/CapMorningStar/CodeVoice",
-      metrics: "🥇 1st Place Overall Winner (SDx × ElevenLabs × Daytona Hackathon), sub-90ms Daytona sandbox spin-up, 4 bidirectional voice client tools",
+      metrics: "1st Place Overall Winner (SDx × ElevenLabs × Daytona Hackathon), sub-90ms Daytona sandbox spin-up, 4 bidirectional voice client tools",
       gradient: "from-cyan-500/25 via-cyan-950/25 to-black",
-      badge: "🥇 1st Place Hackathon Winner"
+      badge: "1st Place Hackathon Winner"
     },
     {
       id: "lora-tinyllama",
@@ -463,7 +463,7 @@ export const portfolioData = {
   honors: [
     {
       title: "SDx × ElevenLabs × Daytona Voice Agent Hackathon",
-      award: "🥇 1st Place Overall Winner ($3,000 Daytona Credits + ElevenLabs Pro)",
+      award: "1st Place Overall Winner ($3,000 Daytona Credits + ElevenLabs Pro)",
       year: "2026",
       detail: "Won 1st Place Overall out of all tracks and 8 finalist stage demos at SDSU ZIP Launchpad with CodeVoice, an autonomous voice AI technical interviewer.",
       link: "https://github.com/CapMorningStar/CodeVoice"

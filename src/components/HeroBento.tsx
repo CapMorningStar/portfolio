@@ -27,11 +27,6 @@ export function HeroBento() {
             {/* Ambient Background Glow */}
             <div className="absolute top-0 left-1/4 w-96 h-96 bg-cyan-500/10 blur-3xl rounded-full pointer-events-none" />
 
-            {/* Subtle Watermark Initials */}
-            <div className="absolute right-6 bottom-2 font-mono font-black text-6xl sm:text-7xl text-white/[0.03] select-none pointer-events-none tracking-tighter">
-              {portfolioData.personal.initials}
-            </div>
-
             {/* Top Bar: UC San Diego Data Science & 4.0 GPA */}
             <div className="relative z-10 flex flex-wrap items-center justify-between gap-3">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 text-[10px] sm:text-[11px] font-black uppercase tracking-[0.25em] shadow-sm">
@@ -148,7 +143,7 @@ export function HeroBento() {
 
               {/* Body Text */}
               <p className="relative z-10 text-[11px] text-gray-300 leading-relaxed my-3">
-                Excellence through discipline. <span className="text-amber-300 font-bold">1st Place Winner (SDx &times; ElevenLabs &times; Daytona Hackathon)</span>, <span className="text-white font-bold">Jack Kent Cooke Semifinalist (2026)</span>, and recipient of the <span className="text-cyan-300 font-bold">Sterling Redman &amp; F.L. Griffin Scholarships</span>.
+                Excellence through discipline. <span className="text-cyan-300 font-bold">1st Place Winner (SDx &times; ElevenLabs &times; Daytona Hackathon)</span>, <span className="text-white font-bold">Jack Kent Cooke Semifinalist (2026)</span>, and recipient of the <span className="text-cyan-300 font-bold">Sterling Redman &amp; F.L. Griffin Scholarships</span>.
               </p>
 
               {/* Academic Foundations Box */}
